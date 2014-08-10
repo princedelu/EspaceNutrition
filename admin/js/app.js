@@ -13,11 +13,17 @@ angular.module('EspaceNutrition', ['ngCookies', 'ngRoute','underscore'])
         {
             templateUrl:    '/admin/partials/login.html',
             controller:     'LoginCtrl',
-            access:         access.anon
+            access:         access.user
         });
-    $routeProvider.when('/admin/home',
+    $routeProvider.when('/admin/dashboard',
         {
-            templateUrl:    '/admin/partials/membre.html',
+            templateUrl:    '/admin/partials/dashboard.html',
+            controller:     'LoginCtrl',
+            access:         access.user
+        });
+     $routeProvider.when('/admin/monprofil',
+        {
+            templateUrl:    '/admin/partials/profil.html',
             controller:     'LoginCtrl',
             access:         access.user
         });
@@ -51,7 +57,7 @@ angular.module('EspaceNutrition', ['ngCookies', 'ngRoute','underscore'])
             $rootScope.error = null;
 
             if (!Auth.authorize(next.access)) {
-               if(Auth.isLoggedIn()) $location.path('/admin/home');
+               if(Auth.isLoggedIn()) $location.path('/admin/dashboard');
                else                  $location.path('/admin/login');
             }
         });

@@ -17,10 +17,10 @@ angular.module('EspaceNutrition')
                 password: $scope.password,
             },
             function(res) {
-                $location.path('/admin/home');
+                $location.path('/admin/dashboard');
             },
             function(err) {
-                $scope.error = "Failed to login";
+                $scope.error = err;
             });
     };
 

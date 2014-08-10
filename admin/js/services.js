@@ -28,13 +28,22 @@ angular.module('EspaceNutrition')
             return user.role.title == userRoles.user.title || user.role.title == userRoles.admin.title;
         },
         login: function(user, success, error) {
-            /*$http.post('/api/login', user).success(function(user){
-                changeUser(user);
-                success(user);
-            }).error(error);*/
-	    var userReturn = { "role": userRoles.user, "username": "toto" };
-	    changeUser(userReturn);
-            success(userReturn);
+            $http.post('/api/login', user).success(function(user){
+				var roleUser;
+				if (user.role == 1){
+					roleUser = userRoles.user;
+				}else if(user.role == 2){
+					roleUser = userRoles.admin;
+				} else{
+					roleUser = userRoles.public;
+				}
+                changeUser({
+                    username: user.username,
+                    role: roleUser,
+					token : user.token
+                });
+                success();
+            }).error(error);
         },
         logout: function(success, error) {
             /*$http.post('/api/logout').success(function(){
