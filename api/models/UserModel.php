@@ -89,12 +89,12 @@ class UserModel extends AbstractModel {
                 }
             }
             else {
-                $this->setError('Model does not exist');
+                $this->setError('Impossible de recuperer un utilisateur');
                 return false;
             }
         }
         else {
-            $this->setError('Missing ID');
+            $this->setError('Champ id manquant');
             return false;
         }
     }
@@ -124,12 +124,12 @@ class UserModel extends AbstractModel {
                 return true;
             }
             else {
-                $this->setError('ID does not exist');
+                $this->setError('L identifiant n existe pas');
                 return false;
             }
         }
         else {
-            $this->setError('Missing ID');
+            $this->setError('Champ id manquant');
             return false;
         }
     }
@@ -145,12 +145,12 @@ class UserModel extends AbstractModel {
 		$valid = true;
 
         if (! $this->getUsername()) {
-            $this->setError('Missing Username');
+            $this->setError('Login manquant');
             $valid = false;
         }
 
         if (! $this->getPassword()) {
-            $this->setError('Missing Password');
+            $this->setError('Mot de passe manquant');
             $valid = false;
         }
 
@@ -182,14 +182,14 @@ class UserModel extends AbstractModel {
 						"iss" => "http://www.espace-nutrition.fr",
 						"aud" => "Espace Nutrition",
 						"iat" => time(),
-						"exp" => time()+(60 * 60)
+						"exp" => time()+3600
 					);
 
 					$encoded = JWT::encode($payload, $this->ini_array['JWT']['key']);
 
 					$result = array('username' => $this->getUsername(), 'role' => $row['role'], 'token' => $encoded);
 				}else{
-					$this->setError("Utilisateur non trouve");
+					$this->setError("Identification impossible");
 					$result=false;
 				}
 			}

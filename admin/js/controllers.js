@@ -10,13 +10,13 @@ angular.module('EspaceNutrition')
     $scope.userRoles = Auth.userRoles;
     $scope.accessLevels = Auth.accessLevels;
 
-    $scope.rememberme = true;
     $scope.login = function() {
         Auth.login({
                 username: $scope.username,
                 password: $scope.password,
             },
             function(res) {
+				$window.sessionStorage.user = JSON.stringify(res);
                 $location.path('/admin/dashboard');
             },
             function(err) {
@@ -26,12 +26,57 @@ angular.module('EspaceNutrition')
 
     $scope.logout = function() {
         Auth.logout(function() {
+			delete $window.sessionStorage.user;
             $location.path('/admin/login');
-        }, function() {
-            $scope.error = "Failed to logout";
+        }, function(err) {
+            $scope.error = err;
         });
     };
 
 
 }]);
+
+angular.module('EspaceNutrition')
+.controller('UtilisateurCtrl',
+['$rootScope', '$scope', '$location', '$route', '$window', 'Auth','UtilisateurFactory', function($rootScope, $scope, $location, $route, $window, Auth,UtilisateurFactory) {
+    
+    $scope.user = Auth.user;
+    $scope.userRoles = Auth.userRoles;
+    $scope.accessLevels = Auth.accessLevels;
+
+	var action = $route.current.action;
+
+	$scope.list = function () {
+		$scope.success = '';
+		$scope.error = '';
+		$scope.loading = true;
+		UtilisateurFactory.list( 
+			function (res) {
+				$scope.utilisateurs = res;
+				$scope.loading = false;
+			},
+			function (err) {
+				$scope.error = "Impossible de recuperer les utilisateurs";
+				$scope.loading = false;
+			}
+		);
+	};
+
+	switch (action) {
+		case 'list':
+			$scope.list();
+			break;
+		case 'get':
+			var id = $routeParams.id;
+			$scope.loadListe();
+			$scope.get(id);
+			break;
+		case 'add':
+			$scope.loadListe();
+			break;
+		default:
+		break;
+	}
+}]);
+
 })();

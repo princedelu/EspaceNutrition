@@ -4,7 +4,6 @@ angular.module('underscore', []).factory('_', function() {
 });
 
 angular.module('EspaceNutrition', ['ngCookies', 'ngRoute','underscore'])
-
     .config(['$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider) {
 
     var access = routingConfig.accessLevels;
@@ -27,6 +26,13 @@ angular.module('EspaceNutrition', ['ngCookies', 'ngRoute','underscore'])
             controller:     'LoginCtrl',
             access:         access.user
         });
+	$routeProvider.when('/admin/utilisateurs',
+        {
+            templateUrl:    '/admin/partials/utilisateurs.html',
+            controller:     'UtilisateurCtrl',
+			action : 		'list',
+            access:         access.admin
+        });
     $routeProvider.when('/admin/404',
         {
             templateUrl:    '/admin/partials/404.html',
@@ -36,8 +42,15 @@ angular.module('EspaceNutrition', ['ngCookies', 'ngRoute','underscore'])
 
     $locationProvider.html5Mode(true);
 
-    $httpProvider.interceptors.push(function($q, $location) {
+    $httpProvider.interceptors.push(function($q, $location, $window) {
         return {
+			request: function (config) {
+			  config.headers = config.headers || {};
+			  if ($window.sessionStorage.user) {
+				config.headers.Authorization = 'Bearer ' + JSON.parse($window.sessionStorage.user).token;
+			  }
+			  return config;
+			},
             'responseError': function(response) {
                 if(response.status === 401 || response.status === 403) {
                     $location.path('/admin/login');

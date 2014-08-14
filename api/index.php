@@ -15,6 +15,10 @@ $app = new \Slim\Slim();;
 /**
  * Start routing
  */
+
+/***********************************************
+Login
+***********************************************/
 $app->post('/login', function () use ($app) {
 
     $requestJson = json_decode($app->request()->getBody(), true);
@@ -29,6 +33,30 @@ $app->post('/login', function () use ($app) {
 	  	$app->response()->body( json_encode( $result ));
 	}
 });
+
+/***********************************************
+Logout
+***********************************************/
+$app->post('/logout', function () use ($app) {
+	$app->response()->body( json_encode("OK"));
+});
+
+/***********************************************
+Utilisateurs
+***********************************************/
+$app->get('/utilisateurs', function () use ($app) {
+	$headers = apache_request_headers();
+  	if(isset($headers['Authorization'])){
+		$authorization = explode(" ",$headers['Authorization']);
+		if($authorization[0] == "Bearer"){
+		  $result = $authorization[1];
+		}
+	}else{
+		$result="OK";
+	}
+	$app->response()->body( json_encode($result));
+});
+
 
 /**
  * Launch application
