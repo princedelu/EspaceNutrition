@@ -16,7 +16,7 @@ angular.module('EspaceNutrition')
                 password: $scope.password,
             },
             function(res) {
-				$window.sessionStorage.user = JSON.stringify(res);
+				$window.sessionStorage.token = res;
                 $location.path('/admin/dashboard');
             },
             function(err) {
@@ -26,7 +26,7 @@ angular.module('EspaceNutrition')
 
     $scope.logout = function() {
         Auth.logout(function() {
-			delete $window.sessionStorage.user;
+			delete $window.sessionStorage.token;
             $location.path('/admin/login');
         }, function(err) {
             $scope.error = err;

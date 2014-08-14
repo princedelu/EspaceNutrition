@@ -47,7 +47,7 @@ angular.module('EspaceNutrition', ['ngCookies', 'ngRoute','underscore'])
 			request: function (config) {
 			  config.headers = config.headers || {};
 			  if ($window.sessionStorage.user) {
-				config.headers.Authorization = 'Bearer ' + JSON.parse($window.sessionStorage.user).token;
+				config.headers.Authorization = 'Bearer ' + $window.sessionStorage.token;
 			  }
 			  return config;
 			},

@@ -178,16 +178,17 @@ class UserModel extends AbstractModel {
 					$row = mysql_fetch_assoc($mysql_result);
 
 					$payload = array(
-						"message" => $this->getUsername(),
+						"username" => $this->getUsername(),
+						"role" => $row['role'],
 						"iss" => "http://www.espace-nutrition.fr",
 						"aud" => "Espace Nutrition",
 						"iat" => time(),
 						"exp" => time()+3600
 					);
 
-					$encoded = JWT::encode($payload, $this->ini_array['JWT']['key']);
+					$encoded = JWT::encode($payload, $this->ini_array['JWT']['privatekey'],'RS256');
 
-					$result = array('username' => $this->getUsername(), 'role' => $row['role'], 'token' => $encoded);
+					$result = array('value' => $encoded);
 				}else{
 					$this->setError("Identification impossible");
 					$result=false;
