@@ -71,12 +71,11 @@ class UserModel extends AbstractModel {
 				$this->setError(mysql_error());
 				$result=false;
 			}else{
-				$num_rows = mysqli_num_rows($mysql_result);
-				array_push($result,$num_rows);
-				/*while ($row = mysqli_fetch_assoc($mysql_result)) {
-					$arrayRow = array("id" => $row["id"],"username" => $row["username"],"role"=>$row["role"]);
-					array_push($result,$arrayRow);
-				}*/
+				array_push($result,array("dddd","lklk"),"mlklmk");
+				while ($row = mysqli_fetch_assoc($mysql_result)) {
+					//$arrayRow = array("id" => $row["id"],"username" => $row["username"],"role"=>$row["role"]);
+					//array_push($result,$arrayRow);
+				}
 			}
 
 		}catch(Exception $e)
