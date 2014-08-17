@@ -1,16 +1,21 @@
 <?php
+/*ini_set('display_errors', 'On');
+error_reporting(E_ALL);*/
 
 /**
  * Load dependencies
  */
 require '../vendor/autoload.php';
+require 'tools/JWT.php';
 require 'models/AbstractModel.php';
 require 'models/UserModel.php';
+require 'tools/AuthMiddleware.php';
 
 /**
  * Start application
  */
-$app = new \Slim\Slim();;
+$app = new \Slim\Slim();
+$app->add(new \AuthMiddleware());
 
 /**
  * Start routing
@@ -44,17 +49,9 @@ $app->post('/logout', function () use ($app) {
 /***********************************************
 Utilisateurs
 ***********************************************/
-$app->get('/utilisateurs', function () use ($app) {
-	$headers = apache_request_headers();
-  	if(isset($headers['Authorization'])){
-		$authorization = explode(" ",$headers['Authorization']);
-		if($authorization[0] == "Bearer"){
-		  $result = $authorization[1];
-		}
-	}else{
-		$result="OK";
-	}
-	$app->response()->body( json_encode($result));
+$app->get('/secure/utilisateurs', function () use ($app) {
+	$user = new UserModel();
+	$app->response()->body( json_encode($user->fetchAll()));
 });
 
 

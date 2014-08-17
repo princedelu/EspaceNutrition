@@ -1,7 +1,5 @@
 <?php
 
-require 'tools/JWT.php';
-
 abstract class AbstractModel {
 
     abstract public function fetchAll();
@@ -45,12 +43,12 @@ abstract class AbstractModel {
 	public function openConnectionDatabase(){
 		$result = true;
 
-		$this->dblink = mysql_connect($this->ini_array['MYSQL']['host'], $this->ini_array['MYSQL']['user'], $this->ini_array['MYSQL']['password']);
+		$this->dblink = mysqli_connect($this->ini_array['MYSQL']['host'], $this->ini_array['MYSQL']['user'], $this->ini_array['MYSQL']['password']);
 		if (!$this->dblink){
 			$this->setError(mysql_error());
 			$result=false;
 		}else{
-			if (!mysql_select_db($this->ini_array['MYSQL']['db'])){
+			if (!mysqli_select_db($this->dblink,$this->ini_array['MYSQL']['db'])){
 				$this->setError("Connexion à la base de données impossible");
 				$result=false;
 			}
@@ -61,7 +59,7 @@ abstract class AbstractModel {
 	public function closeConnectionDatabase(){
 
 		// Fermeture de la connexion
-		mysql_close($this->dblink);
+		mysqli_close($this->dblink);
 
 	}
 }

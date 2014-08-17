@@ -58,7 +58,36 @@ class UserModel extends AbstractModel {
 
     public function fetchAll()
     {
-        return false;
+        $result = array();
+
+		$this->openConnectionDatabase();
+
+		// Exécution des requêtes SQL
+		$query=sprintf("SELECT * FROM utilisateurs");
+
+		try{
+			$mysql_result = mysqli_query($this->dblink,$query);
+			if (!$mysql_result){
+				$this->setError(mysql_error());
+				$result=false;
+			}else{
+				$num_rows = mysqli_num_rows($mysql_result);
+				array_push($result,$num_rows);
+				/*while ($row = mysqli_fetch_assoc($mysql_result)) {
+					$arrayRow = array("id" => $row["id"],"username" => $row["username"],"role"=>$row["role"]);
+					array_push($result,$arrayRow);
+				}*/
+			}
+
+		}catch(Exception $e)
+		{
+			$this->setError($e->getMessage());
+		} finally {
+			mysqli_free_result($mysql_result);
+			$this->closeConnectionDatabase();
+		}
+
+		return $result;
     }
 
     /**
@@ -165,39 +194,44 @@ class UserModel extends AbstractModel {
 			$this->openConnectionDatabase();
 
 			// Exécution des requêtes SQL
-			$query=sprintf("SELECT * FROM utilisateurs WHERE username='%s' AND password='%s'",mysql_real_escape_string($this->getUsername()),mysql_real_escape_string(md5($this->getPassword())));
+			$query=sprintf("SELECT * FROM utilisateurs WHERE username='%s' AND password='%s'",mysqli_real_escape_string($this->dblink,$this->getUsername()),mysqli_real_escape_string($this->dblink,md5($this->getPassword())));
 
-			$mysql_result = mysql_query($query);
-			if (!$mysql_result){
-				$this->setError(mysql_error());
-				$result=false;
-			}else{
-
-				$num_rows = mysql_num_rows($mysql_result);
-				if ($num_rows==1){
-					$row = mysql_fetch_assoc($mysql_result);
-
-					$payload = array(
-						"username" => $this->getUsername(),
-						"role" => $row['role'],
-						"iss" => "http://www.espace-nutrition.fr",
-						"aud" => "Espace Nutrition",
-						"iat" => time(),
-						"exp" => time()+3600
-					);
-
-					$encoded = JWT::encode($payload, $this->ini_array['JWT']['privatekey'],'RS256');
-
-					$result = array('value' => $encoded);
-				}else{
-					$this->setError("Identification impossible");
+			try{
+				$mysql_result = mysqli_query($this->dblink,$query);
+				if (!$mysql_result){
+					$this->setError(mysql_error());
 					$result=false;
-				}
-			}
+				}else{
 
-			mysql_free_result($mysql_result);
-			$this->closeConnectionDatabase();
-				
+					$num_rows = mysqli_num_rows($mysql_result);
+					if ($num_rows==1){
+						$row = mysqli_fetch_assoc($mysql_result);
+
+						$payload = array(
+							"username" => $this->getUsername(),
+							"role" => $row['role'],
+							"iss" => "http://www.espace-nutrition.fr",
+							"aud" => "Espace Nutrition",
+							"iat" => time(),
+							"exp" => time()+3600
+						);
+
+						$encoded = JWT::encode($payload, $this->ini_array['JWT']['privatekey'],'RS256');
+
+						$result = array('value' => $encoded);
+					}else{
+						$this->setError("Identification impossible");
+						$result=false;
+					}
+				}
+			}catch(Exception $e)
+			{
+				$this->setError($e->getMessage());
+				$result=false;
+			} finally {
+				mysqli_free_result($mysql_result);
+				$this->closeConnectionDatabase();
+			}
 		}else{
 			$result=false;
 		}
