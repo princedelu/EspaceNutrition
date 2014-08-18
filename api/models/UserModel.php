@@ -56,28 +56,28 @@ class UserModel extends AbstractModel {
         );
     }
 
+	/*
+	* Récupération de tous les utilisateurs
+	*/
     public function fetchAll()
     {
         $result = array();
 
-		$this->openConnectionDatabase();
-
-		// Exécution des requêtes SQL
-		$query=sprintf("SELECT * FROM utilisateurs");
-
 		try{
+			$this->openConnectionDatabase();
+
+			// Exécution des requêtes SQL
+			$query=sprintf("SELECT id,username,role,nom, prenom,email,datenaissance FROM utilisateurs");
+ 
 			$mysql_result = mysqli_query($this->dblink,$query);
 			if (!$mysql_result){
 				$this->setError(mysql_error());
 				$result=false;
 			}else{
-				array_push($result,array("dddd","lklk"),"mlklmk");
 				while ($row = mysqli_fetch_assoc($mysql_result)) {
-					//$arrayRow = array("id" => $row["id"],"username" => $row["username"],"role"=>$row["role"]);
-					//array_push($result,$arrayRow);
+					array_push($result,$row);
 				}
 			}
-
 		}catch(Exception $e)
 		{
 			$this->setError($e->getMessage());
@@ -190,12 +190,13 @@ class UserModel extends AbstractModel {
 		$result = true;
 
 		if ($this->validate()){
-			$this->openConnectionDatabase();
-
-			// Exécution des requêtes SQL
-			$query=sprintf("SELECT * FROM utilisateurs WHERE username='%s' AND password='%s'",mysqli_real_escape_string($this->dblink,$this->getUsername()),mysqli_real_escape_string($this->dblink,md5($this->getPassword())));
-
 			try{
+				$this->openConnectionDatabase();
+
+				// Exécution des requêtes SQL
+				$query=sprintf("SELECT * FROM utilisateurs WHERE username='%s' AND password='%s'",mysqli_real_escape_string($this->dblink,$this->getUsername()),mysqli_real_escape_string($this->dblink,md5($this->getPassword())));
+
+			
 				$mysql_result = mysqli_query($this->dblink,$query);
 				if (!$mysql_result){
 					$this->setError(mysql_error());

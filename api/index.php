@@ -32,7 +32,7 @@ $app->post('/login', function () use ($app) {
     $user->setPassword($requestJson['password']);
     $result = $user->authentificate();
 	if (!$result){
-		$app->response()->body( json_encode($user->getError()) );
+		$app->response()->body(json_encode($user->getError()));
         $app->response()->status( 403 );
 	}else{
 	  	$app->response()->body( json_encode( $result ));
@@ -49,7 +49,7 @@ $app->post('/logout', function () use ($app) {
 /***********************************************
 Utilisateurs
 ***********************************************/
-$app->get('/secure/utilisateurs', function () use ($app) {
+$app->get('/utilisateurs', function () use ($app) {
 	$user = new UserModel();
 	$app->response()->body( json_encode($user->fetchAll()));
 });

@@ -3533,3 +3533,7 @@ fieldset[disabled] .btn-vk.active {
   color: #587ea3;
   background-color: #ffffff;
 }
+
+.app-btn-delete{
+	color : #D43F3A;
+}

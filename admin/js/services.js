@@ -103,19 +103,19 @@ angular.module('EspaceNutrition')
 
 	return {
 		list: function(success, error) {
-			$http.get('/api/secure/utilisateurs').success(success).error(error);
+			$http.get('/api/utilisateurs').success(success).error(error);
 		},
 		add: function(nomObjet,objet, success, error) {
-			$http.post('/api/secure/utilisateur', objet).success(success).error(error);
+			$http.post('/api/utilisateur', objet).success(success).error(error);
 		},
 		get: function(id, success, error) {
-			$http.get('/api/secure/utilisateur/' + id).success(success).error(error);
+			$http.get('/api/utilisateur/' + id).success(success).error(error);
 		},
 		delete: function(id, success, error) {
-			$http.delete('/api/secure/utilisateur/' + id).success(success).error(error);
+			$http.delete('/api/utilisateur/' + id).success(success).error(error);
 		},
 		put: function(objet, success, error) {
-			$http.put('/api/secure/utilisateur', objet).success(success).error(error);
+			$http.put('/api/utilisateur', objet).success(success).error(error);
 		},
 		userRoles : userRoles
 	};

@@ -12,8 +12,19 @@ class AuthMiddleware extends \Slim\Middleware
     {
         //get a reference to application
         $app = $this->app;
+
+		$callURL=explode("/",$app->request()->getPathInfo());
+		$call=$_SERVER['REQUEST_METHOD']. '.' . $callURL[1];
+
+		try{
+			$role=$this->ini_array['api'][$call];
+		}catch(Exception $e)
+		{
+			$role = 2;
+		}
+
         //skip routes that are exceptionally allowed without an access token:
-        if (substr_count($app->request()->getPathInfo(), 'secure')==0){
+        if ($role==0){
             $this->next->call(); //let go
         } else {
 			// Récupération du token
@@ -24,8 +35,14 @@ class AuthMiddleware extends \Slim\Middleware
 					$jwt = $authorization[1];
 					try{
 						$payload = JWT::decode($jwt,$this->ini_array['JWT']['publickey']);
-						if (isset($payload->username)){
-							$this->next->call();
+						if (isset($payload->role)){
+							if ($payload->role >= $role) {
+								$this->next->call();
+							}else{
+								$app->response->setStatus('403'); //Valeur du token incorrecte
+								$app->response->body(json_encode(array("Error"=>"Droits insuffisants")));
+								return;
+							}
 						}else{
 							$app->response->setStatus('403'); //Valeur du token incorrecte
 						    $app->response->body(json_encode(array("Error"=>"Token invalid")));

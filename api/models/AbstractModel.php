@@ -45,15 +45,18 @@ abstract class AbstractModel {
 
 		$this->dblink = mysqli_connect($this->ini_array['MYSQL']['host'], $this->ini_array['MYSQL']['user'], $this->ini_array['MYSQL']['password']);
 		if (!$this->dblink){
-			$this->setError(mysql_error());
-			$result=false;
+			throw new Exception(mysql_error());
 		}else{
 			if (!mysqli_select_db($this->dblink,$this->ini_array['MYSQL']['db'])){
-				$this->setError("Connexion à la base de données impossible");
-				$result=false;
+				throw new Exception("Connexion à la base de données impossible");
 			}
 		}
-		return $result;
+		
+		// Passage en mode UTF-8
+		$mysql_result = mysqli_query($this->dblink,"set names 'utf8'"); 
+		if (!$mysql_result){
+			throw new Exception(mysql_error());
+		}
 	}
 
 	public function closeConnectionDatabase(){
