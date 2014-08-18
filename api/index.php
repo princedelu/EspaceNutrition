@@ -1,11 +1,11 @@
 <?php
-/*ini_set('display_errors', 'On');
-error_reporting(E_ALL);*/
+ini_set('display_errors', 'On');
+error_reporting(E_ALL);
 
 /**
  * Load dependencies
  */
-require '../vendor/autoload.php';
+require 'vendor/autoload.php';
 require 'tools/JWT.php';
 require 'models/AbstractModel.php';
 require 'models/UserModel.php';
