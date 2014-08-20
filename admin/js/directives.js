@@ -57,4 +57,4 @@ angular.module('EspaceNutrition').directive('activeNav', ['$location', function(
 
 }]);
 
-})();
+})

@@ -1,10 +1,17 @@
 <?php
+ini_set('display_errors', 'On');
+error_reporting(E_ALL);
 
 class UserModel extends AbstractModel {
 
     protected $_id;
     protected $_username;
     protected $_password;
+	protected $_nom;
+	protected $_prenom;
+	protected $_email;
+	protected $_datenaissance;
+	protected $_role;
 
     public function __construct()
     {
@@ -47,12 +54,72 @@ class UserModel extends AbstractModel {
         return $this->_password;
     }
 
+	public function setNom($_nom)
+    {
+        $this->_nom = $_nom;
+        return $this;
+    }
+
+    public function getNom()
+    {
+        return $this->_nom;
+    }
+
+	public function setPrenom($_prenom)
+    {
+        $this->_prenom = $_prenom;
+        return $this;
+    }
+
+    public function getPrenom()
+    {
+        return $this->_prenom;
+    }
+
+	public function setEmail($_email)
+    {
+        $this->_email = $_email;
+        return $this;
+    }
+
+    public function getEmail()
+    {
+        return $this->_email;
+    }
+
+	public function setDateNaissance($_datenaissance)
+    {
+        $this->_datenaissance = $_datenaissance;
+        return $this;
+    }
+
+    public function getDateNaissance()
+    {
+        return $this->_datenaissance;
+    }
+
+	public function setRole($_role)
+    {
+        $this->_role = $_role;
+        return $this;
+    }
+
+    public function getRole()
+    {
+        return $this->_role;
+    }
+
     public function toArray()
     {
         return array (
             'id' => $this->getId(),
             'username' => $this->getUsername(),
-            'password' => $this->getPassword()
+            'password' => $this->getPassword(),
+			'nom' => $this->getNom(),
+			 'prenom' => $this->getPrenom(),
+			 'email' => $this->getEmail(),
+			 'datenaissance' => $this->getDateNaissance(),
+			 'role' => $this->getRole()
         );
     }
 
@@ -97,7 +164,32 @@ class UserModel extends AbstractModel {
     public function fetchOne($id)
     {
         
-	return false;
+		$result = array();
+
+		try{
+			$this->openConnectionDatabase();
+
+			// Exécution des requêtes SQL
+			$query=sprintf("SELECT id FROM utilisateurs where id=%d",mysqli_real_escape_string($this->dblink,$this->getId()));
+ 
+			$mysql_result = mysqli_query($this->dblink,$query);
+			if (!$mysql_result){
+				$this->setError(mysql_error());
+				$result=false;
+			}else{
+				while ($row = mysqli_fetch_assoc($mysql_result)) {
+					array_push($result,$row);
+				}
+			}
+		}catch(Exception $e)
+		{
+			$this->setError($e->getMessage());
+		} finally {
+			mysqli_free_result($mysql_result);
+			$this->closeConnectionDatabase();
+		}
+
+		return $result;
         
     }
 
@@ -129,37 +221,68 @@ class UserModel extends AbstractModel {
 
     public function create()
     {
-        if ($this->validate()) {
+		$result = false;
+        try{
+			$this->openConnectionDatabase();
 
-            // Auto-generate ID
-            $this->setId(time());
+			// Exécution des requêtes SQL
+			$query=sprintf("INSERT INTO utilisateurs set username='%s',password='%s',nom='%s',prenom='%s',email='%s',role=%d",mysqli_real_escape_string($this->dblink,$this->getUsername()),mysqli_real_escape_string($this->dblink,md5($this->getUsername()."aaa")),mysqli_real_escape_string($this->dblink,$this->getNom()),mysqli_real_escape_string($this->dblink,$this->getPrenom()),mysqli_real_escape_string($this->dblink,$this->getEmail()),mysqli_real_escape_string($this->dblink,$this->getRole()));
+ 
+			$mysql_result = mysqli_query($this->dblink,$query);
+			if (!$mysql_result){
+				$this->setError(mysql_error());
+				$result=false;
+			}else{
+				$result = true;
+			}
+		}catch(Exception $e)
+		{
+			$this->setError($e->getMessage());
 
-            return $this->save();
-        }
-        else {
-            return false;
-        }
+		} finally {
+			$this->closeConnectionDatabase();
+		}   
+		return $result; 
     }
 
     public function delete()
     {
+		$result = false;
+
         if ($this->getId()) {
 
             if ($this->fetchOne($this->getId())) {
 
-                //unset($_SESSION['teams'][$this->getId()]);
+                try{
+					$this->openConnectionDatabase();
 
-                return true;
+					// Exécution des requêtes SQL
+					$query=sprintf("DELETE FROM utilisateurs where id=%d",mysqli_real_escape_string($this->dblink,$this->getId()));
+		 
+					$mysql_result = mysqli_query($this->dblink,$query);
+					if (!$mysql_result){
+						$this->setError(mysql_error());
+						$result=false;
+					}else{
+						$result = true;
+					}
+				}catch(Exception $e)
+				{
+					$this->setError($e->getMessage());
+				} finally {
+					$this->closeConnectionDatabase();
+				}                
             }
             else {
                 $this->setError('L identifiant n existe pas');
-                return false;
+                $result = false;
             }
         }
         else {
             $this->setError('Champ id manquant');
-            return false;
+            $result = false;
         }
+		return $result;
     }
 
     protected function save()
@@ -194,7 +317,7 @@ class UserModel extends AbstractModel {
 				$this->openConnectionDatabase();
 
 				// Exécution des requêtes SQL
-				$query=sprintf("SELECT * FROM utilisateurs WHERE username='%s' AND password='%s'",mysqli_real_escape_string($this->dblink,$this->getUsername()),mysqli_real_escape_string($this->dblink,md5($this->getPassword())));
+				$query=sprintf("SELECT * FROM utilisateurs WHERE username='%s' AND password='%s'",mysqli_real_escape_string($this->dblink,$this->getUsername()),mysqli_real_escape_string($this->dblink,md5($this->getUsername().$this->getPassword())));
 
 			
 				$mysql_result = mysqli_query($this->dblink,$query);

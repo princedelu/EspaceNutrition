@@ -2,7 +2,7 @@
 "use strict";
 
 /* Controllers */
-angular.module('EspaceNutrition')
+angular.module('Login')
 .controller('LoginCtrl',
 ['$rootScope', '$scope', '$location', '$route', '$window', 'Auth', function($rootScope, $scope, $location, $route, $window, Auth) {
     
@@ -17,12 +17,24 @@ angular.module('EspaceNutrition')
             },
             function(res) {
 				$window.sessionStorage.token = res;
-                $location.path('/admin/dashboard');
+                $window.location.href = '/admin/dashboard';
             },
             function(err) {
                 $scope.error = err;
             });
     };
+
+
+}]);
+
+/* Controllers */
+angular.module('EspaceNutrition')
+.controller('LoginCtrl',
+['$rootScope', '$scope', '$location', '$route', '$window', 'Auth', function($rootScope, $scope, $location, $route, $window, Auth) {
+    
+    $scope.user = Auth.user;
+    $scope.userRoles = Auth.userRoles;
+    $scope.accessLevels = Auth.accessLevels;
 
     $scope.logout = function() {
         Auth.logout(function() {
@@ -46,19 +58,55 @@ angular.module('EspaceNutrition')
 
 	var action = $route.current.action;
 
+	$('#dateNaissanceUtilisateur').datepicker({format: 'dd-mm-yyyy'}); 
+
+	$scope.role = "1";
+
 	$scope.delete = function (id) {
         $scope.success = '';
         $scope.error = '';
-        UtilisateurFactory.delete(id,
-            function () {
-                $scope.success = 'Succes';
-                $route.reload();
-            },
-            function (err) {
-                $scope.error = err;
-                $route.reload();
-            });
+		var retVal = confirm("Voulez vous supprimer cet utilisateur?");
+        if (retVal == true) {
+		    UtilisateurFactory.delete(id,
+		        function () {
+		            $scope.success = 'Succes';
+		            $route.reload();
+		        },
+		        function (err) {
+		            $scope.error = err;
+		            $route.reload();
+		        });
+		}
     };
+
+	$scope.add = function () {
+        $scope.success = '';
+        $scope.error = '';
+        var objetValue = {};
+		objetValue["username"]=$scope.username;
+		objetValue["email"]=$scope.email;
+		objetValue["nom"]=$scope.nom;
+		objetValue["prenom"]=$scope.prenom;
+		objetValue["datenaissance"]=$scope.datenaissance;
+		objetValue["role"]=$scope.role;
+
+		UtilisateurFactory.put(objetValue,
+		    function () {
+		        $scope.success = 'Succes';
+				$('#bs-ajoututilisateur').on('hidden.bs.modal', function (e) {
+				  $route.reload()
+				});
+				$('#bs-ajoututilisateur').modal('hide');
+		    },
+		    function (err) {
+		        $scope.error = err;
+		        if (err == 'Doublon') {
+		            $scope.doublon = 'true';
+		        }
+		    });
+    };
+
+
 
 	$scope.list = function () {
 		$scope.success = '';

@@ -13,7 +13,6 @@
 html,
 body {
   overflow-x: hidden!important;
-  font-family: 'Source Sans Pro', sans-serif;
   -webkit-font-smoothing: antialiased;
   min-height: 100%;
   background: #f9f9f9;
@@ -41,7 +40,7 @@ a:focus {
   clear: both;
 }
 /* Header */
-body > ng-view > .header {
+body > .header {
   position: absolute;
   top: 0;
   left: 0;
@@ -457,17 +456,17 @@ Gradient Background colors
     Components: navbar, logo and content header
 -------------------------------------------------
 */
-body > ng-view > .header {
+body > .header {
   position: relative;
   max-height: 100px;
   z-index: 1030;
 }
-body > ng-view > .header .navbar {
+body > .header .navbar {
   height: 50px;
   margin-bottom: 0;
   margin-left: 220px;
 }
-body > ng-view > .header .navbar .sidebar-toggle {
+body > .header .navbar .sidebar-toggle {
   float: left;
   padding: 9px 5px;
   margin-top: 8px;
@@ -481,10 +480,10 @@ body > ng-view > .header .navbar .sidebar-toggle {
   -moz-border-radius: 0 !important;
   border-radius: 0 !important;
 }
-body > ng-view > .header .navbar .sidebar-toggle:hover .icon-bar {
+body > .header .navbar .sidebar-toggle:hover .icon-bar {
   background: #f6f6f6;
 }
-body > ng-view > .header .navbar .sidebar-toggle .icon-bar {
+body > .header .navbar .sidebar-toggle .icon-bar {
   display: block;
   width: 22px;
   height: 2px;
@@ -492,18 +491,18 @@ body > ng-view > .header .navbar .sidebar-toggle .icon-bar {
   -moz-border-radius: 4px;
   border-radius: 4px;
 }
-body > ng-view > .header .navbar .sidebar-toggle .icon-bar + .icon-bar {
+body > .header .navbar .sidebar-toggle .icon-bar + .icon-bar {
   margin-top: 4px;
 }
-body > ng-view > .header .navbar .nav > li.user > a {
+body > .header .navbar .nav > li.user > a {
   font-weight: bold;
 }
-body > ng-view > .header .navbar .nav > li.user > a > .fa,
-body > ng-view > .header .navbar .nav > li.user > a > .glyphicon,
-body > ng-view > .header .navbar .nav > li.user > a > .ion {
+body > .header .navbar .nav > li.user > a > .fa,
+body > .header .navbar .nav > li.user > a > .glyphicon,
+body > .header .navbar .nav > li.user > a > .ion {
   margin-right: 5px;
 }
-body > ng-view > .header .navbar .nav > li > a > .label {
+body > .header .navbar .nav > li > a > .label {
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
@@ -518,10 +517,10 @@ body > ng-view > .header .navbar .nav > li > a > .label {
   text-align: center;
   padding: 2px;
 }
-body > ng-view > .header .navbar .nav > li > a:hover > .label {
+body .header .navbar .nav > li > a:hover > .label {
   top: 3px;
 }
-body > ng-view > .header .logo {
+body .header .logo {
   float: left;
   font-size: 20px;
   line-height: 50px;
@@ -533,7 +532,7 @@ body > ng-view > .header .logo {
   height: 50px;
   display: block;
 }
-body > ng-view > .header .logo .icon {
+body > .header .logo .icon {
   margin-right: 10px;
 }
 .right-side > .content-header {
@@ -604,16 +603,16 @@ body > ng-view > .header .logo .icon {
   }
 }
 @media screen and (max-width: 560px) {
-  body > ng-view > .header {
+  body > .header {
     position: relative;
   }
-  body > ng-view > .header .logo,
-  body > ng-view > .header .navbar {
+  body > .header .logo,
+  body > .header .navbar {
     width: 100%;
     float: none;
     position: relative!important;
   }
-  body > ng-view > .header .navbar {
+  body > .header .navbar {
     margin: 0;
   }
   body.fixed > .header {
@@ -1864,16 +1863,7 @@ Component: timeline
     Component: Buttons
 -------------------------
 */
-.btn {
-  font-weight: 500;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-  border: 1px solid transparent;
-  -webkit-box-shadow: inset 0px -2px 0px 0px rgba(0, 0, 0, 0.09);
-  -moz-box-shadow: inset 0px -2px 0px 0px rgba(0, 0, 0, 0.09);
-  box-shadow: inset 0px -1px 0px 0px rgba(0, 0, 0, 0.09);
-}
+
 .btn.btn-default {
   background-color: #fafafa;
   color: #666;
@@ -3536,4 +3526,8 @@ fieldset[disabled] .btn-vk.active {
 
 .app-btn-delete{
 	color : #D43F3A;
+}
+
+.app-btn-add {
+    color: #01DF3A;
 }

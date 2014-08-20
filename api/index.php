@@ -33,7 +33,7 @@ $app->post('/login', function () use ($app) {
     $result = $user->authentificate();
 	if (!$result){
 		$app->response()->body(json_encode($user->getError()));
-        $app->response()->status( 403 );
+        $app->response()->status( 401 );
 	}else{
 	  	$app->response()->body( json_encode( $result ));
 	}
@@ -52,6 +52,50 @@ Utilisateurs
 $app->get('/utilisateurs', function () use ($app) {
 	$user = new UserModel();
 	$app->response()->body( json_encode($user->fetchAll()));
+});
+
+/***********************************************
+Suppression utilisateurs
+***********************************************/
+$app->delete('/utilisateur/:id', function ($id) use ($app) {
+	$user = new UserModel();
+	$user->setId($id);
+	$result = $user->delete();
+	if (!$result){
+		$app->response()->body(json_encode($user->getError()));
+        $app->response()->status( 403 );
+	}else{
+	  	$app->response()->body( json_encode( $result ));
+	}
+});
+
+/***********************************************
+Ajout utilisateurs
+***********************************************/
+$app->put('/utilisateur', function () use ($app) {
+	$requestJson = json_decode($app->request()->getBody(), true);
+    $user = new UserModel();
+	
+	if (isset($requestJson['username']) and isset($requestJson['nom']) and isset($requestJson['prenom']) and isset($requestJson['email']) and isset($requestJson['datenaissance']) and isset($requestJson['role'])){
+    	$user->setUsername($requestJson['username']);
+		$user->setNom($requestJson['nom']);
+		$user->setPrenom($requestJson['prenom']);
+		$user->setEmail($requestJson['email']);
+		$user->setDateNaissance($requestJson['datenaissance']);
+		$user->setRole($requestJson['role']);
+
+		$result = $user->create();
+	}else{
+		$result = false;
+		$user->setError("Des champs manquent pour la création de l'utilisateur");
+	}
+    
+	if (!$result){
+		$app->response()->body(json_encode($user->getError()));
+        $app->response()->status( 403 );
+	}else{
+	  	$app->response()->body( json_encode( $result ));
+	}
 });
 
 

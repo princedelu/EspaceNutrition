@@ -1,21 +1,69 @@
 (function(){
 "use strict";
 
+angular.module('Login')
+.factory('Auth', ['$http','$window', function($http,$window){
+
+    var accessLevels = routingConfig.accessLevels;
+    var userRoles = routingConfig.userRoles;
+	var publicKey = routingConfig.publicKey;
+
+	var username = "";
+	var role = userRoles.public;
+
+	function verifyToken(token){
+
+		var isValid = false;
+		try {
+			isValid = KJUR.jws.JWS.verify(token, publicKey);
+		} catch (ex) {
+			isValid = false;
+		} 
+
+		return isValid;
+	}
+
+	function adaptUser(token){
+		var result =  { username: '', role: userRoles.public };
+		if (token !== undefined)
+		{
+			if (verifyToken(token)){
+				var a = token.split(".");
+				var uClaim = b64utos(a[1]);
+				var pClaim = KJUR.jws.JWS.readSafeJSONString(uClaim);
+
+				var roleUser;
+				if (pClaim.role == 1){
+					roleUser = userRoles.user;
+				}else if(pClaim.role == 2){
+					roleUser = userRoles.admin;
+				} else{
+					roleUser = userRoles.public;
+				}
+				result = {	username: pClaim.username, role: roleUser };
+			}
+		}
+		return result;
+	}
+	
+    return {
+        login: function(user, success, error) {
+            $http.post('/api/login', user).success(function(token){
+				var adaptedUser = adaptUser(token.value);
+                success(token.value);
+            }).error(error);
+        },
+        accessLevels: accessLevels,
+        userRoles: userRoles
+    };
+}]);
+
 angular.module('EspaceNutrition')
 .factory('Auth', ['$http','$window', function($http,$window){
 
     var accessLevels = routingConfig.accessLevels;
     var userRoles = routingConfig.userRoles;
-	var publicKey=""+
-"-----BEGIN PUBLIC KEY-----\n"+
-"MIIBITANBgkqhkiG9w0BAQEFAAOCAQ4AMIIBCQKCAQBZQM9sX8M0PBHlNYO5iyHW\n"+
-"/0La4UUIfLh1DlMy1lnyqlfLlRZCsyUkhzRaEAL5xrgo5qJFQvM3+CRYj4haaI4i\n"+
-"GOvGe7CkdBgqGKR8EOtxHKO5lze5h474dcQodKUdK3YRpwu85fqQ8DRunTYt8O59\n"+
-"+eIJhchW0tVP0LdT/x2nT9aFzxQh8g6yHT7ym4t5GrIjsapRsGZU7X0pH585HV2D\n"+
-"/qpgfgnyL3sEHvN9vMRKIz+cj2JsAPu6w5s/j1hDVXvxF+C5tFYrvom9LF8C6cpQ\n"+
-"PHzhI0hKAYEsV5psGqn1j1t7HA2+iSMsdPUEQqgM+IUoLaTGDFpQtgHmYi392UiB\n"+
-"AgMBAAE=\n"+
-"-----END PUBLIC KEY-----";
+	var publicKey = routingConfig.publicKey;
 
     var currentUser = adaptUser($window.sessionStorage.token);
 	var username = "";
@@ -73,13 +121,6 @@ angular.module('EspaceNutrition')
             if(user === undefined)
                 user = currentUser;
             return user.role.title == userRoles.user.title || user.role.title == userRoles.admin.title;
-        },
-        login: function(user, success, error) {
-            $http.post('/api/login', user).success(function(token){
-				var adaptedUser = adaptUser(token.value);
-                changeUser(adaptedUser);
-                success(token.value);
-            }).error(error);
         },
         logout: function(success, error) {
             $http.post('/api/logout').success(function(){

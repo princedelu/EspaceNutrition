@@ -3,7 +3,7 @@ angular.module('underscore', []).factory('_', function() {
     return window._;
 });
 
-angular.module('EspaceNutrition', ['ngCookies', 'ngRoute','underscore'])
+angular.module('Login', ['ngRoute','underscore'])
     .config(['$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider) {
 
     var access = routingConfig.accessLevels;
@@ -14,15 +14,42 @@ angular.module('EspaceNutrition', ['ngCookies', 'ngRoute','underscore'])
             controller:     'LoginCtrl',
             access:         access.user
         });
+    
+    $routeProvider.otherwise({redirectTo:'/admin/404'});
+
+    $locationProvider.html5Mode(true);
+
+    $httpProvider.interceptors.push(function($q, $location, $window) {
+        return {
+            'responseError': function(response) {
+                if(response.status === 401) {
+                    $location.path('/admin/login');
+                    return $q.reject(response);
+                }
+                else {
+                    return $q.reject(response);
+                }
+            }
+        };
+    });
+
+}])
+
+    .run(['$rootScope', '$location', 'Auth', function ($rootScope, $location, Auth) {
+        $rootScope.$on("$routeChangeStart", function (event, next, current) {
+            $rootScope.error = null;
+        });
+
+    }]);
+
+angular.module('EspaceNutrition', ['ngRoute','underscore'])
+    .config(['$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider) {
+
+    var access = routingConfig.accessLevels;
+
     $routeProvider.when('/admin/dashboard',
         {
             templateUrl:    '/admin/partials/dashboard.html',
-            controller:     'LoginCtrl',
-            access:         access.user
-        });
-     $routeProvider.when('/admin/monprofil',
-        {
-            templateUrl:    '/admin/partials/profil.html',
             controller:     'LoginCtrl',
             access:         access.user
         });
@@ -52,8 +79,8 @@ angular.module('EspaceNutrition', ['ngCookies', 'ngRoute','underscore'])
 			  return config;
 			},
             'responseError': function(response) {
-                if(response.status === 401 || response.status === 403) {
-                    $location.path('/admin/login');
+                if(response.status === 401) {
+                     $window.location.href = '/admin/login';
                     return $q.reject(response);
                 }
                 else {
@@ -65,13 +92,13 @@ angular.module('EspaceNutrition', ['ngCookies', 'ngRoute','underscore'])
 
 }])
 
-    .run(['$rootScope', '$location', 'Auth', function ($rootScope, $location, Auth) {
+    .run(['$rootScope', '$location','$window', 'Auth', function ($rootScope, $location,$window, Auth) {
         $rootScope.$on("$routeChangeStart", function (event, next, current) {
             $rootScope.error = null;
 
             if (!Auth.authorize(next.access)) {
                if(Auth.isLoggedIn()) $location.path('/admin/dashboard');
-               else                  $location.path('/admin/login');
+               else                   $window.location.href = '/admin/login';
             }
         });
 

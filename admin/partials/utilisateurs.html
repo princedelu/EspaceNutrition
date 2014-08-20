@@ -1,75 +1,4 @@
-	<header class="header">
-			<a href="/admin/dashboard" class="logo">
-                <!-- Add the class icon to your logo image or logo icon to add the margining -->
-                Espace Nutrition
-            </a>
-            <!-- Header Navbar: style can be found in header.less -->
-            <nav class="navbar navbar-static-top" role="navigation">
-                <!-- Sidebar toggle button-->
-                <div class="navbar-right">
-                    <ul class="nav navbar-nav">
-                        
-                        <!-- User Account: style can be found in dropdown.less -->
-                        <li class="dropdown user user-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="glyphicon glyphicon-user"></i>
-                                <span>{{user.username}}<i class="caret"></i></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <!-- Menu Footer-->
-                                <li class="user-footer">
-                                    <div class="pull-left">
-                                        <a href="/admin/monprofil" class="btn btn-default btn-flat">Profil</a>
-                                    </div>
-                                    <div class="pull-right" ng-controller="LoginCtrl">
-                                        <a href="#" class="btn btn-default btn-flat" ng-click="logout()">Déconnexion</a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </header>
-        <div class="wrapper row-offcanvas row-offcanvas-left" >
-            <!-- Left side column. contains the logo and sidebar -->
-            <aside class="left-side sidebar-offcanvas">
-		<!-- sidebar: style can be found in sidebar.less -->
-                <section class="sidebar">
-                    <!-- Sidebar user panel -->
-                    <div class="user-panel">
-                        <div class="pull-left image">
-                            <img src="img/avatar3.png" class="img-circle" alt="User Image" />
-                        </div>
-                        <div class="pull-left info">
-                            <p>Bonjour {{user.username}}</p>
-                        </div>
-                    </div>
-                    
-                    <!-- /.search form -->
-                    <!-- sidebar menu: : style can be found in sidebar.less -->
-                    <ul class="sidebar-menu">
-                        <li >
-                            <a href="/admin/dashboard">
-                                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-                            </a>
-                        </li>
-						<li>
-                            <a href="/admin/monprofil">
-                                <i class="fa fa-th"></i> <span>Mon profil</span>
-                            </a>
-                        </li>
-                        <li class="active">
-                            <a href="/admin/utilisateurs">
-                                <i class="fa fa-th"></i> <span>Utilisateurs</span>
-                            </a>
-                        </li>
-                        
-                    </ul>
-                </section>
-                <!-- /.sidebar -->                
-                
-            </aside>
+	
 
             <!-- Right side column. Contains the navbar and content of the page -->
             <aside class="right-side">                
@@ -87,9 +16,15 @@
                 <!-- Main content -->
                 <section class="content">
                     <div class="row">
+						<div class="col-md-4 col-md-offset-8 text-right">
+							<button class="btn btn-link app-btn-add" data-toggle="modal" data-target="#bs-ajoututilisateur">
+								<i class="fa fa-plus"></i>
+							</button>
+						</div>
                         <div class="col-xs-12">
                             <div class="box">
                                 <div class="box-body table-responsive">
+									
                                     <table id="utilisateurs" class="table table-bordered table-hover">
                                         
                                     </table>
@@ -101,4 +36,86 @@
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
+
+		<!-- Popup création utilisateur -->
+		<div class="modal fade" id="bs-ajoututilisateur" tabindex="-1" role="dialog" aria-labelledby="ajoututilisateur" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<form name="utilisateurForm" ng-submit='add()'>
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
+							<h4 class="modal-title" id="myModalLabel">Ajout d'un utilisateur</h4>
+						</div>
+						<div class="modal-body">
+							<div class="form-group">
+								<label for="login">Login</label>
+								<ng-form name="subForm" ng-class="{ 'has-error' : subForm.$invalid && !subForm.$pristine }">
+									<input type="text" class="form-control" data-ng-model="username" id="loginUtilisateur" placeholder="Login" data-ng-required="true">
+									<div ng-show="subForm.$dirty && subForm.$invalid">
+										<span class="help-block" ng-show="subForm.$error.required"> Login obligatoire</span>
+									</div>
+								</ng-form>
+							</div>
+							<div class="form-group">
+								<label for="email">Email address</label>
+								<ng-form name="subForm2" ng-class="{ 'has-error' : subForm2.$invalid && !subForm2.$pristine }">
+									<input type="email" class="form-control" data-ng-model="email" id="emailUtilisateur" placeholder="Email" data-ng-required="true">
+									<div ng-show="subForm2.$dirty && subForm2.$invalid">
+										<span class="help-block" ng-show="subForm2.$error.required"> Email obligatoire</span>
+										<span class="help-block" ng-show="subForm2.$error.email"> Email invalide</span>
+									</div>
+								</ng-form>
+							</div>
+							<div class="form-group">
+								<label for="nom">Nom</label>
+								<ng-form name="subForm3" ng-class="{ 'has-error' : subForm3.$invalid && !subForm3.$pristine }">
+									<input type="text" class="form-control" data-ng-model="nom" id="nomUtilisateur" placeholder="Nom" data-ng-required="true">
+									<div ng-show="subForm3.$dirty && subForm3.$invalid">
+										<span class="help-block" ng-show="subForm3.$error.required"> Nom obligatoire</span>
+									</div>
+								</ng-form>
+							</div>
+							<div class="form-group">
+								<label for="prenom">Prénom</label>
+								<ng-form name="subForm4" ng-class="{ 'has-error' : subForm4.$invalid && !subForm4.$pristine }">
+									<input type="text" class="form-control" data-ng-model="prenom" id="prenomUtilisateur" placeholder="Prénom" data-ng-required="true">
+									<div ng-show="subForm4.$dirty && subForm4.$invalid">
+										<span class="help-block" ng-show="subForm4.$error.required"> Prénom obligatoire</span>
+									</div>
+								</ng-form>
+							</div>
+							<div class="form-group">
+								<label for="datenaissance">Date de naissance</label>
+								<ng-form name="subForm5" ng-class="{ 'has-error' : subForm5.$invalid && !subForm5.$pristine }">
+									<input type="text" class="form-control" data-ng-model="datenaissance" id="dateNaissanceUtilisateur" placeholder="jj-mm-aaaa" data-ng-required="true">
+									<div ng-show="subForm5.$dirty && subForm5.$invalid">
+										<span class="help-block" ng-show="subForm5.$error.required"> Date de naissance obligatoire</span>
+									</div>
+								</ng-form>
+							</div>
+							<div class="form-group">
+								<label for="role">Role</label>
+								<div class="input-group">
+									<label>
+										<input type="radio" name="optionsRoles" data-ng-model="role" id="optionsRole1" value="1">
+										Utilisateur
+									</label>
+								</div>
+								<div class="input-group">
+									<label>
+										<input type="radio" name="optionsRoles" data-ng-model="role" id="optionsRole2" value="2">
+										Admin
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+							<button type="submit" class="btn btn-primary" ng-disabled="utilisateurForm.$invalid">Enregistrer</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!-- /Popup création utilisateur -->
 
