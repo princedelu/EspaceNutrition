@@ -5,13 +5,14 @@ error_reporting(E_ALL);
 class UserModel extends AbstractModel {
 
     protected $_id;
-    protected $_username;
+	protected $_email;
     protected $_password;
 	protected $_nom;
 	protected $_prenom;
-	protected $_email;
 	protected $_datenaissance;
 	protected $_role;
+	protected $_actif;
+	protected $_token;
 
     public function __construct()
     {
@@ -30,17 +31,6 @@ class UserModel extends AbstractModel {
     public function getId()
     {
         return $this->_id;
-    }
-
-    public function setUsername($_username)
-    {
-        $this->_username = $_username;
-        return $this;
-    }
-
-    public function getUsername()
-    {
-        return $this->_username;
     }
 
     public function setPassword($_password)
@@ -109,11 +99,32 @@ class UserModel extends AbstractModel {
         return $this->_role;
     }
 
+	public function setActif($_actif)
+    {
+        $this->_actif = $_actif;
+        return $this;
+    }
+
+    public function getActif()
+    {
+        return $this->_actif;
+    }
+
+	public function setToken($_token)
+    {
+        $this->_token = $_token;
+        return $this;
+    }
+
+    public function getToken()
+    {
+        return $this->_token;
+    }
+
     public function toArray()
     {
         return array (
             'id' => $this->getId(),
-            'username' => $this->getUsername(),
             'password' => $this->getPassword(),
 			'nom' => $this->getNom(),
 			 'prenom' => $this->getPrenom(),
@@ -134,7 +145,7 @@ class UserModel extends AbstractModel {
 			$this->openConnectionDatabase();
 
 			// Exécution des requêtes SQL
-			$query=sprintf("SELECT id,username,role,nom, prenom,email,datenaissance FROM utilisateurs");
+			$query=sprintf("SELECT id,email,role,nom, prenom,datenaissance,actif FROM utilisateurs");
  
 			$mysql_result = mysqli_query($this->dblink,$query);
 			if (!$mysql_result){
@@ -226,18 +237,34 @@ class UserModel extends AbstractModel {
 			$this->openConnectionDatabase();
 
 			// Exécution des requêtes SQL
-			$query=sprintf("INSERT INTO utilisateurs set username='%s',password='%s',nom='%s',prenom='%s',email='%s',role=%d",mysqli_real_escape_string($this->dblink,$this->getUsername()),mysqli_real_escape_string($this->dblink,md5($this->getUsername()."aaa")),mysqli_real_escape_string($this->dblink,$this->getNom()),mysqli_real_escape_string($this->dblink,$this->getPrenom()),mysqli_real_escape_string($this->dblink,$this->getEmail()),mysqli_real_escape_string($this->dblink,$this->getRole()));
- 
+			$query=sprintf("SELECT id FROM utilisateurs where email='%s'",mysqli_real_escape_string($this->dblink,$this->getEmail()));
+
 			$mysql_result = mysqli_query($this->dblink,$query);
 			if (!$mysql_result){
 				$this->setError(mysql_error());
 				$result=false;
 			}else{
-				$result = true;
+				$num_rows = mysqli_num_rows($mysql_result);
+				if ($num_rows>0){
+					$this->setError("Doublon");
+					$result=false;
+				}else{
+					// Exécution des requêtes SQL
+					$query=sprintf("INSERT INTO utilisateurs set email='%s',nom='%s',prenom='%s',role=%d,actif=false,token='%s'",mysqli_real_escape_string($this->dblink,$this->getEmail()),mysqli_real_escape_string($this->dblink,$this->getNom()),mysqli_real_escape_string($this->dblink,$this->getPrenom()),mysqli_real_escape_string($this->dblink,$this->getRole()),"");
+		 
+					$mysql_result = mysqli_query($this->dblink,$query);
+					if (!$mysql_result){
+						$this->setError(mysql_error());
+						$result=false;
+					}else{
+						$result = true;
+					}
+				}
 			}
+			
 		}catch(Exception $e)
 		{
-			$this->setError($e->getMessage());
+			$this->setError("eee");
 
 		} finally {
 			$this->closeConnectionDatabase();
@@ -295,7 +322,7 @@ class UserModel extends AbstractModel {
     {       
 		$valid = true;
 
-        if (! $this->getUsername()) {
+        if (! $this->getEmail()) {
             $this->setError('Login manquant');
             $valid = false;
         }
@@ -317,7 +344,7 @@ class UserModel extends AbstractModel {
 				$this->openConnectionDatabase();
 
 				// Exécution des requêtes SQL
-				$query=sprintf("SELECT * FROM utilisateurs WHERE username='%s' AND password='%s'",mysqli_real_escape_string($this->dblink,$this->getUsername()),mysqli_real_escape_string($this->dblink,md5($this->getUsername().$this->getPassword())));
+				$query=sprintf("SELECT * FROM utilisateurs WHERE email='%s' AND password='%s' AND ACTIF=1",mysqli_real_escape_string($this->dblink,$this->getEmail()),mysqli_real_escape_string($this->dblink,md5($this->getEmail().$this->getPassword())));
 
 			
 				$mysql_result = mysqli_query($this->dblink,$query);
@@ -331,7 +358,7 @@ class UserModel extends AbstractModel {
 						$row = mysqli_fetch_assoc($mysql_result);
 
 						$payload = array(
-							"username" => $this->getUsername(),
+							"email" => $this->getEmail(),
 							"role" => $row['role'],
 							"iss" => "http://www.espace-nutrition.fr",
 							"aud" => "Espace Nutrition",

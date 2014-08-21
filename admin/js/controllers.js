@@ -12,7 +12,7 @@ angular.module('Login')
 
     $scope.login = function() {
         Auth.login({
-                username: $scope.username,
+                email: $scope.email,
                 password: $scope.password,
             },
             function(res) {
@@ -82,8 +82,8 @@ angular.module('EspaceNutrition')
 	$scope.add = function () {
         $scope.success = '';
         $scope.error = '';
+		$scope.doublon = 'false';
         var objetValue = {};
-		objetValue["username"]=$scope.username;
 		objetValue["email"]=$scope.email;
 		objetValue["nom"]=$scope.nom;
 		objetValue["prenom"]=$scope.prenom;
@@ -116,17 +116,17 @@ angular.module('EspaceNutrition')
 			function (res) {
 				$scope.loading = false;
 				var data = $.map(res, function(el, i) {
-				  return [[el.id,el.username,el.nom,el.prenom,el.email,el.role,""]];
+				  return [[el.id,el.email,el.nom,el.prenom,el.role,el.actif,""]];
 				});
 				var table = $("#utilisateurs").dataTable({
 					"aaData": data,
 					"aoColumns": [
 						{ "sTitle": "Id" },
-						{ "sTitle": "Login" },
+						{ "sTitle": "Email" },
 						{ "sTitle": "Nom" },
 						{ "sTitle": "Prénom" },
-						{ "sTitle": "Email" },
 						{ "sTitle": "Role" },
+						{ "sTitle": "Actif" },
 						{ "sTitle": "Action" }
 					],
 					"oLanguage": {
@@ -143,13 +143,28 @@ angular.module('EspaceNutrition')
 							"sPrevious" : "Précédent"
 						  }
 					},
-					"aoColumnDefs": [ 
+					"aoColumnDefs": [
 						{ 
-							"aTargets": [5], 
+							"targets": 0, 
+							"visible" : false,
+                			"searchable": false
+						},
+						{ 
+							"targets": 1, 
 							"sType": "html", 
-							"fnRender": function(o, val) {
+							"render": function(data, type, row) {
+								var aOuv = "&lt;a href=&quot;j&quot;&gt;";
+								var aFerm = "&lt;/a&gt;";
+								var result = aOuv.concat(data).concat(aFerm);
+								return $("<div/>").html(result).text();
+							} 
+						},
+						{ 
+							"targets": 4, 
+							"sType": "html", 
+							"render": function(data, type, row) {
 								var spanOuv="&lt;span class=&quot;label ";
-								switch(o.aData[5]) {
+								switch(data) {
 									case "0":
 										var label="label-danger&quot;&gt;Non autorisé";
 										break;
@@ -166,12 +181,39 @@ angular.module('EspaceNutrition')
 							} 
 						},
 						{ 
+							"targets": 5, 
+							"sType": "html", 
+							"render": function(data, type, row) {
+								var spanOuv="&lt;span class=&quot;label ";
+								switch(data) {
+									case "0":
+										var label="label-info&quot;&gt;Non actif";
+										break;
+									case "1":
+										var label="label-success&quot;&gt;Actif";
+										break;
+									default:
+										var label="label-danger&quot;&gt;???";
+								} 
+									
+								var spanFerm = "&lt;/span&gt;";
+								var result = spanOuv.concat(label).concat(spanFerm);
+								return $("<div/>").html(result).text();
+							} 
+						},
+						{ 
 							"aTargets": [6], 
 							"sType": "html", 
-							"fnRender": function(o, val) {
-								var result="&lt;button class=&quot;btn btn-link app-btn-delete&quot; ng-click=&quot;delete("
-								var id = o.aData[0];
-								var fin = ")&quot; type=&quot;button&quot;&gt;&lt;span class=&quot;fa fa-times&quot;&gt;&lt;/span&gt;&lt;/button&gt;";
+							"render": function(data, type, row) {
+								var result = "";
+								var id = "";
+								var fin = "";
+								if ($scope.user.email != row[1])
+								{
+									result= "&lt;button class=&quot;btn btn-link app-btn-delete&quot; ng-click=&quot;delete(";
+									id = row[0];
+									fin = ")&quot; type=&quot;button&quot;&gt;&lt;span class=&quot;fa fa-times&quot;&gt;&lt;/span&gt;&lt;/button&gt;";	
+								}
 								return $("<div/>").html(result.concat(id).concat(fin)).text();
 							} 
 						}

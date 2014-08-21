@@ -8,7 +8,6 @@ angular.module('Login')
     var userRoles = routingConfig.userRoles;
 	var publicKey = routingConfig.publicKey;
 
-	var username = "";
 	var role = userRoles.public;
 
 	function verifyToken(token){
@@ -24,7 +23,7 @@ angular.module('Login')
 	}
 
 	function adaptUser(token){
-		var result =  { username: '', role: userRoles.public };
+		var result =  { email: '', role: userRoles.public };
 		if (token !== undefined)
 		{
 			if (verifyToken(token)){
@@ -40,7 +39,7 @@ angular.module('Login')
 				} else{
 					roleUser = userRoles.public;
 				}
-				result = {	username: pClaim.username, role: roleUser };
+				result = {	email: pClaim.email, role: roleUser };
 			}
 		}
 		return result;
@@ -66,7 +65,6 @@ angular.module('EspaceNutrition')
 	var publicKey = routingConfig.publicKey;
 
     var currentUser = adaptUser($window.sessionStorage.token);
-	var username = "";
 	var role = userRoles.public;
 
 	function changeUser(user) {
@@ -86,7 +84,7 @@ angular.module('EspaceNutrition')
 	}
 
 	function adaptUser(token){
-		var result =  { username: '', role: userRoles.public };
+		var result =  { email: '', role: userRoles.public };
 		if (token !== undefined)
 		{
 			if (verifyToken(token)){
@@ -102,7 +100,7 @@ angular.module('EspaceNutrition')
 				} else{
 					roleUser = userRoles.public;
 				}
-				result = {	username: pClaim.username, role: roleUser };
+				result = {	email: pClaim.email, role: roleUser };
 			}
 		}
 		return result;
@@ -125,7 +123,7 @@ angular.module('EspaceNutrition')
         logout: function(success, error) {
             $http.post('/api/logout').success(function(){
                 changeUser({
-                    username: '',
+                    email: '',
                     role: userRoles.public
                 });
                 success();

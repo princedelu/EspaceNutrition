@@ -28,11 +28,11 @@ $app->post('/login', function () use ($app) {
 
     $requestJson = json_decode($app->request()->getBody(), true);
     $user = new UserModel();
-    $user->setUsername($requestJson['username']);
+    $user->setEmail($requestJson['email']);
     $user->setPassword($requestJson['password']);
     $result = $user->authentificate();
 	if (!$result){
-		$app->response()->body(json_encode($user->getError()));
+		$app->response()->body($user->getError());
         $app->response()->status( 401 );
 	}else{
 	  	$app->response()->body( json_encode( $result ));
@@ -62,7 +62,7 @@ $app->delete('/utilisateur/:id', function ($id) use ($app) {
 	$user->setId($id);
 	$result = $user->delete();
 	if (!$result){
-		$app->response()->body(json_encode($user->getError()));
+		$app->response()->body($user->getError());
         $app->response()->status( 403 );
 	}else{
 	  	$app->response()->body( json_encode( $result ));
@@ -76,8 +76,7 @@ $app->put('/utilisateur', function () use ($app) {
 	$requestJson = json_decode($app->request()->getBody(), true);
     $user = new UserModel();
 	
-	if (isset($requestJson['username']) and isset($requestJson['nom']) and isset($requestJson['prenom']) and isset($requestJson['email']) and isset($requestJson['datenaissance']) and isset($requestJson['role'])){
-    	$user->setUsername($requestJson['username']);
+	if (isset($requestJson['nom']) and isset($requestJson['prenom']) and isset($requestJson['email']) and isset($requestJson['datenaissance']) and isset($requestJson['role'])){
 		$user->setNom($requestJson['nom']);
 		$user->setPrenom($requestJson['prenom']);
 		$user->setEmail($requestJson['email']);
@@ -91,7 +90,7 @@ $app->put('/utilisateur', function () use ($app) {
 	}
     
 	if (!$result){
-		$app->response()->body(json_encode($user->getError()));
+		$app->response()->body($user->getError());
         $app->response()->status( 403 );
 	}else{
 	  	$app->response()->body( json_encode( $result ));
