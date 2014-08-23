@@ -297,7 +297,7 @@ class UserModel extends AbstractModel {
 								$query=$query.sprintf(" ,PRENOM='%s'",mysqli_real_escape_string($this->dblink,$this->getPrenom()));
 							}
 							if ($this->getDateNaissance() == ''){
-								$query=$query.sprintf(" ,DATENAISSANCE='%s'",implode('-', array_reverse(explode('-', mysqli_real_escape_string($this->getDateNaissance())))));
+								$query=$query.sprintf(" ,DATENAISSANCE='%s'",implode('-', array_reverse(explode('-', mysqli_real_escape_string($this->dblink,$this->getDateNaissance())))));
 							}
 							if ($this->getRole() != ''){
 								$query=$query.sprintf(" ,ROLE=%d",mysqli_real_escape_string($this->dblink,$this->getRole()));
@@ -386,7 +386,7 @@ class UserModel extends AbstractModel {
 					// Génération du token
 					$this->setToken(JWT::randomStringBase64URLSafe(40));
 					// Exécution des requêtes SQL
-					$query=sprintf("INSERT INTO utilisateurs set email='%s',nom='%s',prenom='%s',role=%d,actif=false,token='%s',datenaissance='%s'",mysqli_real_escape_string($this->dblink,$this->getEmail()),mysqli_real_escape_string($this->dblink,$this->getNom()),mysqli_real_escape_string($this->dblink,$this->getPrenom()),mysqli_real_escape_string($this->dblink,$this->getRole()),mysqli_real_escape_string($this->dblink,$this->getToken()),mysqli_real_escape_string($this->dblink,implode('-', array_reverse(explode('-', mysqli_real_escape_string($this->getDateNaissance()))))));
+					$query=sprintf("INSERT INTO utilisateurs set email='%s',nom='%s',prenom='%s',role=%d,actif=false,token='%s',datenaissance='%s'",mysqli_real_escape_string($this->dblink,$this->getEmail()),mysqli_real_escape_string($this->dblink,$this->getNom()),mysqli_real_escape_string($this->dblink,$this->getPrenom()),mysqli_real_escape_string($this->dblink,$this->getRole()),mysqli_real_escape_string($this->dblink,$this->getToken()),mysqli_real_escape_string($this->dblink,implode('-', array_reverse(explode('-', mysqli_real_escape_string($this->dblink,$this->getDateNaissance()))))));
 		 
 					$mysql_result = mysqli_query($this->dblink,$query);
 					if (!$mysql_result){
@@ -450,9 +450,12 @@ class UserModel extends AbstractModel {
     }
 
 	public function sendMailTokenByEmail(){
-		
-		if ($this->fetchOneByEmail()){
-			 return $this->sendMailToken();
+		$result = $this->fetchOneByEmail();
+		if ($result){
+			$this->setNom($result['NOM']);
+			$this->setPrenom($result['PRENOM']);
+			$this->setToken($result['TOKEN']);
+			return $this->sendMailToken();
 		}else{
 			return false;
 		}
@@ -473,7 +476,7 @@ class UserModel extends AbstractModel {
 								Voici le lien ci-dessous pour valider votre inscription sur le site <a href="http://www.espace-nutrition.fr">http://www.espace-nutrition.fr</a>
 								<br/>
 								<br/>
-								<a href="http://espace-nutrition.fr/admin/login?token='.$this->getToken().'">Valider votre inscription</a>
+								<a href="http://www.espace-nutrition.fr/admin/login?token='.$this->getToken().'">Valider votre inscription</a>
 								<br/>
 								<br/>
 								Cordialement,
