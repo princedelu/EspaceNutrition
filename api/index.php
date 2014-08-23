@@ -109,6 +109,21 @@ $app->get('/utilisateurs', function () use ($app) {
 });
 
 /***********************************************
+Utilisateurs
+***********************************************/
+$app->get('/utilisateur/:id', function ($id) use ($app) {
+	$user = new UserModel();
+	$user->setId($id);
+	$result = $user->fetchOne();
+	if (!$result){
+		$app->response()->body($user->getError());
+        $app->response()->status( 403 );
+	}else{
+	  	$app->response()->body( json_encode( $result ));
+	}
+});
+
+/***********************************************
 Suppression utilisateurs
 ***********************************************/
 $app->delete('/utilisateur/:id', function ($id) use ($app) {
@@ -141,6 +156,36 @@ $app->put('/utilisateur', function () use ($app) {
 	}else{
 		$result = false;
 		$user->setError("Des champs manquent pour la création de l'utilisateur");
+	}
+    
+	if (!$result){
+		$app->response()->body($user->getError());
+        $app->response()->status( 403 );
+	}else{
+	  	$app->response()->body( json_encode( $result ));
+	}
+});
+
+/***********************************************
+Update utilisateurs
+***********************************************/
+$app->post('/utilisateur', function () use ($app) {
+	$requestJson = json_decode($app->request()->getBody(), true);
+    $user = new UserModel();
+	
+	if (isset($requestJson['nom']) and isset($requestJson['prenom']) and isset($requestJson['email']) and isset($requestJson['datenaissance']) and isset($requestJson['role']) and isset($requestJson['actif']) and isset($requestJson['id'])){
+		$user->setNom($requestJson['nom']);
+		$user->setPrenom($requestJson['prenom']);
+		$user->setEmail($requestJson['email']);
+		$user->setDateNaissance($requestJson['datenaissance']);
+		$user->setRole($requestJson['role']);
+		$user->setActif($requestJson['actif']);
+		$user->setId($requestJson['id']);
+
+		$result = $user->update();
+	}else{
+		$result = false;
+		$user->setError("Des champs manquent pour la modification de l'utilisateur");
 	}
     
 	if (!$result){

@@ -3,7 +3,7 @@
 abstract class AbstractModel {
 
     abstract public function fetchAll();
-    abstract public function fetchOne($id);
+    abstract public function fetchOne();
     abstract public function update();
     abstract public function create();
     abstract protected function save();

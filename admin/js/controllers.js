@@ -128,6 +128,42 @@ angular.module('EspaceNutrition')
 		}
     };
 
+	$scope.updateLoad = function (id) {
+        $scope.success = '';
+        $scope.error = '';
+		UtilisateurFactory.get(id,
+		        function (res) {
+					$scope.email = res.EMAIL;
+					$scope.nom = res.NOM;
+					$scope.prenom = res.PRENOM;
+					$scope.datenaissance = res.DATENAISSANCE;
+					$scope.role = res.ROLE;
+					$scope.actif = res.ACTIF;
+					$scope.id = res.ID;
+		            $scope.success = 'Succes';
+		            $('#bs-ajoututilisateur').modal('show');
+		        },
+		        function (err) {
+		            $scope.error = err;
+		        });
+		
+    };
+
+	$scope.createLoad = function (id) {
+        $scope.success = '';
+        $scope.error = '';
+
+		$scope.email = "";
+		$scope.nom = "";
+		$scope.prenom = "";
+		$scope.datenaissance = "";
+		$scope.role = 1;
+		$scope.id = "";
+
+		$('#bs-ajoututilisateur').modal('show');
+		
+    };
+
 	$scope.add = function () {
         $scope.success = '';
         $scope.error = '';
@@ -139,23 +175,41 @@ angular.module('EspaceNutrition')
 		objetValue["datenaissance"]=$scope.datenaissance;
 		objetValue["role"]=$scope.role;
 
-		UtilisateurFactory.put(objetValue,
-		    function () {
-		        $scope.success = 'Succes';
-				$('#bs-ajoututilisateur').on('hidden.bs.modal', function (e) {
-				  $route.reload()
+		if ($scope.id === ""){
+			UtilisateurFactory.put(objetValue,
+				function () {
+				    $scope.success = 'Succes';
+					$('#bs-ajoututilisateur').on('hidden.bs.modal', function (e) {
+					  $route.reload()
+					});
+					$('#bs-ajoututilisateur').modal('hide');
+				},
+				function (err) {
+				    $scope.error = err;
+				    if (err == 'Doublon') {
+				        $scope.doublon = 'true';
+				    }
 				});
-				$('#bs-ajoututilisateur').modal('hide');
-		    },
-		    function (err) {
-		        $scope.error = err;
-		        if (err == 'Doublon') {
-		            $scope.doublon = 'true';
-		        }
-		    });
+		}else{
+			objetValue["id"]=$scope.id;
+			objetValue["actif"]=$scope.actif;
+			UtilisateurFactory.post(objetValue,
+				function () {
+				    $scope.success = 'Succes';
+					$('#bs-ajoututilisateur').on('hidden.bs.modal', function (e) {
+					  $route.reload()
+					});
+					$('#bs-ajoututilisateur').modal('hide');
+				},
+				function (err) {
+				    $scope.error = err;
+				    if (err == 'Doublon') {
+				        $scope.doublon = 'true';
+				    }
+				});
+		}
+		
     };
-
-
 
 	$scope.list = function () {
 		$scope.success = '';
@@ -197,16 +251,6 @@ angular.module('EspaceNutrition')
 							"targets": 0, 
 							"visible" : false,
                 			"searchable": false
-						},
-						{ 
-							"targets": 1, 
-							"sType": "html", 
-							"render": function(data, type, row) {
-								var aOuv = "&lt;a href=&quot;j&quot;&gt;";
-								var aFerm = "&lt;/a&gt;";
-								var result = aOuv.concat(data).concat(aFerm);
-								return $("<div/>").html(result).text();
-							} 
 						},
 						{ 
 							"targets": 4, 
@@ -255,15 +299,23 @@ angular.module('EspaceNutrition')
 							"sType": "html", 
 							"render": function(data, type, row) {
 								var result = "";
+								var resultTmp = "";
 								var id = "";
 								var fin = "";
+								// Modification
+								resultTmp = "&lt;button class=&quot;btn btn-link&quot; ng-click=&quot;update(";
+								id = row[0];
+								fin = ")&quot; type=&quot;button&quot;&gt;&lt;span class=&quot;fa fa-pencil&quot;&gt;&lt;/span&gt;&lt;/button&gt;";
+								result = resultTmp.concat(id).concat(fin);	
+								// Suppression
 								if ($scope.user.email != row[1])
 								{
-									result= "&lt;button class=&quot;btn btn-link app-btn-delete&quot; ng-click=&quot;delete(";
+									resultTmp = "&lt;button class=&quot;btn btn-link app-btn-delete&quot; ng-click=&quot;delete(";
 									id = row[0];
-									fin = ")&quot; type=&quot;button&quot;&gt;&lt;span class=&quot;fa fa-times&quot;&gt;&lt;/span&gt;&lt;/button&gt;";	
+									fin = ")&quot; type=&quot;button&quot;&gt;&lt;span class=&quot;fa fa-times&quot;&gt;&lt;/span&gt;&lt;/button&gt;";
+									result = result.concat(resultTmp).concat(id).concat(fin);	
 								}
-								return $("<div/>").html(result.concat(id).concat(fin)).text();
+								return $("<div/>").html(result).text();
 							} 
 						}
 					]
@@ -277,6 +329,13 @@ angular.module('EspaceNutrition')
 						tab = result.split(")");
 						result = tab[0];
 						$scope.delete(result);
+					}
+					if(name == "ng-click" && value.indexOf("update") != -1){
+						var tab = value.split("(");
+						var result = tab[1];
+						tab = result.split(")");
+						result = tab[0];
+						$scope.updateLoad(result);
 					}
 				} );
 			},

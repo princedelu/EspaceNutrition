@@ -173,24 +173,34 @@ class UserModel extends AbstractModel {
      * @param $id
      * @return array
      */
-    public function fetchOne($id)
+    public function fetchOne()
     {
         
-		$result = array();
+		$result = false;
 
 		try{
 			$this->openConnectionDatabase();
 
 			// Exécution des requêtes SQL
-			$query=sprintf("SELECT id FROM utilisateurs where id=%d",mysqli_real_escape_string($this->dblink,$this->getId()));
+			$query=sprintf("SELECT ID, EMAIL,NOM,PRENOM,DATENAISSANCE,ROLE,ACTIF FROM utilisateurs where id=%d",mysqli_real_escape_string($this->dblink,$this->getId()));
  
 			$mysql_result = mysqli_query($this->dblink,$query);
 			if (!$mysql_result){
 				$this->setError(mysql_error());
 				$result=false;
 			}else{
-				while ($row = mysqli_fetch_assoc($mysql_result)) {
-					array_push($result,$row);
+				$num_rows = mysqli_num_rows($mysql_result);
+				if ($num_rows==1){
+					$row = mysqli_fetch_assoc($mysql_result);
+					$row['DATENAISSANCE'] = implode('-', array_reverse(explode('-', $row['DATENAISSANCE'])));
+					$result = $row;
+				}else{
+					if ($num_rows==0){
+						$this->setError("Aucun utilisateur existant pour cet email!");
+					}else{
+						$this->setError("Plusieurs utilisateurs existent pour cet email!");
+					}
+					$result=false;
 				}
 			}
 		}catch(Exception $e)
@@ -263,24 +273,79 @@ class UserModel extends AbstractModel {
      */
     public function update()
     {
+		$result=false;
         if ($this->getId()) {
 
-            if ($this->fetchOne($this->getId())) {
+            if ($this->fetchOne()) {
 
-                if ($this->validate()) {
+				try{
+					$this->openConnectionDatabase();
+				
+					// Exécution des requêtes SQL
+					$query=sprintf("SELECT * FROM utilisateurs where email='%s'",mysqli_real_escape_string($this->dblink,$this->getEmail()));
+		 
+					$mysql_result = mysqli_query($this->dblink,$query);
+					if (!$mysql_result){
+						$this->setError(mysql_error());
+						$result=false;
+					}else{
 
-                    return $this->save();
-                }
+						$num_rows = mysqli_num_rows($mysql_result);
+						if ($num_rows<=1){
+							// Exécution des requêtes SQL
+							$query=sprintf("UPDATE utilisateurs SET EMAIL='%s',NOM='%s',PRENOM='%s',DATENAISSANCE='%s',ROLE=%d, ACTIF=%d where ID=%d",mysqli_real_escape_string($this->dblink,$this->getEmail()),mysqli_real_escape_string($this->dblink,$this->getNom()),mysqli_real_escape_string($this->dblink,$this->getPrenom()),mysqli_real_escape_string($this->dblink,implode('-', array_reverse(explode('-', $this->getDateNaissance())))),mysqli_real_escape_string($this->dblink,$this->getRole()),mysqli_real_escape_string($this->dblink,$this->getActif()),mysqli_real_escape_string($this->dblink,$this->getId()));
+							if ($num_rows==1){
+								$row = mysqli_fetch_assoc($mysql_result);
+								// Test si l'utilisateur trouvé est le celui modifié ou non
+								// Si oui alors modification
+								if ($row['ID'] == $this->getId()){
+									$mysql_result = mysqli_query($this->dblink,$query);
+									if (!$mysql_result){
+										$this->setError(mysql_error());
+										$result=false;
+									}else{
+										$result = true;
+									}
+								}
+								else{
+									$this->setError("Doublon");
+									$result=false;
+								}
+							}else{
+								// Si l'email n'existe pas
+								$mysql_result = mysqli_query($this->dblink,$query);
+								if (!$mysql_result){
+									$this->setError(mysql_error());
+									$result=false;
+								}else{
+									$result = true;
+								}
+							}
+						}else{
+							$this->setError("Plusieurs utilisateurs existent pour cet email!");
+							
+							$result=false;
+						}
+					}
+
+					
+				}catch(Exception $e)
+				{
+					$this->setError($e->getMessage());
+				} 
+				$this->closeConnectionDatabase();
+ 
             }
             else {
                 $this->setError('Impossible de recuperer un utilisateur');
-                return false;
+                $result=false;
             }
         }
         else {
             $this->setError('Champ id manquant');
-            return false;
+            $result=false;
         }
+		return $result; 
     }
 
     public function create()
@@ -305,7 +370,7 @@ class UserModel extends AbstractModel {
 					// Génération du token
 					$this->setToken(JWT::randomStringBase64URLSafe(40));
 					// Exécution des requêtes SQL
-					$query=sprintf("INSERT INTO utilisateurs set email='%s',nom='%s',prenom='%s',role=%d,actif=false,token='%s'",mysqli_real_escape_string($this->dblink,$this->getEmail()),mysqli_real_escape_string($this->dblink,$this->getNom()),mysqli_real_escape_string($this->dblink,$this->getPrenom()),mysqli_real_escape_string($this->dblink,$this->getRole()),mysqli_real_escape_string($this->dblink,$this->getToken()));
+					$query=sprintf("INSERT INTO utilisateurs set email='%s',nom='%s',prenom='%s',role=%d,actif=false,token='%s',datenaissance='%s'",mysqli_real_escape_string($this->dblink,$this->getEmail()),mysqli_real_escape_string($this->dblink,$this->getNom()),mysqli_real_escape_string($this->dblink,$this->getPrenom()),mysqli_real_escape_string($this->dblink,$this->getRole()),mysqli_real_escape_string($this->dblink,$this->getToken()),mysqli_real_escape_string($this->dblink,implode('-', array_reverse(explode('-', $this->getDateNaissance())))));
 		 
 					$mysql_result = mysqli_query($this->dblink,$query);
 					if (!$mysql_result){
@@ -335,7 +400,7 @@ class UserModel extends AbstractModel {
 
         if ($this->getId()) {
 
-            if ($this->fetchOne($this->getId())) {
+            if ($this->fetchOne()) {
 
                 try{
 					$this->openConnectionDatabase();

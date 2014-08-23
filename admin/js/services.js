@@ -165,6 +165,9 @@ angular.module('EspaceNutrition')
 		put: function(objet, success, error) {
 			$http.put('/api/utilisateur', objet).success(success).error(error);
 		},
+		post: function(objet, success, error) {
+			$http.post('/api/utilisateur', objet).success(success).error(error);
+		},
 		userRoles : userRoles
 	};
 }]);
