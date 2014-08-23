@@ -94,13 +94,6 @@ $app->post('/sendMailToken', function () use ($app) {
 });
 
 /***********************************************
-Logout
-***********************************************/
-$app->post('/logout', function () use ($app) {
-	$app->response()->body( json_encode("OK"));
-});
-
-/***********************************************
 Utilisateurs
 ***********************************************/
 $app->get('/utilisateurs', function () use ($app) {
@@ -121,6 +114,35 @@ $app->get('/utilisateur/:id', function ($id) use ($app) {
 	}else{
 	  	$app->response()->body( json_encode( $result ));
 	}
+});
+
+/***********************************************
+Profil
+***********************************************/
+$app->get('/profil', function () use ($app) {
+
+	try{
+		$payload = JWT::getPayLoad();
+	
+		if (isset($payload->email)){
+			$user = new UserModel();
+			$user->setEmail($payload->email);
+			$result = $user->fetchOneByEmail();
+			if (!$result){
+				$app->response()->body($user->getError());
+				$app->response()->status( 403 );
+			}else{
+			  	$app->response()->body( json_encode( $result ));
+			}
+		}else{
+			$app->response->setStatus('403'); //Valeur du token incorrecte
+			$app->response->body("Token invalid");
+		}
+	}catch(Exception $e){
+		$app->response->setStatus('403'); //Token invalide
+		$app->response->body($e->getMessage());
+	}
+		
 });
 
 /***********************************************
@@ -173,16 +195,51 @@ $app->post('/utilisateur', function () use ($app) {
 	$requestJson = json_decode($app->request()->getBody(), true);
     $user = new UserModel();
 	
-	if (isset($requestJson['nom']) and isset($requestJson['prenom']) and isset($requestJson['email']) and isset($requestJson['datenaissance']) and isset($requestJson['role']) and isset($requestJson['actif']) and isset($requestJson['id'])){
-		$user->setNom($requestJson['nom']);
-		$user->setPrenom($requestJson['prenom']);
+	if (isset($requestJson['email']) and isset($requestJson['id'])){
 		$user->setEmail($requestJson['email']);
-		$user->setDateNaissance($requestJson['datenaissance']);
-		$user->setRole($requestJson['role']);
-		$user->setActif($requestJson['actif']);
 		$user->setId($requestJson['id']);
 
-		$result = $user->update();
+		if (isset($requestJson['nom'])){
+			$user->setNom($requestJson['nom']);
+		}
+		if (isset($requestJson['prenom'])){
+			$user->setPrenom($requestJson['prenom']);
+		}
+		if (isset($requestJson['datenaissance'])){
+			$user->setDateNaissance($requestJson['datenaissance']);
+		}
+		if (isset($requestJson['role'])){
+			$user->setRole($requestJson['role']);
+		}
+		if (isset($requestJson['actif'])){
+			$user->setActif($requestJson['actif']);
+		}
+		if (isset($requestJson['password'])){
+			$user->setPassword($requestJson['password']);
+		}
+		if (isset($requestJson['profil']) && $requestJson['profil'] == 1){
+			try{
+				$payload = JWT::getPayLoad();
+	
+				if (isset($payload->email)){
+					if ($payload->email == $user->getEmail()){
+						$result = $user->update();
+					}else{
+						$result = false;
+						$user->setError("Ce n'est pas votre compte");
+					}
+				}else{
+					$result = false;
+					$user->setError("Modification de profil impossible");
+				}
+					
+			}catch(Exception $e){
+				$app->response->setStatus('403'); //Token invalide
+				$app->response->body($e->getMessage());
+			}
+		}else{
+			$result = $user->update();
+		}
 	}else{
 		$result = false;
 		$user->setError("Des champs manquent pour la modification de l'utilisateur");

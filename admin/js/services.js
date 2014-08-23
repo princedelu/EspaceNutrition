@@ -127,17 +127,7 @@ angular.module('EspaceNutrition')
         isLoggedIn: function(user) {
             if(user === undefined)
                 user = currentUser;
-            return user.role.title == userRoles.user.title || user.role.title == userRoles.admin.title;
-        },
-        logout: function(success, error) {
-            $http.post('/api/logout').success(function(){
-                changeUser({
-                    email: '',
-                    role: userRoles.public
-                });
-                success();
-            }).error(error);
-	    
+            return verifyToken($window.sessionStorage.token) && (user.role.title == userRoles.user.title || user.role.title == userRoles.admin.title);
         },
         accessLevels: accessLevels,
         userRoles: userRoles,
@@ -158,6 +148,9 @@ angular.module('EspaceNutrition')
 		},
 		get: function(id, success, error) {
 			$http.get('/api/utilisateur/' + id).success(success).error(error);
+		},
+		getProfil: function(success, error) {
+			$http.get('/api/profil').success(success).error(error);
 		},
 		delete: function(id, success, error) {
 			$http.delete('/api/utilisateur/' + id).success(success).error(error);

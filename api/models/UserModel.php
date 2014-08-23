@@ -35,7 +35,7 @@ class UserModel extends AbstractModel {
 
     public function setPassword($_password)
     {
-        $this->_password = $_password;
+        $this->_password = md5($this->getEmail().$_password);
         return $this;
     }
 
@@ -240,12 +240,8 @@ class UserModel extends AbstractModel {
 				$num_rows = mysqli_num_rows($mysql_result);
 				if ($num_rows==1){
 					$row = mysqli_fetch_assoc($mysql_result);
-					$this->setId($row['ID']);
-					$this->setNom($row['NOM']);
-					$this->setPrenom($row['PRENOM']);
-					$this->setEmail($row['EMAIL']);
-					$this->setToken($row['TOKEN']);
-					$result=true;
+					$row['DATENAISSANCE']=implode('-', array_reverse(explode('-', $row['DATENAISSANCE'])));
+					$result=$row;
 				}else{
 					if ($num_rows==0){
 						$this->setError("Aucun utilisateur existant pour cet email!");
@@ -277,7 +273,6 @@ class UserModel extends AbstractModel {
         if ($this->getId()) {
 
             if ($this->fetchOne()) {
-
 				try{
 					$this->openConnectionDatabase();
 				
@@ -293,7 +288,28 @@ class UserModel extends AbstractModel {
 						$num_rows = mysqli_num_rows($mysql_result);
 						if ($num_rows<=1){
 							// Exécution des requêtes SQL
-							$query=sprintf("UPDATE utilisateurs SET EMAIL='%s',NOM='%s',PRENOM='%s',DATENAISSANCE='%s',ROLE=%d, ACTIF=%d where ID=%d",mysqli_real_escape_string($this->dblink,$this->getEmail()),mysqli_real_escape_string($this->dblink,$this->getNom()),mysqli_real_escape_string($this->dblink,$this->getPrenom()),mysqli_real_escape_string($this->dblink,implode('-', array_reverse(explode('-', $this->getDateNaissance())))),mysqli_real_escape_string($this->dblink,$this->getRole()),mysqli_real_escape_string($this->dblink,$this->getActif()),mysqli_real_escape_string($this->dblink,$this->getId()));
+
+							$query=sprintf("UPDATE utilisateurs SET EMAIL='%s'",mysqli_real_escape_string($this->dblink,$this->getEmail()));
+							if ($this->getNom() != ''){
+								$query=$query.sprintf(" ,NOM='%s'",mysqli_real_escape_string($this->dblink,$this->getNom()));
+							}
+							if ($this->getPrenom() != ''){
+								$query=$query.sprintf(" ,PRENOM='%s'",mysqli_real_escape_string($this->dblink,$this->getPrenom()));
+							}
+							if ($this->getDateNaissance() == ''){
+								$query=$query.sprintf(" ,DATENAISSANCE='%s'",implode('-', array_reverse(explode('-', mysqli_real_escape_string($this->getDateNaissance())))));
+							}
+							if ($this->getRole() != ''){
+								$query=$query.sprintf(" ,ROLE=%d",mysqli_real_escape_string($this->dblink,$this->getRole()));
+							}
+							if ($this->getActif() != ''){
+								$query=$query.sprintf(" ,ACTIF=%d",mysqli_real_escape_string($this->dblink,$this->getActif()));
+							}
+							if ($this->getPassword() != ''){
+								$query=$query.sprintf(" ,PASSWORD='%s'",mysqli_real_escape_string($this->dblink,$this->getPassword()));
+							}
+							$query=$query.sprintf(" where ID=%d",mysqli_real_escape_string($this->dblink,$this->getId()));
+
 							if ($num_rows==1){
 								$row = mysqli_fetch_assoc($mysql_result);
 								// Test si l'utilisateur trouvé est le celui modifié ou non
@@ -370,7 +386,7 @@ class UserModel extends AbstractModel {
 					// Génération du token
 					$this->setToken(JWT::randomStringBase64URLSafe(40));
 					// Exécution des requêtes SQL
-					$query=sprintf("INSERT INTO utilisateurs set email='%s',nom='%s',prenom='%s',role=%d,actif=false,token='%s',datenaissance='%s'",mysqli_real_escape_string($this->dblink,$this->getEmail()),mysqli_real_escape_string($this->dblink,$this->getNom()),mysqli_real_escape_string($this->dblink,$this->getPrenom()),mysqli_real_escape_string($this->dblink,$this->getRole()),mysqli_real_escape_string($this->dblink,$this->getToken()),mysqli_real_escape_string($this->dblink,implode('-', array_reverse(explode('-', $this->getDateNaissance())))));
+					$query=sprintf("INSERT INTO utilisateurs set email='%s',nom='%s',prenom='%s',role=%d,actif=false,token='%s',datenaissance='%s'",mysqli_real_escape_string($this->dblink,$this->getEmail()),mysqli_real_escape_string($this->dblink,$this->getNom()),mysqli_real_escape_string($this->dblink,$this->getPrenom()),mysqli_real_escape_string($this->dblink,$this->getRole()),mysqli_real_escape_string($this->dblink,$this->getToken()),mysqli_real_escape_string($this->dblink,implode('-', array_reverse(explode('-', mysqli_real_escape_string($this->getDateNaissance()))))));
 		 
 					$mysql_result = mysqli_query($this->dblink,$query);
 					if (!$mysql_result){
@@ -527,7 +543,7 @@ class UserModel extends AbstractModel {
 				$this->openConnectionDatabase();
 
 				// Exécution des requêtes SQL
-				$query=sprintf("SELECT * FROM utilisateurs WHERE email='%s' AND password='%s' AND ACTIF=1",mysqli_real_escape_string($this->dblink,$this->getEmail()),mysqli_real_escape_string($this->dblink,md5($this->getEmail().$this->getPassword())));
+				$query=sprintf("SELECT * FROM utilisateurs WHERE email='%s' AND password='%s' AND ACTIF=1",mysqli_real_escape_string($this->dblink,$this->getEmail()),mysqli_real_escape_string($this->dblink,$this->getPassword()));
 
 			
 				$mysql_result = mysqli_query($this->dblink,$query);
@@ -595,7 +611,7 @@ class UserModel extends AbstractModel {
 						$id_utilisateur = $row['id'];
 
 						// Exécution des requêtes SQL
-						$query=sprintf("UPDATE utilisateurs SET ACTIF=1, PASSWORD='%s' where ID=%d",mysqli_real_escape_string($this->dblink,md5($this->getEmail().$this->getPassword())),$id_utilisateur);
+						$query=sprintf("UPDATE utilisateurs SET ACTIF=1, PASSWORD='%s' where ID=%d",mysqli_real_escape_string($this->dblink,$this->getPassword()),$id_utilisateur);
 						
 						$mysql_result = mysqli_query($this->dblink,$query);
 						if (!$mysql_result){

@@ -95,7 +95,10 @@ angular.module('EspaceNutrition', ['ngRoute','underscore'])
     .run(['$rootScope', '$location','$window', 'Auth', function ($rootScope, $location,$window, Auth) {
         $rootScope.$on("$routeChangeStart", function (event, next, current) {
             $rootScope.error = null;
-
+			if (current !== undefined)
+				$rootScope[current.$$route.originalPath.split('/')[2]] = false;
+			if (next !== undefined)
+				$rootScope[next.$$route.originalPath.split('/')[2]] = true;
             if (!Auth.authorize(next.access)) {
                if(Auth.isLoggedIn()) $location.path('/admin/dashboard');
                else                   $window.location.href = '/admin/login';
@@ -103,3 +106,20 @@ angular.module('EspaceNutrition', ['ngRoute','underscore'])
         });
 
     }]);
+
+	//Enable sidebar toggle
+    $("[data-toggle='offcanvas']").click(function(e) {
+        e.preventDefault();
+
+        //If window is small enough, enable sidebar push menu
+        if ($(window).width() <= 992) {
+            $('.row-offcanvas').toggleClass('active');
+            $('.left-side').removeClass("collapse-left");
+            $(".right-side").removeClass("strech");
+            $('.row-offcanvas').toggleClass("relative");
+        } else {
+            //Else, enable content streching
+            $('.left-side').toggleClass("collapse-left");
+            $(".right-side").toggleClass("strech");
+        }
+    });

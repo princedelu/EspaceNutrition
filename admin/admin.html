@@ -20,7 +20,7 @@
           <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
     </head>
-    <body class="skin-blue" ng-app="EspaceNutrition">
+    <body class="skin-blue" ng-app="EspaceNutrition" ng-controller="UtilisateurCtrl">
 	
 		<header class="header" ng-controller="LoginCtrl">
 			<a href="/admin/dashboard" class="logo">
@@ -29,6 +29,13 @@
 		    </a>
 		    <!-- Header Navbar: style can be found in header.less -->
 		    <nav class="navbar navbar-static-top" role="navigation">
+				<!-- Sidebar toggle button-->
+                <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
 		        <!-- Sidebar toggle button-->
 		        <div class="navbar-right">
 		            <ul class="nav navbar-nav">
@@ -43,7 +50,7 @@
 		                        <!-- Menu Footer-->
 		                        <li class="user-footer">
 		                            <div class="pull-left">
-		                                <a href="/admin/monprofil" class="btn btn-default btn-flat">Mon profil</a>
+		                                <a href="#" class="btn btn-default btn-flat" ng-click="monprofilLoad();">Mon profil</a>
 		                            </div>
 		                            <div class="pull-right">
 		                                <a href="#" class="btn btn-default btn-flat" ng-click="logout()">Déconnexion</a>
@@ -55,19 +62,19 @@
 		        </div>
 		    </nav>
 		</header>
-		<div class="wrapper row-offcanvas row-offcanvas-left" ng-controller="LoginCtrl">
+		<div class="wrapper row-offcanvas row-offcanvas-left">
 		    <!-- Left side column. contains the logo and sidebar -->
 		    <aside class="left-side sidebar-offcanvas">
 		<!-- sidebar: style can be found in sidebar.less -->
 		        <section class="sidebar">
 		            <!-- sidebar menu: : style can be found in sidebar.less -->
 		            <ul class="sidebar-menu">
-		                <li class="active">
+		                <li ng-class="{active : dashboard}">
 		                    <a href="/admin/dashboard">
 		                        <i class="fa fa-dashboard"></i> <span>Dashboard</span>
 		                    </a>
 		                </li>
-		                <li data-access-level='accessLevels.admin'>
+		                <li ng-class="{active : utilisateurs}" data-access-level='accessLevels.admin'>
 		                    <a href="/admin/utilisateurs">
 		                        <i class="fa fa-th"></i> <span>Utilisateurs</span>
 		                    </a>
@@ -79,9 +86,90 @@
 		        
 		    </aside>
 
+			
 			<ng-view></ng-view>
 	
         </div>
+
+		<!-- Popup profil -->
+		<div class="modal fade" id="bs-profil" tabindex="-1" role="dialog" aria-labelledby="profil" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<form name="profilForm" ng-submit='updateProfil()'>
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
+							<h4 class="modal-title" id="myModalLabel">Votre profil</h4>
+						</div>
+						<div class="modal-body">
+							<div class="form-group">
+								<label for="email">Email</label>
+								<ng-form name="subForm2" ng-class="{ 'has-error' : subForm2.$invalid && !subForm2.$pristine }">
+									<input type="email" class="form-control" data-ng-model="email" id="emailUtilisateur" placeholder="Email" data-ng-required="true" disabled>
+									<div ng-show="subForm2.$dirty && subForm2.$invalid">
+										<span class="help-block" ng-show="subForm2.$error.required"> Email obligatoire</span>
+										<span class="help-block" ng-show="subForm2.$error.email"> Email invalide</span>
+									</div>
+								</ng-form>
+							</div>
+							<div class="form-group">
+								<label for="nom">Mot de passe</label>
+								<ng-form name="subForm6" ng-class="{ 'has-error' : subForm6.$invalid && !subForm6.$pristine }">
+									<input type="password" class="form-control" data-ng-model="password" id="passwordUtilisateur" placeholder="Mot de passe">
+									<div ng-show="subForm6.$dirty && subForm6.$invalid">
+										<span class="help-block" ng-show="subForm6.$error.required"> Mot de passe obligatoire</span>
+									</div>
+								</ng-form>
+							</div>
+							<div class="form-group">
+								<label for="nom">Confirmation mot de passe</label>
+								<ng-form name="subForm7" ng-class="{ 'has-error' : subForm7.$invalid && !subForm7.$pristine }">
+									<input type="password" class="form-control" data-ng-model="passwordConfirm" id="passwordConfirmUtilisateur" placeholder="Mot de passe">
+									<div ng-show="subForm7.$dirty && subForm7.$invalid">
+										<span class="help-block" ng-show="subForm7.$error.required"> Confirmation du mot de passe obligatoire</span>
+									</div>
+								</ng-form>
+							</div>
+							<div class="form-group">
+								<label for="nom">Nom</label>
+								<ng-form name="subForm3" ng-class="{ 'has-error' : subForm3.$invalid && !subForm3.$pristine }">
+									<input type="text" class="form-control" data-ng-model="nom" id="nomUtilisateur" placeholder="Nom" data-ng-required="true">
+									<div ng-show="subForm3.$dirty && subForm3.$invalid">
+										<span class="help-block" ng-show="subForm3.$error.required"> Nom obligatoire</span>
+									</div>
+								</ng-form>
+							</div>
+							<div class="form-group">
+								<label for="prenom">Prénom</label>
+								<ng-form name="subForm4" ng-class="{ 'has-error' : subForm4.$invalid && !subForm4.$pristine }">
+									<input type="text" class="form-control" data-ng-model="prenom" id="prenomUtilisateur" placeholder="Prénom" data-ng-required="true">
+									<div ng-show="subForm4.$dirty && subForm4.$invalid">
+										<span class="help-block" ng-show="subForm4.$error.required"> Prénom obligatoire</span>
+									</div>
+								</ng-form>
+							</div>
+							<div class="form-group">
+								<label for="datenaissance">Date de naissance</label>
+								<ng-form name="subForm5" ng-class="{ 'has-error' : subForm5.$invalid && !subForm5.$pristine }">
+									<input type="text" class="form-control" data-ng-model="datenaissance" id="dateNaissanceUtilisateur" placeholder="jj-mm-aaaa" data-ng-required="true">
+									<div ng-show="subForm5.$dirty && subForm5.$invalid">
+										<span class="help-block" ng-show="subForm5.$error.required"> Date de naissance obligatoire</span>
+									</div>
+								</ng-form>
+							</div>
+						</div>
+
+						<div class="modal-footer">
+							<input type="hidden" data-ng-model="id" id='id' name="id">
+							<span class="help-block" ng-show="error"> {{error}}</span>
+							<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+							<button type="submit" class="btn btn-primary" ng-disabled="profilForm.$invalid">Modifier</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!-- /Popup utilisateur -->
+		
 
 		<script src="js/vendor/jquery.min.js"></script>
 		<!-- Bootstrap -->

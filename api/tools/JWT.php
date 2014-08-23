@@ -280,5 +280,35 @@ class JWT
 		return $randomString;
 	}
 
+	/**
+	* Fonction retournant le payload de l'utilsateur connecte
+	* 
+	* @param Aucun
+	* 
+	* @ return Objet le payload 
+	*/
+	public static function getPayLoad(){
+		$payload = "";
+		$ini_array = parse_ini_file("config.ini", true);
+
+		if(isset($_SERVER['REDIRECT_REMOTE_USER'])){
+			$authorization = explode(" ",$_SERVER['REDIRECT_REMOTE_USER']);
+			if($authorization[0] == "Bearer"){
+				$jwt = $authorization[1];
+				try{
+					$payload = JWT::decode($jwt,$ini_array['JWT']['publickey']);
+					
+				}catch(Exception $e){
+					throw new Exception($e->getMessage());
+				}
+			}else{
+		        throw new Exception("Mauvais token");
+			}
+		} else {
+		    throw new Exception("Accès non autorisé");
+		}
+		return $payload;
+	}
+
 }
 

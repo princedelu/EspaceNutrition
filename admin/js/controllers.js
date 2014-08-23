@@ -86,12 +86,8 @@ angular.module('EspaceNutrition')
     $scope.accessLevels = Auth.accessLevels;
 
     $scope.logout = function() {
-        Auth.logout(function() {
-			delete $window.sessionStorage.token;
-            $location.path('/admin/login');
-        }, function(err) {
-            $scope.error = err;
-        });
+		delete $window.sessionStorage.token;
+		 $window.location.href = '/admin/login';
     };
 
 
@@ -105,7 +101,14 @@ angular.module('EspaceNutrition')
     $scope.userRoles = Auth.userRoles;
     $scope.accessLevels = Auth.accessLevels;
 
-	var action = $route.current.action;
+	
+	var action = "";
+	if ($route !== undefined && $route.current){
+		
+		if ($route.current.action !== undefined){
+			action = $route.current.action;
+		}
+	}
 
 	$('#dateNaissanceUtilisateur').datepicker({format: 'dd-mm-yyyy'}); 
 
@@ -162,6 +165,52 @@ angular.module('EspaceNutrition')
 
 		$('#bs-ajoututilisateur').modal('show');
 		
+    };
+
+	$scope.monprofilLoad = function (id) {
+        $scope.success = '';
+        $scope.error = '';
+		UtilisateurFactory.getProfil(
+		        function (res) {
+					$scope.email = res.EMAIL;
+					$scope.nom = res.NOM;
+					$scope.prenom = res.PRENOM;
+					$scope.datenaissance = res.DATENAISSANCE;
+					$scope.id = res.ID;
+		            $scope.success = 'Succes';
+		            $('#bs-profil').modal('show');
+		        },
+		        function (err) {
+		            $scope.error = err;
+		        });
+    };
+
+	$scope.updateProfil = function () {
+        $scope.success = '';
+        $scope.error = '';
+
+		if ($scope.password != $scope.passwordConfirm){
+			$scope.error = 'Les mots de passe ne sont pas identiques';
+		}else{
+
+		    var objetValue = {};
+			objetValue["email"]=$scope.email;
+			objetValue["nom"]=$scope.nom;
+			objetValue["password"]=$scope.password;
+			objetValue["prenom"]=$scope.prenom;
+			objetValue["datenaissance"]=$scope.datenaissance;
+			objetValue["id"]=$scope.id;
+			objetValue["profil"]=1;
+
+			UtilisateurFactory.post(objetValue,
+				function () {
+					$scope.success = 'Succes';
+					$('#bs-profil').modal('hide');
+				},
+				function (err) {
+					$scope.error = err;
+				});
+		}
     };
 
 	$scope.add = function () {
@@ -352,11 +401,9 @@ angular.module('EspaceNutrition')
 			break;
 		case 'get':
 			var id = $routeParams.id;
-			$scope.loadListe();
 			$scope.get(id);
 			break;
 		case 'add':
-			$scope.loadListe();
 			break;
 		default:
 		break;
