@@ -52,6 +52,15 @@ angular.module('Login')
                 success(token.value);
             }).error(error);
         },
+		modificationPassword: function(user, success, error) {
+            $http.post('/api/modificationPassword', user).success(function(token){
+				var adaptedUser = adaptUser(token.value);
+                success(token.value);
+            }).error(error);
+        },
+		sendMailToken: function(user, success, error) {
+            $http.post('/api/sendMailToken', user).success(success).error(error);
+        },
         accessLevels: accessLevels,
         userRoles: userRoles
     };

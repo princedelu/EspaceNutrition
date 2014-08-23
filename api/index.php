@@ -28,14 +28,68 @@ $app->post('/login', function () use ($app) {
 
     $requestJson = json_decode($app->request()->getBody(), true);
     $user = new UserModel();
-    $user->setEmail($requestJson['email']);
-    $user->setPassword($requestJson['password']);
-    $result = $user->authentificate();
-	if (!$result){
-		$app->response()->body($user->getError());
-        $app->response()->status( 401 );
+
+	if (isset($requestJson['email']) and isset($requestJson['password'])){
+		$user->setEmail($requestJson['email']);
+		$user->setPassword($requestJson['password']);
+		$result = $user->authentificate();
+		if (!$result){
+			$app->response()->body($user->getError());
+		    $app->response()->status( 401 );
+		}else{
+		  	$app->response()->body( json_encode( $result ));
+		}
 	}else{
-	  	$app->response()->body( json_encode( $result ));
+		$result = false;
+		$user->setError("Des champs manquent pour l'authentification");
+	}
+});
+
+/***********************************************
+modificationPassword
+***********************************************/
+$app->post('/modificationPassword', function () use ($app) {
+
+	$requestJson = json_decode($app->request()->getBody(), true);
+    $user = new UserModel();
+
+    if (isset($requestJson['email']) and isset($requestJson['password']) and isset($requestJson['token'])){
+		$user->setEmail($requestJson['email']);
+		$user->setPassword($requestJson['password']);
+		$user->setToken($requestJson['token']);
+		$result = $user->changePassword();
+		if (!$result){
+			$app->response()->body($user->getError());
+		    $app->response()->status( 401 );
+		}else{
+		  	$app->response()->body( json_encode( $result ));
+		}
+	}else{
+		$result = false;
+		$user->setError("Des champs manquent pour le changement de mot de passe");
+	}
+});
+
+/***********************************************
+modificationPassword
+***********************************************/
+$app->post('/sendMailToken', function () use ($app) {
+
+	$requestJson = json_decode($app->request()->getBody(), true);
+    $user = new UserModel();
+
+    if (isset($requestJson['email'])){
+		$user->setEmail($requestJson['email']);
+		$result = $user->sendMailTokenByEmail();
+		if (!$result){
+			$app->response()->body($user->getError());
+		    $app->response()->status( 401 );
+		}else{
+		  	$app->response()->body( json_encode( $result ));
+		}
+	}else{
+		$result = false;
+		$user->setError("Des champs manquent pour l envoi du mail de renouvellement de mot de passe");
 	}
 });
 

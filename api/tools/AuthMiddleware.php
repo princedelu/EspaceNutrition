@@ -28,9 +28,8 @@ class AuthMiddleware extends \Slim\Middleware
             $this->next->call(); //let go
         } else {
 			// Récupération du token
-			$headers = apache_request_headers();
-			if(isset($headers['Authorization'])){
-				$authorization = explode(" ",$headers['Authorization']);
+			if(isset($_SERVER['REDIRECT_REMOTE_USER'])){
+				$authorization = explode(" ",$_SERVER['REDIRECT_REMOTE_USER']);
 				if($authorization[0] == "Bearer"){
 					$jwt = $authorization[1];
 					try{
@@ -40,27 +39,27 @@ class AuthMiddleware extends \Slim\Middleware
 								$this->next->call();
 							}else{
 								$app->response->setStatus('403'); //Valeur du token incorrecte
-								$app->response->body(json_encode(array("Error"=>"Droits insuffisants")));
+								$app->response->body("Droits insuffisants");
 								return;
 							}
 						}else{
 							$app->response->setStatus('403'); //Valeur du token incorrecte
-						    $app->response->body(json_encode(array("Error"=>"Token invalid")));
+						    $app->response->body("Token invalid");
 						    return;
 						}
 					}catch(Exception $e){
 						$app->response->setStatus('403'); //Token invalide
-						$app->response->body(json_encode(array("Error"=>$e->getMessage())));
+						$app->response->body($e->getMessage());
 						return;
 					}
 				}else{
 					$app->response->setStatus('403'); //Pas de zone autorisation bearer
-		            $app->response->body(json_encode(array("Error"=>"Mauvais token")));
+		            $app->response->body("Mauvais token");
 		            return;
 				}
             } else {
                 $app->response->setStatus('403'); //Pas de zone authorization
-                $app->response->body(json_encode(array("Error"=>"Acces non autorise")));
+                $app->response->body("Accès non autorisé");
                 return;
             }
 		}

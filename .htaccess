@@ -8,13 +8,7 @@
 	# RewriteBase /
 
 	RewriteCond %{REQUEST_FILENAME} !-f
-	RewriteRule ^api(.*)$ /api/index.php/$1 [QSA,L]
-
-	RewriteCond %{REQUEST_FILENAME} -s [OR]
-	RewriteCond %{REQUEST_FILENAME} -l [OR]
-	RewriteCond %{REQUEST_FILENAME} -d
-    RewriteRule ^admin/login$ - [NC,L]
-	RewriteRule ^admin/login$ /admin/login.html [NC,L]
+	RewriteRule ^api(.*)$ /api/index.php [E=REMOTE_USER:%{HTTP:Authorization},L]
 
 	RewriteCond %{REQUEST_FILENAME} -s [OR]
 	RewriteCond %{REQUEST_FILENAME} -l [OR]

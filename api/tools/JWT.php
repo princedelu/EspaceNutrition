@@ -262,5 +262,23 @@ class JWT
         );
     }
 
+	/**
+	* Fonction retournant une chaine aléatoire Base64URLSAFE
+	* 
+	* @param int Longueur de la chaine
+	* 
+	* @ return string La chaine 
+	*/
+	public static function randomStringBase64URLSafe($longueur){
+		$randomString = "";
+		$alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_";
+		for ($i = 1; $i <= $longueur; $i++) {
+			$randomInt = rand(0,63);
+			$randomString = $randomString.$alphabet[$randomInt];
+		}
+		
+		return $randomString;
+	}
+
 }
 

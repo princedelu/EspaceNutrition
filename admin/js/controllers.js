@@ -10,19 +10,68 @@ angular.module('Login')
     $scope.userRoles = Auth.userRoles;
     $scope.accessLevels = Auth.accessLevels;
 
+	if ($location.search().token !== undefined)
+	{
+		$scope.token = $location.search().token;
+	}else{
+		$scope.confirmpassword = "value";
+	}
+	
+
     $scope.login = function() {
-        Auth.login({
-                email: $scope.email,
-                password: $scope.password,
-            },
-            function(res) {
-				$window.sessionStorage.token = res;
-                $window.location.href = '/admin/dashboard';
-            },
-            function(err) {
-                $scope.error = err;
-            });
+		if ($scope.token === undefined){
+		    Auth.login({
+		            email: $scope.email,
+		            password: $scope.password,
+		        },
+		        function(res) {
+					$window.sessionStorage.token = res;
+		            $window.location.href = '/admin/dashboard';
+		        },
+		        function(err) {
+		            $scope.error = err;
+		        });
+		}else{
+			if ($scope.password != $scope.confirmpassword){
+				$scope.error = 'Les mots de passe ne sont pas identiques';
+			}else{
+				Auth.modificationPassword({
+		            email: $scope.email,
+		            password: $scope.password,
+					token : $scope.token
+		        },
+		        function(res) {
+					$window.sessionStorage.token = res;
+		            $window.location.href = '/admin/dashboard';
+		        },
+		        function(err) {
+		            $scope.error = err;
+		        });
+			}
+		}
     };
+
+	$scope.go = function ( path ) {
+                $window.location.href = path;
+            };
+
+	$scope.demandeChangementPassword = function () {
+				$scope.success = "";
+				$scope.error = "";
+               	if ($scope.email === undefined){
+					$scope.error = 'Veuillez saisir votre email';
+				}else{
+					Auth.sendMailToken({
+				        email: $scope.email
+						},
+						function(res) {
+							$scope.success = 'Un mail a été envoyé à l adresse ci-dessous afin de modifier votre mot de passe';
+						},
+						function(err) {
+						    $scope.error = err;
+						});
+				}
+            };
 
 
 }]);

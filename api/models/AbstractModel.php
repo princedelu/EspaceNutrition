@@ -11,6 +11,7 @@ abstract class AbstractModel {
 
 	protected $ini_array;
 	protected $dblink;
+	protected $dbClose;
 
     // Make sure to run this parent method within all child model constructors
     public function __construct()
@@ -60,9 +61,11 @@ abstract class AbstractModel {
 	}
 
 	public function closeConnectionDatabase(){
-
-		// Fermeture de la connexion
-		mysqli_close($this->dblink);
+		if (!$this->dbClose){
+			// Fermeture de la connexion
+			mysqli_close($this->dblink);
+			$this->dbClose = true;
+		}
 
 	}
 }
