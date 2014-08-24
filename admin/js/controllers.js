@@ -114,12 +114,12 @@ angular.module('EspaceNutrition')
 
 	$scope.role = "1";
 
-	$scope.delete = function (id) {
+	$scope.supprimer = function (id) {
         $scope.success = '';
         $scope.error = '';
 		var retVal = confirm("Voulez vous supprimer cet utilisateur?");
         if (retVal == true) {
-		    UtilisateurFactory.delete(id,
+		    UtilisateurFactory.supprimer(id,
 		        function () {
 		            $scope.success = 'Succes';
 		            $route.reload();
@@ -377,7 +377,7 @@ angular.module('EspaceNutrition')
 						var result = tab[1];
 						tab = result.split(")");
 						result = tab[0];
-						$scope.delete(result);
+						$scope.supprimer(result);
 					}
 					if(name == "ng-click" && value.indexOf("update") != -1){
 						var tab = value.split("(");

@@ -59,9 +59,11 @@
                     <li class="page-scroll">
                         <a href="#honoraires">Honoraires</a>
                     </li>
-					<li class="page-scroll">
-                        <a href="/admin/login">Votre espace</a>
-                    </li>
+					<!--[if !IE]><!-->
+						<li class="page-scroll">
+		                    <a href="/admin/login">Votre espace</a>
+		                </li>
+					<!--<![endif]-->
                     <li class="page-scroll">
                         <a href="#contact">Contact</a>
                     </li>
@@ -431,9 +433,7 @@
         </div>
     </div>
     
-
-    <!-- jQuery Version 1.11.0 -->
-    <script src="js/jquery-1.11.0.js"></script>
+    <script src="js/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>

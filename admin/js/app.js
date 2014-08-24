@@ -17,7 +17,7 @@ angular.module('Login', ['ngRoute','underscore'])
     
     $routeProvider.otherwise({redirectTo:'/admin/404'});
 
-    $locationProvider.html5Mode(true);
+    $locationProvider.html5Mode(true).hashPrefix('!');
 
     $httpProvider.interceptors.push(function($q, $location, $window) {
         return {
@@ -47,7 +47,7 @@ angular.module('EspaceNutrition', ['ngRoute','underscore'])
 
     var access = routingConfig.accessLevels;
 
-    $routeProvider.when('/admin/dashboard',
+	$routeProvider.when('/admin/dashboard',
         {
             templateUrl:    '/admin/partials/dashboard.html',
             controller:     'LoginCtrl',
@@ -67,7 +67,7 @@ angular.module('EspaceNutrition', ['ngRoute','underscore'])
         });
     $routeProvider.otherwise({redirectTo:'/admin/404'});
 
-    $locationProvider.html5Mode(true);
+    $locationProvider.html5Mode(true).hashPrefix('!');
 
     $httpProvider.interceptors.push(function($q, $location, $window) {
         return {
@@ -95,10 +95,17 @@ angular.module('EspaceNutrition', ['ngRoute','underscore'])
     .run(['$rootScope', '$location','$window', 'Auth', function ($rootScope, $location,$window, Auth) {
         $rootScope.$on("$routeChangeStart", function (event, next, current) {
             $rootScope.error = null;
-			if (current !== undefined)
+			$rootScope["pnf"] = false;
+			if (current !== undefined && current.$$route !== undefined)
 				$rootScope[current.$$route.originalPath.split('/')[2]] = false;
-			if (next !== undefined)
-				$rootScope[next.$$route.originalPath.split('/')[2]] = true;
+			if (next !== undefined && next.$$route !== undefined){
+				dest = next.$$route.originalPath.split('/')[2];
+				if (dest == '404'){
+					$rootScope['pnf'] = true;
+				}else{
+					$rootScope[next.$$route.originalPath.split('/')[2]] = true;
+				}
+			}
             if (!Auth.authorize(next.access)) {
                if(Auth.isLoggedIn()) $location.path('/admin/dashboard');
                else                   $window.location.href = '/admin/login';
