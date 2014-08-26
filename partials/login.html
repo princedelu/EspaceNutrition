@@ -1,0 +1,46 @@
+        <div class="form-box" id="login-box" ng-controller="LoginCtrl">
+            <div class="header" data-ng-hide="token">Connexion</div>
+			<div class="header" data-ng-show="token">Modification de mot de passe</div>
+            <form name="loginForm" data-ng-submit="login()">
+                <div class="body bg-gray">
+					<div class="alert alert-success" data-ng-show="success" role="alert">{{success}}</div>
+					<div class="alert alert-danger" data-ng-show="error" role="alert">{{error}}</div>
+                    <div class="form-group">
+						<label>Email</label>
+						<data-ng-form name="subForm1" data-ng-class="{ 'has-error' : subForm1.$invalid && !subForm1.$pristine }">	
+                        	<input type="email" name="email" data-ng-model="email" class="form-control" placeholder="Email" data-ng-required="true"/>
+							<div data-ng-show="subForm1.$dirty && subForm1.$invalid">
+								<span class="help-block" data-ng-show="subForm1.$error.required"> Email obligatoire</span>
+								<span class="help-block" data-ng-show="subForm1.$error.email"> Email invalide</span>
+							</div>
+						</data-ng-form>
+                    </div>
+                    <div class="form-group">
+						<label>Mot de passe</label>
+						<data-ng-form name="subForm2" data-ng-class="{ 'has-error' : subForm2.$invalid && !subForm2.$pristine }">
+                        	<input type="password" name="password" data-ng-model="password" class="form-control" placeholder="Mot de passe" data-ng-required="true"/>
+							<div data-ng-show="subForm2.$dirty && subForm2.$invalid">
+								<span class="help-block" data-ng-show="subForm2.$error.required"> Mot de passe obligatoire</span>
+							</div>
+						</data-ng-form>
+                    </div>  
+					<div class="form-group" data-ng-show="token">
+						<label>Confirmation mot de passe</label>
+						<data-ng-form name="subForm3" data-ng-class="{ 'has-error' : subForm3.$invalid && !subForm3.$pristine }">
+                        	<input type="password" name="confirmpassword" data-ng-model="confirmpassword" class="form-control" placeholder="Mot de passe" data-ng-required="true"/>
+							<div data-ng-show="subForm3.$dirty && subForm3.$invalid">
+								<span class="help-block" data-ng-show="subForm3.$error.required"> Mot de passe obligatoire</span>
+							</div>
+						</data-ng-form>
+                    </div>         
+                </div>
+                <div class="footer">                                                               
+                    <button type="submit" class="btn bg-olive btn-block" name="connexion" value="Connexion" data-ng-disabled="loginForm.$invalid">Connexion</button>  
+                    
+                    <p align="center"><a href="" data-ng-click="demandeChangementPassword()">J'ai oublié mon mot de passe</a></p>
+					<p align="center"><a href="/" >Retour au site public</a></p>
+                    
+                </div>
+            </form>
+        </div>
+
