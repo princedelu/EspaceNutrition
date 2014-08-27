@@ -476,7 +476,7 @@ class UserModel extends AbstractModel {
 								Voici le lien ci-dessous pour valider votre inscription sur le site <a href="http://www.espace-nutrition.fr">http://www.espace-nutrition.fr</a>
 								<br/>
 								<br/>
-								<a href="http://www.espace-nutrition.fr/admin/login?token='.$this->getToken().'">Valider votre inscription</a>
+								<a href="http://www.espace-nutrition.fr/login?token='.$this->getToken().'">Valider votre inscription</a>
 								<br/>
 								<br/>
 								Cordialement,

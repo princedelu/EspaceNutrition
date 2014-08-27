@@ -30,6 +30,7 @@ a:focus {
 /* Layouts */
 .wrapper {
   min-height: 100%;
+  z-index : 100;
 }
 .wrapper:before,
 .wrapper:after {
@@ -67,6 +68,7 @@ body > div > div > .header {
 @media screen and (min-width: 992px) {
   .left-side {
     top: 60px;
+
   }
   /*Right side strech mode*/
   .right-side.strech {
@@ -494,7 +496,8 @@ body > div > div >.header .navbar .sidebar-toggle .icon-bar + .icon-bar {
   margin-top: 4px;
 }
 body > div > div >.header .navbar .nav > li.user > a {
-  font-weight: bold;
+	font-size : 12px;
+	font-family : "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 body > div > div >.header .navbar .nav > li.user > a > .fa,
 body > div > div >.header .navbar .nav > li.user > a > .glyphicon,
@@ -537,6 +540,7 @@ body > div > div >.header .logo .icon {
 .right-side > .content-header {
   position: relative;
   padding: 15px 15px 10px 20px;
+  border-bottom: 2px solid #C1C1C1;
 }
 .right-side > .content-header > h1 {
   margin: 0;
@@ -628,6 +632,7 @@ body > div > div >.header .logo .icon {
 */
 .sidebar {
   margin-bottom: 5px;
+  padding : 0 0;
 }
 .sidebar .sidebar-form input:focus {
   -webkit-box-shadow: none;
@@ -673,6 +678,15 @@ body > div > div >.header .logo .icon {
 .sidebar .sidebar-menu .treeview-menu > li > a > .ion {
   width: 20px;
 }
+
+@media screen and (max-width: 560px) {
+  .sidebar {
+	  margin-bottom: 5px;
+	  padding : 20px 0 0;
+	}
+}
+
+
 .user-panel {
   padding: 10px;
 }
@@ -720,6 +734,7 @@ body > div > div >.header .logo .icon {
   }
   .row-offcanvas-right .sidebar-offcanvas {
     right: -220px;
+	z-index : 100;
   }
   .row-offcanvas-left .sidebar-offcanvas {
     left: -220px;
@@ -1040,6 +1055,9 @@ body > div > div >.header .logo .icon {
 }
 .navbar-nav > .user-menu > .dropdown-menu > li.user-footer .btn-default {
   color: #666666;
+  font-size : 12px;
+  line-height : 1;
+  padding : 10px 5px;
 }
 /* Add fade animation to dropdown menus */
 .open > .dropdown-menu {
@@ -1372,17 +1390,7 @@ body > div > div >.header .logo .icon {
     component: Boxes
 -------------------------
 */
-.box {
-  position: relative;
-  background: #ffffff;
-  border-top: 2px solid #c1c1c1;
-  margin-bottom: 20px;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-  width: 100%;
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
-}
+
 .box.box-primary {
   border-top-color: #3c8dbc;
 }
@@ -2931,8 +2939,8 @@ Component: timeline
   left: 0;
   top: 0;
   bottom: 0;
-  width: 32px !important;
-  line-height: 34px !important;
+  width: 46px !important;
+  line-height: 46px !important;
   font-size: 1.6em!important;
   text-align: center;
   border-right: 1px solid rgba(0, 0, 0, 0.2);

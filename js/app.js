@@ -11,38 +11,33 @@ angular.module('EspaceNutrition', ['ngRoute','underscore'])
     $routeProvider.when('/',
         {
             templateUrl:    '/partials/public.html',
-            controller:     'LoginCtrl',
-            access:         access.public,
-            css: 			'css/style.css'
+            controller:     'EspaceNutritionCtrl',
+            access:         access.public
         });
     $routeProvider.when('/login',
         {
             templateUrl:    '/partials/login.html',
-            controller:     'LoginCtrl',
-            access:         access.public,
-			css : 			'css/AdminLTE.css'
+            controller:     'EspaceNutritionCtrl',
+            access:         access.public
         });
 	$routeProvider.when('/dashboard',
         {
             templateUrl:    '/partials/dashboard.html',
-            controller:     'LoginCtrl',
-            access:         access.user,
-			css : 			'css/AdminLTE.css'
+            controller:     'EspaceNutritionCtrl',
+            access:         access.user
 
         });
 	$routeProvider.when('/utilisateurs',
         {
             templateUrl:    '/partials/utilisateurs.html',
-            controller:     'UtilisateurCtrl',
+            controller:     'EspaceNutritionCtrl',
 			action : 		'list',
-            access:         access.admin,
-			css : 			'css/AdminLTE.css'
+            access:         access.admin
         });
     $routeProvider.when('/404',
         {
             templateUrl:    '/partials/404.html',
-            access:         access.public,
-			css : 			'css/AdminLTE.css'
+            access:         access.public
         });
     $routeProvider.otherwise({redirectTo:'/404'});
 
@@ -59,7 +54,7 @@ angular.module('EspaceNutrition', ['ngRoute','underscore'])
 			},
             'responseError': function(response) {
                 if(response.status === 401) {
-                     $window.location.href = '/login';
+                     $location.path('/login');
                     return $q.reject(response);
                 }
                 else {

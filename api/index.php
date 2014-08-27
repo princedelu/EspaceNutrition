@@ -223,6 +223,7 @@ $app->post('/utilisateur', function () use ($app) {
 	
 				if (isset($payload->email)){
 					if ($payload->email == $user->getEmail()){
+						
 						$result = $user->update();
 					}else{
 						$result = false;

@@ -1,16 +1,26 @@
 (function(){
 "use strict";
 
-/* Controllers */
 angular.module('EspaceNutrition')
-.controller('LoginCtrl',
-['$rootScope', '$scope', '$location', '$route', '$window', 'Auth', function($rootScope, $scope, $location, $route, $window, Auth) {
+.controller('EspaceNutritionCtrl',
+['$rootScope', '$scope', '$location', '$route', '$window', 'Auth','UtilisateurFactory', function($rootScope, $scope, $location, $route, $window, Auth,UtilisateurFactory) {
     
     $scope.user = Auth.user;
     $scope.userRoles = Auth.userRoles;
     $scope.accessLevels = Auth.accessLevels;
-    
-    if ($location.search().token !== undefined)
+
+	
+	var action = "";
+	if ($route !== undefined && $route.current){
+		
+		if ($route.current.action !== undefined){
+			action = $route.current.action;
+		}
+	}
+
+	$scope.role = "1";
+
+	if ($location.search().token !== undefined)
 	{
 		$scope.token = $location.search().token;
 	}else{
@@ -77,29 +87,67 @@ angular.module('EspaceNutrition')
         }
     };
 
+	$scope.monprofilLoad = function (id) {
+        $scope.success = '';
+        $scope.error = '';
+		Auth.get(
+		        function (res) {
+					$scope.email = res.EMAIL;
+					$scope.nom = res.NOM;
+					$scope.prenom = res.PRENOM;
+					$scope.datenaissance = res.DATENAISSANCE;
+					$scope.id = res.ID;
+		            $scope.success = 'Succes';
+					$('#dateNaissanceProfil').datepicker({format: 'dd-mm-yyyy'}); 
+		            $('#bs-profil').modal('show');
+		        },
+		        function (err) {
+		            $scope.error = err;
+		        });
+    };
 
-}]);
+	$scope.updateProfil = function () {
+        $scope.success = '';
+        $scope.error = '';
 
-angular.module('EspaceNutrition')
-.controller('UtilisateurCtrl',
-['$rootScope', '$scope', '$location', '$route', '$window', 'Auth','UtilisateurFactory', function($rootScope, $scope, $location, $route, $window, Auth,UtilisateurFactory) {
-    
-    $scope.user = Auth.user;
-    $scope.userRoles = Auth.userRoles;
-    $scope.accessLevels = Auth.accessLevels;
+		if ($scope.password != $scope.passwordConfirm){
+			$scope.error = 'Les mots de passe ne sont pas identiques';
+		}else{
 
-	
-	var action = "";
-	if ($route !== undefined && $route.current){
-		
-		if ($route.current.action !== undefined){
-			action = $route.current.action;
+		    var objetValue = {};
+			objetValue["email"]=$scope.email;
+			objetValue["nom"]=$scope.nom;
+			objetValue["password"]=$scope.password;
+			objetValue["prenom"]=$scope.prenom;
+			objetValue["datenaissance"]=$scope.datenaissance;
+			objetValue["id"]=$scope.id;
+			objetValue["profil"]=1;
+
+			Auth.post(objetValue,
+				function () {
+					$scope.success = 'Succes';
+					$('#bs-profil').modal('hide');
+				},
+				function (err) {
+					$scope.error = err;
+				});
 		}
-	}
+    };
 
-	$('#dateNaissanceUtilisateur').datepicker({format: 'dd-mm-yyyy'}); 
+	$scope.offcanvas = function (id) {
+		//If window is small enough, enable sidebar push menu
+		if ($(window).width() <= 992) {
+			$('.row-offcanvas').toggleClass('active');
+			$('.left-side').removeClass("collapse-left");
+			$(".right-side").removeClass("strech");
+			$('.row-offcanvas').toggleClass("relative");
+		} else {
+			//Else, enable content streching
+			$('.left-side').toggleClass("collapse-left");
+			$(".right-side").toggleClass("strech");
+		}
+	};
 
-	$scope.role = "1";
 
 	$scope.supprimer = function (id) {
         $scope.success = '';
@@ -131,6 +179,7 @@ angular.module('EspaceNutrition')
 					$scope.actif = res.ACTIF;
 					$scope.id = res.ID;
 		            $scope.success = 'Succes';
+					$('#dateNaissanceUtilisateur').datepicker({format: 'dd-mm-yyyy'}); 
 		            $('#bs-ajoututilisateur').modal('show');
 		        },
 		        function (err) {
@@ -150,54 +199,9 @@ angular.module('EspaceNutrition')
 		$scope.role = 1;
 		$scope.id = "";
 
+		$('#dateNaissanceUtilisateur').datepicker({format: 'dd-mm-yyyy'}); 
 		$('#bs-ajoututilisateur').modal('show');
 		
-    };
-
-	$scope.monprofilLoad = function (id) {
-        $scope.success = '';
-        $scope.error = '';
-		UtilisateurFactory.getProfil(
-		        function (res) {
-					$scope.email = res.EMAIL;
-					$scope.nom = res.NOM;
-					$scope.prenom = res.PRENOM;
-					$scope.datenaissance = res.DATENAISSANCE;
-					$scope.id = res.ID;
-		            $scope.success = 'Succes';
-		            $('#bs-profil').modal('show');
-		        },
-		        function (err) {
-		            $scope.error = err;
-		        });
-    };
-
-	$scope.updateProfil = function () {
-        $scope.success = '';
-        $scope.error = '';
-
-		if ($scope.password != $scope.passwordConfirm){
-			$scope.error = 'Les mots de passe ne sont pas identiques';
-		}else{
-
-		    var objetValue = {};
-			objetValue["email"]=$scope.email;
-			objetValue["nom"]=$scope.nom;
-			objetValue["password"]=$scope.password;
-			objetValue["prenom"]=$scope.prenom;
-			objetValue["datenaissance"]=$scope.datenaissance;
-			objetValue["id"]=$scope.id;
-			objetValue["profil"]=1;
-
-			UtilisateurFactory.post(objetValue,
-				function () {
-					$scope.success = 'Succes';
-					$('#bs-profil').modal('hide');
-				},
-				function (err) {
-					$scope.error = err;
-				});
-		}
     };
 
 	$scope.add = function () {
@@ -381,6 +385,8 @@ angular.module('EspaceNutrition')
 			}
 		);
 	};
+
+	
 
 	switch (action) {
 		case 'list':

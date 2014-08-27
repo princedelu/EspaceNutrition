@@ -80,6 +80,12 @@ angular.module('EspaceNutrition')
 		sendMailToken: function(user, success, error) {
             $http.post('/api/sendMailToken', user).success(success).error(error);
         },
+		post: function(objet, success, error) {
+			$http.post('/api/utilisateur', objet).success(success).error(error);
+		},
+		get: function(success, error) {
+			$http.get('/api/profil').success(success).error(error);
+		},
         accessLevels: accessLevels,
         userRoles: userRoles,
         user: currentUser
@@ -99,9 +105,6 @@ angular.module('EspaceNutrition')
 		},
 		get: function(id, success, error) {
 			$http.get('/api/utilisateur/' + id).success(success).error(error);
-		},
-		getProfil: function(success, error) {
-			$http.get('/api/profil').success(success).error(error);
 		},
 		supprimer: function(id, success, error) {
 			//using $http.delete() throws a parse error in IE8

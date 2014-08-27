@@ -1,4 +1,4 @@
-<header class="header" ng-controller="LoginCtrl">
+		<header class="header" >
 			<a href="/dashboard" class="logo">
 		        <!-- Add the class icon to your logo image or logo icon to add the margining -->
 		        Espace Nutrition
@@ -6,8 +6,8 @@
 		    <!-- Header Navbar: style can be found in header.less -->
 		    <nav class="navbar navbar-static-top" role="navigation" >
 				<!-- Sidebar toggle button-->
-                <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
-                    <span class="sr-only">Toggle navigation</span>
+                <a href="#" class="navbar-btn sidebar-toggle" ng-click="offcanvas()" role="button">
+                    <span class="sr-only">Toggle navigationxx</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -38,7 +38,7 @@
 		        </div>
 		    </nav>
 		</header>
-		<div class="wrapper row-offcanvas row-offcanvas-left" >
+		<div class="wrapper row-offcanvas row-offcanvas-left">
 		    <!-- Left side column. contains the logo and sidebar -->
 		    <aside class="left-side sidebar-offcanvas">
 		<!-- sidebar: style can be found in sidebar.less -->
@@ -61,22 +61,3 @@
 		        <!-- /.sidebar -->                
 		        
 		    </aside>
-			
-			<script>
-				//Enable sidebar toggle
-				$("[data-toggle='offcanvas']").click(function(e) {
-					e.preventDefault();
-
-					//If window is small enough, enable sidebar push menu
-					if ($(window).width() <= 992) {
-						$('.row-offcanvas').toggleClass('active');
-						$('.left-side').removeClass("collapse-left");
-						$(".right-side").removeClass("strech");
-						$('.row-offcanvas').toggleClass("relative");
-					} else {
-						//Else, enable content streching
-						$('.left-side').toggleClass("collapse-left");
-						$(".right-side").toggleClass("strech");
-					}
-				});
-			</script>	
