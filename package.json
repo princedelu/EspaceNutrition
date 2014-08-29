@@ -1,0 +1,20 @@
+{
+  "name": "EspaceNutrition",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/"
+  },
+  "subdomain": "EspaceNutrition",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+	"grunt-complexity": "~0.6.0",
+    "grunt-complexity": "~0.1.6",
+    "grunt-contrib-concat": "~0.4.0",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-contrib-qunit": "~0.4.0",
+    "grunt-contrib-uglify": "~0.4.0",
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-mocha-test": "~0.7.0"
+  }
+}

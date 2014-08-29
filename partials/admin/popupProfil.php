@@ -1,27 +1,4 @@
 
-		
-<div ng-include="'/partials/header.html'" class="skin-blue"></div>
-	<!-- Right side column. Contains the navbar and content of the page -->
-	<aside class="right-side">                
-		<!-- Content Header (Page header) -->
-		<section class="content-header">
-			<h1>
-				Blank page
-				<small>Control panel</small>
-			</h1>
-			<ol class="breadcrumb">
-				<li><a href="/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-			</ol>
-		</section>
-
-		<!-- Main content -->
-		<section class="content">
-
-		</section><!-- /.content -->
-	</aside><!-- /.right-side -->
-
-</div>
-
 <!-- Popup profil -->
 <div class="modal fade" id="bs-profil" tabindex="-1" role="dialog" aria-labelledby="profil" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
@@ -100,7 +77,4 @@
 	</div>
 </div>
 <!-- /Popup profil -->	
-
-
-
 

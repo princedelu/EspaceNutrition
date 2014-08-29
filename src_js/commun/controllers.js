@@ -115,13 +115,13 @@ angular.module('EspaceNutrition')
 		}else{
 
 		    var objetValue = {};
-			objetValue["email"]=$scope.email;
-			objetValue["nom"]=$scope.nom;
-			objetValue["password"]=$scope.password;
-			objetValue["prenom"]=$scope.prenom;
-			objetValue["datenaissance"]=$scope.datenaissance;
-			objetValue["id"]=$scope.id;
-			objetValue["profil"]=1;
+			objetValue.email=$scope.email;
+			objetValue.nom=$scope.nom;
+			objetValue.password=$scope.password;
+			objetValue.prenom=$scope.prenom;
+			objetValue.datenaissance=$scope.datenaissance;
+			objetValue.id=$scope.id;
+			objetValue.profil=1;
 
 			Auth.post(objetValue,
 				function () {
@@ -153,7 +153,7 @@ angular.module('EspaceNutrition')
         $scope.success = '';
         $scope.error = '';
 		var retVal = confirm("Voulez vous supprimer cet utilisateur?");
-        if (retVal == true) {
+        if (retVal === true) {
 		    UtilisateurFactory.supprimer(id,
 		        function () {
 		            $scope.success = 'Succes';
@@ -209,18 +209,18 @@ angular.module('EspaceNutrition')
         $scope.error = '';
 		$scope.doublon = 'false';
         var objetValue = {};
-		objetValue["email"]=$scope.email;
-		objetValue["nom"]=$scope.nom;
-		objetValue["prenom"]=$scope.prenom;
-		objetValue["datenaissance"]=$scope.datenaissance;
-		objetValue["role"]=$scope.role;
+		objetValue.email=$scope.email;
+		objetValue.nom=$scope.nom;
+		objetValue.prenom=$scope.prenom;
+		objetValue.datenaissance=$scope.datenaissance;
+		objetValue.role=$scope.role;
 
 		if ($scope.id === ""){
 			UtilisateurFactory.put(objetValue,
 				function () {
 				    $scope.success = 'Succes';
 					$('#bs-ajoututilisateur').on('hidden.bs.modal', function (e) {
-					  $route.reload()
+					  $route.reload();
 					});
 					$('#bs-ajoututilisateur').modal('hide');
 				},
@@ -231,13 +231,13 @@ angular.module('EspaceNutrition')
 				    }
 				});
 		}else{
-			objetValue["id"]=$scope.id;
-			objetValue["actif"]=$scope.actif;
+			objetValue.id=$scope.id;
+			objetValue.actif=$scope.actif;
 			UtilisateurFactory.post(objetValue,
 				function () {
 				    $scope.success = 'Succes';
 					$('#bs-ajoututilisateur').on('hidden.bs.modal', function (e) {
-					  $route.reload()
+					  $route.reload();
 					});
 					$('#bs-ajoututilisateur').modal('hide');
 				},
@@ -251,7 +251,7 @@ angular.module('EspaceNutrition')
 		
     };
 
-	$scope.list = function () {
+	$scope.listUtilisateur = function () {
 		$scope.success = '';
 		$scope.error = '';
 		$scope.loading = true;
@@ -297,15 +297,16 @@ angular.module('EspaceNutrition')
 							"sType": "html", 
 							"render": function(data, type, row) {
 								var spanOuv="&lt;span class=&quot;label ";
+								var label = "";
 								switch(data) {
 									case "0":
-										var label="label-danger&quot;&gt;Non autorisé";
+										label="label-danger&quot;&gt;Non autorisé";
 										break;
 									case "1":
-										var label="label-info&quot;&gt;Utilisateur";
+										label="label-info&quot;&gt;Utilisateur";
 										break;
 									default:
-										var label="label-success&quot;&gt;Admin";
+										label="label-success&quot;&gt;Admin";
 								} 
 									
 								var spanFerm = "&lt;/span&gt;";
@@ -318,15 +319,16 @@ angular.module('EspaceNutrition')
 							"sType": "html", 
 							"render": function(data, type, row) {
 								var spanOuv="&lt;span class=&quot;label ";
+								var label = "";
 								switch(data) {
 									case "0":
-										var label="label-info&quot;&gt;Non actif";
+										label="label-info&quot;&gt;Non actif";
 										break;
 									case "1":
-										var label="label-success&quot;&gt;Actif";
+										label="label-success&quot;&gt;Actif";
 										break;
 									default:
-										var label="label-danger&quot;&gt;???";
+										label="label-danger&quot;&gt;???";
 								} 
 									
 								var spanFerm = "&lt;/span&gt;";
@@ -363,16 +365,18 @@ angular.module('EspaceNutrition')
 				$('#utilisateurs tbody').on( 'click', 'button', function () {
 					var name = this.attributes[1].nodeName;
 					var value = this.attributes[1].nodeValue;
+					var tab = "";
+					var result = "";
 					if(name == "ng-click" && value.indexOf("delete") != -1){
-						var tab = value.split("(");
-						var result = tab[1];
+						tab = value.split("(");
+						result = tab[1];
 						tab = result.split(")");
 						result = tab[0];
 						$scope.supprimer(result);
 					}
 					if(name == "ng-click" && value.indexOf("update") != -1){
-						var tab = value.split("(");
-						var result = tab[1];
+						tab = value.split("(");
+						result = tab[1];
 						tab = result.split(")");
 						result = tab[0];
 						$scope.updateLoad(result);
@@ -386,21 +390,14 @@ angular.module('EspaceNutrition')
 		);
 	};
 
-	
-
 	switch (action) {
-		case 'list':
-			$scope.list();
-			break;
-		case 'get':
-			var id = $routeParams.id;
-			$scope.get(id);
-			break;
-		case 'add':
-			break;
+		case 'listUtilisateur':
+			$scope.listUtilisateur();
+		break;
 		default:
 		break;
 	}
+	
 }]);
 
 })();

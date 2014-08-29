@@ -100,7 +100,7 @@ angular.module('EspaceNutrition')
 		list: function(success, error) {
 			$http.get('/api/utilisateurs').success(success).error(error);
 		},
-		add: function(nomObjet,objet, success, error) {
+		add: function(objet, success, error) {
 			$http.post('/api/utilisateur', objet).success(success).error(error);
 		},
 		get: function(id, success, error) {

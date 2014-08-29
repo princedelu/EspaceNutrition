@@ -1,0 +1,9 @@
+###############
+## Espace Nutrition
+###############
+log/
+node_modules/
+report.xml
+checkstyle.xml
+
+
