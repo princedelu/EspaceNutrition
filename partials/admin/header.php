@@ -7,7 +7,7 @@
 		    <nav class="navbar navbar-static-top" role="navigation" >
 				<!-- Sidebar toggle button-->
                 <a href="#" class="navbar-btn sidebar-toggle" ng-click="offcanvas()" role="button">
-                    <span class="sr-only">Toggle navigation</span>
+                    <span class="sr-only">Toggle navigationxx</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -19,7 +19,7 @@
 		                <!-- User Account: style can be found in dropdown.less -->
 		                <li class="dropdown user user-menu">
 		                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-		                        <i class="fa fa-user"></i>
+		                        <i class="glyphicon glyphicon-user"></i>
 		                        <span>{{user.email}}<i class="caret"></i></span>
 		                    </a>
 		                    <ul class="dropdown-menu">
