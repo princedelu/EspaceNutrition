@@ -22,22 +22,14 @@ angular.module('EspaceNutrition', ['ngRoute','underscore'])
         });
 	$routeProvider.when('/dashboard',
         {
-<<<<<<< HEAD:src_js/app.js
             templateUrl:    '/partials/admin/dashboard.php',
-=======
-            templateUrl:    '/partials/dashboard.php',
->>>>>>> 1ee1e98056a61f93ae8de93c022b89996699132c:js/app.js
             controller:     'EspaceNutritionCtrl',
             access:         access.user
 
         });
 	$routeProvider.when('/utilisateurs',
         {
-<<<<<<< HEAD:src_js/app.js
             templateUrl:    '/partials/admin/utilisateurs.php',
-=======
-            templateUrl:    '/partials/utilisateurs.php',
->>>>>>> 1ee1e98056a61f93ae8de93c022b89996699132c:js/app.js
             controller:     'EspaceNutritionCtrl',
 			action : 		'listUtilisateur',
             access:         access.admin
