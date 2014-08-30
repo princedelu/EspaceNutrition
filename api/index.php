@@ -260,11 +260,13 @@ Update utilisateurs
 ***********************************************/
 $app->post('/notifyPaiement', function () use ($app) {
     $paiement = new PaiementModel();
-	if ($app->request()->post('txn_id') != ''){
-		$paiement->setTxnId($app->request()->post('txn_id'));
+	$post = $app->request()->post();
 
-		$result = $paiement->getTxnId();
+	if (isset($post['txn_id']) && isset($post['txn_type'])){
+		$paiement->setPost($post);
 
+		$paiement->init();
+		$result = $paiement->notify();
 	}else{
 		$result = false;
 		$paiement->setError("Des champs manquent pour la validation d un paiement");

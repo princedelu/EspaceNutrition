@@ -40,6 +40,17 @@ abstract class AbstractModel {
     {
         return $this->_error;
     }
+	
+	public function setErrorType($_errorType)
+    {
+        $this->_errorType = $_errorType;
+    }
+
+    public function getErrorType()
+    {
+        return $this->_errorType;
+    }
+
 
 	public function openConnectionDatabase(){
 		$result = true;
@@ -58,6 +69,7 @@ abstract class AbstractModel {
 		if (!$mysql_result){
 			throw new Exception(mysql_error());
 		}
+		$this->dbClose = false;
 	}
 
 	public function closeConnectionDatabase(){

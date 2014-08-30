@@ -1,9 +1,9 @@
-		<!-- Honoraires Section -->
-        <section class="success" id="honoraires">
+		<!-- adistance Section -->
+        <section class="success" id="adistance">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 text-center">
-                        <h2>Honoraires</h2>
+                        <h2>A distance</h2>
                         <hr class="star-light">
                     </div>
                 </div>

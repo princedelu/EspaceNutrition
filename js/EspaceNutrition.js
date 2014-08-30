@@ -376,9 +376,9 @@ $('.navbar-collapse ul li a').click(function() {
 	*/
 	exports.paypal = {};
 	exports.paypal.business="admin@espace-nutrition.fr";
-	exports.paypal.urlReturn="http://espace-nutrition.fr/paiementSuccess";
+	exports.paypal.urlReturn="http://espace-nutrition.fr";
 	exports.paypal.urlCancel="http://espace-nutrition.fr";
-	exports.paypal.urlNotify="http://espace-nutrition.fr/api";
+	exports.paypal.urlNotify="http://espace-nutrition.fr/api/notifyPaiement";
 	exports.paypal.sandbox=true;
 	/* Informations sur les produits
 	*/

@@ -22,7 +22,7 @@
                             <a href="#prestations">Prestations</a>
                         </li>
                         <li class="page-scroll">
-                            <a href="#honoraires">Honoraires</a>
+                            <a href="#adistance">A distance</a>
                         </li>
                         <li class="page-scroll">
                             <a href="/login">Votre espace</a>
@@ -54,7 +54,7 @@
 
     	<?php
 			include("prestations.php");
-			include("honoraires.php");
+			include("adistance.php");
 		?>
 
         

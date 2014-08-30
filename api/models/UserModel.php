@@ -386,7 +386,7 @@ class UserModel extends AbstractModel {
 					// Génération du token
 					$this->setToken(JWT::randomStringBase64URLSafe(40));
 					// Exécution des requêtes SQL
-					$query=sprintf("INSERT INTO utilisateurs set email='%s',nom='%s',prenom='%s',role=%d,actif=false,token='%s',datenaissance='%s'",mysqli_real_escape_string($this->dblink,$this->getEmail()),mysqli_real_escape_string($this->dblink,$this->getNom()),mysqli_real_escape_string($this->dblink,$this->getPrenom()),mysqli_real_escape_string($this->dblink,$this->getRole()),mysqli_real_escape_string($this->dblink,$this->getToken()),mysqli_real_escape_string($this->dblink,implode('-', array_reverse(explode('-', mysqli_real_escape_string($this->dblink,$this->getDateNaissance()))))));
+					$query=sprintf("INSERT INTO utilisateurs (email,nom,prenom,role,actif,token,datenaissance) values ('%s','%s','%s',%d,false,'%s','%s')",mysqli_real_escape_string($this->dblink,$this->getEmail()),mysqli_real_escape_string($this->dblink,$this->getNom()),mysqli_real_escape_string($this->dblink,$this->getPrenom()),mysqli_real_escape_string($this->dblink,$this->getRole()),mysqli_real_escape_string($this->dblink,$this->getToken()),mysqli_real_escape_string($this->dblink,implode('-', array_reverse(explode('-', mysqli_real_escape_string($this->dblink,$this->getDateNaissance()))))));
 		 
 					$mysql_result = mysqli_query($this->dblink,$query);
 					if (!$mysql_result){
