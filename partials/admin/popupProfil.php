@@ -38,7 +38,7 @@
 						</ng-form>
 					</div>
 					<div class="form-group">
-						<label for="nom">Nom {{nom}}</label>
+						<label for="nom">Nom</label>
 						<ng-form name="subForm3" ng-class="{ 'has-error' : subForm3.$invalid && !subForm3.$pristine }">
 							<input type="text" class="form-control" data-ng-model="nom" id="nomUtilisateur" placeholder="Nom" data-ng-required="true">
 							<div ng-show="subForm3.$dirty && subForm3.$invalid">

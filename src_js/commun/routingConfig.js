@@ -36,6 +36,27 @@
 "PHzhI0hKAYEsV5psGqn1j1t7HA2+iSMsdPUEQqgM+IUoLaTGDFpQtgHmYi392UiB\n"+
 "AgMBAAE=\n"+
 "-----END PUBLIC KEY-----";
+	/* Element pour paypal
+	*/
+	exports.paypal = {};
+	exports.paypal.business="admin@espace-nutrition.fr";
+	exports.paypal.urlReturn="http://espace-nutrition.fr/paiementSuccess";
+	exports.paypal.urlCancel="http://espace-nutrition.fr";
+	exports.paypal.urlNotify="http://espace-nutrition.fr/api";
+	exports.paypal.sandbox=true;
+	/* Informations sur les produits
+	*/
+	exports.item = {};
+	exports.item[1] = {};
+	exports.item[1].libelle="EspaceNutrition - Consultation en ligne";
+	exports.item[1].amount="50";
+	exports.item[2] = {};
+	exports.item[2].libelle="EspaceNutrition - Suivi en ligne";
+	exports.item[2].amount="80";
+	exports.item[3] = {};
+	exports.item[3].libelle="EspaceNutrition - Consultation et suivi en ligne";
+	exports.item[3].amount="100";
+	
 
     /*
         Method to build a distinct bit mask for each role

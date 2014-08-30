@@ -9,6 +9,7 @@ require 'vendor/autoload.php';
 require 'tools/JWT.php';
 require 'models/AbstractModel.php';
 require 'models/UserModel.php';
+require 'models/PaiementModel.php';
 require 'tools/AuthMiddleware.php';
 
 /**
@@ -248,6 +249,29 @@ $app->post('/utilisateur', function () use ($app) {
     
 	if (!$result){
 		$app->response()->body($user->getError());
+        $app->response()->status( 403 );
+	}else{
+	  	$app->response()->body( json_encode( $result ));
+	}
+});
+
+/***********************************************
+Update utilisateurs
+***********************************************/
+$app->post('/notifyPaiement', function () use ($app) {
+    $paiement = new PaiementModel();
+	if ($app->request()->post('txn_id') != ''){
+		$paiement->setTxnId($app->request()->post('txn_id'));
+
+		$result = $paiement->getTxnId();
+
+	}else{
+		$result = false;
+		$paiement->setError("Des champs manquent pour la validation d un paiement");
+	}
+    
+	if (!$result){
+		$app->response()->body($paiement->getError());
         $app->response()->status( 403 );
 	}else{
 	  	$app->response()->body( json_encode( $result ));

@@ -14,6 +14,13 @@ angular.module('EspaceNutrition', ['ngRoute','underscore'])
             controller:     'EspaceNutritionPublicCtrl',
             access:         access.public
         });
+	$routeProvider.when('/paiementSuccess',
+        {
+            templateUrl:    '/partials/public.php',
+            controller:     'EspaceNutritionPublicCtrl',
+			action:			'paiementSuccess',
+            access:         access.public
+        });
     $routeProvider.when('/login',
         {
             templateUrl:    '/partials/login.html',
@@ -30,7 +37,7 @@ angular.module('EspaceNutrition', ['ngRoute','underscore'])
 	$routeProvider.when('/utilisateurs',
         {
             templateUrl:    '/partials/admin/utilisateurs.php',
-            controller:     'EspaceNutritionCtrl',
+            controller:     'UtilisateurCtrl',
 			action : 		'listUtilisateur',
             access:         access.admin
         });
@@ -90,15 +97,6 @@ angular.module('EspaceNutrition')
     $scope.user = Auth.user;
     $scope.userRoles = Auth.userRoles;
     $scope.accessLevels = Auth.accessLevels;
-
-	
-	var action = "";
-	if ($route !== undefined && $route.current){
-		
-		if ($route.current.action !== undefined){
-			action = $route.current.action;
-		}
-	}
 
 	$scope.role = "1";
 
@@ -229,6 +227,436 @@ angular.module('EspaceNutrition')
 			$(".right-side").toggleClass("strech");
 		}
 	};
+
+
+}]);
+
+})();
+(function(){
+"use strict";
+
+angular.module('EspaceNutrition')
+.directive('accessLevel', ['Auth', function(Auth) {
+    return {
+        restrict: 'A',
+        link: function($scope, element, attrs) {
+            var prevDisp = element.css('display');
+            var userRole;
+            var accessLevel;
+
+            $scope.user = Auth.user;
+            $scope.$watch('user', function(user) {
+                if(user.role)
+                    userRole = user.role;
+                updateCSS();
+            }, true);
+
+            attrs.$observe('accessLevel', function(al) {
+                if(al) accessLevel = $scope.$eval(al);
+                updateCSS();
+            });
+
+            function updateCSS() {
+                if(userRole && accessLevel) {
+                    if(!Auth.authorize(accessLevel, userRole)){
+                        element.css('display', 'none');
+                    }
+                    else{
+                        element.css('display', prevDisp);
+                    }
+                }
+            }
+        }
+    };
+}]);
+
+angular.module('EspaceNutrition').directive('activeNav', ['$location', function($location) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            var nestedA = element.find('a')[0];
+            var path = nestedA.href;
+
+            scope.location = $location;
+            scope.$watch('location.absUrl()', function(newPath) {
+                if (path === newPath) {
+                    element.addClass('active');
+                } else {
+                    element.removeClass('active');
+                }
+            });
+        }
+
+    };
+
+}]);
+
+})();
+(function(){
+"use strict";
+/*!
+ * Start Bootstrap - Freelancer Bootstrap Theme (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+
+// jQuery for page scrolling feature - requires jQuery Easing plugin
+$(function() {
+    $('.page-scroll a').bind('click', function(event) {
+        var $anchor = $(this);
+        $('html, body').stop().animate({
+            scrollTop: $($anchor.attr('href')).offset().top
+        }, 1500, 'easeInOutExpo');
+        event.preventDefault();
+    });
+});
+
+// Floating label headings for the contact form
+$(function() {
+    $("body").on("input propertychange", ".floating-label-form-group", function(e) {
+        $(this).toggleClass("floating-label-form-group-with-value", !! $(e.target).val());
+    }).on("focus", ".floating-label-form-group", function() {
+        $(this).addClass("floating-label-form-group-with-focus");
+    }).on("blur", ".floating-label-form-group", function() {
+        $(this).removeClass("floating-label-form-group-with-focus");
+    });
+});
+
+// Highlight the top nav as scrolling occurs
+$('body').scrollspy({
+    target: '.navbar-fixed-top'
+});
+
+// Closes the Responsive Menu on Menu Item Click
+$('.navbar-collapse ul li a').click(function() {
+    $('.navbar-toggle:visible').click();
+});
+
+})();
+
+(function(exports){
+
+    var config = {
+
+        /* List all the roles you wish to use in the app
+        * You have a max of 31 before the bit shift pushes the accompanying integer out of
+        * the memory footprint for an integer
+        */
+        roles :[
+            'public',
+            'user',
+            'admin'],
+
+        /*
+        Build out all the access levels you want referencing the roles listed above
+        You can use the "*" symbol to represent access to all roles
+         */
+        accessLevels : {
+            'public' : "*",
+            'anon': ['public'],
+            'user' : ['user', 'admin'],
+            'admin': ['admin']
+        }
+
+    };
+
+    exports.userRoles = buildRoles(config.roles);
+    exports.accessLevels = buildAccessLevels(config.accessLevels, exports.userRoles);
+	exports.publicKey=""+
+"-----BEGIN PUBLIC KEY-----\n"+
+"MIIBITANBgkqhkiG9w0BAQEFAAOCAQ4AMIIBCQKCAQBZQM9sX8M0PBHlNYO5iyHW\n"+
+"/0La4UUIfLh1DlMy1lnyqlfLlRZCsyUkhzRaEAL5xrgo5qJFQvM3+CRYj4haaI4i\n"+
+"GOvGe7CkdBgqGKR8EOtxHKO5lze5h474dcQodKUdK3YRpwu85fqQ8DRunTYt8O59\n"+
+"+eIJhchW0tVP0LdT/x2nT9aFzxQh8g6yHT7ym4t5GrIjsapRsGZU7X0pH585HV2D\n"+
+"/qpgfgnyL3sEHvN9vMRKIz+cj2JsAPu6w5s/j1hDVXvxF+C5tFYrvom9LF8C6cpQ\n"+
+"PHzhI0hKAYEsV5psGqn1j1t7HA2+iSMsdPUEQqgM+IUoLaTGDFpQtgHmYi392UiB\n"+
+"AgMBAAE=\n"+
+"-----END PUBLIC KEY-----";
+	/* Element pour paypal
+	*/
+	exports.paypal = {};
+	exports.paypal.business="admin@espace-nutrition.fr";
+	exports.paypal.urlReturn="http://espace-nutrition.fr/paiementSuccess";
+	exports.paypal.urlCancel="http://espace-nutrition.fr";
+	exports.paypal.urlNotify="http://espace-nutrition.fr/api";
+	exports.paypal.sandbox=true;
+	/* Informations sur les produits
+	*/
+	exports.item = {};
+	exports.item[1] = {};
+	exports.item[1].libelle="EspaceNutrition - Consultation en ligne";
+	exports.item[1].amount="50";
+	exports.item[2] = {};
+	exports.item[2].libelle="EspaceNutrition - Suivi en ligne";
+	exports.item[2].amount="80";
+	exports.item[3] = {};
+	exports.item[3].libelle="EspaceNutrition - Consultation et suivi en ligne";
+	exports.item[3].amount="100";
+	
+
+    /*
+        Method to build a distinct bit mask for each role
+        It starts off with "1" and shifts the bit to the left for each element in the
+        roles array parameter
+     */
+
+    function buildRoles(roles){
+
+        var bitMask = "01";
+        var userRoles = {};
+
+        for(var role in roles){
+            var intCode = parseInt(bitMask, 2);
+            userRoles[roles[role]] = {
+                bitMask: intCode,
+                title: roles[role]
+            };
+            bitMask = (intCode << 1 ).toString(2);
+        }
+
+        return userRoles;
+    }
+
+    /*
+    This method builds access level bit masks based on the accessLevelDeclaration parameter which must
+    contain an array for each access level containing the allowed user roles.
+     */
+    function buildAccessLevels(accessLevelDeclarations, userRoles){
+
+        var accessLevels = {};
+        for(var level in accessLevelDeclarations){
+
+            var resultBitMask = '';
+            var role;
+            if(typeof accessLevelDeclarations[level] == 'string'){
+                if(accessLevelDeclarations[level] == '*'){
+
+                    for( role in userRoles){
+                        resultBitMask += "1";
+                    }
+                    //accessLevels[level] = parseInt(resultBitMask, 2);
+                    accessLevels[level] = {
+                        bitMask: parseInt(resultBitMask, 2),
+                        title: accessLevelDeclarations[level]
+                    };
+                }
+                else console.log("Access Control Error: Could not parse '" + accessLevelDeclarations[level] + "' as access definition for level '" + level + "'");
+
+            }
+            else {
+
+                resultBitMask = 0;
+                for(role in accessLevelDeclarations[level]){
+                    if(userRoles.hasOwnProperty(accessLevelDeclarations[level][role]))
+                        resultBitMask = resultBitMask | userRoles[accessLevelDeclarations[level][role]].bitMask;
+                    else console.log("Access Control Error: Could not find role '" + accessLevelDeclarations[level][role] + "' in registered roles while building access for '" + level + "'");
+                }
+                accessLevels[level] = {
+                    bitMask: resultBitMask,
+                    title: accessLevelDeclarations[level][role]
+                };
+            }
+        }
+
+        return accessLevels;
+    }
+
+})(typeof exports === 'undefined' ? this.routingConfig = {} : exports);
+
+
+(function(){
+"use strict";
+
+angular.module('EspaceNutrition')
+.factory('Auth', ['$http','$window', function($http,$window){
+
+    var accessLevels = routingConfig.accessLevels;
+    var userRoles = routingConfig.userRoles;
+	var publicKey = routingConfig.publicKey;
+
+    var currentUser = adaptUser($window.sessionStorage.token);
+	var role = userRoles.public;
+
+	function changeUser(user) {
+		_.extend(currentUser, user);
+	}
+
+	function verifyToken(token){
+
+		var isValid = false;
+		try {
+			isValid = KJUR.jws.JWS.verify(token, publicKey);
+		} catch (ex) {
+			isValid = false;
+		} 
+
+		return isValid;
+	}
+
+	function adaptUser(token){
+		var result =  { email: '', role: userRoles.public };
+		if (token !== undefined)
+		{
+			if (verifyToken(token)){
+				var a = token.split(".");
+				var uClaim = b64utos(a[1]);
+				var pClaim = KJUR.jws.JWS.readSafeJSONString(uClaim);
+
+				var roleUser;
+				if (pClaim.role == 1){
+					roleUser = userRoles.user;
+				}else if(pClaim.role == 2){
+					roleUser = userRoles.admin;
+				} else{
+					roleUser = userRoles.public;
+				}
+				result = {	email: pClaim.email, role: roleUser };
+			}
+		}
+		return result;
+	}
+	
+    return {
+        authorize: function(accessLevel, role) {
+            if (accessLevel === undefined)
+                accessLevel = userRoles.admin;
+            if(role === undefined)
+                role = currentUser.role;
+
+            return accessLevel.bitMask & role.bitMask;
+        },
+        isLoggedIn: function(user) {
+            if(user === undefined)
+                user = currentUser;
+            return verifyToken($window.sessionStorage.token) && (user.role.title == userRoles.user.title || user.role.title == userRoles.admin.title);
+        },
+        login: function(user, success, error) {
+            $http.post('/api/login', user).success(function(token){
+				var adaptedUser = adaptUser(token.value);
+				changeUser(adaptedUser);
+                success(token.value);
+            }).error(error);
+        },
+		modificationPassword: function(user, success, error) {
+            $http.post('/api/modificationPassword', user).success(function(token){
+				var adaptedUser = adaptUser(token.value);
+                success(token.value);
+            }).error(error);
+        },
+		sendMailToken: function(user, success, error) {
+            $http.post('/api/sendMailToken', user).success(success).error(error);
+        },
+		post: function(objet, success, error) {
+			$http.post('/api/utilisateur', objet).success(success).error(error);
+		},
+		get: function(success, error) {
+			$http.get('/api/profil').success(success).error(error);
+		},
+        accessLevels: accessLevels,
+        userRoles: userRoles,
+        user: currentUser
+    };
+}]);
+
+})();
+
+
+
+(function(){
+"use strict";
+
+angular.module('EspaceNutrition')
+.controller('EspaceNutritionPublicCtrl',
+['$rootScope', '$scope', '$location', '$route', '$window', function($rootScope, $scope, $location, $route, $window) {
+    
+	var action = "";
+	if ($route !== undefined && $route.current){
+		
+		if ($route.current.action !== undefined){
+			action = $route.current.action;
+		}
+	}
+
+    $scope.affichePopupPaiement = function (id) {
+        $scope.success = '';
+        $scope.error = '';
+		$scope.idPaiement=id;
+		$('#bs-paiement').modal('show');
+    };
+
+	$scope.redirectionPaiement = function () {
+		$('#bs-paiement').modal('hide');
+
+		// Ajout de toutes les informations pour la redirection
+		var paramRedirect = "";
+		paramRedirect=paramRedirect + "?business="+routingConfig.paypal.business;
+		paramRedirect=paramRedirect + "&item_name="+routingConfig.item[$scope.idPaiement].libelle;
+	    paramRedirect=paramRedirect + "&amount="+routingConfig.item[$scope.idPaiement].amount;
+		
+		paramRedirect=paramRedirect + "&cmd=_xclick";
+		paramRedirect=paramRedirect + "&no_note=1";
+		paramRedirect=paramRedirect + "&lc=FR";
+		paramRedirect=paramRedirect + "&currency_code=EUR";
+		paramRedirect=paramRedirect + "&bn=EspaceNutrition_BuyNow_WPS_FR";
+		paramRedirect=paramRedirect + "&first_name="+$scope.prenom; 
+		paramRedirect=paramRedirect + "&last_name="+$scope.nom; 
+		paramRedirect=paramRedirect + "&payer_email="+$scope.email; 
+		paramRedirect=paramRedirect + "&item_number=1";
+		// Append paypal return addresses
+	    paramRedirect=paramRedirect + "&return="+routingConfig.paypal.urlReturn;
+	    paramRedirect=paramRedirect + "&cancel_return="+routingConfig.paypal.urlCancel;
+	    paramRedirect=paramRedirect + "&notify_url="+routingConfig.paypal.urlNotify;
+
+		var baseURL = 'https://www.';
+		if (routingConfig.paypal.sandbox === true){
+			baseURL = baseURL + 'sandbox.';
+		}
+		baseURL = baseURL + 'paypal.com/cgi-bin/webscr';
+		$window.location.href=baseURL + encodeURI(paramRedirect);		
+    };
+
+	$scope.paiementSuccess = function () {
+		if  ($rootScope.affichePopup === undefined){
+			$('#bs-paiementSuccess').modal('show');
+			$rootScope.affichePopup = false;
+		}
+	};
+
+	switch (action) {
+		case 'listPrestations':
+			$scope.listPrestations();
+		break;
+		case 'paiementSuccess':
+			$scope.paiementSuccess();
+		break;
+		default:
+		break;
+	}
+	
+}]);
+
+})();
+(function(){
+"use strict";
+
+angular.module('EspaceNutrition')
+.controller('UtilisateurCtrl',
+['$rootScope', '$scope', '$location', '$route', '$window', 'Auth','UtilisateurFactory', function($rootScope, $scope, $location, $route, $window, Auth,UtilisateurFactory) {
+    
+    $scope.user = Auth.user;
+    $scope.userRoles = Auth.userRoles;
+    $scope.accessLevels = Auth.accessLevels;
+
+	
+	var action = "";
+	if ($route !== undefined && $route.current){
+		
+		if ($route.current.action !== undefined){
+			action = $route.current.action;
+		}
+	}
+
+	$scope.role = "1";
 
 
 	$scope.supprimer = function (id) {
@@ -487,308 +915,6 @@ angular.module('EspaceNutrition')
 "use strict";
 
 angular.module('EspaceNutrition')
-.directive('accessLevel', ['Auth', function(Auth) {
-    return {
-        restrict: 'A',
-        link: function($scope, element, attrs) {
-            var prevDisp = element.css('display');
-            var userRole;
-            var accessLevel;
-
-            $scope.user = Auth.user;
-            $scope.$watch('user', function(user) {
-                if(user.role)
-                    userRole = user.role;
-                updateCSS();
-            }, true);
-
-            attrs.$observe('accessLevel', function(al) {
-                if(al) accessLevel = $scope.$eval(al);
-                updateCSS();
-            });
-
-            function updateCSS() {
-                if(userRole && accessLevel) {
-                    if(!Auth.authorize(accessLevel, userRole)){
-                        element.css('display', 'none');
-                    }
-                    else{
-                        element.css('display', prevDisp);
-                    }
-                }
-            }
-        }
-    };
-}]);
-
-angular.module('EspaceNutrition').directive('activeNav', ['$location', function($location) {
-    return {
-        restrict: 'A',
-        link: function(scope, element, attrs) {
-            var nestedA = element.find('a')[0];
-            var path = nestedA.href;
-
-            scope.location = $location;
-            scope.$watch('location.absUrl()', function(newPath) {
-                if (path === newPath) {
-                    element.addClass('active');
-                } else {
-                    element.removeClass('active');
-                }
-            });
-        }
-
-    };
-
-}]);
-
-})();
-(function(){
-"use strict";
-/*!
- * Start Bootstrap - Freelancer Bootstrap Theme (http://startbootstrap.com)
- * Code licensed under the Apache License v2.0.
- * For details, see http://www.apache.org/licenses/LICENSE-2.0.
- */
-
-// jQuery for page scrolling feature - requires jQuery Easing plugin
-$(function() {
-    $('.page-scroll a').bind('click', function(event) {
-        var $anchor = $(this);
-        $('html, body').stop().animate({
-            scrollTop: $($anchor.attr('href')).offset().top
-        }, 1500, 'easeInOutExpo');
-        event.preventDefault();
-    });
-});
-
-// Floating label headings for the contact form
-$(function() {
-    $("body").on("input propertychange", ".floating-label-form-group", function(e) {
-        $(this).toggleClass("floating-label-form-group-with-value", !! $(e.target).val());
-    }).on("focus", ".floating-label-form-group", function() {
-        $(this).addClass("floating-label-form-group-with-focus");
-    }).on("blur", ".floating-label-form-group", function() {
-        $(this).removeClass("floating-label-form-group-with-focus");
-    });
-});
-
-// Highlight the top nav as scrolling occurs
-$('body').scrollspy({
-    target: '.navbar-fixed-top'
-});
-
-// Closes the Responsive Menu on Menu Item Click
-$('.navbar-collapse ul li a').click(function() {
-    $('.navbar-toggle:visible').click();
-});
-
-})();
-
-(function(exports){
-
-    var config = {
-
-        /* List all the roles you wish to use in the app
-        * You have a max of 31 before the bit shift pushes the accompanying integer out of
-        * the memory footprint for an integer
-        */
-        roles :[
-            'public',
-            'user',
-            'admin'],
-
-        /*
-        Build out all the access levels you want referencing the roles listed above
-        You can use the "*" symbol to represent access to all roles
-         */
-        accessLevels : {
-            'public' : "*",
-            'anon': ['public'],
-            'user' : ['user', 'admin'],
-            'admin': ['admin']
-        }
-
-    };
-
-    exports.userRoles = buildRoles(config.roles);
-    exports.accessLevels = buildAccessLevels(config.accessLevels, exports.userRoles);
-	exports.publicKey=""+
-"-----BEGIN PUBLIC KEY-----\n"+
-"MIIBITANBgkqhkiG9w0BAQEFAAOCAQ4AMIIBCQKCAQBZQM9sX8M0PBHlNYO5iyHW\n"+
-"/0La4UUIfLh1DlMy1lnyqlfLlRZCsyUkhzRaEAL5xrgo5qJFQvM3+CRYj4haaI4i\n"+
-"GOvGe7CkdBgqGKR8EOtxHKO5lze5h474dcQodKUdK3YRpwu85fqQ8DRunTYt8O59\n"+
-"+eIJhchW0tVP0LdT/x2nT9aFzxQh8g6yHT7ym4t5GrIjsapRsGZU7X0pH585HV2D\n"+
-"/qpgfgnyL3sEHvN9vMRKIz+cj2JsAPu6w5s/j1hDVXvxF+C5tFYrvom9LF8C6cpQ\n"+
-"PHzhI0hKAYEsV5psGqn1j1t7HA2+iSMsdPUEQqgM+IUoLaTGDFpQtgHmYi392UiB\n"+
-"AgMBAAE=\n"+
-"-----END PUBLIC KEY-----";
-
-    /*
-        Method to build a distinct bit mask for each role
-        It starts off with "1" and shifts the bit to the left for each element in the
-        roles array parameter
-     */
-
-    function buildRoles(roles){
-
-        var bitMask = "01";
-        var userRoles = {};
-
-        for(var role in roles){
-            var intCode = parseInt(bitMask, 2);
-            userRoles[roles[role]] = {
-                bitMask: intCode,
-                title: roles[role]
-            };
-            bitMask = (intCode << 1 ).toString(2);
-        }
-
-        return userRoles;
-    }
-
-    /*
-    This method builds access level bit masks based on the accessLevelDeclaration parameter which must
-    contain an array for each access level containing the allowed user roles.
-     */
-    function buildAccessLevels(accessLevelDeclarations, userRoles){
-
-        var accessLevels = {};
-        for(var level in accessLevelDeclarations){
-
-            var resultBitMask = '';
-            var role;
-            if(typeof accessLevelDeclarations[level] == 'string'){
-                if(accessLevelDeclarations[level] == '*'){
-
-                    for( role in userRoles){
-                        resultBitMask += "1";
-                    }
-                    //accessLevels[level] = parseInt(resultBitMask, 2);
-                    accessLevels[level] = {
-                        bitMask: parseInt(resultBitMask, 2),
-                        title: accessLevelDeclarations[level]
-                    };
-                }
-                else console.log("Access Control Error: Could not parse '" + accessLevelDeclarations[level] + "' as access definition for level '" + level + "'");
-
-            }
-            else {
-
-                resultBitMask = 0;
-                for(role in accessLevelDeclarations[level]){
-                    if(userRoles.hasOwnProperty(accessLevelDeclarations[level][role]))
-                        resultBitMask = resultBitMask | userRoles[accessLevelDeclarations[level][role]].bitMask;
-                    else console.log("Access Control Error: Could not find role '" + accessLevelDeclarations[level][role] + "' in registered roles while building access for '" + level + "'");
-                }
-                accessLevels[level] = {
-                    bitMask: resultBitMask,
-                    title: accessLevelDeclarations[level][role]
-                };
-            }
-        }
-
-        return accessLevels;
-    }
-
-})(typeof exports === 'undefined' ? this.routingConfig = {} : exports);
-
-
-(function(){
-"use strict";
-
-angular.module('EspaceNutrition')
-.factory('Auth', ['$http','$window', function($http,$window){
-
-    var accessLevels = routingConfig.accessLevels;
-    var userRoles = routingConfig.userRoles;
-	var publicKey = routingConfig.publicKey;
-
-    var currentUser = adaptUser($window.sessionStorage.token);
-	var role = userRoles.public;
-
-	function changeUser(user) {
-		_.extend(currentUser, user);
-	}
-
-	function verifyToken(token){
-
-		var isValid = false;
-		try {
-			isValid = KJUR.jws.JWS.verify(token, publicKey);
-		} catch (ex) {
-			isValid = false;
-		} 
-
-		return isValid;
-	}
-
-	function adaptUser(token){
-		var result =  { email: '', role: userRoles.public };
-		if (token !== undefined)
-		{
-			if (verifyToken(token)){
-				var a = token.split(".");
-				var uClaim = b64utos(a[1]);
-				var pClaim = KJUR.jws.JWS.readSafeJSONString(uClaim);
-
-				var roleUser;
-				if (pClaim.role == 1){
-					roleUser = userRoles.user;
-				}else if(pClaim.role == 2){
-					roleUser = userRoles.admin;
-				} else{
-					roleUser = userRoles.public;
-				}
-				result = {	email: pClaim.email, role: roleUser };
-			}
-		}
-		return result;
-	}
-	
-    return {
-        authorize: function(accessLevel, role) {
-            if (accessLevel === undefined)
-                accessLevel = userRoles.admin;
-            if(role === undefined)
-                role = currentUser.role;
-
-            return accessLevel.bitMask & role.bitMask;
-        },
-        isLoggedIn: function(user) {
-            if(user === undefined)
-                user = currentUser;
-            return verifyToken($window.sessionStorage.token) && (user.role.title == userRoles.user.title || user.role.title == userRoles.admin.title);
-        },
-        login: function(user, success, error) {
-            $http.post('/api/login', user).success(function(token){
-				var adaptedUser = adaptUser(token.value);
-				changeUser(adaptedUser);
-                success(token.value);
-            }).error(error);
-        },
-		modificationPassword: function(user, success, error) {
-            $http.post('/api/modificationPassword', user).success(function(token){
-				var adaptedUser = adaptUser(token.value);
-                success(token.value);
-            }).error(error);
-        },
-		sendMailToken: function(user, success, error) {
-            $http.post('/api/sendMailToken', user).success(success).error(error);
-        },
-		post: function(objet, success, error) {
-			$http.post('/api/utilisateur', objet).success(success).error(error);
-		},
-		get: function(success, error) {
-			$http.get('/api/profil').success(success).error(error);
-		},
-        accessLevels: accessLevels,
-        userRoles: userRoles,
-        user: currentUser
-    };
-}]);
-
-angular.module('EspaceNutrition')
 .factory('UtilisateurFactory',['$http', function($http) {
 	var userRoles = routingConfig.userRoles;
 
@@ -824,64 +950,3 @@ angular.module('EspaceNutrition')
 
 
 
-(function(){
-"use strict";
-
-angular.module('EspaceNutrition')
-.controller('EspaceNutritionPublicCtrl',
-['$rootScope', '$scope', '$location', '$route', '$window', function($rootScope, $scope, $location, $route, $window) {
-    
-	var action = "";
-	if ($route !== undefined && $route.current){
-		
-		if ($route.current.action !== undefined){
-			action = $route.current.action;
-		}
-	}
-
-    $scope.affichePopupPaiement = function (id) {
-        $scope.success = '';
-        $scope.error = '';
-		$scope.idPaiement=id;
-		$('#bs-paiement').modal('show');
-    };
-
-	$scope.redirectionPaiement = function () {
-		$('#bs-paiement').modal('hide');
-		// Ajout de toutes les informations pour la redirection
-		var paramRedirect = "";
-		paramRedirect=paramRedirect + "?business=admin@espace-nutrition.fr";
-		paramRedirect=paramRedirect + "&item_name=Galinette cendree";
-	    paramRedirect=paramRedirect + "&amount=50";
-		
-		paramRedirect=paramRedirect + "&cmd=_xclick";
-		paramRedirect=paramRedirect + "&no_note=1";
-		paramRedirect=paramRedirect + "&lc=FR";
-		paramRedirect=paramRedirect + "&currency_code=EUR";
-		paramRedirect=paramRedirect + "&bn=EspaceNutrition_BuyNow_WPS_FR";
-		paramRedirect=paramRedirect + "&first_name=Customer's First Name"; 
-		paramRedirect=paramRedirect + "&last_name=Customer's Last Name";
-		paramRedirect=paramRedirect + "&payer_email=customer@example.com";
-		paramRedirect=paramRedirect + "&item_number=1";
-		// Append paypal return addresses
-	    paramRedirect=paramRedirect + "&return=http://espace-nutrition.fr";
-	    paramRedirect=paramRedirect + "&cancel_return=http://espace-nutrition.fr";
-	    paramRedirect=paramRedirect + "&notify_url=http://espace-nutrition.fr";
-
-		$window.location.href='https://www.sandbox.paypal.com/cgi-bin/webscr' + encodeURI(paramRedirect);
-		
-
-		
-    };
-
-	switch (action) {
-		case 'listPrestations':
-			$scope.listPrestations();
-		break;
-		default:
-		break;
-	}
-	
-}]);
-
-})();

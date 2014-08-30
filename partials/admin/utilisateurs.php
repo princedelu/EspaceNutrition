@@ -2,7 +2,6 @@
 	<?php
 		include("header.php");
 	?>
-</div>
 
 	<!-- Right side column. Contains the navbar and content of the page -->
 	<aside class="right-side">                
@@ -40,11 +39,12 @@
 		</section><!-- /.content -->
 	</aside><!-- /.right-side -->
 
-</div><!-- ./wrapper -->
 
-<?php
-	include("popupProfil.php");
-	include("popupUtilisateur.php");
-?>
+
+	<?php
+		include("popupUtilisateur.php");
+	?>
+
+</div><!-- ./wrapper -->
 
 

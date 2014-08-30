@@ -41,7 +41,7 @@ a:focus {
   clear: both;
 }
 /* Header */
-body > div > div > .header {
+body > div > div > div > .header {
   position: absolute;
   top: 0;
   left: 0;
@@ -67,7 +67,7 @@ body > div > div > .header {
 }
 @media screen and (min-width: 992px) {
   .left-side {
-    top: 60px;
+    top: 50px;
 
   }
   /*Right side strech mode*/
@@ -107,7 +107,7 @@ body.fixed .navbar {
   right: 0;
 }
 body.fixed .wrapper {
-  margin-top: 60px;
+  margin-top: 50px;
 }
 /* Content */
 .content {
@@ -458,16 +458,16 @@ Gradient Background colors
     Components: navbar, logo and content header
 -------------------------------------------------
 */
-body > div > div > .header {
+body > div > div > div > .header {
   position: relative;
   max-height: 100px;
   z-index: 1030;
 }
-body > div > div > .header .navbar {
+body > div > div > div > .header .navbar {
   margin-bottom: 0;
   margin-left: 220px;
 }
-body > div > div >.header .navbar .sidebar-toggle {
+body > div > div > div >.header .navbar .sidebar-toggle {
   float: left;
   padding: 9px 5px;
   margin-top: 8px;
@@ -481,10 +481,10 @@ body > div > div >.header .navbar .sidebar-toggle {
   -moz-border-radius: 0 !important;
   border-radius: 0 !important;
 }
-body > div > div >.header .navbar .sidebar-toggle:hover .icon-bar {
+body > div > div > div >.header .navbar .sidebar-toggle:hover .icon-bar {
   background: #f6f6f6;
 }
-body > div > div >.header .navbar .sidebar-toggle .icon-bar {
+body > div > div > div >.header .navbar .sidebar-toggle .icon-bar {
   display: block;
   width: 22px;
   height: 2px;
@@ -492,19 +492,19 @@ body > div > div >.header .navbar .sidebar-toggle .icon-bar {
   -moz-border-radius: 4px;
   border-radius: 4px;
 }
-body > div > div >.header .navbar .sidebar-toggle .icon-bar + .icon-bar {
+body > div > div > div >.header .navbar .sidebar-toggle .icon-bar + .icon-bar {
   margin-top: 4px;
 }
-body > div > div >.header .navbar .nav > li.user > a {
+body > div > div > div >.header .navbar .nav > li.user > a {
 	font-size : 12px;
 	font-family : "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
-body > div > div >.header .navbar .nav > li.user > a > .fa,
-body > div > div >.header .navbar .nav > li.user > a > .glyphicon,
-body > div > div >.header .navbar .nav > li.user > a > .ion {
+body > div > div > div > .header .navbar .nav > li.user > a > .fa,
+body > div > div > div > .header .navbar .nav > li.user > a > .glyphicon,
+body > div > div > div > .header .navbar .nav > li.user > a > .ion {
   margin-right: 5px;
 }
-body > div > div >.header .navbar .nav > li > a > .label {
+body > div > div > div > .header .navbar .nav > li > a > .label {
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
@@ -522,7 +522,7 @@ body > div > div >.header .navbar .nav > li > a > .label {
 body .header .navbar .nav > li > a:hover > .label {
   top: 3px;
 }
-body > div > div > .header .logo {
+body > div > div > div > .header .logo {
   float: left;
   font-size: 20px;
   line-height: 50px;
@@ -531,10 +531,10 @@ body > div > div > .header .logo {
   width: 220px;
   font-family: 'Kaushan Script', cursive;
   font-weight: 500;
-  height: 60px;
+  height: 50px;
   display: block;
 }
-body > div > div >.header .logo .icon {
+body > div > div > div > .header .logo .icon {
   margin-right: 10px;
 }
 .right-side > .content-header {
@@ -606,16 +606,16 @@ body > div > div >.header .logo .icon {
   }
 }
 @media screen and (max-width: 560px) {
-  body > div > div >.header {
+  body > div > div > div > .header {
     position: relative;
   }
-  body > div > div >.header .logo,
-  body > div > div >.header .navbar {
+  body > div > div > div > .header .logo,
+  body > div > div > div > .header .navbar {
     width: 100%;
     float: none;
     position: relative!important;
   }
-  body > div > div >.header .navbar {
+  body > div > div > div > .header .navbar {
     margin: 0;
   }
   body.fixed > .header {
@@ -682,7 +682,7 @@ body > div > div >.header .logo .icon {
 @media screen and (max-width: 560px) {
   .sidebar {
 	  margin-bottom: 5px;
-	  padding : 20px 0 0;
+	  padding : 0px 0 0;
 	}
 }
 
@@ -749,7 +749,7 @@ body > div > div >.header .logo .icon {
     left: 0;
   }
   body.fixed .sidebar-offcanvas {
-    margin-top: 60px;
+    margin-top: 50px;
     left: -220px;
   }
   body.fixed .row-offcanvas-left.active .navbar {

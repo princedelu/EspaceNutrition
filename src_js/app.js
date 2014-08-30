@@ -14,6 +14,13 @@ angular.module('EspaceNutrition', ['ngRoute','underscore'])
             controller:     'EspaceNutritionPublicCtrl',
             access:         access.public
         });
+	$routeProvider.when('/paiementSuccess',
+        {
+            templateUrl:    '/partials/public.php',
+            controller:     'EspaceNutritionPublicCtrl',
+			action:			'paiementSuccess',
+            access:         access.public
+        });
     $routeProvider.when('/login',
         {
             templateUrl:    '/partials/login.html',
@@ -30,7 +37,7 @@ angular.module('EspaceNutrition', ['ngRoute','underscore'])
 	$routeProvider.when('/utilisateurs',
         {
             templateUrl:    '/partials/admin/utilisateurs.php',
-            controller:     'EspaceNutritionCtrl',
+            controller:     'UtilisateurCtrl',
 			action : 		'listUtilisateur',
             access:         access.admin
         });

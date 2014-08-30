@@ -133,99 +133,106 @@
         </section>
 		
 		<!-- Prestations Modals -->
-        <div class="prestation-modal modal fade" id="prestationModal1" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-content">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-8 col-lg-offset-2">
-                            <div class="modal-body">
-                                <h2>Consultation individuelle sur rendez-vous</h2>
-                                <hr class="star-primary">
-                                <p>Blabla</p>
-                                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Fermeture</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="prestation-modal modal fade" id="prestationModal2" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-content">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-8 col-lg-offset-2">
-                            <div class="modal-body">
-                                <h2>Ateliers de groupe</h2>
-                                <hr class="star-primary">
-                                <p>Blabla</p>
-                                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Fermeture</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="prestation-modal modal fade" id="prestationModal3" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-content">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-8 col-lg-offset-2">
-                            <div class="modal-body">
-                                <h2>Conception et validation de menus conformes au GEMRCN</h2>
-                                <hr class="star-primary">
-                                <p>Blabla</p>
-                                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Fermeture</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="prestation-modal modal fade" id="prestationModal4" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-content">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-8 col-lg-offset-2">
-                            <div class="modal-body">
-                                <h2>Interventions en établissements de soins</h2>
-                                <hr class="star-primary">
-                                <p>Blabla</p>
-                                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Fermeture</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="prestation-modal modal fade" id="prestationModal5" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-content">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-8 col-lg-offset-2">
-                            <div class="modal-body">
-                                <h2>Medias</h2>
-                                <hr class="star-primary">
-                                <p>Blabla</p>
-                                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Fermeture</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="prestation-modal modal fade" id="prestationModal6" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-content">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-8 col-lg-offset-2">
-                            <div class="modal-body">
-                                <h2>Partenariats</h2>
-                                <hr class="star-primary">
-                                <p>Blabla</p>
-                                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Fermeture</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+		<div class="modal fade" id="prestationModal1" tabindex="-1" role="dialog" aria-labelledby="prestationModal1" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
+						<h4 class="modal-title" id="myModalLabel">Consultation individuelle sur rendez-vous</h4>
+					</div>
+					<div class="modal-body">
+						Blabla
+					</div>
+			
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+					</div>
+				</div>
+			</div>
+		</div>
+        <div class="modal fade" id="prestationModal2" tabindex="-1" role="dialog" aria-labelledby="prestationModal2" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
+						<h4 class="modal-title" id="myModalLabel">Atelier de groupe</h4>
+					</div>
+					<div class="modal-body">
+						Blabla
+					</div>
+			
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="prestationModal3" tabindex="-1" role="dialog" aria-labelledby="prestationModal3" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
+						<h4 class="modal-title" id="myModalLabel">Conception et validation de menus conformes au GEMRCN</h4>
+					</div>
+					<div class="modal-body">
+						Blabla
+					</div>
+			
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+					</div>
+				</div>
+			</div>
+		</div>
+        <div class="modal fade" id="prestationModal4" tabindex="-1" role="dialog" aria-labelledby="prestationModal4" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
+						<h4 class="modal-title" id="myModalLabel">Interventions en établissements de soins</h4>
+					</div>
+					<div class="modal-body">
+						Blabla
+					</div>
+			
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+					</div>
+				</div>
+			</div>
+		</div>
+      
+        <div class="modal fade" id="prestationModal5" tabindex="-1" role="dialog" aria-labelledby="prestationModal5" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
+						<h4 class="modal-title" id="myModalLabel">Medias</h4>
+					</div>
+					<div class="modal-body">
+						Blabla
+					</div>
+			
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="prestationModal6" tabindex="-1" role="dialog" aria-labelledby="prestationModal6" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
+						<h4 class="modal-title" id="myModalLabel">Partenariats</h4>
+					</div>
+					<div class="modal-body">
+						Blabla
+					</div>
+			
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+					</div>
+				</div>
+			</div>
+		</div>
