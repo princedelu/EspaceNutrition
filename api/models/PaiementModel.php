@@ -18,19 +18,9 @@ class PaiementModel extends AbstractModel {
 	protected $_business;
 	protected $_receiverEmail;
 	protected $_receiverId;
-	protected $_residenceCountry;
-	protected $_itemName1;
-	protected $_itemNumber1;
-	protected $_quantity1;
-	protected $_tax;
-	protected $_mcCurrency;
-	protected $_mcFee;
+	protected $_itemName;
+	protected $_itemNumber;
 	protected $_mcGross;
-	protected $_mcHandling;
-	protected $_mcHandling1;
-	protected $_mcShipping;
-	protected $_mcShipping1;
-	protected $_notifyVersion;
 
     public function __construct()
     {
@@ -198,83 +188,30 @@ class PaiementModel extends AbstractModel {
         return $this->_receiverId;
     }
 
-	public function setResidenceCountry($_residenceCountry)
-	{
-		$this->_residenceCountry = $_residenceCountry;
-		return $this;
-	}
-
-    public function getResidenceCountry()
-    {
-        return $this->_residenceCountry;
-    }
 	
-	public function setItemName1($_itemName1)
+	public function setItemName($_itemName)
 	{
-		$this->_itemName1 = $_itemName1;
+		$this->_itemName = $_itemName;
 		return $this;
 	}
 
-    public function getItemName1()
+    public function getItemName()
     {
-        return $this->_itemName1;
+        return $this->_itemName;
     }
 
-	public function setItemNumber1($_itemNumber1)
+	public function setItemNumber($_itemNumber)
 	{
-		$this->_itemNumber1 = $_itemNumber1;
+		$this->_itemNumber = $_itemNumber;
 		return $this;
 	}
 
-    public function getItemNumber1()
+    public function getItemNumber()
     {
-        return $this->_itemNumber1;
+        return $this->_itemNumber;
     }
 
-	public function setQuantity1($_quantity1)
-	{
-		$this->_quantity1 = $_quantity1;
-		return $this;
-	}
-
-    public function getQuantity1()
-    {
-        return $this->_quantity1;
-    }
-
-	public function setTax($_tax)
-	{
-		$this->_tax = $_tax;
-		return $this;
-	}
-
-    public function getTax()
-    {
-        return $this->_tax;
-    }
-
-	public function setMcCurrency($_mcCurrency)
-	{
-		$this->_mcCurrency = $_mcCurrency;
-		return $this;
-	}
-
-    public function getMcCurrency()
-    {
-        return $this->_mcCurrency;
-    }
-
-	public function setMcFee($_mcFee)
-	{
-		$this->_mcFee = $_mcFee;
-		return $this;
-	}
-
-    public function getMcFee()
-    {
-        return $this->_mcFee;
-    }
-
+	
 	public function setMcGross($_mcGross)
 	{
 		$this->_mcGross = $_mcGross;
@@ -286,60 +223,7 @@ class PaiementModel extends AbstractModel {
         return $this->_mcGross;
     }
 
-	public function setMcHandling($_mcHandling)
-	{
-		$this->_mcHandling = $_mcHandling;
-		return $this;
-	}
-
-    public function getMcHandling()
-    {
-        return $this->_mcHandling;
-    }
-
-	public function setMcHandling1($_mcHandling1)
-	{
-		$this->_mcHandling1 = $_mcHandling1;
-		return $this;
-	}
-
-    public function getMcHandling1()
-    {
-        return $this->_mcHandling1;
-    }
-
-	public function setMcShipping($_mcShipping)
-	{
-		$this->_mcShipping = $_mcShipping;
-		return $this;
-	}
-
-    public function getMcShipping()
-    {
-        return $this->_mcShipping;
-    }
-
-	public function setMcShipping1($_mcShipping1)
-	{
-		$this->_mcShipping1 = $_mcShipping1;
-		return $this;
-	}
-
-    public function getMcShipping1()
-    {
-        return $this->_mcShipping1;
-    }
-
-	public function setNotifyVersion($_notifyVersion)
-	{
-		$this->_notifyVersion = $_notifyVersion;
-		return $this;
-	}
-
-    public function getNotifyVersion()
-    {
-        return $this->_notifyVersion;
-    } 
+	
 	/****************************************************************
 	Fonctions 
 	****************************************************************/
@@ -370,32 +254,12 @@ class PaiementModel extends AbstractModel {
 			$this->setReceiverEmail($post['receiver_email']);
 		if (isset($post['receiver_id']))
 			$this->setReceiverId($post['receiver_id']);
-		if (isset($post['residence_country']))
-			$this->setResidenceCountry($post['residence_country']);
-		if (isset($post['item_name1']))
-			$this->setItemName1($post['item_name1']);
-		if (isset($post['item_number1']))
-			$this->setItemNumber1($post['item_number1']);
-		if (isset($post['quantity1']))
-			$this->setQuantity1($post['quantity1']);
-		if (isset($post['tax']))
-			$this->setTax($post['tax']);
-		if (isset($post['mc_currency']))
-			$this->setMcCurrency($post['mc_currency']);
-		if (isset($post['mc_fee']))
-			$this->setMcFee($post['mc_fee']);
+		if (isset($post['item_name']))
+			$this->setItemName($post['item_name']);
+		if (isset($post['item_number']))
+			$this->setItemNumber($post['item_number']);
 		if (isset($post['mc_gross']))
 			$this->setMcGross($post['mc_gross']);
-		if (isset($post['mc_handling']))
-			$this->setMcHandling($post['mc_handling']);
-		if (isset($post['mc_handling1']))
-			$this->setMcHandling1($post['mc_handling1']);
-		if (isset($post['mc_shipping']))
-			$this->setMcShipping($post['mc_shipping']);
-		if (isset($post['mc_shipping1']))
-			$this->setMcShipping1($post['mc_shipping1']);
-		if (isset($post['notify_version']))
-			$this->setNotifyVersion($post['notify_version']);
 	}
 
 	public function notify(){
@@ -455,7 +319,7 @@ class PaiementModel extends AbstractModel {
 							$this->openConnectionDatabase();
 
 							// Exécution des requêtes SQL
-							$query=sprintf("INSERT INTO paiements (txnid, payment_amount, payment_status, itemid, createdtime) VALUES ('%s',%f,'%s','%s','%s')",mysqli_real_escape_string($this->dblink,$this->getTxnId()),mysqli_real_escape_string($this->dblink,$this->getMcGross()),mysqli_real_escape_string($this->dblink,$this->getPaymentStatus()),'itemid',date("Y-m-d H:i:s"));
+							$query=sprintf("INSERT INTO paiements (txnid, payment_amount, payment_status, item_name, createdtime, payer_id,payer_last_name,payer_first_name,payer_email,business) VALUES ('%s',%f,'%s','%s','%s','%s','%s','%s','%s','%s')",mysqli_real_escape_string($this->dblink,$this->getTxnId()),mysqli_real_escape_string($this->dblink,$this->getMcGross()),mysqli_real_escape_string($this->dblink,$this->getPaymentStatus()),mysqli_real_escape_string($this->dblink,$this->getItemName()),date("Y-m-d H:i:s"),mysqli_real_escape_string($this->dblink,$this->getPayerId()),mysqli_real_escape_string($this->dblink,$this->getPayerLastName()),mysqli_real_escape_string($this->dblink,$this->getPayerFirstName()),mysqli_real_escape_string($this->dblink,$this->getPayerEmail()),mysqli_real_escape_string($this->dblink,$this->getBusiness()));
 				 
 							$mysql_result = mysqli_query($this->dblink,$query);
 							if (!$mysql_result){

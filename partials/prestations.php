@@ -57,9 +57,10 @@
                             <div class="icon">
                                 <div class="image"><i class="fa fa-cutlery"></i></div>
                                 <div class="info">
-                                    <h3 class="title"><br/>Conception et validation de menus conformes au GEMRCN</h3>
+                                    <h3 class="title"><br/>Conception et validation de menus pour les collectivités</h3>
                                     <p>
-                                        Menus équilibrés pour les collectivités toute population
+                                        Menus équilibrés conformes au GEMRCN toute population<br/>
+										Formation sécurité et hygiène alimentaire
                                     </p>
                                     <div class="more">
                                         <a href="#prestationModal3" class="prestation-link" data-toggle="modal">
