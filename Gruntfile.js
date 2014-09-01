@@ -11,7 +11,7 @@ module.exports = function(grunt) {
         separator: ''
       },
       dist: {
-        src: [  'src_js/*.js','src_js/commun/*.js','src_js/public/*.js','src_js/utilisateur/*.js'],
+        src: [  'src_js/**/*.js'],
         dest: 'js/<%= pkg.name %>.js'
       }
     },
@@ -28,7 +28,7 @@ module.exports = function(grunt) {
       }
     },
     jshint: {
-      files: ['Gruntfile.js', 'src_js/*.js','src_js/commun/*.js','src_js/public/*.js','src_js/utilisateur/*.js'],
+      files: ['Gruntfile.js', 'src_js/**/*.js'],
       options: {
         // options here to override JSHint defaults
         globals: {
@@ -45,7 +45,7 @@ module.exports = function(grunt) {
     },
     complexity: {
         generic: {
-            src: ['Gruntfile.js', 'src_js/*.js','src_js/commun/*.js','src_js/public/*.js','src_js/utilisateur/*.js'],
+            src: ['Gruntfile.js', 'src_js/**/*.js'],
             options: {
                 breakOnErrors: false,
                 jsLintXML: 'report.xml',         // create XML JSLint-like report

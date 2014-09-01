@@ -152,8 +152,12 @@ class UserModel extends AbstractModel {
 				$this->setError(mysql_error());
 				$result=false;
 			}else{
-				while ($row = mysqli_fetch_assoc($mysql_result)) {
-					array_push($result,$row);
+				$num_rows = mysqli_num_rows($mysql_result);
+				if ($num_rows!=0){
+					while ($row = mysqli_fetch_assoc($mysql_result)) {
+						array_push($result,$row);
+					}
+					mysqli_free_result($mysql_result);
 				}
 			}
 		}
@@ -162,7 +166,6 @@ class UserModel extends AbstractModel {
 			$this->setError($e->getMessage());
 		} 
 		
-		mysqli_free_result($mysql_result);
 		$this->closeConnectionDatabase();
 
 		return $result;

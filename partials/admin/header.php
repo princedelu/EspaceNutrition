@@ -57,7 +57,12 @@
                 </li>
                 <li ng-class="{active : utilisateurs}" data-access-level='accessLevels.admin'>
                     <a href="/utilisateurs">
-                        <i class="fa fa-th"></i> <span>Utilisateurs</span>
+                        <i class="fa fa-users"></i> <span>Utilisateurs</span>
+                    </a>
+                </li>
+				<li ng-class="{active : paiements}" data-access-level='accessLevels.admin'>
+                    <a href="/paiements">
+                        <i class="fa fa-paypal"></i> <span>Paiements</span>
                     </a>
                 </li>
                 

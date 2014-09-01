@@ -41,6 +41,13 @@ angular.module('EspaceNutrition', ['ngRoute','underscore'])
 			action : 		'listUtilisateur',
             access:         access.admin
         });
+	$routeProvider.when('/paiements',
+        {
+            templateUrl:    '/partials/admin/paiements.php',
+            controller:     'PaiementCtrl',
+			action : 		'listPaiement',
+            access:         access.admin
+        });
     $routeProvider.when('/404',
         {
             templateUrl:    '/partials/404.html',

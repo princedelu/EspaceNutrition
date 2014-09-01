@@ -99,7 +99,13 @@ Utilisateurs
 ***********************************************/
 $app->get('/utilisateurs', function () use ($app) {
 	$user = new UserModel();
-	$app->response()->body( json_encode($user->fetchAll()));
+	$result = $user->fetchAll();
+	if (!$result && !empty($result)){
+		$app->response()->body($user->getError());
+        $app->response()->status( 403 );
+	}else{
+	  	$app->response()->body( json_encode( $result ));
+	}
 });
 
 /***********************************************
@@ -256,7 +262,7 @@ $app->post('/utilisateur', function () use ($app) {
 });
 
 /***********************************************
-Update utilisateurs
+Notify paiement
 ***********************************************/
 $app->post('/notifyPaiement', function () use ($app) {
     $paiement = new PaiementModel();
@@ -273,6 +279,20 @@ $app->post('/notifyPaiement', function () use ($app) {
 	}
     
 	if (!$result){
+		$app->response()->body($paiement->getError());
+        $app->response()->status( 403 );
+	}else{
+	  	$app->response()->body( json_encode( $result ));
+	}
+});
+
+/***********************************************
+Paiements
+***********************************************/
+$app->get('/paiements', function () use ($app) {
+	$paiement = new PaiementModel();
+	$result = $paiement->fetchAll();
+	if (!$result && !empty($result)){
 		$app->response()->body($paiement->getError());
         $app->response()->status( 403 );
 	}else{

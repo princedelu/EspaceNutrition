@@ -279,15 +279,16 @@ class PaiementModel extends AbstractModel {
 					$req .= "&$key=$value";
 				}
 
-				//if(USE_SANDBOX == true) {
-					$paypal_url = "https://www.sandbox.paypal.com/cgi-bin/webscr";
-				/*} else {
+				if ($this->ini_array['paypal']['mode'] == 'prod'){
 					$paypal_url = "https://www.paypal.com/cgi-bin/webscr";
-				}*/
+				} else {
+					$paypal_url = "https://www.sandbox.paypal.com/cgi-bin/webscr";
+				}
 
 				$ch = curl_init($paypal_url);
 				if ($ch == FALSE) {
 					$this->setError("Initialisation de la connexion à paypal impossible");
+					$result=false;
 				}else{
 				
 					curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
@@ -311,23 +312,12 @@ class PaiementModel extends AbstractModel {
 					{
 						curl_close($ch);
 						$this->setError("Erreur de connexion à paypal");
+						$result=false;
 					} else {
 						curl_close($ch);
 
 						if (strcmp ($res, "VERIFIED") == 0) {
-
-							$this->openConnectionDatabase();
-
-							// Exécution des requêtes SQL
-							$query=sprintf("INSERT INTO paiements (txnid, payment_amount, payment_status, item_name, createdtime, payer_id,payer_last_name,payer_first_name,payer_email,business) VALUES ('%s',%f,'%s','%s','%s','%s','%s','%s','%s','%s')",mysqli_real_escape_string($this->dblink,$this->getTxnId()),mysqli_real_escape_string($this->dblink,$this->getMcGross()),mysqli_real_escape_string($this->dblink,$this->getPaymentStatus()),mysqli_real_escape_string($this->dblink,$this->getItemName()),date("Y-m-d H:i:s"),mysqli_real_escape_string($this->dblink,$this->getPayerId()),mysqli_real_escape_string($this->dblink,$this->getPayerLastName()),mysqli_real_escape_string($this->dblink,$this->getPayerFirstName()),mysqli_real_escape_string($this->dblink,$this->getPayerEmail()),mysqli_real_escape_string($this->dblink,$this->getBusiness()));
-				 
-							$mysql_result = mysqli_query($this->dblink,$query);
-							if (!$mysql_result){
-								$this->setError(mysql_error());
-								$result=false;
-							}else{
-								$result = true;
-							}
+							$result=$this->insertPaiement();	
 						}else if (strcmp ($res, "INVALID") == 0) {
 							$this->setError("Paiment invalide");
 						}
@@ -337,8 +327,6 @@ class PaiementModel extends AbstractModel {
 			{
 				$this->setError($e);
 			} 
-	
-			$this->closeConnectionDatabase();
 		}else{
 			$this->setError("Au moins une notification a déjà été faite pour ce paiement");
 		}
@@ -347,8 +335,66 @@ class PaiementModel extends AbstractModel {
 	}
 	
 	public function fetchAll(){
-		return true;
+		$result = array();
+		try{
+			$this->openConnectionDatabase();
+
+			// Exécution des requêtes SQL
+			$query=sprintf("SELECT txnid, payment_amount, payment_status, item_name, createdtime, payer_id, payer_last_name, payer_first_name, payer_email, business, mode FROM paiements");
+ 
+			$mysql_result = mysqli_query($this->dblink,$query);
+			if (!$mysql_result){
+				$this->setError('Erreur SQL');
+				$result=false;
+			}else{
+				$num_rows = mysqli_num_rows($mysql_result);
+				if ($num_rows!=0){
+					while ($row = mysqli_fetch_assoc($mysql_result)) {
+						array_push($result,$row);
+					}
+
+					mysqli_free_result($mysql_result);
+				}
+			}
+		}
+		catch(Exception $e)
+		{
+			$this->setError($e->getMessage());
+			$result = false;
+		} 
+
+		$this->closeConnectionDatabase();
+
+		return $result;
 	}
+
+	public function insertPaiement(){
+		$result = false;
+
+		try{
+			$this->openConnectionDatabase();
+
+			// Exécution des requêtes SQL
+			$query=sprintf("INSERT INTO paiements (txnid, payment_amount, payment_status, item_name, createdtime, payer_id,payer_last_name,payer_first_name,payer_email,business,mode) VALUES ('%s',%f,'%s','%s','%s','%s','%s','%s','%s','%s','%s')",mysqli_real_escape_string($this->dblink,$this->getTxnId()),mysqli_real_escape_string($this->dblink,$this->getMcGross()),mysqli_real_escape_string($this->dblink,$this->getPaymentStatus()),mysqli_real_escape_string($this->dblink,$this->getItemName()),date("Y-m-d H:i:s"),mysqli_real_escape_string($this->dblink,$this->getPayerId()),mysqli_real_escape_string($this->dblink,$this->getPayerLastName()),mysqli_real_escape_string($this->dblink,$this->getPayerFirstName()),mysqli_real_escape_string($this->dblink,$this->getPayerEmail()),mysqli_real_escape_string($this->dblink,$this->getBusiness()),$this->ini_array['paypal']['mode']);
+ 
+			$mysql_result = mysqli_query($this->dblink,$query);
+			if (!$mysql_result){
+				$this->setError(mysql_error());
+				$result=false;
+			}else{
+				$result = true;
+			}
+		}catch(Exception $e)
+		{
+			$this->setError($e->getMessage());
+		} 
+
+		$this->closeConnectionDatabase();
+
+		return $result;
+
+	}
+
 	public function fetchOne(){
 
 		$result = false;
