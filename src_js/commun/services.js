@@ -20,6 +20,10 @@ angular.module('EspaceNutrition')
 		var isValid = false;
 		try {
 			isValid = KJUR.jws.JWS.verify(token, publicKey);
+			var pClaim = readToken(token);
+			if (pClaim.exp < Math.round(new Date().getTime()/1000)){
+				isValid = false;
+			}
 		} catch (ex) {
 			isValid = false;
 		} 
@@ -27,15 +31,20 @@ angular.module('EspaceNutrition')
 		return isValid;
 	}
 
+	function readToken(token){
+
+		var a = token.split(".");
+		var uClaim = b64utos(a[1]);
+		return KJUR.jws.JWS.readSafeJSONString(uClaim);
+	}
+
 	function adaptUser(token){
 		var result =  { email: '', role: userRoles.public };
 		if (token !== undefined)
 		{
 			if (verifyToken(token)){
-				var a = token.split(".");
-				var uClaim = b64utos(a[1]);
-				var pClaim = KJUR.jws.JWS.readSafeJSONString(uClaim);
-
+				
+				var pClaim = readToken(token);
 				var roleUser;
 				if (pClaim.role == 1){
 					roleUser = userRoles.user;

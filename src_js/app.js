@@ -87,9 +87,11 @@ angular.module('EspaceNutrition', ['ngRoute','underscore'])
 				$rootScope[current.$$route.originalPath.split('/')[1]] = false;
 			if (next !== undefined && next.$$route !== undefined)
 				$rootScope[next.$$route.originalPath.split('/')[1]] = true;
-            if (!Auth.authorize(next.access)) {
-               if(Auth.isLoggedIn()) $location.path('/dashboard');
-               else                   $location.path('/login');
+			if(Auth.isLoggedIn()){
+				if (!Auth.authorize(next.access)) $location.path('/dashboard');
+			}
+			else{                   
+					$location.path('/login');
             }
         });
 
