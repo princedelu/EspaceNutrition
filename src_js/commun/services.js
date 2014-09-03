@@ -77,7 +77,7 @@ angular.module('EspaceNutrition')
             return verifyToken($window.sessionStorage.token) && (user.role.title == userRoles.user.title || user.role.title == userRoles.admin.title);
         },
 		adaptCurrentUser : function(){
-			currentUser = adaptUser($window.sessionStorage.token);
+			changeUser(adaptUser($window.sessionStorage.token));
 		},
         login: function(user, success, error) {
             $http.post('/api/login', user).success(function(token){
