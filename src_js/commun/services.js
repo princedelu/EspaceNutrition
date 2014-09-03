@@ -54,10 +54,13 @@ angular.module('EspaceNutrition')
 					roleUser = userRoles.public;
 				}
 				result = {	email: pClaim.email, role: roleUser };
+			}else{
+				delete $window.sessionStorage.token;
 			}
 		}
 		return result;
 	}
+
 	
     return {
         authorize: function(accessLevel, role) {
@@ -73,6 +76,9 @@ angular.module('EspaceNutrition')
                 user = currentUser;
             return verifyToken($window.sessionStorage.token) && (user.role.title == userRoles.user.title || user.role.title == userRoles.admin.title);
         },
+		adaptCurrentUser : function(){
+			currentUser = adaptUser($window.sessionStorage.token);
+		},
         login: function(user, success, error) {
             $http.post('/api/login', user).success(function(token){
 				var adaptedUser = adaptUser(token.value);

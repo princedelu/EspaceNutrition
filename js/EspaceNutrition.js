@@ -87,11 +87,10 @@ angular.module('EspaceNutrition', ['ngRoute','underscore'])
 				$rootScope[current.$$route.originalPath.split('/')[1]] = false;
 			if (next !== undefined && next.$$route !== undefined)
 				$rootScope[next.$$route.originalPath.split('/')[1]] = true;
-			if(Auth.isLoggedIn()){
-				if (!Auth.authorize(next.access)) $location.path('/dashboard');
-			}
-			else{                   
-					$location.path('/login');
+			Auth.adaptCurrentUser();
+			if (!Auth.authorize(next.access)) {
+				if(Auth.isLoggedIn()) 	$location.path('/dashboard');
+				else 					$location.path('/login');
             }
         });
 
@@ -723,10 +722,13 @@ angular.module('EspaceNutrition')
 					roleUser = userRoles.public;
 				}
 				result = {	email: pClaim.email, role: roleUser };
+			}else{
+				delete $window.sessionStorage.token;
 			}
 		}
 		return result;
 	}
+
 	
     return {
         authorize: function(accessLevel, role) {
@@ -742,6 +744,9 @@ angular.module('EspaceNutrition')
                 user = currentUser;
             return verifyToken($window.sessionStorage.token) && (user.role.title == userRoles.user.title || user.role.title == userRoles.admin.title);
         },
+		adaptCurrentUser : function(){
+			currentUser = adaptUser($window.sessionStorage.token);
+		},
         login: function(user, success, error) {
             $http.post('/api/login', user).success(function(token){
 				var adaptedUser = adaptUser(token.value);
