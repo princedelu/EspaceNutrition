@@ -6,6 +6,7 @@ class ContactModel extends AbstractModel {
 
 	protected $_email;
 	protected $_nom;
+	protected $_telephone;
 	protected $_message;
 
     public function __construct()
@@ -25,6 +26,17 @@ class ContactModel extends AbstractModel {
     public function getNom()
     {
         return $this->_nom;
+    }
+
+	public function setTelephone($_telephone)
+    {
+        $this->_telephone = $_telephone;
+        return $this;
+    }
+
+    public function getTelephone()
+    {
+        return $this->_telephone;
     }
 
 	public function setEmail($_email)
@@ -75,6 +87,9 @@ class ContactModel extends AbstractModel {
 								<br/>
 								<br/>
 								Email de '.$this->getEmail().'
+								<br/>
+								<br/>
+								Téléphone : '.$this->getTelephone().'
 								<br/>
 								<br/>
 								Message : '.$this->getMessage().'

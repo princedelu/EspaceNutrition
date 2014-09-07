@@ -944,22 +944,22 @@ angular.module('EspaceNutrition')
 
 	$scope.sendMessage = function () {
 		$scope.success = "";
-		var objetValue = {};
-		objetValue.email=$scope.email;
-		objetValue.nom=$scope.nom;
-		objetValue.telephone=$scope.telephone;
-		objetValue.prenom=$scope.prenom;
-		objetValue.message=$scope.message;
+		if ($scope.champControl === undefined){
+			var objetValue = {};
+			objetValue.email=$scope.email;
+			objetValue.nom=$scope.nom;
+			objetValue.telephone=$scope.telephone;
+			objetValue.message=$scope.message;
 
-		PublicFactory.sendMessage(objetValue,
-				function () {
-					$scope.initFieldContact();
-					$scope.success = 'Message envoyé avec succès';
-				},
-				function (err) {
-					$scope.error = err;
-				});
-
+			PublicFactory.sendMessage(objetValue,
+					function () {
+						$scope.initFieldContact();
+						$scope.success = 'Message envoyé avec succès';
+					},
+					function (err) {
+						$scope.error = err;
+					});
+		}
 	};
 
 	$scope.initFieldContact = function() {

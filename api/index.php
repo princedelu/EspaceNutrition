@@ -311,6 +311,7 @@ $app->post('/sendMessage', function () use ($app) {
 	if (isset($requestJson['email']) and isset($requestJson['nom'])){
 		$contact->setNom($requestJson['nom']);
 		$contact->setEmail($requestJson['email']);
+		$contact->setTelephone($requestJson['telephone']);
 		$contact->setMessage($requestJson['message']);
 		$result = $contact->sendMessage();
 	}else{
