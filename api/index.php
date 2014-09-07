@@ -10,6 +10,7 @@ require 'tools/JWT.php';
 require 'models/AbstractModel.php';
 require 'models/UserModel.php';
 require 'models/PaiementModel.php';
+require 'models/ContactModel.php';
 require 'tools/AuthMiddleware.php';
 
 /**
@@ -294,6 +295,30 @@ $app->get('/paiements', function () use ($app) {
 	$result = $paiement->fetchAll();
 	if (!$result && !empty($result)){
 		$app->response()->body($paiement->getError());
+        $app->response()->status( 403 );
+	}else{
+	  	$app->response()->body( json_encode( $result ));
+	}
+});
+
+/***********************************************
+Send Message
+***********************************************/
+$app->post('/sendMessage', function () use ($app) {
+	$requestJson = json_decode($app->request()->getBody(), true);
+	$contact = new ContactModel();
+
+	if (isset($requestJson['email']) and isset($requestJson['nom'])){
+		$contact->setNom($requestJson['nom']);
+		$contact->setEmail($requestJson['email']);
+		$contact->setMessage($requestJson['message']);
+		$result = $contact->sendMessage();
+	}else{
+		$result = false;
+	}
+    
+	if (!$result){
+		$app->response()->body($contact->getError());
         $app->response()->status( 403 );
 	}else{
 	  	$app->response()->body( json_encode( $result ));

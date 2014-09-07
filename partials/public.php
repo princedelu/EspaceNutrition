@@ -55,9 +55,7 @@
     	<?php
 			include("prestations.php");
 			include("adistance.php");
-		?>
-
-        
+		?>        
 
         <!-- Contact Section -->
         <section id="contact">
@@ -70,44 +68,56 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2">
-                        <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
-                        <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
-                        <form name="sentMessage" id="contactForm" novalidate>
-                            <div class="row control-group">
-                                <div class="form-group col-xs-12 floating-label-form-group controls">
-                                    <label>Name</label>
-                                    <input type="text" class="form-control" placeholder="Name" id="name" required data-validation-required-message="Please enter your name.">
-                                    <p class="help-block text-danger"></p>
-                                </div>
-                            </div>
-                            <div class="row control-group">
-                                <div class="form-group col-xs-12 floating-label-form-group controls">
-                                    <label>Email Address</label>
-                                    <input type="email" class="form-control" placeholder="Email Address" id="email" required data-validation-required-message="Please enter your email address.">
-                                    <p class="help-block text-danger"></p>
-                                </div>
-                            </div>
-                            <div class="row control-group">
-                                <div class="form-group col-xs-12 floating-label-form-group controls">
-                                    <label>Phone Number</label>
-                                    <input type="tel" class="form-control" placeholder="Phone Number" id="phone" required data-validation-required-message="Please enter your phone number.">
-                                    <p class="help-block text-danger"></p>
-                                </div>
-                            </div>
-                            <div class="row control-group">
-                                <div class="form-group col-xs-12 floating-label-form-group controls">
-                                    <label>Message</label>
-                                    <textarea rows="5" class="form-control" placeholder="Message" id="message" required data-validation-required-message="Please enter a message."></textarea>
-                                    <p class="help-block text-danger"></p>
-                                </div>
-                            </div>
-                            <br>
-                            <div id="success"></div>
-                            <div class="row">
-                                <div class="form-group col-xs-12">
-                                    <button type="submit" class="btn btn-success btn-lg">Send</button>
-                                </div>
-                            </div>
+                        <form name="sendMessageForm" ng-submit='sendMessage()'>
+							<div class="form-group">
+								<label for="nom" class="labelMandatory">Nom</label>
+								<ng-form name="subForm1" ng-class="{ 'has-error' : subForm1.$invalid && !subForm1.$pristine }">
+									<input type="text" class="form-control" data-ng-model="nom" id="nom" placeholder="Nom" data-ng-required="true">
+									<div ng-show="subForm1.$dirty && subForm1.$invalid">
+										<span class="help-block" ng-show="subForm1.$error.required"> Nom obligatoire</span>
+									</div>
+								</ng-form>
+							</div>
+                            <div class="form-group">
+								<label for="email" class="labelMandatory">Email</label>
+								<ng-form name="subForm2" ng-class="{ 'has-error' : subForm2.$invalid && !subForm2.$pristine }">
+									<input type="email" class="form-control" data-ng-model="email" id="emailUtilisateur" placeholder="Email" data-ng-required="true">
+									<div ng-show="subForm2.$dirty && subForm2.$invalid">
+										<span class="help-block" ng-show="subForm2.$error.required"> Email obligatoire</span>
+										<span class="help-block" ng-show="subForm2.$error.email"> Email invalide</span>
+									</div>
+								</ng-form>
+							</div>
+                            <div class="form-group">
+								<label for="nom">Numéro de téléphone</label>
+								<ng-form name="subForm3" ng-class="{ 'has-error' : subForm3.$invalid && !subForm3.$pristine }">
+									<input type="text" class="form-control" data-ng-model="telephone" id="telephone" placeholder="Numéro de téléphone">
+								</ng-form>
+							</div>
+							<div class="form-group">
+								<label for="message" class="labelMandatory">Message</label>
+								<ng-form name="subForm4" ng-class="{ 'has-error' : subForm4.$invalid && !subForm4.$pristine }">
+									<textarea rows="8" class="form-control" data-ng-model="message" id="message" placeholder="Message" data-ng-required="true">
+</textarea>
+									<div ng-show="subForm4.$dirty && subForm4.$invalid">
+										<span class="help-block" ng-show="subForm4.$error.required"> Message obligatoire</span>
+									</div>
+								</ng-form>
+							</div>
+							<div class="form-group">
+								<label for="controle" class="labelMandatory">Champ de contrôle anti spam</label>
+								<ng-form name="subForm5" ng-class="{ 'has-error' : subForm5.$invalid && !subForm5.$pristine }">
+									<slider name="sliderControl" floor="0" ceiling="100" ng-model-low="minValueSlider" ng-model-high="maxValueSlider"></slider>
+
+									<div ng-show="subForm5.$dirty && subForm5.$invalid">
+										<span class="help-block" ng-show="subForm5.$error"> Merci de sélectionner les valeurs {{initValueMinWait}} et {{initValueMaxWait}}</span>
+									</div>
+								</ng-form>
+							</div>
+							<input type="hidden" data-ng-model="champControl" id='champControl' name="champControl">
+							<span class="label label-success" ng-show="success"> {{success}} </span>
+							<br/><br/>
+							<button type="submit" class="btn btn-primary" ng-disabled="sendMessageForm.$invalid">Envoyer</button>
                         </form>
                     </div>
                 </div>

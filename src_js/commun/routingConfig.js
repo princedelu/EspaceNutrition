@@ -36,6 +36,7 @@
 "PHzhI0hKAYEsV5psGqn1j1t7HA2+iSMsdPUEQqgM+IUoLaTGDFpQtgHmYi392UiB\n"+
 "AgMBAAE=\n"+
 "-----END PUBLIC KEY-----";
+
 	/* Element pour paypal
 	*/
 	exports.paypal = {};

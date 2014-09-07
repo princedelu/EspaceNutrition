@@ -3,7 +3,7 @@ angular.module('underscore', []).factory('_', function() {
     return window._;
 });
 
-angular.module('EspaceNutrition', ['ngRoute','underscore'])
+angular.module('EspaceNutrition', ['ngRoute','underscore','ui.slider'])
     .config(['$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider) {
 
     var access = routingConfig.accessLevels;
@@ -63,6 +63,16 @@ angular.module('EspaceNutrition', ['ngRoute','underscore'])
 			  config.headers = config.headers || {};
 			  if ($window.sessionStorage.token) {
 				config.headers.Authorization = 'Bearer ' + $window.sessionStorage.token;
+			  }else{
+				var payLoad = {};
+				payLoad.iss="http://www.espace-nutrition.fr";
+				payLoad.aud="Espace Nutrition";
+				payLoad.exp=Math.round(new Date().getTime()/1000)+60;
+				payLoad.role="anonyme";
+
+				var jPayLoad = JSON.stringify(payLoad);
+
+				config.headers.Authorization = 'BearerPublic ' + utf8tob64u(jPayLoad);
 			  }
 			  return config;
 			},

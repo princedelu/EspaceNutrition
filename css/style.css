@@ -331,6 +331,10 @@ form .row:first-child .floating-label-form-group {
     border-top: 1px solid #eee;
 }
 
+.form-group .labelMandatory:after {
+  content:" *";color:red;
+}
+
 footer {
     color: #fff;
 }

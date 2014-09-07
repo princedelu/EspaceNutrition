@@ -3,7 +3,7 @@
 
 angular.module('EspaceNutrition')
 .controller('EspaceNutritionPublicCtrl',
-['$rootScope', '$scope', '$location', '$route', '$window', function($rootScope, $scope, $location, $route, $window) {
+['$rootScope', '$scope', '$location', '$route', '$window','PublicFactory', function($rootScope, $scope, $location, $route, $window,PublicFactory) {
     
 	var action = "";
 	if ($route !== undefined && $route.current){
@@ -58,14 +58,70 @@ angular.module('EspaceNutrition')
 		}
 	};
 
+	$scope.sendMessage = function () {
+		$scope.success = "";
+		var objetValue = {};
+		objetValue.email=$scope.email;
+		objetValue.nom=$scope.nom;
+		objetValue.telephone=$scope.telephone;
+		objetValue.prenom=$scope.prenom;
+		objetValue.message=$scope.message;
+
+		PublicFactory.sendMessage(objetValue,
+				function () {
+					$scope.initFieldContact();
+					$scope.success = 'Message envoyé avec succès';
+				},
+				function (err) {
+					$scope.error = err;
+				});
+
+	};
+
+	$scope.initFieldContact = function() {
+		var value1 = Math.floor((Math.random() * 99) + 1); 
+		var value2 = Math.floor((Math.random() * 99) + 1);
+
+		$scope.minValueSlider=0;
+		$scope.maxValueSlider=100;
+
+		if (value1 > value2){
+			$scope.initValueMaxWait = value1;
+			$scope.initValueMinWait = value2;
+		}else{
+			if (value1 < value2){
+				$scope.initValueMaxWait = value2;
+				$scope.initValueMinWait = value1;
+			}else{
+				$scope.initValueMaxWait = value2 + 1;
+				$scope.initValueMinWait = value1;
+			}
+		}
+	};
+
+	$scope.$watch('minValueSlider', function(newValue, oldValue) {
+		$scope.subForm5.$setDirty();
+		$scope.subForm5.$setValidity('sliderControl',false);
+		if (newValue == $scope.initValueMinWait && $scope.maxValueSlider == $scope.initValueMaxWait){
+			$scope.subForm5.$setValidity('sliderControl',true);
+		}
+	});
+
+	$scope.$watch('maxValueSlider', function(newValue, oldValue) {
+		$scope.subForm5.$setDirty();
+		$scope.subForm5.$setValidity('sliderControl',false);
+		if ($scope.minValueSlider == $scope.initValueMinWait && newValue == $scope.initValueMaxWait){
+			$scope.subForm5.$setValidity('sliderControl',true);
+		}
+	});
+
 	switch (action) {
-		case 'listPrestations':
-			$scope.listPrestations();
-		break;
 		case 'paiementSuccess':
 			$scope.paiementSuccess();
+			$scope.initFieldContact();
 		break;
 		default:
+			$scope.initFieldContact();
 		break;
 	}
 	
