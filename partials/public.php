@@ -107,10 +107,13 @@
 							<div class="form-group">
 								<label for="controle" class="labelMandatory">Champ de contrôle anti spam</label>
 								<ng-form name="subForm5" ng-class="{ 'has-error' : subForm5.$invalid && !subForm5.$pristine }">
-									<slider name="sliderControl" floor="0" ceiling="100" ng-model-low="minValueSlider" ng-model-high="maxValueSlider"></slider>
+									
+									<div name="sliderControl" slider class="slider" min="0" max="100" step="1">
+									  <span></span>
+									</div>
 
 									<div ng-show="subForm5.$dirty && subForm5.$invalid">
-										<span class="help-block" ng-show="subForm5.$error"> Merci de sélectionner les valeurs {{initValueMinWait}} et {{initValueMaxWait}}</span>
+										<span class="help-block" ng-show="subForm5.$error"> La valeur actuelle est : {{sliderValue}}<br/>Merci de sélectionner la valeur {{initValueWait}} </span>
 									</div>
 								</ng-form>
 							</div>

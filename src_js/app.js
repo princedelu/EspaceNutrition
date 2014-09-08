@@ -3,7 +3,7 @@ angular.module('underscore', []).factory('_', function() {
     return window._;
 });
 
-angular.module('EspaceNutrition', ['ngRoute','underscore','ui.slider'])
+angular.module('EspaceNutrition', ['ngRoute','underscore'])
     .config(['$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider) {
 
     var access = routingConfig.accessLevels;

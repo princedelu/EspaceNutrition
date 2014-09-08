@@ -3,7 +3,7 @@ angular.module('underscore', []).factory('_', function() {
     return window._;
 });
 
-angular.module('EspaceNutrition', ['ngRoute','underscore','ui.slider'])
+angular.module('EspaceNutrition', ['ngRoute','underscore'])
     .config(['$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider) {
 
     var access = routingConfig.accessLevels;
@@ -963,38 +963,14 @@ angular.module('EspaceNutrition')
 	};
 
 	$scope.initFieldContact = function() {
-		var value1 = Math.floor((Math.random() * 99) + 1); 
-		var value2 = Math.floor((Math.random() * 99) + 1);
-
-		$scope.minValueSlider=0;
-		$scope.maxValueSlider=100;
-
-		if (value1 > value2){
-			$scope.initValueMaxWait = value1;
-			$scope.initValueMinWait = value2;
-		}else{
-			if (value1 < value2){
-				$scope.initValueMaxWait = value2;
-				$scope.initValueMinWait = value1;
-			}else{
-				$scope.initValueMaxWait = value2 + 1;
-				$scope.initValueMinWait = value1;
-			}
-		}
+		$scope.sliderValue=0;
+		$scope.initValueWait = Math.floor((Math.random() * 100) + 1);
 	};
 
-	$scope.$watch('minValueSlider', function(newValue, oldValue) {
+	$scope.$watch('sliderValue', function(newValue, oldValue) {
 		$scope.subForm5.$setDirty();
 		$scope.subForm5.$setValidity('sliderControl',false);
-		if (newValue == $scope.initValueMinWait && $scope.maxValueSlider == $scope.initValueMaxWait){
-			$scope.subForm5.$setValidity('sliderControl',true);
-		}
-	});
-
-	$scope.$watch('maxValueSlider', function(newValue, oldValue) {
-		$scope.subForm5.$setDirty();
-		$scope.subForm5.$setValidity('sliderControl',false);
-		if ($scope.minValueSlider == $scope.initValueMinWait && newValue == $scope.initValueMaxWait){
+		if (newValue == $scope.initValueWait){
 			$scope.subForm5.$setValidity('sliderControl',true);
 		}
 	});
@@ -1010,6 +986,73 @@ angular.module('EspaceNutrition')
 	}
 	
 }]);
+
+})();
+(function(){
+"use strict";
+
+angular.module('EspaceNutrition').directive('slider', function() {
+    return {
+        link: function(scope, element, attrs) {
+            // Linking function.
+			var $element = $(element);
+			var $bar = $('span', $element);
+			var step = attrs.step;
+
+			var width;
+			var offset;
+
+			var mouseDown = false;
+			element.on('mousedown touchstart', function(evt) {
+				mouseDown = true;
+				if (!width) {
+					width = $element.width();
+				} if (!offset) {
+					offset = $bar.offset().left;
+				}
+			});
+
+			element.on('mouseup touchend', function(evt) {
+				mouseDown = false;
+			});
+            // Throttle function to 1 call per 25ms for performance.
+			element.on('mousemove touchmove', _.throttle(function(evt) {
+				if (!mouseDown) {
+					// Don't drag the slider on mousemove hover, only on click-n-drag.
+					return;
+				}
+
+				// Calculate distance of the cursor/finger from beginning of slider
+				var diff;
+				if (evt.pageX) {
+					diff = evt.pageX - offset;
+				} else {
+					diff = evt.originalEvent.touches[0].pageX - offset;
+				}
+                // Allow dragging past the limits of the slider, but impose min/max values.
+				if (diff < 0) {
+					scope.sliderValue = attrs.min;
+					$bar.width('0%');
+				} else if (diff > width) {
+					scope.sliderValue = attrs.max;
+					$bar.width('100%');
+
+				// Set the value to percentage of slider filled against a max value.
+				} else {
+					var percent = diff / width;
+					$bar.width(percent * 100 + '%');
+					scope.sliderValue = (Math.round(percent * attrs.max / step) * step);
+				}
+
+				// Let all the watchers know we have updated the slider value.
+				scope.$apply();
+			}, 25));
+            scope.$watch('sliderValue', function(sliderValue) {
+				$bar.width(sliderValue / attrs.max * 100 + '%');
+			});
+        }
+    };
+});
 
 })();
 (function(){
