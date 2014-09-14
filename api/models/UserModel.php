@@ -528,7 +528,7 @@ class UserModel extends AbstractModel {
 		$valid = true;
 
         if (! $this->getEmail()) {
-            $this->setError('Login manquant');
+            $this->setError('Email manquant');
             $valid = false;
         }
 

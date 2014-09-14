@@ -1,0 +1,19 @@
+(function(){
+"use strict";
+
+angular.module('EspaceNutrition').factory('AbonnementFactory',['$http', function($http) {
+
+    return {
+        list: function(success, error) {
+            $http.get('/api/abonnements').success(success).error(error);
+        },
+        listMine: function(success, error) {
+			$http.get('/api/mesabonnements').success(success).error(error);
+		}
+    };
+}]);
+
+})();
+
+
+

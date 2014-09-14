@@ -11,6 +11,7 @@ require 'models/AbstractModel.php';
 require 'models/UserModel.php';
 require 'models/PaiementModel.php';
 require 'models/ContactModel.php';
+require 'models/AbonnementModel.php';
 require 'tools/AuthMiddleware.php';
 
 /**
@@ -326,6 +327,48 @@ $app->post('/sendMessage', function () use ($app) {
 	}
 });
 
+/***********************************************
+Paiements
+***********************************************/
+$app->get('/abonnements', function () use ($app) {
+	$abonnement = new AbonnementModel();
+	$result = $abonnement->fetchAll();
+	if (!$result && !empty($result)){
+		$app->response()->body($abonnement->getError());
+        $app->response()->status( 403 );
+	}else{
+	  	$app->response()->body( json_encode( $result ));
+	}
+});
+
+/***********************************************
+Mes abonnements
+***********************************************/
+$app->get('/mesabonnements', function () use ($app) {
+
+	try{
+		$payload = JWT::getPayLoad();
+	
+		if (isset($payload->email)){
+			$abonnement = new AbonnementModel();
+            $abonnement->setEmail($payload->email);
+	        $result = $abonnement->fetchAllByEmail();
+	        if (!$result && !empty($result)){
+		        $app->response()->body($abonnement->getError());
+                $app->response()->status( 403 );
+	        }else{
+	          	$app->response()->body( json_encode( $result ));
+	        }
+		}else{
+			$app->response->setStatus('403'); //Valeur du token incorrecte
+			$app->response->body("Token invalid");
+		}
+	}catch(Exception $e){
+		$app->response->setStatus('403'); //Token invalide
+		$app->response->body($e->getMessage());
+	}
+		
+});
 
 /**
  * Launch application

@@ -65,6 +65,16 @@
                         <i class="fa fa-paypal"></i> <span>Paiements</span>
                     </a>
                 </li>
+				<li ng-class="{active : abonnements}" data-access-level='accessLevels.admin'>
+                    <a href="/abonnements">
+                        <i class="fa fa-list"></i> <span>Abonnements</span>
+                    </a>
+                </li>
+                <li ng-class="{active : mesabonnements}">
+                    <a href="/mesabonnements">
+                        <i class="fa fa-list"></i> <span>Mes abonnements</span>
+                    </a>
+                </li>
                 
             </ul>
         </section>
