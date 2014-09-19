@@ -24,78 +24,82 @@ class AuthMiddleware extends \Slim\Middleware
 		}
 
         //skip routes that are exceptionally allowed without an access token:
-        if ($role==0){
-            // Récupération du token
-			if(isset($_SERVER['REDIRECT_REMOTE_USER'])){
-				$authorization = explode(" ",$_SERVER['REDIRECT_REMOTE_USER']);
-				if($authorization[0] == "BearerPublic"){
-					$jwt = $authorization[1];
-					try{
-						$payload = JWT::jsonDecode(JWT::urlsafeB64Decode($jwt));
-						if (isset($payload->role) && isset($payload->exp)){
-							if (($payload->role == "anonyme") && ($payload->exp>time())) {
-								$this->next->call();
-							}else{
-								$app->response->setStatus('403'); //Valeur du token incorrecte
-								$app->response->body("Droits insuffisants ou token expire");
-								return;
-							}
-						}else{
-							$app->response->setStatus('403'); //Valeur du token incorrecte
-						    $app->response->body("TokenPublic invalid");
+        if ($role==-1){
+            $this->next->call();
+        }else{
+            if ($role==0){
+                // Récupération du token
+			    if(isset($_SERVER['REDIRECT_REMOTE_USER'])){
+				    $authorization = explode(" ",$_SERVER['REDIRECT_REMOTE_USER']);
+				    if($authorization[0] == "BearerPublic"){
+					    $jwt = $authorization[1];
+					    try{
+						    $payload = JWT::jsonDecode(JWT::urlsafeB64Decode($jwt));
+						    if (isset($payload->role) && isset($payload->exp)){
+							    if (($payload->role == "anonyme") && ($payload->exp>time())) {
+								    $this->next->call();
+							    }else{
+								    $app->response->setStatus('403'); //Valeur du token incorrecte
+								    $app->response->body("Droits insuffisants ou token expire");
+								    return;
+							    }
+						    }else{
+							    $app->response->setStatus('403'); //Valeur du token incorrecte
+						        $app->response->body("TokenPublic invalid");
+						        return;
+						    }
+					    }catch(Exception $e){
+						    $app->response->setStatus('403'); //Token invalide
+						    $app->response->body($e->getMessage());
 						    return;
-						}
-					}catch(Exception $e){
-						$app->response->setStatus('403'); //Token invalide
-						$app->response->body($e->getMessage());
-						return;
-					}
-				}else{
-					$app->response->setStatus('403'); //Pas de zone autorisation bearer
-		            $app->response->body("Mauvais token public");
-		            return;
-				}
+					    }
+				    }else{
+					    $app->response->setStatus('403'); //Pas de zone autorisation bearer
+		                $app->response->body("Mauvais token public");
+		                return;
+				    }
+                } else {
+                    $app->response->setStatus('403'); //Pas de zone authorization
+                    $app->response->body("Accès non autorisé");
+                    return;
+                }
             } else {
-                $app->response->setStatus('403'); //Pas de zone authorization
-                $app->response->body("Accès non autorisé");
-                return;
-            }
-        } else {
-			// Récupération du token
-			if(isset($_SERVER['REDIRECT_REMOTE_USER'])){
-				$authorization = explode(" ",$_SERVER['REDIRECT_REMOTE_USER']);
-				if($authorization[0] == "Bearer"){
-					$jwt = $authorization[1];
-					try{
-						$payload = JWT::decode($jwt,$this->ini_array['JWT']['publickey']);
-						if (isset($payload->role)){
-							if ($payload->role >= $role) {
-								$this->next->call();
-							}else{
-								$app->response->setStatus('403'); //Valeur du token incorrecte
-								$app->response->body("Droits insuffisants");
-								return;
-							}
-						}else{
-							$app->response->setStatus('403'); //Valeur du token incorrecte
-						    $app->response->body("Token invalid");
+			    // Récupération du token
+			    if(isset($_SERVER['REDIRECT_REMOTE_USER'])){
+				    $authorization = explode(" ",$_SERVER['REDIRECT_REMOTE_USER']);
+				    if($authorization[0] == "Bearer"){
+					    $jwt = $authorization[1];
+					    try{
+						    $payload = JWT::decode($jwt,$this->ini_array['JWT']['publickey']);
+						    if (isset($payload->role)){
+							    if ($payload->role >= $role) {
+								    $this->next->call();
+							    }else{
+								    $app->response->setStatus('403'); //Valeur du token incorrecte
+								    $app->response->body("Droits insuffisants");
+								    return;
+							    }
+						    }else{
+							    $app->response->setStatus('403'); //Valeur du token incorrecte
+						        $app->response->body("Token invalid");
+						        return;
+						    }
+					    }catch(Exception $e){
+						    $app->response->setStatus('403'); //Token invalide
+						    $app->response->body($e->getMessage());
 						    return;
-						}
-					}catch(Exception $e){
-						$app->response->setStatus('403'); //Token invalide
-						$app->response->body($e->getMessage());
-						return;
-					}
-				}else{
-					$app->response->setStatus('403'); //Pas de zone autorisation bearer
-		            $app->response->body("Mauvais token");
-		            return;
-				}
-            } else {
-                $app->response->setStatus('403'); //Pas de zone authorization
-                $app->response->body("Accès non autorisé");
-                return;
-            }
-		}
+					    }
+				    }else{
+					    $app->response->setStatus('403'); //Pas de zone autorisation bearer
+		                $app->response->body("Mauvais token");
+		                return;
+				    }
+                } else {
+                    $app->response->setStatus('403'); //Pas de zone authorization
+                    $app->response->body("Accès non autorisé");
+                    return;
+                }
+		    }
+        }
     }
 }

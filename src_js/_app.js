@@ -3,6 +3,8 @@ angular.module('underscore', []).factory('_', function() {
     return window._;
 });
 
+$('#pleaseWaitDialog').hide();
+
 angular.module('EspaceNutrition', ['ngRoute','underscore'])
     .config(['$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider) {
 

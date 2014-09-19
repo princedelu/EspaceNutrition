@@ -299,7 +299,7 @@ class UserModel extends AbstractModel {
 							if ($this->getPrenom() != ''){
 								$query=$query.sprintf(" ,PRENOM='%s'",mysqli_real_escape_string($this->dblink,$this->getPrenom()));
 							}
-							if ($this->getDateNaissance() == ''){
+							if ($this->getDateNaissance() != ''){
 								$query=$query.sprintf(" ,DATENAISSANCE='%s'",implode('-', array_reverse(explode('-', mysqli_real_escape_string($this->dblink,$this->getDateNaissance())))));
 							}
 							if ($this->getRole() != ''){

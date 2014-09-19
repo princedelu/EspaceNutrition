@@ -51,7 +51,9 @@ angular.module('EspaceNutrition')
 					$scope.actif = res.ACTIF;
 					$scope.id = res.ID;
 		            $scope.success = 'Succes';
-					$('#dateNaissanceUtilisateur').datepicker({format: 'dd-mm-yyyy'}); 
+					$('#dateNaissanceUtilisateur').datepicker({format: 'dd-mm-yyyy',autoclose: true,weekStart:1}).on('changeDate', function(e){
+                        $scope.datenaissance = e.currentTarget.value;
+                    }); 
 		            $('#bs-ajoututilisateur').modal('show');
 		        },
 		        function (err) {
@@ -71,7 +73,9 @@ angular.module('EspaceNutrition')
 		$scope.role = 1;
 		$scope.id = "";
 
-		$('#dateNaissanceUtilisateur').datepicker({format: 'dd-mm-yyyy'}); 
+		$('#dateNaissanceUtilisateur').datepicker({format: 'dd-mm-yyyy',autoclose: true,weekStart:1}).on('changeDate', function(e){
+            $scope.datenaissance = e.currentTarget.value;
+        });
 		$('#bs-ajoututilisateur').modal('show');
 		
     };

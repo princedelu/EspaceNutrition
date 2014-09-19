@@ -89,7 +89,9 @@ angular.module('EspaceNutrition')
 					$scope.datenaissance = res.DATENAISSANCE;
 					$scope.id = res.ID;
 		            $scope.success = 'Succes';
-					$('#dateNaissanceProfil').datepicker({format: 'dd-mm-yyyy'}); 
+					$('#dateNaissanceProfil').datepicker({format: 'dd-mm-yyyy',autoclose: true,weekStart:1}).on('changeDate', function(e){
+                        $scope.datenaissance = e.currentTarget.value;
+                    });
 		            $('#bs-profil').modal('show');
 		        },
 		        function (err) {

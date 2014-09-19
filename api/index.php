@@ -102,7 +102,7 @@ Utilisateurs
 $app->get('/utilisateurs', function () use ($app) {
 	$user = new UserModel();
 	$result = $user->fetchAll();
-	if (!$result && !empty($result)){
+	if (!is_array($result)){
 		$app->response()->body($user->getError());
         $app->response()->status( 403 );
 	}else{
@@ -294,7 +294,7 @@ Paiements
 $app->get('/paiements', function () use ($app) {
 	$paiement = new PaiementModel();
 	$result = $paiement->fetchAll();
-	if (!$result && !empty($result)){
+	if (!is_array($result)){
 		$app->response()->body($paiement->getError());
         $app->response()->status( 403 );
 	}else{
@@ -333,7 +333,7 @@ Paiements
 $app->get('/abonnements', function () use ($app) {
 	$abonnement = new AbonnementModel();
 	$result = $abonnement->fetchAll();
-	if (!$result && !empty($result)){
+	 if (!is_array($result)){
 		$app->response()->body($abonnement->getError());
         $app->response()->status( 403 );
 	}else{
@@ -353,8 +353,8 @@ $app->get('/mesabonnements', function () use ($app) {
 			$abonnement = new AbonnementModel();
             $abonnement->setEmail($payload->email);
 	        $result = $abonnement->fetchAllByEmail();
-	        if (!$result && !empty($result)){
-		        $app->response()->body($abonnement->getError());
+	        if (!is_array($result)){
+		        $app->response()->body($result);
                 $app->response()->status( 403 );
 	        }else{
 	          	$app->response()->body( json_encode( $result ));
@@ -369,6 +369,69 @@ $app->get('/mesabonnements', function () use ($app) {
 	}
 		
 });
+
+/***********************************************
+Ajout abonnement
+***********************************************/
+$app->put('/abonnement', function () use ($app) {
+	$requestJson = json_decode($app->request()->getBody(), true);
+    $abonnement = new AbonnementModel();
+	
+	if (isset($requestJson['email']) and isset($requestJson['datedebut']) and isset($requestJson['datefin']) and isset($requestJson['type'])){
+		$abonnement->setDateDebut($requestJson['datedebut']);
+		$abonnement->setDateFin($requestJson['datefin']);
+		$abonnement->setEmail($requestJson['email']);
+		$abonnement->setType($requestJson['type']);
+
+		$result = $abonnement->create();
+	}else{
+		$result = false;
+		$abonnement->setError("Des champs manquent pour la création de l'abonnement");
+	}
+    
+	if (!$result){
+		$app->response()->body($abonnement->getError());
+        $app->response()->status( 403 );
+	}else{
+	  	$app->response()->body( json_encode( $result ));
+	}
+});
+
+/***********************************************
+Update utilisateurs
+***********************************************/
+$app->post('/abonnement', function () use ($app) {
+	$requestJson = json_decode($app->request()->getBody(), true);
+    $abonnement = new AbonnementModel();
+	
+	if (isset($requestJson['email']) and isset($requestJson['id'])){
+		$abonnement->setEmail($requestJson['email']);
+		$abonnement->setId($requestJson['id']);
+
+		if (isset($requestJson['datedebut'])){
+			$abonnement->setDateDebut($requestJson['datedebut']);
+		}
+		if (isset($requestJson['datefin'])){
+			$abonnement->setDateFin($requestJson['datefin']);
+		}
+		if (isset($requestJson['type'])){
+			$abonnement->setType($requestJson['type']);
+		}
+		
+	    $result = $abonnement->update();
+	}else{
+		$result = false;
+		$abonnement->setError("Des champs manquent pour la modification de l'abonnement");
+	}
+    
+	if (!$result){
+		$app->response()->body($abonnement->getError());
+        $app->response()->status( 403 );
+	}else{
+	  	$app->response()->body( json_encode( $result ));
+	}
+});
+
 
 /**
  * Launch application

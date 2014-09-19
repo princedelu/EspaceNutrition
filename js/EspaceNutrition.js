@@ -3,6 +3,8 @@ angular.module('underscore', []).factory('_', function() {
     return window._;
 });
 
+$('#pleaseWaitDialog').hide();
+
 angular.module('EspaceNutrition', ['ngRoute','underscore'])
     .config(['$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider) {
 
@@ -286,6 +288,87 @@ angular.module('EspaceNutrition')
         );
     };
 
+    $scope.createLoad = function (id) {
+        $scope.success = '';
+        $scope.error = '';
+
+		$scope.email = "";
+        $scope.datedebut = "";
+		$scope.datefin = "";
+		$scope.id = "";
+
+		$('#datedebut').datepicker({format: 'dd-mm-yyyy',autoclose: true,weekStart:1}).on('changeDate', function(e){
+            $scope.datedebut = e.currentTarget.value;
+        });
+        $('#datefin').datepicker({format: 'dd-mm-yyyy',autoclose: true,weekStart:1}).on('changeDate', function(e){
+            $scope.datefin = e.currentTarget.value;
+        });
+		$('#bs-abonnement').modal('show');
+		
+    };
+
+    $scope.add = function () {
+        $scope.success = '';
+        $scope.error = '';
+		$scope.doublon = 'false';
+        $scope.errorDate = 'false';
+        $scope.pbuser = 'false';
+        var dateDebutTab=$scope.datedebut.split("-");
+        var dateDebutOrder = dateDebutTab[2]+dateDebutTab[1]+dateDebutTab[0];
+        var dateFinTab=$scope.datefin.split("-");
+        var dateFinOrder = dateFinTab[2]+dateFinTab[1]+dateFinTab[0];
+        if (dateFinOrder<dateDebutOrder){
+            $scope.errorDate = 'true';
+        }else{
+            var objetValue = {};
+		    objetValue.email=$scope.email;
+		    objetValue.datedebut=$scope.datedebut;
+		    objetValue.datefin=$scope.datefin;
+		    objetValue.type=$scope.type;
+
+		    if ($scope.id === ""){
+			    AbonnementFactory.put(objetValue,
+				    function () {
+				        $scope.success = 'Succes';
+					    $('#bs-abonnement').on('hidden.bs.modal', function (e) {
+					      $route.reload();
+					    });
+					    $('#bs-abonnement').modal('hide');
+				    },
+				    function (err) {
+				        $scope.error = err;
+				        if (err == 'Doublon') {
+				            $scope.doublon = 'true';
+				        }
+                        if (err == 'PbUser') {
+				            $scope.pbuser = 'true';
+				        }
+				    });
+		    }else{
+			    objetValue.id=$scope.id;
+			    AbonnementFactory.post(objetValue,
+				    function () {
+				        $scope.success = 'Succes';
+					    $('#bs-abonnement').on('hidden.bs.modal', function (e) {
+					      $route.reload();
+					    });
+					    $('#bs-abonnement').modal('hide');
+				    },
+				    function (err) {
+				        $scope.error = err;
+				        if (err == 'Doublon') {
+				            $scope.doublon = 'true';
+				        }
+                        if (err == 'PbUser') {
+				            $scope.pbuser = 'true';
+				        }
+				    });
+		    }
+        }
+		
+    };
+
+
     switch (action) {
         case 'listAbonnement':
             $scope.listAbonnement();
@@ -311,6 +394,12 @@ angular.module('EspaceNutrition').factory('AbonnementFactory',['$http', function
         },
         listMine: function(success, error) {
 			$http.get('/api/mesabonnements').success(success).error(error);
+		},
+        put: function(objet, success, error) {
+			$http.put('/api/abonnement', objet).success(success).error(error);
+		},
+		post: function(objet, success, error) {
+			$http.post('/api/abonnement', objet).success(success).error(error);
 		}
     };
 }]);
@@ -410,7 +499,9 @@ angular.module('EspaceNutrition')
 					$scope.datenaissance = res.DATENAISSANCE;
 					$scope.id = res.ID;
 		            $scope.success = 'Succes';
-					$('#dateNaissanceProfil').datepicker({format: 'dd-mm-yyyy'}); 
+					$('#dateNaissanceProfil').datepicker({format: 'dd-mm-yyyy',autoclose: true,weekStart:1}).on('changeDate', function(e){
+                        $scope.datenaissance = e.currentTarget.value;
+                    });
 		            $('#bs-profil').modal('show');
 		        },
 		        function (err) {
@@ -1342,7 +1433,9 @@ angular.module('EspaceNutrition')
 					$scope.actif = res.ACTIF;
 					$scope.id = res.ID;
 		            $scope.success = 'Succes';
-					$('#dateNaissanceUtilisateur').datepicker({format: 'dd-mm-yyyy'}); 
+					$('#dateNaissanceUtilisateur').datepicker({format: 'dd-mm-yyyy',autoclose: true,weekStart:1}).on('changeDate', function(e){
+                        $scope.datenaissance = e.currentTarget.value;
+                    }); 
 		            $('#bs-ajoututilisateur').modal('show');
 		        },
 		        function (err) {
@@ -1362,7 +1455,9 @@ angular.module('EspaceNutrition')
 		$scope.role = 1;
 		$scope.id = "";
 
-		$('#dateNaissanceUtilisateur').datepicker({format: 'dd-mm-yyyy'}); 
+		$('#dateNaissanceUtilisateur').datepicker({format: 'dd-mm-yyyy',autoclose: true,weekStart:1}).on('changeDate', function(e){
+            $scope.datenaissance = e.currentTarget.value;
+        });
 		$('#bs-ajoututilisateur').modal('show');
 		
     };

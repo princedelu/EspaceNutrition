@@ -51,7 +51,20 @@
     </head>
 
     <body id="page-top">
-	        
+
+	    <div id="pleaseWaitDialog" tabindex="-1" class="row">
+            <div class="panel panel-default col-md-offset-2 col-md-8">                
+                <div class="header row">
+                    <h1 align="center">Chargement de la page...</h1>
+                </div>
+                <div class="progress row">
+                    <div class="progress-bar progress-bar-striped active "  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="90" style="width: 100%">
+                    <span class="sr-only">100% Complete</span>
+                  </div>
+                </div>
+            </div>
+        </div>
+
 		<div data-ng-view></div>
         
         <script src="js/vendor/jquery.min.js"></script>

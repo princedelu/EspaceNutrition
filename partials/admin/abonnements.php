@@ -43,6 +43,10 @@
 		</section><!-- /.content -->
 	</aside><!-- /.right-side -->
 
+    <?php
+		include("popupAbonnement.php");
+	?>
+
 </div><!-- ./wrapper -->
 
 

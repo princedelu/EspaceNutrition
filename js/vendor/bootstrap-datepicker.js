@@ -78,6 +78,7 @@
 		this.startViewMode = this.viewMode;
 		this.weekStart = options.weekStart||this.element.data('date-weekstart')||0;
 		this.weekEnd = this.weekStart === 0 ? 6 : this.weekStart - 1;
+        this.autoclose = options.autoclose || false;
 		this.onRender = options.onRender;
 		this.fillDow();
 		this.fillMonths();
@@ -313,6 +314,9 @@
 								date: this.date,
 								viewMode: DPGlobal.modes[this.viewMode].clsName
 							});
+                            if(this.autoclose){
+                                this.hide();
+                            }
 						}
 						break;
 				}
@@ -369,11 +373,11 @@
 				navStep: 10
 		}],
 		dates:{
-			days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-			daysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-			daysMin: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
-			months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-			monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+			days: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"],
+			daysShort: ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Sim"],
+			daysMin: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa", "Si"],
+			months: ["Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre"],
+			monthsShort: ["Jan", "Fev", "Mar", "Avr", "Mai", "Jui", "Jul", "Aou", "Sep", "Oct", "Nov", "Dec"]
 		},
 		isLeapYear: function (year) {
 			return (((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0))

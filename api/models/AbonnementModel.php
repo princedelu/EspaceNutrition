@@ -1,4 +1,6 @@
 <?php
+ini_set('display_errors', 'On');
+error_reporting(E_ALL);
 
 class AbonnementModel extends AbstractModel {
 
@@ -167,7 +169,7 @@ class AbonnementModel extends AbstractModel {
 		}
 		catch(Exception $e)
 		{
-			$this->setError($e->getMessage());
+			$this->setError("lk,lk");
             $result=false;
 		} 
 		
@@ -282,8 +284,8 @@ class AbonnementModel extends AbstractModel {
 			$dateDebut=mysqli_real_escape_string($this->dblink,implode('-', array_reverse(explode('-',$this->getDateDebut()))));
 			$dateFin=mysqli_real_escape_string($this->dblink,implode('-', array_reverse(explode('-',$this->getDateFin()))));
 
-			// Exécution des requêtes SQL
-			$query=sprintf("SELECT * FROM abonnements where email='%s' and ((DATEDEBUT<'%s' AND and DATEFIN>='%s') OR (DATEDEBUT<='%s' AND and DATEFIN>'%s') OR (DATEDEBUT>'%s' AND and DATEFIN<'%s'))",mysqli_real_escape_string($this->dblink,$this->getEmail()),$dateDebut,$dateDebut,$dateFin,$dateFin,$dateDebut,$dateFin);
+            // Exécution des requêtes SQL
+			$query=sprintf("SELECT * FROM utilisateurs where email='%s'",mysqli_real_escape_string($this->dblink,$this->getEmail()));
 
 			$mysql_result = mysqli_query($this->dblink,$query);
 			if (!$mysql_result){
@@ -291,21 +293,37 @@ class AbonnementModel extends AbstractModel {
 				$result=false;
 			}else{
 				$num_rows = mysqli_num_rows($mysql_result);
-				if ($num_rows>0){
-					$this->setError("Doublon");
+				if ($num_rows==0){
+					$this->setError("PbUser");
 					$result=false;
 				}else{
-					// Exécution des requêtes SQL
-					$query=sprintf("INSERT INTO abonnement (email,datedebut,datefin,type) values ('%s','%s','%s',%d)",mysqli_real_escape_string($this->dblink,$this->getEmail()),$dateDebut,$dateFin,mysqli_real_escape_string($this->dblink,$this->getType()));
-		 
-					$mysql_result = mysqli_query($this->dblink,$query);
-					if (!$mysql_result){
-						$this->setError(mysql_error());
-						$result=false;
-					}else{
-						$result = true;
-					}
-				}
+            
+			        // Exécution des requêtes SQL
+			        $query=sprintf("SELECT * FROM abonnements where email='%s' and ((DATEDEBUT<='%s' AND DATEFIN>='%s') OR (DATEDEBUT<='%s' AND DATEFIN>'%s') OR (DATEDEBUT>'%s' AND DATEFIN<'%s'))",mysqli_real_escape_string($this->dblink,$this->getEmail()),$dateDebut,$dateDebut,$dateFin,$dateFin,$dateDebut,$dateFin);
+
+			        $mysql_result = mysqli_query($this->dblink,$query);
+			        if (!$mysql_result){
+				        $this->setError(mysql_error());
+				        $result=false;
+			        }else{
+				        $num_rows = mysqli_num_rows($mysql_result);
+				        if ($num_rows>0){
+					        $this->setError("Doublon");
+					        $result=false;
+				        }else{
+					        // Exécution des requêtes SQL
+					        $query=sprintf("INSERT INTO abonnements (email,datedebut,datefin,type) values ('%s','%s','%s',%d)",mysqli_real_escape_string($this->dblink,$this->getEmail()),$dateDebut,$dateFin,mysqli_real_escape_string($this->dblink,$this->getType()));
+		         
+					        $mysql_result = mysqli_query($this->dblink,$query);
+					        if (!$mysql_result){
+						        $this->setError($query);
+						        $result=false;
+					        }else{
+						        $result = true;
+					        }
+				        }
+                    }
+                }
 			}
 			
 		}catch(Exception $e)
