@@ -148,7 +148,7 @@ angular.module('EspaceNutrition')
             function (res) {
                 $scope.loading = false;
                 var data = $.map(res, function(el, i) {
-                  return [[el.ID,el.EMAIL, el.DATEDEBUT, el.DATEFIN, el.TYPE, el.ACTIF]];
+                  return [[el.ID,el.EMAIL, el.DATEDEBUT, el.DATEFIN, el.TYPE, el.ACTIF,""]];
                 });
                 var table = $("#abonnements").dataTable({
                     "aaData": data,
@@ -158,7 +158,8 @@ angular.module('EspaceNutrition')
                         { "sTitle": "Date de début" },
                         { "sTitle": "Date de fin" },
                         { "sTitle": "Type" },
-                        { "sTitle": "Actif" }
+                        { "sTitle": "Actif" },
+                        { "sTitle": "Action" }
                     ],
                     "oLanguage": {
                           "sSearch": "Recherche:",
@@ -201,17 +202,63 @@ angular.module('EspaceNutrition')
 								var result = spanOuv.concat(label).concat(spanFerm);
 								return $("<div/>").html(result).text();
 							} 
-						}
+						},
+						{ 
+							"targets": 6, 
+							"sType": "html", 
+							"render": function(data, type, row) {
+								var result = "";
+								var resultTmp = "";
+								var id = "";
+								var fin = "";
+								// Suppression
+								resultTmp = "&lt;button class=&quot;btn btn-link app-btn-delete&quot; ng-click=&quot;delete(";
+								id = row[0];
+								fin = ")&quot; type=&quot;button&quot;&gt;&lt;span class=&quot;fa fa-times&quot;&gt;&lt;/span&gt;&lt;/button&gt;";
+								result = result.concat(resultTmp).concat(id).concat(fin);	
+								return $("<div/>").html(result).text();
+							} 
+                        }
                     ],
                     "order": [[ 1, "desc" ]]
                     
                 });
+                $('#abonnements tbody').on( 'click', 'button', function () {
+					var name = this.attributes[1].nodeName;
+					var value = this.attributes[1].nodeValue;
+					var tab = "";
+					var result = "";
+					if(name == "ng-click" && value.indexOf("delete") != -1){
+						tab = value.split("(");
+						result = tab[1];
+						tab = result.split(")");
+						result = tab[0];
+						$scope.supprimer(result);
+					}
+				} );
             },
             function (err) {
                 $scope.error = "Impossible de recuperer les abonnements";
                 $scope.loading = false;
             }
         );
+    };
+
+    $scope.supprimer = function (id) {
+        $scope.success = '';
+        $scope.error = '';
+		var retVal = confirm("Voulez vous supprimer cet abonnement?");
+        if (retVal === true) {
+		    AbonnementFactory.supprimer(id,
+		        function () {
+		            $scope.success = 'Succes';
+		            $route.reload();
+		        },
+		        function (err) {
+		            $scope.error = err;
+		            $route.reload();
+		        });
+		}
     };
 
     $scope.listMesAbonnement = function () {
@@ -394,6 +441,12 @@ angular.module('EspaceNutrition').factory('AbonnementFactory',['$http', function
         },
         listMine: function(success, error) {
 			$http.get('/api/mesabonnements').success(success).error(error);
+		},
+        supprimer: function(id, success, error) {
+			$http({
+				method: 'DELETE', 
+				url: '/api/abonnement/' + id
+			}).success(success).error(error);			
 		},
         put: function(objet, success, error) {
 			$http.put('/api/abonnement', objet).success(success).error(error);

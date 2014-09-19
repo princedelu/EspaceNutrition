@@ -10,6 +10,12 @@ angular.module('EspaceNutrition').factory('AbonnementFactory',['$http', function
         listMine: function(success, error) {
 			$http.get('/api/mesabonnements').success(success).error(error);
 		},
+        supprimer: function(id, success, error) {
+			$http({
+				method: 'DELETE', 
+				url: '/api/abonnement/' + id
+			}).success(success).error(error);			
+		},
         put: function(objet, success, error) {
 			$http.put('/api/abonnement', objet).success(success).error(error);
 		},

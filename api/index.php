@@ -432,6 +432,20 @@ $app->post('/abonnement', function () use ($app) {
 	}
 });
 
+/***********************************************
+Suppression abonnement
+***********************************************/
+$app->delete('/abonnement/:id', function ($id) use ($app) {
+	$abonnement = new AbonnementModel();
+	$abonnement->setId($id);
+	$result = $abonnement->delete();
+	if (!$result){
+		$app->response()->body($abonnement->getError());
+        $app->response()->status( 403 );
+	}else{
+	  	$app->response()->body( json_encode( $result ));
+	}
+});
 
 /**
  * Launch application
