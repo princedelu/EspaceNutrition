@@ -12,6 +12,7 @@ require 'models/UserModel.php';
 require 'models/PaiementModel.php';
 require 'models/ContactModel.php';
 require 'models/AbonnementModel.php';
+require 'models/PoidsModel.php';
 require 'tools/AuthMiddleware.php';
 
 /**
@@ -445,6 +446,51 @@ $app->delete('/abonnement/:id', function ($id) use ($app) {
 	}else{
 	  	$app->response()->body( json_encode( $result ));
 	}
+});
+
+/***********************************************
+Paiements
+***********************************************/
+$app->get('/mesurespoids/:dateStart/:dateEnd', function ($dateStart,$dateEnd) use ($app) {
+	$poidsModel = new PoidsModel();
+    $poidsModel->setDateStart($dateStart);
+    $poidsModel->setDateEnd($dateEnd);
+	$result = $poidsModel->fetchAll();
+	 if (!is_array($result)){
+		$app->response()->body($poidsModel->getError());
+        $app->response()->status( 403 );
+	}else{
+	  	$app->response()->body( json_encode( $result ));
+	}
+});
+
+/***********************************************
+Mes abonnements
+***********************************************/
+$app->get('/mesmesurespoids', function () use ($app) {
+
+	try{
+		$payload = JWT::getPayLoad();
+	
+		if (isset($payload->email)){
+			$poidsModel = new PoidsModel();
+            $poidsModel->setEmail($payload->email);
+	        $result = $poidsModel->fetchAllByEmail();
+	        if (!is_array($result)){
+		        $app->response()->body($result);
+                $app->response()->status( 403 );
+	        }else{
+	          	$app->response()->body( json_encode( $result ));
+	        }
+		}else{
+			$app->response->setStatus('403'); //Valeur du token incorrecte
+			$app->response->body("Token invalid");
+		}
+	}catch(Exception $e){
+		$app->response->setStatus('403'); //Token invalide
+		$app->response->body($e->getMessage());
+	}
+		
 });
 
 /**

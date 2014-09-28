@@ -2,13 +2,15 @@
 ini_set('display_errors', 'On');
 error_reporting(E_ALL);
 
-class AbonnementModel extends AbstractModel {
+class PoidsModel extends AbstractModel {
 
     protected $_id;
 	protected $_email;
-	protected $_datedebut;
-	protected $_datefin;
-	protected $_type;
+    protected $_poids;
+	protected $_datemesure;
+	protected $_commentaire;
+    protected $_datestart;
+    protected $_dateend;
 
     public function __construct()
     {
@@ -41,52 +43,73 @@ class AbonnementModel extends AbstractModel {
         return $this->_email;
     }
 
-	public function setDateDebut($_datedebut)
+    public function setPoids($_poids)
     {
-        $this->_datedebut = $_datedebut;
+        $this->_poids = $_poids;
         return $this;
     }
 
-    public function getDateDebut()
+    public function getPoids()
     {
-        return $this->_datedebut;
+        return $this->_poids;
     }
 
-	public function setDateFin($_datefin)
+	public function setDateMesure($_datemesure)
     {
-        $this->_datefin = $_datefin;
+        $this->_datemesure = $_datemesure;
         return $this;
     }
 
-    public function getDateFin()
+    public function getDateMesure()
     {
-        return $this->_datefin;
+        return $this->_datemesure;
     }
 
-	public function setType($_type)
+	public function setCommentaire($_type)
     {
-        $this->_type = $_type;
+        $this->_commentaire = $_commentaire;
         return $this;
     }
 
-    public function getType()
+    public function getCommentaire()
     {
-        return $this->_type;
+        return $this->_commentaire;
+    }
+
+    public function setDateStart($_datestart)
+    {
+        $this->_datestart = $_datestart;
+        return $this;
+    }
+
+    public function getDateStart()
+    {
+        return $this->_datestart;
+    }
+
+    public function setDateEnd($_dateend)
+    {
+        $this->_dateend = $_dateend;
+        return $this;
+    }
+
+    public function getDateEnd()
+    {
+        return $this->_dateend;
     }
 
     public function toArray()
     {
         return array (
             'id' => $this->getId(),
-			 'email' => $this->getEmail(),
-			'datedebut' => $this->getDateDebut(),
-			'datefin' => $this->getDateFin(),
-			'type' => $this->getType()
+			'email' => $this->getEmail(),
+			'datemesure' => $this->getDateMesure(),
+			'commentaire' => $this->getCommentaire()
         );
     }
 
 	/*
-	* Récupération de tous les utilisateurs
+	* Récupération de toutes les mesures de poids
 	*/
     public function fetchAll()
     {
@@ -96,8 +119,8 @@ class AbonnementModel extends AbstractModel {
 			$this->openConnectionDatabase();
 
 			// Exécution des requêtes SQL
-			$query=sprintf("SELECT * FROM abonnements");
- 
+			$query=sprintf("SELECT * FROM poids where DATEMESURE>='%s' AND DATEMESURE<'%s'",mysqli_real_escape_string($this->dblink,$this->getDateStart()),mysqli_real_escape_string($this->dblink,$this->getDateEnd()));
+
 			$mysql_result = mysqli_query($this->dblink,$query);
 			if (!$mysql_result){
 				$this->setError(mysql_error());
@@ -105,15 +128,8 @@ class AbonnementModel extends AbstractModel {
 			}else{
 				$num_rows = mysqli_num_rows($mysql_result);
 				if ($num_rows!=0){
-					$currentDate=date('Y-m-d');
 					while ($row = mysqli_fetch_assoc($mysql_result)) {
-						if ($row['DATEDEBUT']<=$currentDate && $row['DATEFIN']>=$currentDate){
-							$row['ACTIF']=true;
-						}else{
-							$row['ACTIF']=false;
-						}
-						$row['DATEDEBUT'] = implode('-', array_reverse(explode('-', $row['DATEDEBUT'])));
-						$row['DATEFIN'] = implode('-', array_reverse(explode('-', $row['DATEFIN'])));
+						$row['DATEMESURE'] = implode('-', array_reverse(explode('-', $row['DATEMESURE'])));
 						array_push($result,$row);
 					}
 					mysqli_free_result($mysql_result);
@@ -132,18 +148,17 @@ class AbonnementModel extends AbstractModel {
     }
 
 	/*
-	* Récupération de tous les utilisateurs
+	* Récupération de toutes les mesures de poids d'un utilisateur
 	*/
     public function fetchAllByEmail()
     {
         $result = array();
-		$currentDate = date("Ymd");
 
 		try{
 			$this->openConnectionDatabase();
 
 			// Exécution des requêtes SQL
-			$query=sprintf("SELECT * FROM abonnements where email='%s'",mysqli_real_escape_string($this->dblink,$this->getEmail()));
+			$query=sprintf("SELECT * FROM poids where email='%s'",mysqli_real_escape_string($this->dblink,$this->getEmail()));
  
 			$mysql_result = mysqli_query($this->dblink,$query);
 			if (!$mysql_result){
@@ -152,15 +167,8 @@ class AbonnementModel extends AbstractModel {
 			}else{
 				$num_rows = mysqli_num_rows($mysql_result);
 				if ($num_rows!=0){
-                    $currentDate=date('Y-m-d');
 					while ($row = mysqli_fetch_assoc($mysql_result)) {
-                        if ($row['DATEDEBUT']<=$currentDate && $row['DATEFIN']>=$currentDate){
-							$row['ACTIF']=true;
-						}else{
-							$row['ACTIF']=false;
-						}
-						$row['DATEDEBUT'] = implode('-', array_reverse(explode('-', $row['DATEDEBUT'])));
-						$row['DATEFIN'] = implode('-', array_reverse(explode('-', $row['DATEFIN'])));
+						$row['DATEMESURE'] = implode('-', array_reverse(explode('-', $row['DATEMESURE'])));
 						array_push($result,$row);
 					}
 					mysqli_free_result($mysql_result);
@@ -191,7 +199,7 @@ class AbonnementModel extends AbstractModel {
 			$this->openConnectionDatabase();
 
 			// Exécution des requêtes SQL
-			$query=sprintf("SELECT * FROM abonnements where id=%d",mysqli_real_escape_string($this->dblink,$this->getId()));
+			$query=sprintf("SELECT * FROM poids where id=%d",mysqli_real_escape_string($this->dblink,$this->getId()));
  
 			$mysql_result = mysqli_query($this->dblink,$query);
 			if (!$mysql_result){
@@ -201,14 +209,13 @@ class AbonnementModel extends AbstractModel {
 				$num_rows = mysqli_num_rows($mysql_result);
 				if ($num_rows==1){
 					$row = mysqli_fetch_assoc($mysql_result);
-					$row['DATEDEBUT'] = implode('-', array_reverse(explode('-', $row['DATEDEBUT'])));
-					$row['DATEFIN'] = implode('-', array_reverse(explode('-', $row['DATEFIN'])));
+					$row['DATEMESURE'] = implode('-', array_reverse(explode('-', $row['DATEMESURE'])));
 					$result = $row;
 				}else{
 					if ($num_rows==0){
-						$this->setError("Aucun abonnement existant pour cet id!");
+						$this->setError("Aucune mesure de poids existant pour cet id!");
 					}else{
-						$this->setError("Plusieurs abonnements existent pour cet id!");
+						$this->setError("Plusieurs mesures de poids existent pour cet id!");
 					}
 					$result=false;
 				}
@@ -224,46 +231,6 @@ class AbonnementModel extends AbstractModel {
 		return $result;
     }
 
-	/**
-     * Fetch one model from storage
-     * @param $id
-     * @return array
-     */
-    public function isActifByEmail()
-    {
-        
-		$result = array();
-
-		try{
-			$this->openConnectionDatabase();
-			
-			// Exécution des requêtes SQL
-			$query=sprintf("SELECT * FROM abonnements where EMAIL='%s' and DATEDEBUT<=NOW() AND and DATEFIN>=NOW()",mysqli_real_escape_string($this->dblink,$this->getEmail()));
- 
-			$mysql_result = mysqli_query($this->dblink,$query);
-			if (!$mysql_result){
-				$this->setError(mysql_error());
-				$result=false;
-			}else{
-				$num_rows = mysqli_num_rows($mysql_result);
-				if ($num_rows>0){
-					$result=true;
-				}else{
-					
-					$this->setError("Aucun abonnement actif existant pour cet email!");
-					$result=false;
-				}
-			}
-		}catch(Exception $e)
-		{
-			$this->setError($e->getMessage());
-		} 
-
-		$this->closeConnectionDatabase();
-
-		return $result;
-        
-    }
 
     /**
      *
@@ -281,8 +248,7 @@ class AbonnementModel extends AbstractModel {
         try{
 			$this->openConnectionDatabase();
 
-			$dateDebut=mysqli_real_escape_string($this->dblink,implode('-', array_reverse(explode('-',$this->getDateDebut()))));
-			$dateFin=mysqli_real_escape_string($this->dblink,implode('-', array_reverse(explode('-',$this->getDateFin()))));
+			$dateMesure=mysqli_real_escape_string($this->dblink,implode('-', array_reverse(explode('-',$this->getDateMesure()))));
 
             // Exécution des requêtes SQL
 			$query=sprintf("SELECT * FROM utilisateurs where email='%s'",mysqli_real_escape_string($this->dblink,$this->getEmail()));
@@ -299,7 +265,7 @@ class AbonnementModel extends AbstractModel {
 				}else{
             
 			        // Exécution des requêtes SQL
-			        $query=sprintf("SELECT * FROM abonnements where email='%s' and ((DATEDEBUT<='%s' AND DATEFIN>='%s') OR (DATEDEBUT<='%s' AND DATEFIN>'%s') OR (DATEDEBUT>'%s' AND DATEFIN<'%s'))",mysqli_real_escape_string($this->dblink,$this->getEmail()),$dateDebut,$dateDebut,$dateFin,$dateFin,$dateDebut,$dateFin);
+			        $query=sprintf("SELECT * FROM poids where email='%s' and DATEMESURE='%s'",mysqli_real_escape_string($this->dblink,$this->getEmail()),$dateMesure);
 
 			        $mysql_result = mysqli_query($this->dblink,$query);
 			        if (!$mysql_result){
@@ -312,7 +278,7 @@ class AbonnementModel extends AbstractModel {
 					        $result=false;
 				        }else{
 					        // Exécution des requêtes SQL
-					        $query=sprintf("INSERT INTO abonnements (email,datedebut,datefin,type) values ('%s','%s','%s',%d)",mysqli_real_escape_string($this->dblink,$this->getEmail()),$dateDebut,$dateFin,mysqli_real_escape_string($this->dblink,$this->getType()));
+					        $query=sprintf("INSERT INTO poids (email,datemesure,poids,commentaire) values ('%s','%s','%s','%s')",mysqli_real_escape_string($this->dblink,$this->getEmail()),$dateMesure,mysqli_real_escape_string($this->dblink,$this->getPoids()),mysqli_real_escape_string($this->dblink,$this->getCommentaire()));
 		         
 					        $mysql_result = mysqli_query($this->dblink,$query);
 					        if (!$mysql_result){
@@ -349,7 +315,7 @@ class AbonnementModel extends AbstractModel {
 					$this->openConnectionDatabase();
 
 					// Exécution des requêtes SQL
-					$query=sprintf("DELETE FROM abonnements where id=%d",mysqli_real_escape_string($this->dblink,$this->getId()));
+					$query=sprintf("DELETE FROM poids where id=%d",mysqli_real_escape_string($this->dblink,$this->getId()));
 		 
 					$mysql_result = mysqli_query($this->dblink,$query);
 					if (!$mysql_result){
@@ -365,7 +331,7 @@ class AbonnementModel extends AbstractModel {
 				$this->closeConnectionDatabase();
             }
             else {
-                $this->setError('L abonnement n existe pas');
+                $this->setError('La mesure de poids n existe pas');
                 $result = false;
             }
         }

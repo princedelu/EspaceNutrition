@@ -509,3 +509,7 @@ footer .footer-below {
     overflow: hidden;
     position: relative;
 }
+
+#pleaseWaitDialog {
+    margin-top : 50px;
+}

@@ -12,7 +12,7 @@
 					<div class="form-group">
 						<label for="email">Email</label>
 						<ng-form name="subForm2" ng-class="{ 'has-error' : subForm2.$invalid && !subForm2.$pristine }">
-							<input type="email" class="form-control" data-ng-model="email" id="emailAbonnement" placeholder="Email" data-ng-required="true">
+                            <select class="form-control" data-ng-model="email" data-ng-options="user.email for user in users" id="emailAbonnement" data-ng-required="true"></select>
 							<div ng-show="subForm2.$dirty && subForm2.$invalid">
 								<span class="help-block" ng-show="subForm2.$error.required"> Email obligatoire</span>
 								<span class="help-block" ng-show="subForm2.$error.email"> Email invalide</span>

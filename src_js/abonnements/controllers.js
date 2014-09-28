@@ -3,7 +3,7 @@
 
 angular.module('EspaceNutrition')
 .controller('AbonnementCtrl',
-['$rootScope', '$scope', '$location', '$route', '$window','Auth', 'AbonnementFactory', function($rootScope, $scope, $location, $route, $window, Auth,AbonnementFactory) {
+['$rootScope', '$scope', '$location', '$route', '$window','Auth', 'AbonnementFactory','UtilisateurFactory', function($rootScope, $scope, $location, $route, $window, Auth,AbonnementFactory,UtilisateurFactory) {
 
     $scope.user = Auth.user;
     $scope.userRoles = Auth.userRoles;
@@ -221,6 +221,20 @@ angular.module('EspaceNutrition')
 		$scope.datefin = "";
 		$scope.id = "";
 
+        UtilisateurFactory.list(
+	        function (res) {
+	            $scope.success = 'Succes';
+                var result = _.filter(res, function(user) {
+                  return user.role < 2;
+                });
+
+                $scope.users = result;
+	        },
+	        function (err) {
+	            $scope.error = err;	            
+	        }
+        );
+
 		$('#datedebut').datepicker({format: 'dd-mm-yyyy',autoclose: true,weekStart:1}).on('changeDate', function(e){
             $scope.datedebut = e.currentTarget.value;
         });
@@ -245,7 +259,7 @@ angular.module('EspaceNutrition')
             $scope.errorDate = 'true';
         }else{
             var objetValue = {};
-		    objetValue.email=$scope.email;
+		    objetValue.email=$scope.email.email;
 		    objetValue.datedebut=$scope.datedebut;
 		    objetValue.datefin=$scope.datefin;
 		    objetValue.type=$scope.type;

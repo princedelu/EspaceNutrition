@@ -63,6 +63,20 @@ angular.module('EspaceNutrition', ['ngRoute','underscore'])
             controller:     'AbonnementCtrl',
 			action : 		'listMesAbonnement',
             access:         access.user
+        });
+    $routeProvider.when('/mesures',
+        {
+            templateUrl:    '/partials/admin/mesures.php',
+            controller:     'MesureCtrl',
+			action : 		'listMesures',
+            access:         access.admin
+        });		
+    $routeProvider.when('/mesmesures',
+        {
+            templateUrl:    '/partials/admin/mesures.php',
+            controller:     'MesureCtrl',
+			action : 		'listMesMesures',
+            access:         access.user
         });	
     $routeProvider.when('/404',
         {

@@ -70,11 +70,22 @@
                         <i class="fa fa-list"></i> <span>Abonnements</span>
                     </a>
                 </li>
-                <li ng-class="{active : mesabonnements}">
+                <li ng-class="{active : mesabonnements}" data-access-level='accessLevels.userOnly'>
                     <a href="/mesabonnements">
                         <i class="fa fa-list"></i> <span>Mes abonnements</span>
                     </a>
                 </li>
+                <li ng-class="{active : mesures}" data-access-level='accessLevels.admin'>
+                    <a href="/mesures">
+                        <i class="fa fa-area-chart"></i> <span>Mesures</span>
+                    </a>
+                </li>
+                <li ng-class="{active : mesmesures}" data-access-level='accessLevels.userOnly'>
+                    <a href="/mesmesures">
+                        <i class="fa fa-area-chart"></i> <span>Mes mesures</span>
+                    </a>
+                </li>
+            
                 
             </ul>
         </section>

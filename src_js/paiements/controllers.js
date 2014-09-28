@@ -3,7 +3,11 @@
 
 angular.module('EspaceNutrition')
 .controller('PaiementCtrl',
-['$rootScope', '$scope', '$location', '$route', '$window', 'PaiementFactory', function($rootScope, $scope, $location, $route, $window, PaiementFactory) {
+['$rootScope', '$scope', '$location', '$route', '$window','Auth', 'PaiementFactory', function($rootScope, $scope, $location, $route, $window,Auth, PaiementFactory) {
+
+    $scope.user = Auth.user;
+    $scope.userRoles = Auth.userRoles;
+    $scope.accessLevels = Auth.accessLevels;
     
 	var action = "";
 	if ($route !== undefined && $route.current){
