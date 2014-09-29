@@ -3,7 +3,7 @@
 
 angular.module('EspaceNutrition')
 .controller('MesureCtrl',
-['$rootScope', '$scope', '$location', '$route', '$window','PoidsFactory','Auth', function($rootScope, $scope, $location, $route, $window, PoidsFactory, Auth) {
+['$rootScope', '$scope', '$location', '$route', '$window','PoidsFactory','UtilisateurFactory','Auth', function($rootScope, $scope, $location, $route, $window, PoidsFactory,UtilisateurFactory, Auth) {
 
     $scope.user = Auth.user;
     $scope.userRoles = Auth.userRoles;
@@ -22,6 +22,29 @@ angular.module('EspaceNutrition')
         $scope.error = '';
         $scope.loading = true;
 
+        var allUser = {};
+        allUser.email='Tous';
+        allUser.id=0;
+        allUser.role=0;
+
+        $scope.usermesure=allUser;
+
+        UtilisateurFactory.list(
+	        function (res) {
+	            $scope.success = 'Succes';
+                var result = _.filter(res, function(user) {
+                  return user.role < 2;
+                });                
+
+                result.unshift(allUser);
+               
+                $scope.users = result;
+	        },
+	        function (err) {
+	            $scope.error = err;	            
+	        }
+        );
+
         $('#mesures').fullCalendar({
             header: {
 				left: 'prev,next today',
@@ -36,7 +59,7 @@ angular.module('EspaceNutrition')
                 var dateStartString=dateStart.getFullYear() + '-' + (dateStart.getMonth() + 1) + '-' + dateStart.getDate();
                 var dateEnd=end._d;
                 var dateEndString=dateEnd.getFullYear() + '-' + (dateEnd.getMonth() + 1) + '-' + dateEnd.getDate();
-                PoidsFactory.list(dateStartString,dateEndString,
+                PoidsFactory.list($scope.usermesure.email,dateStartString,dateEndString,
 		        function (res) {
 		            $scope.success = 'Succes';
 		            var events = [];
@@ -103,12 +126,50 @@ angular.module('EspaceNutrition')
 		
     };
 
-    $scope.add = function () {
+    $scope.addPoids = function () {
         $scope.success = '';
         $scope.error = '';
 		$scope.doublon = 'false';
         $scope.errorDate = 'false';
-        $scope.pbuser = 'false';
+
+        var objetValue = {};
+	    objetValue.dateMesure=$scope.dateMesure;
+	    objetValue.poidsMesure=$scope.poidsMesure;
+	    objetValue.commentaireMesure=$scope.commentaireMesure;
+
+        if ($scope.id === ""){
+	        PoidsFactory.put(objetValue,
+		        function () {
+		            $scope.success = 'Succes';
+			        $('#bs-poids').on('hidden.bs.modal', function (e) {
+			          $route.reload();
+			        });
+			        $('#bs-poids').modal('hide');
+		        },
+		        function (err) {
+		            $scope.error = err;
+		            if (err == 'Doublon') {
+		                $scope.doublon = 'true';
+		            }
+		        });
+        }else{
+	        objetValue.id=$scope.id;
+	        PoidsFactory.post(objetValue,
+		        function () {
+		            $scope.success = 'Succes';
+			        $('#bs-poids').on('hidden.bs.modal', function (e) {
+			          $route.reload();
+			        });
+			        $('#bs-poids').modal('hide');
+		        },
+		        function (err) {
+		            $scope.error = err;
+		            if (err == 'Doublon') {
+		                $scope.doublon = 'true';
+		            }
+		        });
+            
+        }
 		
     };
 

@@ -695,6 +695,24 @@ angular.module('EspaceNutrition').directive('activeNav', ['$location', function(
 
 }]);
 
+var FLOAT_REGEXP = /^\-?\d+((\.|\,)\d+)?$/;
+angular.module('EspaceNutrition').directive('smartFloat', function() {
+  return {
+    require: 'ngModel',
+    link: function(scope, elm, attrs, ctrl) {
+      ctrl.$parsers.unshift(function(viewValue) {
+        if (FLOAT_REGEXP.test(viewValue)) {
+          ctrl.$setValidity('float', true);
+          return parseFloat(viewValue.replace(',', '.'));
+        } else {
+          ctrl.$setValidity('float', false);
+          return undefined;
+        }
+      });
+    }
+  };
+});
+
 
 angular.module('EspaceNutrition').directive('d3CourbePoids', ['$rootScope', '$location','$window', function($rootScope, $location,$window) {
 	return {
@@ -1182,7 +1200,7 @@ angular.module('EspaceNutrition')
 
 angular.module('EspaceNutrition')
 .controller('MesureCtrl',
-['$rootScope', '$scope', '$location', '$route', '$window','PoidsFactory','Auth', function($rootScope, $scope, $location, $route, $window, PoidsFactory, Auth) {
+['$rootScope', '$scope', '$location', '$route', '$window','PoidsFactory','UtilisateurFactory','Auth', function($rootScope, $scope, $location, $route, $window, PoidsFactory,UtilisateurFactory, Auth) {
 
     $scope.user = Auth.user;
     $scope.userRoles = Auth.userRoles;
@@ -1201,6 +1219,29 @@ angular.module('EspaceNutrition')
         $scope.error = '';
         $scope.loading = true;
 
+        var allUser = {};
+        allUser.email='Tous';
+        allUser.id=0;
+        allUser.role=0;
+
+        $scope.usermesure=allUser;
+
+        UtilisateurFactory.list(
+	        function (res) {
+	            $scope.success = 'Succes';
+                var result = _.filter(res, function(user) {
+                  return user.role < 2;
+                });                
+
+                result.unshift(allUser);
+               
+                $scope.users = result;
+	        },
+	        function (err) {
+	            $scope.error = err;	            
+	        }
+        );
+
         $('#mesures').fullCalendar({
             header: {
 				left: 'prev,next today',
@@ -1215,7 +1256,7 @@ angular.module('EspaceNutrition')
                 var dateStartString=dateStart.getFullYear() + '-' + (dateStart.getMonth() + 1) + '-' + dateStart.getDate();
                 var dateEnd=end._d;
                 var dateEndString=dateEnd.getFullYear() + '-' + (dateEnd.getMonth() + 1) + '-' + dateEnd.getDate();
-                PoidsFactory.list(dateStartString,dateEndString,
+                PoidsFactory.list($scope.usermesure.email,dateStartString,dateEndString,
 		        function (res) {
 		            $scope.success = 'Succes';
 		            var events = [];
@@ -1282,12 +1323,50 @@ angular.module('EspaceNutrition')
 		
     };
 
-    $scope.add = function () {
+    $scope.addPoids = function () {
         $scope.success = '';
         $scope.error = '';
 		$scope.doublon = 'false';
         $scope.errorDate = 'false';
-        $scope.pbuser = 'false';
+
+        var objetValue = {};
+	    objetValue.dateMesure=$scope.dateMesure;
+	    objetValue.poidsMesure=$scope.poidsMesure;
+	    objetValue.commentaireMesure=$scope.commentaireMesure;
+
+        if ($scope.id === ""){
+	        PoidsFactory.put(objetValue,
+		        function () {
+		            $scope.success = 'Succes';
+			        $('#bs-poids').on('hidden.bs.modal', function (e) {
+			          $route.reload();
+			        });
+			        $('#bs-poids').modal('hide');
+		        },
+		        function (err) {
+		            $scope.error = err;
+		            if (err == 'Doublon') {
+		                $scope.doublon = 'true';
+		            }
+		        });
+        }else{
+	        objetValue.id=$scope.id;
+	        PoidsFactory.post(objetValue,
+		        function () {
+		            $scope.success = 'Succes';
+			        $('#bs-poids').on('hidden.bs.modal', function (e) {
+			          $route.reload();
+			        });
+			        $('#bs-poids').modal('hide');
+		        },
+		        function (err) {
+		            $scope.error = err;
+		            if (err == 'Doublon') {
+		                $scope.doublon = 'true';
+		            }
+		        });
+            
+        }
 		
     };
 
@@ -1312,12 +1391,12 @@ angular.module('EspaceNutrition')
 angular.module('EspaceNutrition').factory('PoidsFactory',['$http', function($http) {
 
     return {
-        list: function(dateStart,dateEnd,success, error) {
-            $http.get('/api/mesurespoids/'+dateStart+'/'+dateEnd).success(success).error(error);
+        list: function(email,dateStart,dateEnd,success, error) {
+            $http.get('/api/mesurespoids/'+email+'/'+dateStart+'/'+dateEnd).success(success).error(error);
         },
-        listMine: function(success, error) {
-			$http.get('/api/mesmesurespoids').success(success).error(error);
-		},
+        listMine: function(dateStart,dateEnd,success, error) {
+            $http.get('/api/mesmesurespoids/'+dateStart+'/'+dateEnd).success(success).error(error);
+        },
         supprimer: function(id, success, error) {
 			$http({
 				method: 'DELETE', 
@@ -1327,8 +1406,14 @@ angular.module('EspaceNutrition').factory('PoidsFactory',['$http', function($htt
         put: function(objet, success, error) {
 			$http.put('/api/poids', objet).success(success).error(error);
 		},
+        putMine: function(objet, success, error) {
+			$http.put('/api/monpoids', objet).success(success).error(error);
+		},
 		post: function(objet, success, error) {
 			$http.post('/api/poids', objet).success(success).error(error);
+		},
+		postMine: function(objet, success, error) {
+			$http.post('/api/monpoids', objet).success(success).error(error);
 		}
     };
 }]);

@@ -451,11 +451,16 @@ $app->delete('/abonnement/:id', function ($id) use ($app) {
 /***********************************************
 Paiements
 ***********************************************/
-$app->get('/mesurespoids/:dateStart/:dateEnd', function ($dateStart,$dateEnd) use ($app) {
+$app->get('/mesurespoids/:email/:dateStart/:dateEnd', function ($email,$dateStart,$dateEnd) use ($app) {
 	$poidsModel = new PoidsModel();
     $poidsModel->setDateStart($dateStart);
     $poidsModel->setDateEnd($dateEnd);
-	$result = $poidsModel->fetchAll();
+    if ($email == "Tous"){
+	    $result = $poidsModel->fetchAll();
+    }else{
+         $poidsModel->setEmail($email);
+         $result = $poidsModel->fetchAllByEmail();
+    }
 	 if (!is_array($result)){
 		$app->response()->body($poidsModel->getError());
         $app->response()->status( 403 );
@@ -491,6 +496,47 @@ $app->get('/mesmesurespoids', function () use ($app) {
 		$app->response->body($e->getMessage());
 	}
 		
+});
+
+/***********************************************
+Ajout mesure de poids
+***********************************************/
+$app->put('/monpoids', function () use ($app) {
+
+    try{
+		$payload = JWT::getPayLoad();
+	
+		if (isset($payload->email)){
+
+	        $requestJson = json_decode($app->request()->getBody(), true);
+            $poidsModel = new PoidsModel();            
+	
+	        if (isset($requestJson['dateMesure']) and isset($requestJson['poidsMesure']) and isset($requestJson['commentaireMesure'])){
+		        $poidsModel->setDateMesure($requestJson['dateMesure']);
+		        $poidsModel->setPoids($requestJson['poidsMesure']);
+		        $poidsModel->setEmail($payload->email);
+		        $poidsModel->setCommentaire($requestJson['commentaireMesure']);
+
+		        $result = $poidsModel->create();
+	        }else{
+		        $result = false;
+		        $poidsModel->setError("Des champs manquent pour l'ajout du poids");
+	        }
+            
+	        if (!$result){
+		        $app->response()->body($abonnement->getError());
+                $app->response()->status( 403 );
+	        }else{
+	          	$app->response()->body( json_encode( $result ));
+	        }
+        }else{
+			$app->response->setStatus('403'); //Valeur du token incorrecte
+			$app->response->body("Token invalid");
+		}
+	}catch(Exception $e){
+		$app->response->setStatus('403'); //Token invalide
+		$app->response->body($e->getMessage());
+	}
 });
 
 /**

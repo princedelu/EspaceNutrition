@@ -23,11 +23,14 @@
 		<!-- Main content -->
 		<section class="content">
 			<div class="row">
-                <div class="col-xs-12 text-right" ng-show="mesures">
+                <div class="col-xs-6 text-left" ng-show="mesures">
+					Utilisateur : <select data-ng-model="usermesure" data-ng-options="user.email for user in users" id="usermesure" data-ng-required="true"></select>
+				</div>
+                <div class="col-xs-6 text-right" ng-show="mesures">
 					<button class="btn btn-info" data-toggle="modal" ng-click="createPoidsLoad();">
                         Ajout d'une mesure de poids
 					</button>
-                    <button class="btn btn-info" data-toggle="modal" ng-click="createRepasLoad();">
+                    <button class="btn btn-warning" data-toggle="modal" ng-click="createRepasLoad();">
                         Ajout d'un repas
 					</button>
 				</div>

@@ -158,8 +158,7 @@ class PoidsModel extends AbstractModel {
 			$this->openConnectionDatabase();
 
 			// Exécution des requêtes SQL
-			$query=sprintf("SELECT * FROM poids where email='%s'",mysqli_real_escape_string($this->dblink,$this->getEmail()));
- 
+			$query=sprintf("SELECT * FROM poids where email='%s' AND DATEMESURE>='%s' AND DATEMESURE<'%s'",mysqli_real_escape_string($this->dblink,$this->getEmail()),mysqli_real_escape_string($this->dblink,$this->getDateStart()),mysqli_real_escape_string($this->dblink,$this->getDateEnd()));
 			$mysql_result = mysqli_query($this->dblink,$query);
 			if (!$mysql_result){
 				$this->setError(mysql_error());

@@ -57,6 +57,24 @@ angular.module('EspaceNutrition').directive('activeNav', ['$location', function(
 
 }]);
 
+var FLOAT_REGEXP = /^\-?\d+((\.|\,)\d+)?$/;
+angular.module('EspaceNutrition').directive('smartFloat', function() {
+  return {
+    require: 'ngModel',
+    link: function(scope, elm, attrs, ctrl) {
+      ctrl.$parsers.unshift(function(viewValue) {
+        if (FLOAT_REGEXP.test(viewValue)) {
+          ctrl.$setValidity('float', true);
+          return parseFloat(viewValue.replace(',', '.'));
+        } else {
+          ctrl.$setValidity('float', false);
+          return undefined;
+        }
+      });
+    }
+  };
+});
+
 
 angular.module('EspaceNutrition').directive('d3CourbePoids', ['$rootScope', '$location','$window', function($rootScope, $location,$window) {
 	return {

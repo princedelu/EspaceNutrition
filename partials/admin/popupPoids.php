@@ -2,7 +2,7 @@
 <div class="modal fade" id="bs-poids" tabindex="-1" role="dialog" aria-labelledby="poids" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
-			<form name="poidsForm" ng-submit='add()'>
+			<form name="poidsForm" ng-submit='addPoids()'>
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
 					<h4 class="modal-title" id="myModalLabel" ng-hide="id">Ajout d'une mesure de poids</h4>
@@ -20,9 +20,11 @@
                     <div class="form-group">
 						<label for="poidsMesure">Poids</label>
 						<ng-form name="subForm2" ng-class="{ 'has-error' : subForm2.$invalid && !subForm2.$pristine }">
-							<input type="text" class="form-control" data-ng-model="poidsMesure" id="poidsMesure" data-ng-required="true">
+							<input type="text" class="form-control" name="poidsMesure" data-ng-model="poidsMesure" id="poidsMesure" data-ng-required="true" smart-float>
+                            
 							<div ng-show="subForm2.$dirty && subForm2.$invalid">
 								<span class="help-block" ng-show="subForm2.$error.required"> Poids obligatoire</span>
+                                <span class="help-block" ng-show="subForm2.poidsMesure.$error.float"> Le poids est un entier ou un chiffre à virgule</span>                                
 							</div>
 						</ng-form>
 					</div>
