@@ -4,6 +4,12 @@
 angular.module('EspaceNutrition').factory('PoidsFactory',['$http', function($http) {
 
     return {
+        get: function(id,success, error) {
+            $http.get('/api/poids/'+id).success(success).error(error);
+        },
+        getMine: function(id,success, error) {
+            $http.get('/api/monpoids/'+id).success(success).error(error);
+        },
         list: function(email,dateStart,dateEnd,success, error) {
             $http.get('/api/mesurespoids/'+email+'/'+dateStart+'/'+dateEnd).success(success).error(error);
         },

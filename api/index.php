@@ -449,7 +449,24 @@ $app->delete('/abonnement/:id', function ($id) use ($app) {
 });
 
 /***********************************************
-Paiements
+Poids
+***********************************************/
+$app->get('/poids/:id', function ($id) use ($app) {
+	$poidsModel = new PoidsModel();
+    $poidsModel->setId($id);
+    
+    $result = $poidsModel->fetchOne();
+    
+	 if (!$result){
+		$app->response()->body($poidsModel->getError());
+        $app->response()->status( 403 );
+	}else{
+	  	$app->response()->body( json_encode( $result ));
+	}
+});
+
+/***********************************************
+Mesure poids
 ***********************************************/
 $app->get('/mesurespoids/:email/:dateStart/:dateEnd', function ($email,$dateStart,$dateEnd) use ($app) {
 	$poidsModel = new PoidsModel();
@@ -501,6 +518,34 @@ $app->get('/mesmesurespoids', function () use ($app) {
 /***********************************************
 Ajout mesure de poids
 ***********************************************/
+$app->put('/poids', function () use ($app) {
+
+    $requestJson = json_decode($app->request()->getBody(), true);
+    $poidsModel = new PoidsModel();            
+
+    if (isset($requestJson['email']) and isset($requestJson['dateMesure']) and isset($requestJson['poidsMesure']) and isset($requestJson['commentaireMesure'])){
+        $poidsModel->setDateMesure($requestJson['dateMesure']);
+        $poidsModel->setPoids($requestJson['poidsMesure']);
+        $poidsModel->setEmail($requestJson['email']);
+        $poidsModel->setCommentaire($requestJson['commentaireMesure']);
+
+        $result = $poidsModel->create();
+    }else{
+        $result = false;
+        $poidsModel->setError("Des champs manquent pour l'ajout du poids");
+    }
+    
+    if (!$result){
+        $app->response()->body($poidsModel->getError());
+        $app->response()->status( 403 );
+    }else{
+      	$app->response()->body( json_encode( $result ));
+    }
+});
+
+/***********************************************
+Ajout mesure de poids
+***********************************************/
 $app->put('/monpoids', function () use ($app) {
 
     try{
@@ -524,7 +569,7 @@ $app->put('/monpoids', function () use ($app) {
 	        }
             
 	        if (!$result){
-		        $app->response()->body($abonnement->getError());
+		        $app->response()->body($poidsModel->getError());
                 $app->response()->status( 403 );
 	        }else{
 	          	$app->response()->body( json_encode( $result ));

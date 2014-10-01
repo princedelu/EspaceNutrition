@@ -17,6 +17,10 @@ angular.module('EspaceNutrition')
         }
     }
 
+    $scope.$watch('usermesure.email', function() {
+      $('#mesures').fullCalendar( 'refetchEvents' );
+    });
+
     $scope.listMesures = function () {
         $scope.success = '';
         $scope.error = '';
@@ -46,6 +50,11 @@ angular.module('EspaceNutrition')
         );
 
         $('#mesures').fullCalendar({
+            eventClick: function(calEvent, jsEvent, view) {
+		        $scope.id = calEvent.id;
+                $scope.createPoidsLoad(calEvent.id);
+
+            },
             header: {
 				left: 'prev,next today',
 				center: 'title',
@@ -67,6 +76,7 @@ angular.module('EspaceNutrition')
                         var dateMesureTab = mesure.DATEMESURE.split('-');
                         var dateMesureEn=dateMesureTab[2] + '-' + dateMesureTab[1] + '-' + dateMesureTab[0];
                         events.push({
+                            id : mesure.ID,
                             title: mesure.EMAIL + ' : ' + mesure.POIDS,
                             start: dateMesureEn, // will be parsed
                             backgroundColor: "#00c0ef", //Info (aqua)
@@ -112,10 +122,31 @@ angular.module('EspaceNutrition')
     $scope.createPoidsLoad = function (id) {
         $scope.success = '';
         $scope.error = '';
+        $scope.userTous = 'false';
+        $scope.doublon = 'false';
 
-        $scope.dateMesure = "";
-        $scope.poidsMesure = "";
-		$scope.id = "";
+        if (id===undefined){
+            $scope.dateMesure = "";
+            $scope.poidsMesure = "";
+            $scope.commentaireMesure ='';
+		    $scope.id = "";
+        }else{
+            PoidsFactory.get(id,
+                function (res) {
+                    $scope.success = 'Succes';
+                    $scope.dateMesure = res.DATEMESURE;
+                    $scope.poidsMesure = res.POIDS;
+                    $scope.commentaireMesure = res.COMMENTAIRE;
+		            $scope.id = id;
+                    $scope.emailMesure = res.EMAIL;
+                },
+                function (err) {
+                    $scope.error = err;
+                    if (err == 'Doublon') {
+                        $scope.doublon = 'true';
+                    }
+                });
+        }
 
 		$('#dateMesure').datepicker({format: 'dd-mm-yyyy',autoclose: true,weekStart:1}).on('changeDate', function(e){
             $scope.dateMesure = e.currentTarget.value;
@@ -130,45 +161,53 @@ angular.module('EspaceNutrition')
         $scope.success = '';
         $scope.error = '';
 		$scope.doublon = 'false';
-        $scope.errorDate = 'false';
+        $scope.userTous = 'false';
 
         var objetValue = {};
 	    objetValue.dateMesure=$scope.dateMesure;
 	    objetValue.poidsMesure=$scope.poidsMesure;
 	    objetValue.commentaireMesure=$scope.commentaireMesure;
 
-        if ($scope.id === ""){
-	        PoidsFactory.put(objetValue,
-		        function () {
-		            $scope.success = 'Succes';
-			        $('#bs-poids').on('hidden.bs.modal', function (e) {
-			          $route.reload();
-			        });
-			        $('#bs-poids').modal('hide');
-		        },
-		        function (err) {
-		            $scope.error = err;
-		            if (err == 'Doublon') {
-		                $scope.doublon = 'true';
-		            }
-		        });
-        }else{
-	        objetValue.id=$scope.id;
-	        PoidsFactory.post(objetValue,
-		        function () {
-		            $scope.success = 'Succes';
-			        $('#bs-poids').on('hidden.bs.modal', function (e) {
-			          $route.reload();
-			        });
-			        $('#bs-poids').modal('hide');
-		        },
-		        function (err) {
-		            $scope.error = err;
-		            if (err == 'Doublon') {
-		                $scope.doublon = 'true';
-		            }
-		        });
-            
+        if ($scope.mesures === true){
+            objetValue.email=$scope.usermesure.email;
+
+            if ($scope.id === ""){
+                if (objetValue.email=='Tous'){
+                    $scope.userTous = 'true';
+                }else{
+	                PoidsFactory.put(objetValue,
+		                function () {
+		                    $scope.success = 'Succes';
+			                $('#bs-poids').on('hidden.bs.modal', function (e) {
+			                  $('#mesures').fullCalendar( 'refetchEvents' );
+			                });
+			                $('#bs-poids').modal('hide');
+		                },
+		                function (err) {
+		                    $scope.error = err;
+		                    if (err == 'Doublon') {
+		                        $scope.doublon = 'true';
+		                    }
+		                });
+                }
+            }else{
+	            objetValue.id=$scope.id;
+	            PoidsFactory.post(objetValue,
+		            function () {
+		                $scope.success = 'Succes';
+			            $('#bs-poids').on('hidden.bs.modal', function (e) {
+			              $('#mesures').fullCalendar( 'refetchEvents' );
+			            });
+			            $('#bs-poids').modal('hide');
+		            },
+		            function (err) {
+		                $scope.error = err;
+		                if (err == 'Doublon') {
+		                    $scope.doublon = 'true';
+		                }
+		            });
+                
+            }
         }
 		
     };

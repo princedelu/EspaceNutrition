@@ -65,7 +65,7 @@ class PoidsModel extends AbstractModel {
         return $this->_datemesure;
     }
 
-	public function setCommentaire($_type)
+	public function setCommentaire($_commentaire)
     {
         $this->_commentaire = $_commentaire;
         return $this;
