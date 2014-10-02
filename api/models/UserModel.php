@@ -149,7 +149,7 @@ class UserModel extends AbstractModel {
  
 			$mysql_result = mysqli_query($this->dblink,$query);
 			if (!$mysql_result){
-				$this->setError(mysql_error());
+				$this->setError(mysqli_error($this->dblink));
 				$result=false;
 			}else{
 				$num_rows = mysqli_num_rows($mysql_result);
@@ -189,7 +189,7 @@ class UserModel extends AbstractModel {
  
 			$mysql_result = mysqli_query($this->dblink,$query);
 			if (!$mysql_result){
-				$this->setError(mysql_error());
+				$this->setError(mysqli_error($this->dblink));
 				$result=false;
 			}else{
 				$num_rows = mysqli_num_rows($mysql_result);
@@ -236,7 +236,7 @@ class UserModel extends AbstractModel {
  
 			$mysql_result = mysqli_query($this->dblink,$query);
 			if (!$mysql_result){
-				$this->setError(mysql_error());
+				$this->setError(mysqli_error($this->dblink));
 				$result=false;
 			}else{
 
@@ -284,7 +284,7 @@ class UserModel extends AbstractModel {
 		 
 					$mysql_result = mysqli_query($this->dblink,$query);
 					if (!$mysql_result){
-						$this->setError(mysql_error());
+						$this->setError(mysqli_error($this->dblink));
 						$result=false;
 					}else{
 
@@ -320,7 +320,7 @@ class UserModel extends AbstractModel {
 								if ($row['ID'] == $this->getId()){
 									$mysql_result = mysqli_query($this->dblink,$query);
 									if (!$mysql_result){
-										$this->setError(mysql_error());
+										$this->setError(mysqli_error($this->dblink));
 										$result=false;
 									}else{
 										$result = true;
@@ -334,7 +334,7 @@ class UserModel extends AbstractModel {
 								// Si l'email n'existe pas
 								$mysql_result = mysqli_query($this->dblink,$query);
 								if (!$mysql_result){
-									$this->setError(mysql_error());
+									$this->setError(mysqli_error($this->dblink));
 									$result=false;
 								}else{
 									$result = true;
@@ -378,7 +378,7 @@ class UserModel extends AbstractModel {
 
 			$mysql_result = mysqli_query($this->dblink,$query);
 			if (!$mysql_result){
-				$this->setError(mysql_error());
+				$this->setError(mysqli_error($this->dblink));
 				$result=false;
 			}else{
 				$num_rows = mysqli_num_rows($mysql_result);
@@ -393,7 +393,7 @@ class UserModel extends AbstractModel {
 		 
 					$mysql_result = mysqli_query($this->dblink,$query);
 					if (!$mysql_result){
-						$this->setError(mysql_error());
+						$this->setError(mysqli_error($this->dblink));
 						$result=false;
 					}else{
 						// Envoi du token à l'utilisateur
@@ -429,7 +429,7 @@ class UserModel extends AbstractModel {
 		 
 					$mysql_result = mysqli_query($this->dblink,$query);
 					if (!$mysql_result){
-						$this->setError(mysql_error());
+						$this->setError(mysqli_error($this->dblink));
 						$result=false;
 					}else{
 						$result = true;
@@ -554,7 +554,7 @@ class UserModel extends AbstractModel {
 			
 				$mysql_result = mysqli_query($this->dblink,$query);
 				if (!$mysql_result){
-					$this->setError(mysql_error());
+					$this->setError(mysqli_error($this->dblink));
 					$result=false;
 				}else{
 
@@ -606,7 +606,7 @@ class UserModel extends AbstractModel {
 			
 				$mysql_result = mysqli_query($this->dblink,$query);
 				if (!$mysql_result){
-					$this->setError(mysql_error());
+					$this->setError(mysqli_error($this->dblink));
 					$result=false;
 				}else{
 
@@ -621,7 +621,7 @@ class UserModel extends AbstractModel {
 						
 						$mysql_result = mysqli_query($this->dblink,$query);
 						if (!$mysql_result){
-							$this->setError(mysql_error());
+							$this->setError(mysqli_error($this->dblink));
 							$result=false;
 						}else{
 							$result = $this->authentificate();

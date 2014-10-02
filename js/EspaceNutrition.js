@@ -1180,7 +1180,11 @@ angular.module('EspaceNutrition')
             $http.post('/api/sendMailToken', user).success(success).error(error);
         },
 		post: function(objet, success, error) {
-			$http.post('/api/utilisateur', objet).success(success).error(error);
+            if (currentUser.role == userRoles.admin){
+			    $http.post('/api/utilisateur', objet).success(success).error(error);
+            }else{
+                $http.post('/api/monprofil', objet).success(success).error(error);
+            }
 		},
 		get: function(success, error) {
 			$http.get('/api/profil').success(success).error(error);
@@ -1214,9 +1218,9 @@ angular.module('EspaceNutrition')
         }
     }
 
-    $scope.$watch('usermesure.email', function() {
+    $scope.changeUserMesure = function() {
       $('#mesures').fullCalendar( 'refetchEvents' );
-    });
+    };
 
     $scope.listMesures = function () {
         $scope.success = '';
@@ -1294,6 +1298,74 @@ angular.module('EspaceNutrition')
         $scope.success = '';
         $scope.error = '';
         $scope.loading = true;
+
+        var allUser = {};
+        allUser.email= $scope.user.email;
+        allUser.id=0;
+        allUser.role=0;
+
+        $scope.usermesure=allUser;
+        var result = [];
+        result.push(allUser);
+               
+        $scope.users = result;
+
+        UtilisateurFactory.list(
+	        function (res) {
+	            $scope.success = 'Succes';
+                var result = _.filter(res, function(user) {
+                  return user.role < 2;
+                });                
+
+                result.unshift(allUser);
+               
+                $scope.users = result;
+	        },
+	        function (err) {
+	            $scope.error = err;	            
+	        }
+        );
+
+        $('#mesures').fullCalendar({
+            eventClick: function(calEvent, jsEvent, view) {
+		        $scope.id = calEvent.id;
+                $scope.createPoidsLoad(calEvent.id);
+            },
+            header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,agendaWeek,agendaDay'
+			},
+			defaultView: 'agendaWeek',
+			editable: true,
+			eventLimit: true, // allow "more" link when too many events
+			events: function(start, end, timezone, callback) {
+                var dateStart=start._d;
+                var dateStartString=dateStart.getFullYear() + '-' + (dateStart.getMonth() + 1) + '-' + dateStart.getDate();
+                var dateEnd=end._d;
+                var dateEndString=dateEnd.getFullYear() + '-' + (dateEnd.getMonth() + 1) + '-' + dateEnd.getDate();
+                PoidsFactory.listMine(dateStartString,dateEndString,
+		        function (res) {
+		            $scope.success = 'Succes';
+		            var events = [];
+                    _.each(res,function(mesure){
+                        var dateMesureTab = mesure.DATEMESURE.split('-');
+                        var dateMesureEn=dateMesureTab[2] + '-' + dateMesureTab[1] + '-' + dateMesureTab[0];
+                        events.push({
+                            id : mesure.ID,
+                            title: mesure.EMAIL + ' : ' + mesure.POIDS,
+                            start: dateMesureEn, // will be parsed
+                            backgroundColor: "#00c0ef", //Info (aqua)
+                            borderColor: "#00c0ef" //Info (aqua)
+                        });
+                    });
+                    callback(events);
+		        },
+		        function (err) {
+		            $scope.error = err;
+		        });
+            }
+		});
         
     };
 
@@ -1321,6 +1393,7 @@ angular.module('EspaceNutrition')
         $scope.error = '';
         $scope.userTous = 'false';
         $scope.doublon = 'false';
+        $scope.abonnementinactif = 'false';
 
         if (id===undefined){
             $scope.dateMesure = "";
@@ -1328,7 +1401,15 @@ angular.module('EspaceNutrition')
             $scope.commentaireMesure ='';
 		    $scope.id = "";
         }else{
-            PoidsFactory.get(id,
+            var modeSaisieMesure = "";
+            if ($scope.mesures === true){
+                modeSaisieMesure = "mesures";
+            }else{
+                if ($scope.mesmesures === true){
+                    modeSaisieMesure = "mesmesures";
+                }
+            }
+            PoidsFactory.get(id,modeSaisieMesure,
                 function (res) {
                     $scope.success = 'Succes';
                     $scope.dateMesure = res.DATEMESURE;
@@ -1358,6 +1439,7 @@ angular.module('EspaceNutrition')
         $scope.success = '';
         $scope.error = '';
 		$scope.doublon = 'false';
+        $scope.abonnementinactif = 'false';
         $scope.userTous = 'false';
 
         var objetValue = {};
@@ -1365,48 +1447,57 @@ angular.module('EspaceNutrition')
 	    objetValue.poidsMesure=$scope.poidsMesure;
 	    objetValue.commentaireMesure=$scope.commentaireMesure;
 
+        var modeSaisieMesure = "";
         if ($scope.mesures === true){
-            objetValue.email=$scope.usermesure.email;
-
-            if ($scope.id === ""){
-                if (objetValue.email=='Tous'){
-                    $scope.userTous = 'true';
-                }else{
-	                PoidsFactory.put(objetValue,
-		                function () {
-		                    $scope.success = 'Succes';
-			                $('#bs-poids').on('hidden.bs.modal', function (e) {
-			                  $('#mesures').fullCalendar( 'refetchEvents' );
-			                });
-			                $('#bs-poids').modal('hide');
-		                },
-		                function (err) {
-		                    $scope.error = err;
-		                    if (err == 'Doublon') {
-		                        $scope.doublon = 'true';
-		                    }
-		                });
-                }
-            }else{
-	            objetValue.id=$scope.id;
-	            PoidsFactory.post(objetValue,
-		            function () {
-		                $scope.success = 'Succes';
-			            $('#bs-poids').on('hidden.bs.modal', function (e) {
-			              $('#mesures').fullCalendar( 'refetchEvents' );
-			            });
-			            $('#bs-poids').modal('hide');
-		            },
-		            function (err) {
-		                $scope.error = err;
-		                if (err == 'Doublon') {
-		                    $scope.doublon = 'true';
-		                }
-		            });
-                
+            modeSaisieMesure = "mesures";
+        }else{
+            if ($scope.mesmesures === true){
+                modeSaisieMesure = "mesmesures";
             }
         }
-		
+        objetValue.email=$scope.usermesure.email;
+
+        if ($scope.id === ""){
+            if (objetValue.email=='Tous'){
+                $scope.userTous = 'true';
+            }else{
+                PoidsFactory.put(objetValue,modeSaisieMesure,
+	                function () {
+	                    $scope.success = 'Succes';
+		                $('#bs-poids').on('hidden.bs.modal', function (e) {
+		                  $('#mesures').fullCalendar( 'refetchEvents' );
+		                });
+		                $('#bs-poids').modal('hide');
+	                },
+	                function (err) {
+	                    $scope.error = err;
+	                    if (err == 'Doublon') {
+	                        $scope.doublon = 'true';
+	                    }
+                        if (err == 'AbonnementInactif') {
+	                        $scope.abonnementinactif = 'true';
+	                    }
+	                });
+            }
+        }else{
+            objetValue.id=$scope.id;
+            PoidsFactory.post(objetValue,modeSaisieMesure,
+	            function () {
+	                $scope.success = 'Succes';
+                    $('#mesures').fullCalendar( 'refetchEvents' );
+		            $('#bs-poids').modal('hide');
+	            },
+	            function (err) {
+	                $scope.error = err;
+	                if (err == 'Doublon') {
+	                    $scope.doublon = 'true';
+	                }
+                    if (err == 'AbonnementInactif') {
+                        $scope.abonnementinactif = 'true';
+                    }
+	            });
+            
+        }
     };
 
 
@@ -1430,11 +1521,14 @@ angular.module('EspaceNutrition')
 angular.module('EspaceNutrition').factory('PoidsFactory',['$http', function($http) {
 
     return {
-        get: function(id,success, error) {
-            $http.get('/api/poids/'+id).success(success).error(error);
-        },
-        getMine: function(id,success, error) {
-            $http.get('/api/monpoids/'+id).success(success).error(error);
+        get: function(id,modeSaisieMesure,success, error) {
+            if (modeSaisieMesure === "mesures"){
+                $http.get('/api/poids/'+id).success(success).error(error);
+            }else{
+                if (modeSaisieMesure === "mesmesures"){
+                    $http.get('/api/monpoids/'+id).success(success).error(error);
+                }
+            }
         },
         list: function(email,dateStart,dateEnd,success, error) {
             $http.get('/api/mesurespoids/'+email+'/'+dateStart+'/'+dateEnd).success(success).error(error);
@@ -1448,17 +1542,23 @@ angular.module('EspaceNutrition').factory('PoidsFactory',['$http', function($htt
 				url: '/api/poids/' + id
 			}).success(success).error(error);			
 		},
-        put: function(objet, success, error) {
-			$http.put('/api/poids', objet).success(success).error(error);
+        put: function(objet,modeSaisieMesure, success, error) {
+            if (modeSaisieMesure === "mesures"){
+			    $http.put('/api/poids', objet).success(success).error(error);
+            }else{
+                if (modeSaisieMesure === "mesmesures"){
+			        $http.put('/api/monpoids', objet).success(success).error(error);
+                }
+            }
 		},
-        putMine: function(objet, success, error) {
-			$http.put('/api/monpoids', objet).success(success).error(error);
-		},
-		post: function(objet, success, error) {
-			$http.post('/api/poids', objet).success(success).error(error);
-		},
-		postMine: function(objet, success, error) {
-			$http.post('/api/monpoids', objet).success(success).error(error);
+		post: function(objet,modeSaisieMesure, success, error) {
+			if (modeSaisieMesure === "mesures"){
+			    $http.post('/api/poids', objet).success(success).error(error);
+            }else{
+                if (modeSaisieMesure === "mesmesures"){
+			        $http.post('/api/monpoids', objet).success(success).error(error);
+                }
+            }
 		}
     };
 }]);

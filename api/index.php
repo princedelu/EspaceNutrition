@@ -265,6 +265,72 @@ $app->post('/utilisateur', function () use ($app) {
 });
 
 /***********************************************
+Update monprofil
+***********************************************/
+$app->post('/monprofil', function () use ($app) {
+	$requestJson = json_decode($app->request()->getBody(), true);
+    $user = new UserModel();
+	
+	if (isset($requestJson['email']) and isset($requestJson['id'])){
+		$user->setId($requestJson['id']);
+
+		if (isset($requestJson['nom'])){
+			$user->setNom($requestJson['nom']);
+		}
+		if (isset($requestJson['prenom'])){
+			$user->setPrenom($requestJson['prenom']);
+		}
+		if (isset($requestJson['datenaissance'])){
+			$user->setDateNaissance($requestJson['datenaissance']);
+		}
+		if (isset($requestJson['role'])){
+			$user->setRole($requestJson['role']);
+		}
+		if (isset($requestJson['actif'])){
+			$user->setActif($requestJson['actif']);
+		}
+		if (isset($requestJson['password'])){
+			$user->setPassword($requestJson['password']);
+		}
+		if (isset($requestJson['profil']) && $requestJson['profil'] == 1){
+			try{
+				$payload = JWT::getPayLoad();
+	
+				if (isset($payload->email)){
+					if ($payload->email == $user->getEmail()){
+						
+						$result = $user->update();
+					}else{
+						$result = false;
+						$user->setError("Ce n'est pas votre compte");
+					}
+				}else{
+					$result = false;
+					$user->setError("Modification de profil impossible");
+				}
+					
+			}catch(Exception $e){
+				$app->response->setStatus('403'); //Token invalide
+				$app->response->body($e->getMessage());
+			}
+		}else{
+			$result = false;
+			$user->setError("Modification de profil impossible");
+		}
+	}else{
+		$result = false;
+		$user->setError("Des champs manquent pour la modification de l'utilisateur");
+	}
+    
+	if (!$result){
+		$app->response()->body($user->getError());
+        $app->response()->status( 403 );
+	}else{
+	  	$app->response()->body( json_encode( $result ));
+	}
+});
+
+/***********************************************
 Notify paiement
 ***********************************************/
 $app->post('/notifyPaiement', function () use ($app) {
@@ -466,6 +532,40 @@ $app->get('/poids/:id', function ($id) use ($app) {
 });
 
 /***********************************************
+Poids
+***********************************************/
+$app->get('/monpoids/:id', function ($id) use ($app) {
+    try{
+		$payload = JWT::getPayLoad();
+	
+		if (isset($payload->email)){
+	        $poidsModel = new PoidsModel();
+            $poidsModel->setId($id);
+            
+            $result = $poidsModel->fetchOne();
+            
+	         if (!$result){
+		        $app->response()->body($poidsModel->getError());
+                $app->response()->status( 403 );
+	        }else{
+                if ($result['EMAIL'] != $payload->email){
+                    $app->response()->body("Ceci n'est pas votre mesure de poids");
+                    $app->response()->status( 403 );
+                }else{
+	          	    $app->response()->body( json_encode( $result ));
+                }
+	        }
+        }else{
+			$app->response->setStatus('403'); //Valeur du token incorrecte
+			$app->response->body("Token invalid");
+		}
+	}catch(Exception $e){
+		$app->response->setStatus('403'); //Token invalide
+		$app->response->body($e->getMessage());
+	}
+});
+
+/***********************************************
 Mesure poids
 ***********************************************/
 $app->get('/mesurespoids/:email/:dateStart/:dateEnd', function ($email,$dateStart,$dateEnd) use ($app) {
@@ -489,13 +589,15 @@ $app->get('/mesurespoids/:email/:dateStart/:dateEnd', function ($email,$dateStar
 /***********************************************
 Mes abonnements
 ***********************************************/
-$app->get('/mesmesurespoids', function () use ($app) {
+$app->get('/mesmesurespoids/:dateStart/:dateEnd', function ($dateStart,$dateEnd) use ($app) {
 
 	try{
 		$payload = JWT::getPayLoad();
 	
 		if (isset($payload->email)){
 			$poidsModel = new PoidsModel();
+            $poidsModel->setDateStart($dateStart);
+            $poidsModel->setDateEnd($dateEnd);
             $poidsModel->setEmail($payload->email);
 	        $result = $poidsModel->fetchAllByEmail();
 	        if (!is_array($result)){
@@ -552,28 +654,114 @@ $app->put('/monpoids', function () use ($app) {
 		$payload = JWT::getPayLoad();
 	
 		if (isset($payload->email)){
-
-	        $requestJson = json_decode($app->request()->getBody(), true);
-            $poidsModel = new PoidsModel();            
+            $poidsModel = new PoidsModel();  
+            $abonnementModel = new AbonnementModel();
+            $abonnementModel->setEmail($payload->email);
+            if ($abonnementModel->isActifByEmail()){
+	            $requestJson = json_decode($app->request()->getBody(), true);
 	
-	        if (isset($requestJson['dateMesure']) and isset($requestJson['poidsMesure']) and isset($requestJson['commentaireMesure'])){
-		        $poidsModel->setDateMesure($requestJson['dateMesure']);
-		        $poidsModel->setPoids($requestJson['poidsMesure']);
-		        $poidsModel->setEmail($payload->email);
-		        $poidsModel->setCommentaire($requestJson['commentaireMesure']);
+	            if (isset($requestJson['dateMesure']) and isset($requestJson['poidsMesure']) and isset($requestJson['commentaireMesure'])){
+		            $poidsModel->setDateMesure($requestJson['dateMesure']);
+		            $poidsModel->setPoids($requestJson['poidsMesure']);
+		            $poidsModel->setEmail($payload->email);
+		            $poidsModel->setCommentaire($requestJson['commentaireMesure']);
 
-		        $result = $poidsModel->create();
-	        }else{
-		        $result = false;
-		        $poidsModel->setError("Des champs manquent pour l'ajout du poids");
-	        }
-            
-	        if (!$result){
-		        $app->response()->body($poidsModel->getError());
+		            $result = $poidsModel->create();
+	            }else{
+		            $result = false;
+		            $poidsModel->setError("Des champs manquent pour l'ajout du poids");
+	            }
+            }else{
+                 $result = false;
+	             $poidsModel->setError("AbonnementInactif");
+            }
+            if (!$result){
+	            $app->response()->body($poidsModel->getError());
                 $app->response()->status( 403 );
-	        }else{
-	          	$app->response()->body( json_encode( $result ));
-	        }
+            }else{
+              	$app->response()->body( json_encode( $result ));
+            }
+        }else{
+			$app->response->setStatus('403'); //Valeur du token incorrecte
+			$app->response->body("Token invalid");
+		}
+	}catch(Exception $e){
+		$app->response->setStatus('403'); //Token invalide
+		$app->response->body($e->getMessage());
+	}
+});
+
+/***********************************************
+Update poids
+***********************************************/
+$app->post('/poids', function () use ($app) {
+	
+	$requestJson = json_decode($app->request()->getBody(), true);
+    $poidsModel = new PoidsModel();            
+
+    if (isset($requestJson['id']) and isset($requestJson['dateMesure']) and isset($requestJson['poidsMesure']) and isset($requestJson['commentaireMesure'])){
+        $poidsModel->setId($requestJson['id']);
+        $poidsModel->setDateMesure($requestJson['dateMesure']);
+        $poidsModel->setPoids($requestJson['poidsMesure']);
+        $poidsModel->setCommentaire($requestJson['commentaireMesure']);
+        $poidsModel->setControleEmail(false);
+										
+		$result = $poidsModel->update();
+		
+	}else{
+		$result = false;
+		$poidsModel->setError("Des champs manquent pour la modification de la mesure de poids");
+	}
+    
+	if (!$result){
+		$app->response()->body($poidsModel->getError());
+        $app->response()->status( 403 );
+	}else{
+	  	$app->response()->body( json_encode( $result ));
+	}
+});
+
+/***********************************************
+Update poids
+***********************************************/
+$app->post('/monpoids', function () use ($app) {
+	
+    try{
+		$payload = JWT::getPayLoad();
+	
+		if (isset($payload->email)){
+
+            $poidsModel = new PoidsModel();  
+            $abonnementModel = new AbonnementModel();
+            $abonnementModel->setEmail($payload->email);
+            if ($abonnementModel->isActifByEmail()){
+	            $requestJson = json_decode($app->request()->getBody(), true);       
+
+                if (isset($requestJson['id']) and isset($requestJson['dateMesure']) and isset($requestJson['poidsMesure']) and isset($requestJson['commentaireMesure'])){
+                    $poidsModel->setId($requestJson['id']);
+                    $poidsModel->setEmail($payload->email);
+                    $poidsModel->setDateMesure($requestJson['dateMesure']);
+                    $poidsModel->setPoids($requestJson['poidsMesure']);
+                    $poidsModel->setCommentaire($requestJson['commentaireMesure']);
+                    $poidsModel->setControleEmail(true);
+										
+		            $result = $poidsModel->update();
+		
+	            }else{
+		            $result = false;
+		            $poidsModel->setError("Des champs manquent pour la modification de la mesure de poids");
+	            }
+                
+            }else{
+                $result = false;
+                $poidsModel->setError("AbonnementInactif");
+            }
+            if (!$result){
+                $app->response()->body($poidsModel->getError());
+                $app->response()->status( 403 );
+            }else{
+              	$app->response()->body( json_encode( $result ));
+            }
         }else{
 			$app->response->setStatus('403'); //Valeur du token incorrecte
 			$app->response->body("Token invalid");

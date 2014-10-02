@@ -4,11 +4,14 @@
 angular.module('EspaceNutrition').factory('PoidsFactory',['$http', function($http) {
 
     return {
-        get: function(id,success, error) {
-            $http.get('/api/poids/'+id).success(success).error(error);
-        },
-        getMine: function(id,success, error) {
-            $http.get('/api/monpoids/'+id).success(success).error(error);
+        get: function(id,modeSaisieMesure,success, error) {
+            if (modeSaisieMesure === "mesures"){
+                $http.get('/api/poids/'+id).success(success).error(error);
+            }else{
+                if (modeSaisieMesure === "mesmesures"){
+                    $http.get('/api/monpoids/'+id).success(success).error(error);
+                }
+            }
         },
         list: function(email,dateStart,dateEnd,success, error) {
             $http.get('/api/mesurespoids/'+email+'/'+dateStart+'/'+dateEnd).success(success).error(error);
@@ -22,17 +25,23 @@ angular.module('EspaceNutrition').factory('PoidsFactory',['$http', function($htt
 				url: '/api/poids/' + id
 			}).success(success).error(error);			
 		},
-        put: function(objet, success, error) {
-			$http.put('/api/poids', objet).success(success).error(error);
+        put: function(objet,modeSaisieMesure, success, error) {
+            if (modeSaisieMesure === "mesures"){
+			    $http.put('/api/poids', objet).success(success).error(error);
+            }else{
+                if (modeSaisieMesure === "mesmesures"){
+			        $http.put('/api/monpoids', objet).success(success).error(error);
+                }
+            }
 		},
-        putMine: function(objet, success, error) {
-			$http.put('/api/monpoids', objet).success(success).error(error);
-		},
-		post: function(objet, success, error) {
-			$http.post('/api/poids', objet).success(success).error(error);
-		},
-		postMine: function(objet, success, error) {
-			$http.post('/api/monpoids', objet).success(success).error(error);
+		post: function(objet,modeSaisieMesure, success, error) {
+			if (modeSaisieMesure === "mesures"){
+			    $http.post('/api/poids', objet).success(success).error(error);
+            }else{
+                if (modeSaisieMesure === "mesmesures"){
+			        $http.post('/api/monpoids', objet).success(success).error(error);
+                }
+            }
 		}
     };
 }]);

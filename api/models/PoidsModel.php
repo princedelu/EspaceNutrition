@@ -11,6 +11,7 @@ class PoidsModel extends AbstractModel {
 	protected $_commentaire;
     protected $_datestart;
     protected $_dateend;
+    protected $_controleEmail;
 
     public function __construct()
     {
@@ -98,6 +99,17 @@ class PoidsModel extends AbstractModel {
         return $this->_dateend;
     }
 
+    public function setControleEmail($_controleEmail)
+    {
+        $this->_controleEmail = $_controleEmail;
+        return $this;
+    }
+
+    public function getControleEmail()
+    {
+        return $this->_controleEmail;
+    }
+
     public function toArray()
     {
         return array (
@@ -123,7 +135,7 @@ class PoidsModel extends AbstractModel {
 
 			$mysql_result = mysqli_query($this->dblink,$query);
 			if (!$mysql_result){
-				$this->setError(mysql_error());
+				$this->setError(mysqli_error($this->dblink));
 				$result=false;
 			}else{
 				$num_rows = mysqli_num_rows($mysql_result);
@@ -161,7 +173,7 @@ class PoidsModel extends AbstractModel {
 			$query=sprintf("SELECT * FROM poids where email='%s' AND DATEMESURE>='%s' AND DATEMESURE<'%s'",mysqli_real_escape_string($this->dblink,$this->getEmail()),mysqli_real_escape_string($this->dblink,$this->getDateStart()),mysqli_real_escape_string($this->dblink,$this->getDateEnd()));
 			$mysql_result = mysqli_query($this->dblink,$query);
 			if (!$mysql_result){
-				$this->setError(mysql_error());
+				$this->setError(mysqli_error($this->dblink));
 				$result=false;
 			}else{
 				$num_rows = mysqli_num_rows($mysql_result);
@@ -202,7 +214,7 @@ class PoidsModel extends AbstractModel {
  
 			$mysql_result = mysqli_query($this->dblink,$query);
 			if (!$mysql_result){
-				$this->setError(mysql_error());
+				$this->setError(mysqli_error($this->dblink));
 				$result=false;
 			}else{
 				$num_rows = mysqli_num_rows($mysql_result);
@@ -230,14 +242,67 @@ class PoidsModel extends AbstractModel {
 		return $result;
     }
 
-
     /**
      *
      * @return $this|bool
      */
     public function update()
     {
-		$result=true;
+		$result=false;
+        if ($this->getId()) {
+
+            $mesurePoids=$this->fetchOne();
+            if ($mesurePoids) {
+                $continueUpdate=true;
+                if ($this->getControleEmail()) {
+                    if ($mesurePoids['EMAIL'] != $this->getEmail()){
+                        $continueUpdate=false;
+                    }
+                }
+
+                if ($continueUpdate){
+				    try{
+					    $this->openConnectionDatabase();
+
+					    $query=sprintf("UPDATE poids SET POIDS='%s'",mysqli_real_escape_string($this->dblink,$this->getPoids()));
+					
+					    if ($this->getCommentaire() != ''){
+						    $query=$query.sprintf(" ,COMMENTAIRE='%s'",mysqli_real_escape_string($this->dblink,$this->getCommentaire()));
+					    }
+					    if ($this->getDateMesure() != ''){
+						    $query=$query.sprintf(" ,DATEMESURE='%s'",implode('-', array_reverse(explode('-', mysqli_real_escape_string($this->dblink,$this->getDateMesure())))));
+					    }
+					
+					    $query=$query.sprintf(" where ID=%d",mysqli_real_escape_string($this->dblink,$this->getId()));
+
+					    $mysql_result = mysqli_query($this->dblink,$query);
+					    if (!$mysql_result){
+						    $this->setError(mysqli_error($this->dblink));
+						    $result=false;
+					    }else{
+						    $result = true;
+					    }
+				    }catch(Exception $e)
+				    {
+					    $this->setError($e->getMessage());
+				    }
+                }
+                else {
+                    $this->setError('Vous pouvez pas mettre à jour une mesure de poid d un autre utilisateur');
+                    $result=false;
+                }
+				$this->closeConnectionDatabase();
+ 
+            }
+            else {
+                $this->setError('Impossible de recuperer la mesure de poids');
+                $result=false;
+            }
+        }
+        else {
+            $this->setError('Champ id manquant');
+            $result=false;
+        }
 		return $result; 
     }
 
@@ -254,7 +319,7 @@ class PoidsModel extends AbstractModel {
 
 			$mysql_result = mysqli_query($this->dblink,$query);
 			if (!$mysql_result){
-				$this->setError(mysql_error());
+				$this->setError(mysqli_error($this->dblink));
 				$result=false;
 			}else{
 				$num_rows = mysqli_num_rows($mysql_result);
@@ -268,7 +333,7 @@ class PoidsModel extends AbstractModel {
 
 			        $mysql_result = mysqli_query($this->dblink,$query);
 			        if (!$mysql_result){
-				        $this->setError(mysql_error());
+				        $this->setError(mysqli_error($this->dblink));
 				        $result=false;
 			        }else{
 				        $num_rows = mysqli_num_rows($mysql_result);
@@ -318,7 +383,7 @@ class PoidsModel extends AbstractModel {
 		 
 					$mysql_result = mysqli_query($this->dblink,$query);
 					if (!$mysql_result){
-						$this->setError(mysql_error());
+						$this->setError(mysqli_error($this->dblink));
 						$result=false;
 					}else{
 						$result = true;

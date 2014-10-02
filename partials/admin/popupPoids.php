@@ -46,6 +46,7 @@
 				<div class="modal-footer">
 					<input type="hidden" data-ng-model="id" id='id' name="id">
 					<span class="help-block" ng-show="doublon"> Une mesure existe déjà pour cette date</span>
+                    <span class="help-block" ng-show="abonnementinactif"> Vous ne disposez pas d'un abonnement actif, veuillez contacter votre diététicienne</span>
                     <span class="help-block" ng-show="userTous"> Veuillez saisir un utilisateur</span>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
 					<button type="submit" class="btn btn-primary" ng-disabled="poidsForm.$invalid" ng-hide="id">Enregistrer</button>

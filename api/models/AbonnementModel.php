@@ -100,7 +100,7 @@ class AbonnementModel extends AbstractModel {
  
 			$mysql_result = mysqli_query($this->dblink,$query);
 			if (!$mysql_result){
-				$this->setError(mysql_error());
+				$this->setError(mysqli_error($this->dblink));
 				$result=false;
 			}else{
 				$num_rows = mysqli_num_rows($mysql_result);
@@ -147,7 +147,7 @@ class AbonnementModel extends AbstractModel {
  
 			$mysql_result = mysqli_query($this->dblink,$query);
 			if (!$mysql_result){
-				$this->setError(mysql_error());
+				$this->setError(mysqli_error($this->dblink));
 				$result=false;
 			}else{
 				$num_rows = mysqli_num_rows($mysql_result);
@@ -195,7 +195,7 @@ class AbonnementModel extends AbstractModel {
  
 			$mysql_result = mysqli_query($this->dblink,$query);
 			if (!$mysql_result){
-				$this->setError(mysql_error());
+				$this->setError(mysqli_error($this->dblink));
 				$result=false;
 			}else{
 				$num_rows = mysqli_num_rows($mysql_result);
@@ -238,11 +238,11 @@ class AbonnementModel extends AbstractModel {
 			$this->openConnectionDatabase();
 			
 			// Exécution des requêtes SQL
-			$query=sprintf("SELECT * FROM abonnements where EMAIL='%s' and DATEDEBUT<=NOW() AND and DATEFIN>=NOW()",mysqli_real_escape_string($this->dblink,$this->getEmail()));
+			$query=sprintf("SELECT * FROM abonnements where EMAIL='%s' and DATEDEBUT<=NOW() AND DATEFIN>=NOW()",mysqli_real_escape_string($this->dblink,$this->getEmail()));
  
 			$mysql_result = mysqli_query($this->dblink,$query);
 			if (!$mysql_result){
-				$this->setError(mysql_error());
+				$this->setError(mysqli_error($this->dblink));
 				$result=false;
 			}else{
 				$num_rows = mysqli_num_rows($mysql_result);
@@ -289,7 +289,7 @@ class AbonnementModel extends AbstractModel {
 
 			$mysql_result = mysqli_query($this->dblink,$query);
 			if (!$mysql_result){
-				$this->setError(mysql_error());
+				$this->setError(mysqli_error($this->dblink));
 				$result=false;
 			}else{
 				$num_rows = mysqli_num_rows($mysql_result);
@@ -303,7 +303,7 @@ class AbonnementModel extends AbstractModel {
 
 			        $mysql_result = mysqli_query($this->dblink,$query);
 			        if (!$mysql_result){
-				        $this->setError(mysql_error());
+				        $this->setError(mysqli_error($this->dblink));
 				        $result=false;
 			        }else{
 				        $num_rows = mysqli_num_rows($mysql_result);
@@ -353,7 +353,7 @@ class AbonnementModel extends AbstractModel {
 		 
 					$mysql_result = mysqli_query($this->dblink,$query);
 					if (!$mysql_result){
-						$this->setError(mysql_error());
+						$this->setError(mysqli_error($this->dblink));
 						$result=false;
 					}else{
 						$result = true;

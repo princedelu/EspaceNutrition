@@ -96,7 +96,11 @@ angular.module('EspaceNutrition')
             $http.post('/api/sendMailToken', user).success(success).error(error);
         },
 		post: function(objet, success, error) {
-			$http.post('/api/utilisateur', objet).success(success).error(error);
+            if (currentUser.role == userRoles.admin){
+			    $http.post('/api/utilisateur', objet).success(success).error(error);
+            }else{
+                $http.post('/api/monprofil', objet).success(success).error(error);
+            }
 		},
 		get: function(success, error) {
 			$http.get('/api/profil').success(success).error(error);

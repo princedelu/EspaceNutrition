@@ -24,9 +24,9 @@
 		<section class="content">
 			<div class="row">
                 <div class="col-xs-6 text-left" ng-show="mesures">
-					Utilisateur : <select data-ng-model="usermesure" data-ng-options="user.email for user in users" id="usermesure" data-ng-required="true"></select>
+					Utilisateur : <select data-ng-model="usermesure" data-ng-options="user.email for user in users" id="usermesure" data-ng-required="true" ng-change="changeUserMesure()"></select>
 				</div>
-                <div class="col-xs-6 text-right" ng-show="mesures">
+                <div class="text-right" ng-class="{col-xs-6:mesures,col-xs-12:mesmesures}">
 					<button class="btn btn-info" data-toggle="modal" ng-click="createPoidsLoad();">
                         Ajout d'une mesure de poids
 					</button>

@@ -379,7 +379,7 @@ class PaiementModel extends AbstractModel {
  
 			$mysql_result = mysqli_query($this->dblink,$query);
 			if (!$mysql_result){
-				$this->setError(mysql_error());
+				$this->setError(mysqli_error($this->dblink));
 				$result=false;
 			}else{
 				$result = true;
@@ -407,7 +407,7 @@ class PaiementModel extends AbstractModel {
  
 			$mysql_result = mysqli_query($this->dblink,$query);
 			if (!$mysql_result){
-				$this->setError(mysql_error());
+				$this->setError(mysqli_error($this->dblink));
 				$result=false;
 			}else{
 				$num_rows = mysqli_num_rows($mysql_result);
