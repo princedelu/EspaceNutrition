@@ -77,12 +77,12 @@
                 </li>
                 <li ng-class="{active : mesures}" data-access-level='accessLevels.admin'>
                     <a href="/mesures">
-                        <i class="fa fa-area-chart"></i> <span>Mesures</span>
+                        <i class="fa fa-area-chart"></i> <span>Nutrition</span>
                     </a>
                 </li>
                 <li ng-class="{active : mesmesures}" data-access-level='accessLevels.userOnly'>
                     <a href="/mesmesures">
-                        <i class="fa fa-area-chart"></i> <span>Mes mesures</span>
+                        <i class="fa fa-area-chart"></i> <span>Nutrition</span>
                     </a>
                 </li>
             

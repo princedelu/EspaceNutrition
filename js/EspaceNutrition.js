@@ -1206,7 +1206,7 @@ angular.module('EspaceNutrition')
 
 angular.module('EspaceNutrition')
 .controller('MesureCtrl',
-['$rootScope', '$scope', '$location', '$route', '$window','PoidsFactory','RepasFactory','UtilisateurFactory','Auth', function($rootScope, $scope, $location, $route, $window, PoidsFactory,RepasFactory,UtilisateurFactory, Auth) {
+['$rootScope', '$scope', '$location', '$route', '$window','PoidsFactory','RepasFactory','MesureFactory','UtilisateurFactory','Auth', function($rootScope, $scope, $location, $route, $window, PoidsFactory,RepasFactory,MesureFactory,UtilisateurFactory, Auth) {
 
     $scope.user = Auth.user;
     $scope.userRoles = Auth.userRoles;
@@ -1255,15 +1255,18 @@ angular.module('EspaceNutrition')
         $('#mesures').fullCalendar({
             eventClick: function(calEvent, jsEvent, view) {
 		        $scope.id = calEvent.id;
-                $scope.createPoidsLoad(calEvent.id);
-
+                if (calEvent.type == 'POIDS'){
+                    $scope.createPoidsLoad(calEvent.id);
+                }else{
+                    $scope.createRepasLoad(calEvent.id);
+                }
             },
             header: {
 				left: 'prev,next today',
 				center: 'title',
-				right: 'month,agendaWeek,agendaDay'
+				right: 'month,basicWeek,agendaWeek,agendaDay'
 			},
-			defaultView: 'agendaWeek',
+			defaultView: 'basicWeek',
 			editable: true,
 			eventLimit: true, // allow "more" link when too many events
 			events: function(start, end, timezone, callback) {
@@ -1271,20 +1274,44 @@ angular.module('EspaceNutrition')
                 var dateStartString=dateStart.getFullYear() + '-' + (dateStart.getMonth() + 1) + '-' + dateStart.getDate();
                 var dateEnd=end._d;
                 var dateEndString=dateEnd.getFullYear() + '-' + (dateEnd.getMonth() + 1) + '-' + dateEnd.getDate();
-                PoidsFactory.list($scope.usermesure.email,dateStartString,dateEndString,
+                MesureFactory.list($scope.usermesure.email,dateStartString,dateEndString,
 		        function (res) {
 		            $scope.success = 'Succes';
 		            var events = [];
                     _.each(res,function(mesure){
-                        var dateMesureTab = mesure.DATEMESURE.split('-');
-                        var dateMesureEn=dateMesureTab[2] + '-' + dateMesureTab[1] + '-' + dateMesureTab[0];
-                        events.push({
-                            id : mesure.ID,
-                            title: mesure.EMAIL + ' : ' + mesure.POIDS,
-                            start: dateMesureEn, // will be parsed
-                            backgroundColor: "#00c0ef", //Info (aqua)
-                            borderColor: "#00c0ef" //Info (aqua)
-                        });
+                        if (mesure.TYPE == 'POIDS'){
+                            var dateMesureTab = mesure.DATEMESURE.split('-');
+                            var dateMesureEn=dateMesureTab[2] + '-' + dateMesureTab[1] + '-' + dateMesureTab[0];
+                            events.push({
+                                id : mesure.ID,
+                                title: mesure.EMAIL + ' : ' + mesure.POIDS,
+                                start: dateMesureEn, // will be parsed
+                                backgroundColor: "#00c0ef", //Info (aqua)
+                                borderColor: "#00c0ef", //Info (aqua)
+                                editable : false,
+                                type : 'POIDS'
+                            });
+                        }else{
+                            if (mesure.TYPE == 'REPAS'){
+                                var eventValue={
+                                        id : mesure.ID,
+                                        title: mesure.EMAIL,
+                                        start: mesure.DATEHEUREMESURE, // will be parsed
+                                        allDay : false,
+                                        editable : false,
+                                        type : 'REPAS'
+                                    };
+                                if (mesure.COMMENTAIREDIET === ''){
+                                    eventValue.backgroundColor = "#F39C12";
+                                    eventValue.borderColor = "#E08E0B";
+                                    events.push(eventValue);
+                                }else{
+                                    eventValue.backgroundColor = "#5CB85C";
+                                    eventValue.borderColor = "#4CAE4C";
+                                    events.push(eventValue);
+                                }
+                            }
+                        }
                     });
                     callback(events);
 		        },
@@ -1331,14 +1358,18 @@ angular.module('EspaceNutrition')
         $('#mesures').fullCalendar({
             eventClick: function(calEvent, jsEvent, view) {
 		        $scope.id = calEvent.id;
-                $scope.createPoidsLoad(calEvent.id);
+                if (calEvent.type == 'POIDS'){
+                    $scope.createPoidsLoad(calEvent.id);
+                }else{
+                    $scope.createRepasLoad(calEvent.id);
+                }
             },
             header: {
 				left: 'prev,next today',
 				center: 'title',
-				right: 'month,agendaWeek,agendaDay'
+				right: 'month,basicWeek,agendaWeek,agendaDay'
 			},
-			defaultView: 'agendaWeek',
+			defaultView: 'basicWeek',
 			editable: true,
 			eventLimit: true, // allow "more" link when too many events
 			events: function(start, end, timezone, callback) {
@@ -1346,20 +1377,44 @@ angular.module('EspaceNutrition')
                 var dateStartString=dateStart.getFullYear() + '-' + (dateStart.getMonth() + 1) + '-' + dateStart.getDate();
                 var dateEnd=end._d;
                 var dateEndString=dateEnd.getFullYear() + '-' + (dateEnd.getMonth() + 1) + '-' + dateEnd.getDate();
-                PoidsFactory.listMine(dateStartString,dateEndString,
+                MesureFactory.listMine(dateStartString,dateEndString,
 		        function (res) {
 		            $scope.success = 'Succes';
 		            var events = [];
                     _.each(res,function(mesure){
-                        var dateMesureTab = mesure.DATEMESURE.split('-');
-                        var dateMesureEn=dateMesureTab[2] + '-' + dateMesureTab[1] + '-' + dateMesureTab[0];
-                        events.push({
-                            id : mesure.ID,
-                            title: mesure.EMAIL + ' : ' + mesure.POIDS,
-                            start: dateMesureEn, // will be parsed
-                            backgroundColor: "#00c0ef", //Info (aqua)
-                            borderColor: "#00c0ef" //Info (aqua)
-                        });
+                        if (mesure.TYPE == 'POIDS'){
+                            var dateMesureTab = mesure.DATEMESURE.split('-');
+                            var dateMesureEn=dateMesureTab[2] + '-' + dateMesureTab[1] + '-' + dateMesureTab[0];
+                            events.push({
+                                id : mesure.ID,
+                                title: mesure.EMAIL + ' : ' + mesure.POIDS,
+                                start: dateMesureEn, // will be parsed
+                                backgroundColor: "#00c0ef", //Info (aqua)
+                                borderColor: "#00c0ef", //Info (aqua)
+                                editable : false,
+                                type : 'POIDS'
+                            });
+                        }else{
+                            if (mesure.TYPE == 'REPAS'){
+                                var eventValue={
+                                        id : mesure.ID,
+                                        title: mesure.EMAIL,
+                                        start: mesure.DATEHEUREMESURE, // will be parsed
+                                        allDay : false,
+                                        editable : false,
+                                        type : 'REPAS'
+                                    };
+                                if (mesure.COMMENTAIREDIET === ''){
+                                    eventValue.backgroundColor = "#F39C12";
+                                    eventValue.borderColor = "#E08E0B";
+                                    events.push(eventValue);
+                                }else{
+                                    eventValue.backgroundColor = "#5CB85C";
+                                    eventValue.borderColor = "#4CAE4C";
+                                    events.push(eventValue);
+                                }
+                            }
+                        }
                     });
                     callback(events);
 		        },
@@ -1653,12 +1708,6 @@ angular.module('EspaceNutrition').factory('PoidsFactory',['$http', function($htt
                 }
             }
         },
-        list: function(email,dateStart,dateEnd,success, error) {
-            $http.get('/api/mesurespoids/'+email+'/'+dateStart+'/'+dateEnd).success(success).error(error);
-        },
-        listMine: function(dateStart,dateEnd,success, error) {
-            $http.get('/api/mesmesurespoids/'+dateStart+'/'+dateEnd).success(success).error(error);
-        },
         supprimer: function(id, success, error) {
 			$http({
 				method: 'DELETE', 
@@ -1694,15 +1743,9 @@ angular.module('EspaceNutrition').factory('RepasFactory',['$http', function($htt
                 $http.get('/api/repas/'+id).success(success).error(error);
             }else{
                 if (modeSaisieMesure === "mesmesures"){
-                    $http.get('/api/repas/'+id).success(success).error(error);
+                    $http.get('/api/monrepas/'+id).success(success).error(error);
                 }
             }
-        },
-        list: function(email,dateStart,dateEnd,success, error) {
-            $http.get('/api/mesuresrepas/'+email+'/'+dateStart+'/'+dateEnd).success(success).error(error);
-        },
-        listMine: function(dateStart,dateEnd,success, error) {
-            $http.get('/api/mesmesuresrepas/'+dateStart+'/'+dateEnd).success(success).error(error);
         },
         supprimer: function(id, success, error) {
 			$http({
@@ -1728,6 +1771,18 @@ angular.module('EspaceNutrition').factory('RepasFactory',['$http', function($htt
                 }
             }
 		}
+    };
+}]);
+
+angular.module('EspaceNutrition').factory('MesureFactory',['$http', function($http) {
+
+    return {
+        list: function(email,dateStart,dateEnd,success, error) {
+            $http.get('/api/mesures/'+email+'/'+dateStart+'/'+dateEnd).success(success).error(error);
+        },
+        listMine: function(dateStart,dateEnd,success, error) {
+            $http.get('/api/mesmesures/'+dateStart+'/'+dateEnd).success(success).error(error);
+        }
     };
 }]);
 

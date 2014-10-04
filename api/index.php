@@ -567,20 +567,51 @@ $app->get('/monpoids/:id', function ($id) use ($app) {
 });
 
 /***********************************************
-Mesure poids
+Mesures
 ***********************************************/
-$app->get('/mesurespoids/:email/:dateStart/:dateEnd', function ($email,$dateStart,$dateEnd) use ($app) {
-	$poidsModel = new PoidsModel();
+$app->get('/mesures/:email/:dateStart/:dateEnd', function ($email,$dateStart,$dateEnd) use ($app) {
+    // Recherche des informations sur les mesures de poids	
+    $poidsModel = new PoidsModel();
     $poidsModel->setDateStart($dateStart);
     $poidsModel->setDateEnd($dateEnd);
     if ($email == "Tous"){
-	    $result = $poidsModel->fetchAll();
+	    $resultPoids = $poidsModel->fetchAll();
     }else{
          $poidsModel->setEmail($email);
-         $result = $poidsModel->fetchAllByEmail();
+         $resultPoids = $poidsModel->fetchAllByEmail();
     }
-	 if (!is_array($result)){
-		$app->response()->body($poidsModel->getError());
+
+    // Recherche des informations sur les repas	
+    $repasModel = new RepasModel();
+    $repasModel->setDateStart($dateStart);
+    $repasModel->setDateEnd($dateEnd);
+    if ($email == "Tous"){
+	    $resultRepas = $repasModel->fetchAll();
+    }else{
+         $repasModel->setEmail($email);
+         $resultRepas = $repasModel->fetchAllByEmail();
+    }
+    
+    // Concaténation des deux résultats
+	if (!is_array($resultPoids) || !is_array($resultRepas)){
+        $result = false;
+    }else{
+        $result = array();
+        foreach ($resultPoids as $value) {
+            $valueTmp = $value;
+            $valueTmp['TYPE']='POIDS';
+            array_push($result,$valueTmp);
+        }
+        foreach ($resultRepas as $value) {
+            $valueTmp = $value;
+            $valueTmp['TYPE']='REPAS';
+            array_push($result,$valueTmp);
+        }
+    }
+
+    // Passage en JSON
+	if (!is_array($result)){
+		$app->response()->body('Poids : '.$poidsModel->getError().'<br/>Repas : '.$repasModel->getError());
         $app->response()->status( 403 );
 	}else{
 	  	$app->response()->body( json_encode( $result ));
@@ -590,7 +621,7 @@ $app->get('/mesurespoids/:email/:dateStart/:dateEnd', function ($email,$dateStar
 /***********************************************
 Mes abonnements
 ***********************************************/
-$app->get('/mesmesurespoids/:dateStart/:dateEnd', function ($dateStart,$dateEnd) use ($app) {
+$app->get('/mesmesures/:dateStart/:dateEnd', function ($dateStart,$dateEnd) use ($app) {
 
 	try{
 		$payload = JWT::getPayLoad();
@@ -600,7 +631,32 @@ $app->get('/mesmesurespoids/:dateStart/:dateEnd', function ($dateStart,$dateEnd)
             $poidsModel->setDateStart($dateStart);
             $poidsModel->setDateEnd($dateEnd);
             $poidsModel->setEmail($payload->email);
-	        $result = $poidsModel->fetchAllByEmail();
+	        $resultPoids = $poidsModel->fetchAllByEmail();
+
+            // Recherche des informations sur les repas	
+            $repasModel = new RepasModel();
+            $repasModel->setDateStart($dateStart);
+            $repasModel->setDateEnd($dateEnd);
+            $repasModel->setEmail($payload->email);
+            $resultRepas = $repasModel->fetchAllByEmail();
+
+            // Concaténation des deux résultats
+	        if (!is_array($resultPoids) || !is_array($resultRepas)){
+                $result = false;
+            }else{
+                $result = array();
+                foreach ($resultPoids as $value) {
+                    $valueTmp = $value;
+                    $valueTmp['TYPE']='POIDS';
+                    array_push($result,$valueTmp);
+                }
+                foreach ($resultRepas as $value) {
+                    $valueTmp = $value;
+                    $valueTmp['TYPE']='REPAS';
+                    array_push($result,$valueTmp);
+                }
+            }
+            
 	        if (!is_array($result)){
 		        $app->response()->body($result);
                 $app->response()->status( 403 );
@@ -914,7 +970,7 @@ $app->post('/repas', function () use ($app) {
         $repasModel->setId($requestJson['id']);
         $repasModel->setDateMesure($requestJson['dateRepasMesure']);
         $repasModel->setHeureMesure($requestJson['heureRepasMesure']);
-        $repasModel->setRepas($requestJson['repas']);
+        $repasModel->setRepas($requestJson['repasMesure']);
         $repasModel->setCommentaire($requestJson['commentaireRepasMesure']);
         $repasModel->setCommentaireDiet($requestJson['commentaireRepasDietMesure']);
         $repasModel->setControleEmail(false);
@@ -935,9 +991,9 @@ $app->post('/repas', function () use ($app) {
 });
 
 /***********************************************
-Update poids
+Update repas
 ***********************************************/
-$app->post('/monpoids', function () use ($app) {
+$app->post('/monrepas', function () use ($app) {
 	
     try{
 		$payload = JWT::getPayLoad();
@@ -955,7 +1011,7 @@ $app->post('/monpoids', function () use ($app) {
                     $repasModel->setEmail($payload->email);
                     $repasModel->setDateMesure($requestJson['dateRepasMesure']);
                     $repasModel->setHeureMesure($requestJson['heureRepasMesure']);
-                    $repasModel->setRepas($requestJson['repas']);
+                    $repasModel->setRepas($requestJson['repasMesure']);
                     $repasModel->setCommentaire($requestJson['commentaireRepasMesure']);
                     $repasModel->setCommentaireDiet($requestJson['commentaireRepasDietMesure']);
                     $repasModel->setControleEmail(true);

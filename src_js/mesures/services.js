@@ -13,12 +13,6 @@ angular.module('EspaceNutrition').factory('PoidsFactory',['$http', function($htt
                 }
             }
         },
-        list: function(email,dateStart,dateEnd,success, error) {
-            $http.get('/api/mesurespoids/'+email+'/'+dateStart+'/'+dateEnd).success(success).error(error);
-        },
-        listMine: function(dateStart,dateEnd,success, error) {
-            $http.get('/api/mesmesurespoids/'+dateStart+'/'+dateEnd).success(success).error(error);
-        },
         supprimer: function(id, success, error) {
 			$http({
 				method: 'DELETE', 
@@ -54,15 +48,9 @@ angular.module('EspaceNutrition').factory('RepasFactory',['$http', function($htt
                 $http.get('/api/repas/'+id).success(success).error(error);
             }else{
                 if (modeSaisieMesure === "mesmesures"){
-                    $http.get('/api/repas/'+id).success(success).error(error);
+                    $http.get('/api/monrepas/'+id).success(success).error(error);
                 }
             }
-        },
-        list: function(email,dateStart,dateEnd,success, error) {
-            $http.get('/api/mesuresrepas/'+email+'/'+dateStart+'/'+dateEnd).success(success).error(error);
-        },
-        listMine: function(dateStart,dateEnd,success, error) {
-            $http.get('/api/mesmesuresrepas/'+dateStart+'/'+dateEnd).success(success).error(error);
         },
         supprimer: function(id, success, error) {
 			$http({
@@ -88,6 +76,18 @@ angular.module('EspaceNutrition').factory('RepasFactory',['$http', function($htt
                 }
             }
 		}
+    };
+}]);
+
+angular.module('EspaceNutrition').factory('MesureFactory',['$http', function($http) {
+
+    return {
+        list: function(email,dateStart,dateEnd,success, error) {
+            $http.get('/api/mesures/'+email+'/'+dateStart+'/'+dateEnd).success(success).error(error);
+        },
+        listMine: function(dateStart,dateEnd,success, error) {
+            $http.get('/api/mesmesures/'+dateStart+'/'+dateEnd).success(success).error(error);
+        }
     };
 }]);
 

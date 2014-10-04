@@ -8,15 +8,15 @@
 		<!-- Content Header (Page header) -->
 		<section class="content-header">
 			<h1 ng-show="mesures">
-				Mesures des utilisateurs
+				Nutrition des utilisateurs
 			</h1>
             <h1 ng-show="mesmesures">
-				Mes mesures
+				Nutrition
 			</h1>
 			<ol class="breadcrumb">
 				<li><a href="/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-				<li class="active" ng-show="mesures"><a href="/mesures"><i class="fa fa-area-chart"></i>Mesures des utilisateurs</a></li>
-                <li class="active" ng-show="mesmesures"><a href="/mesmesures"><i class="fa fa-area-chart"></i>Mes mesures</a></li>
+				<li class="active" ng-show="mesures"><a href="/mesures"><i class="fa fa-area-chart"></i>Nutrition des utilisateurs</a></li>
+                <li class="active" ng-show="mesmesures"><a href="/mesmesures"><i class="fa fa-area-chart"></i>Nutrition</a></li>
 			</ol>
 		</section>
 

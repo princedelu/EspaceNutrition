@@ -57,10 +57,15 @@ class RepasModel extends AbstractModel {
         return $this->_repas;
     }
 
-	public function setDateMesure($_datemesure)
+    public function setDateMesure($_datemesure)
     {
         $this->_datemesure = $_datemesure;
         return $this;
+    }
+
+	public function getDateMesure()
+    {
+        return $this->_datemesure;
     }
 
     public function setHeureMesure($_heuremesure)
@@ -69,16 +74,32 @@ class RepasModel extends AbstractModel {
         return $this;
     }
 
+    public function getHeureMesure()
+    {
+        return $this->_heuremesure;
+    }
+
+    public function getDateEtHeureMesure($_dateheuremesure)
+    {
+        $result = array();
+        $arrayDateHeure=explode(' ', $_dateheuremesure);
+        $result['datemesure'] = implode('-', array_reverse(explode('-', $arrayDateHeure[0])));
+        $arrayHeure=explode(':', $arrayDateHeure[1]);
+        $result['heuremesure'] = $arrayHeure[0].':'.$arrayHeure[1];
+        return $result;
+    }
+
     public function setDateHeureMesure($_dateheuremesure)
     {
-        $this->_datemesure = $_dateheuremesure;
-        $this->_heuremesure = $_dateheuremesure;
+        $result=$this->getDateEtHeureMesure($_dateheuremesure);
+        $this->_datemesure = $result['datemesure'];
+        $this->_heuremesure =  $result['heuremesure'];
         return $this;
     }
 
     public function getDateHeureMesure()
     {
-        return $this->_dateheuremesure;
+        return implode('-', array_reverse(explode('-', $this->_datemesure))).' '.$this->_heuremesure.':00';
     }
 
 	public function setCommentaire($_commentaire)
@@ -169,7 +190,9 @@ class RepasModel extends AbstractModel {
 				$num_rows = mysqli_num_rows($mysql_result);
 				if ($num_rows!=0){
 					while ($row = mysqli_fetch_assoc($mysql_result)) {
-						//$row['DATEMESURE'] = implode('-', array_reverse(explode('-', $row['DATEMESURE'])));
+                        $resultTmp = $this->getDateEtHeureMesure($row['DATEHEUREMESURE']);
+                        $row['DATEMESURE']=$resultTmp['datemesure'];
+                        $row['HEUREMESURE']=$resultTmp['heuremesure'];
 						array_push($result,$row);
 					}
 					mysqli_free_result($mysql_result);
@@ -207,7 +230,9 @@ class RepasModel extends AbstractModel {
 				$num_rows = mysqli_num_rows($mysql_result);
 				if ($num_rows!=0){
 					while ($row = mysqli_fetch_assoc($mysql_result)) {
-						//$row['DATEMESURE'] = implode('-', array_reverse(explode('-', $row['DATEMESURE'])));
+                        $resultTmp = $this->getDateEtHeureMesure($row['DATEHEUREMESURE']);
+                        $row['DATEMESURE']=$resultTmp['datemesure'];
+                        $row['HEUREMESURE']=$resultTmp['heuremesure'];
 						array_push($result,$row);
 					}
 					mysqli_free_result($mysql_result);
@@ -248,7 +273,9 @@ class RepasModel extends AbstractModel {
 				$num_rows = mysqli_num_rows($mysql_result);
 				if ($num_rows==1){
 					$row = mysqli_fetch_assoc($mysql_result);
-					//$row['DATEMESURE'] = implode('-', array_reverse(explode('-', $row['DATEMESURE'])));
+					$resultTmp = $this->getDateEtHeureMesure($row['DATEHEUREMESURE']);
+                    $row['DATEMESURE']=$resultTmp['datemesure'];
+                    $row['HEUREMESURE']=$resultTmp['heuremesure'];
 					$result = $row;
 				}else{
 					if ($num_rows==0){
@@ -292,18 +319,13 @@ class RepasModel extends AbstractModel {
 				    try{
 					    $this->openConnectionDatabase();
 
-					    $query=sprintf("UPDATE repas SET REPAS='%s'",mysqli_real_escape_string($this->dblink,$this->getPoids()));
+					    $query=sprintf("UPDATE repas SET REPAS='%s'",mysqli_real_escape_string($this->dblink,$this->getRepas()));
 					
-					    if ($this->getCommentaire() != ''){
-						    $query=$query.sprintf(" ,COMMENTAIRE='%s'",mysqli_real_escape_string($this->dblink,$this->getCommentaire()));
-					    }
-                        if ($this->getCommentaireDiet() != ''){
-						    $query=$query.sprintf(" ,COMMENTAIREDIET='%s'",mysqli_real_escape_string($this->dblink,$this->getCommentaireDiet()));
-					    }
-					    if ($this->getDateHeureMesure() != ''){
-						    $query=$query.sprintf(" ,DATEHEUREMESURE='%s'",mysqli_real_escape_string($this->dblink,$this->getDateHeureMesure()));;
-					    }
-					
+					    $query=$query.sprintf(" ,COMMENTAIRE='%s'",mysqli_real_escape_string($this->dblink,$this->getCommentaire()));
+                        $query=$query.sprintf(" ,COMMENTAIREDIET='%s'",mysqli_real_escape_string($this->dblink,$this->getCommentaireDiet()));
+                        
+						$query=$query.sprintf(" ,DATEHEUREMESURE='%s'",mysqli_real_escape_string($this->dblink,$this->getDateHeureMesure()));;
+
 					    $query=$query.sprintf(" where ID=%d",mysqli_real_escape_string($this->dblink,$this->getId()));
 
 					    $mysql_result = mysqli_query($this->dblink,$query);
@@ -343,7 +365,7 @@ class RepasModel extends AbstractModel {
         try{
 			$this->openConnectionDatabase();
 
-			$dateHeureMesure=mysqli_real_escape_string($this->getDateHeureMesure());
+			$dateHeureMesure=$this->getDateHeureMesure();
 
             // Exécution des requêtes SQL
 			$query=sprintf("SELECT * FROM utilisateurs where email='%s'",mysqli_real_escape_string($this->dblink,$this->getEmail()));

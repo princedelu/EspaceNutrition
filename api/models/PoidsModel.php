@@ -263,25 +263,41 @@ class PoidsModel extends AbstractModel {
                 if ($continueUpdate){
 				    try{
 					    $this->openConnectionDatabase();
+                        $dateMesure=mysqli_real_escape_string($this->dblink,implode('-', array_reverse(explode('-',$this->getDateMesure()))));
 
-					    $query=sprintf("UPDATE poids SET POIDS='%s'",mysqli_real_escape_string($this->dblink,$this->getPoids()));
-					
-					    if ($this->getCommentaire() != ''){
-						    $query=$query.sprintf(" ,COMMENTAIRE='%s'",mysqli_real_escape_string($this->dblink,$this->getCommentaire()));
-					    }
-					    if ($this->getDateMesure() != ''){
-						    $query=$query.sprintf(" ,DATEMESURE='%s'",implode('-', array_reverse(explode('-', mysqli_real_escape_string($this->dblink,$this->getDateMesure())))));
-					    }
-					
-					    $query=$query.sprintf(" where ID=%d",mysqli_real_escape_string($this->dblink,$this->getId()));
+                        // Exécution des requêtes SQL
+			            $query=sprintf("SELECT * FROM poids where email='%s' and DATEMESURE='%s'",$mesurePoids['EMAIL'],$dateMesure);
 
-					    $mysql_result = mysqli_query($this->dblink,$query);
-					    if (!$mysql_result){
-						    $this->setError(mysqli_error($this->dblink));
-						    $result=false;
-					    }else{
-						    $result = true;
-					    }
+			            $mysql_result = mysqli_query($this->dblink,$query);
+			            if (!$mysql_result){
+				            $this->setError(mysqli_error($this->dblink));
+				            $result=false;
+			            }else{
+				            $num_rows = mysqli_num_rows($mysql_result);
+				            if ($num_rows>0 && $mesurePoids['DATEMESURE']!=$this->getDateMesure()){
+					            $this->setError('Doublon');
+					            $result=false;
+				            }else{
+
+					            $query=sprintf("UPDATE poids SET POIDS='%s'",mysqli_real_escape_string($this->dblink,$this->getPoids()));
+					
+					            $query=$query.sprintf(" ,COMMENTAIRE='%s'",mysqli_real_escape_string($this->dblink,$this->getCommentaire()));
+
+					            if ($this->getDateMesure() != ''){
+						            $query=$query.sprintf(" ,DATEMESURE='%s'",$dateMesure);
+					            }
+					
+					            $query=$query.sprintf(" where ID=%d",mysqli_real_escape_string($this->dblink,$this->getId()));
+
+					            $mysql_result = mysqli_query($this->dblink,$query);
+					            if (!$mysql_result){
+						            $this->setError(mysqli_error($this->dblink));
+						            $result=false;
+					            }else{
+						            $result = $query;
+					            }
+                            }
+                        }
 				    }catch(Exception $e)
 				    {
 					    $this->setError($e->getMessage());
