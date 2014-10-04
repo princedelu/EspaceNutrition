@@ -3,7 +3,7 @@
 
 angular.module('EspaceNutrition')
 .controller('MesureCtrl',
-['$rootScope', '$scope', '$location', '$route', '$window','PoidsFactory','UtilisateurFactory','Auth', function($rootScope, $scope, $location, $route, $window, PoidsFactory,UtilisateurFactory, Auth) {
+['$rootScope', '$scope', '$location', '$route', '$window','PoidsFactory','RepasFactory','UtilisateurFactory','Auth', function($rootScope, $scope, $location, $route, $window, PoidsFactory,RepasFactory,UtilisateurFactory, Auth) {
 
     $scope.user = Auth.user;
     $scope.userRoles = Auth.userRoles;
@@ -234,6 +234,64 @@ angular.module('EspaceNutrition')
 		
     };
 
+    $scope.createRepasLoad = function (id) {
+        $scope.success = '';
+        $scope.error = '';
+        $scope.userTous = 'false';
+        $scope.doublon = 'false';
+        $scope.abonnementinactif = 'false';
+
+        if (id===undefined){
+            $scope.dateRepasMesure = "";
+            $scope.heureRepasMesure = "";
+            $scope.repasMesure = "";
+            $scope.commentaireRepasMesure ='';
+            $scope.commentaireRepasDietMesure ='';
+		    $scope.id = "";
+        }else{
+            var modeSaisieMesure = "";
+            if ($scope.mesures === true){
+                modeSaisieMesure = "mesures";
+            }else{
+                if ($scope.mesmesures === true){
+                    modeSaisieMesure = "mesmesures";
+                }
+            }
+            RepasFactory.get(id,modeSaisieMesure,
+                function (res) {
+                    $scope.success = 'Succes';
+                    $scope.dateRepasMesure = res.DATEMESURE;
+                    $scope.heureRepasMesure = res.HEUREMESURE;
+                    $scope.repasMesure = res.REPAS;
+                    $scope.commentaireRepasMesure = res.COMMENTAIRE;
+                    $scope.commentaireRepasDietMesure = res.COMMENTAIREDIET;
+		            $scope.id = id;
+                    $scope.emailMesure = res.EMAIL;
+                },
+                function (err) {
+                    $scope.error = err;
+                    if (err == 'Doublon') {
+                        $scope.doublon = 'true';
+                    }
+                });
+        }
+
+		$('#dateRepasMesure').datepicker({format: 'dd-mm-yyyy',autoclose: true,weekStart:1}).on('changeDate', function(e){
+            $scope.dateRepasMesure = e.currentTarget.value;
+        });
+
+        $('#heureRepasMesure').timepicker({
+            showMeridian: false
+            }
+            ).on('changeTime.timepicker', function(e) {
+                $scope.heureRepasMesure = e.time.value;
+        });
+        
+		$('#bs-repas').modal('show');
+
+		
+    };
+
     $scope.addPoids = function () {
         $scope.success = '';
         $scope.error = '';
@@ -263,9 +321,7 @@ angular.module('EspaceNutrition')
                 PoidsFactory.put(objetValue,modeSaisieMesure,
 	                function () {
 	                    $scope.success = 'Succes';
-		                $('#bs-poids').on('hidden.bs.modal', function (e) {
-		                  $('#mesures').fullCalendar( 'refetchEvents' );
-		                });
+		                $('#mesures').fullCalendar( 'refetchEvents' );
 		                $('#bs-poids').modal('hide');
 	                },
 	                function (err) {
@@ -285,6 +341,71 @@ angular.module('EspaceNutrition')
 	                $scope.success = 'Succes';
                     $('#mesures').fullCalendar( 'refetchEvents' );
 		            $('#bs-poids').modal('hide');
+	            },
+	            function (err) {
+	                $scope.error = err;
+	                if (err == 'Doublon') {
+	                    $scope.doublon = 'true';
+	                }
+                    if (err == 'AbonnementInactif') {
+                        $scope.abonnementinactif = 'true';
+                    }
+	            });
+            
+        }
+    };
+
+    $scope.addRepas = function () {
+        $scope.success = '';
+        $scope.error = '';
+		$scope.doublon = 'false';
+        $scope.abonnementinactif = 'false';
+        $scope.userTous = 'false';
+
+        var objetValue = {};
+	    objetValue.dateRepasMesure=$scope.dateRepasMesure;
+        objetValue.heureRepasMesure=$scope.heureRepasMesure;
+	    objetValue.repasMesure=$scope.repasMesure;
+	    objetValue.commentaireRepasMesure=$scope.commentaireRepasMesure;
+        objetValue.commentaireRepasDietMesure=$scope.commentaireRepasDietMesure;
+
+        var modeSaisieMesure = "";
+        if ($scope.mesures === true){
+            modeSaisieMesure = "mesures";
+        }else{
+            if ($scope.mesmesures === true){
+                modeSaisieMesure = "mesmesures";
+            }
+        }
+        objetValue.email=$scope.usermesure.email;
+
+        if ($scope.id === ""){
+            if (objetValue.email=='Tous'){
+                $scope.userTous = 'true';
+            }else{
+                RepasFactory.put(objetValue,modeSaisieMesure,
+	                function () {
+	                    $scope.success = 'Succes';
+		                $('#mesures').fullCalendar( 'refetchEvents' );
+                        $('#bs-repas').modal('hide');
+	                },
+	                function (err) {
+	                    $scope.error = err;
+	                    if (err == 'Doublon') {
+	                        $scope.doublon = 'true';
+	                    }
+                        if (err == 'AbonnementInactif') {
+	                        $scope.abonnementinactif = 'true';
+	                    }
+	                });
+            }
+        }else{
+            objetValue.id=$scope.id;
+            RepasFactory.post(objetValue,modeSaisieMesure,
+	            function () {
+	                $scope.success = 'Succes';
+                    $('#mesures').fullCalendar( 'refetchEvents' );
+		            $('#bs-repas').modal('hide');
 	            },
 	            function (err) {
 	                $scope.error = err;

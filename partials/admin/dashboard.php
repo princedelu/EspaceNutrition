@@ -88,7 +88,7 @@
                         <h3 class="box-title">Votre courbe de poids et d'humeur</h3>
                     </div>
                     <div class="box-body chart-responsive">
-                        <d3-courbe-poids data='fff'></d3-courbe-poids>
+                        <d3-courbe-poids></d3-courbe-poids>
                     </div><!-- /.box-body -->
                 </div>
 			</div><!-- /.Graph -->

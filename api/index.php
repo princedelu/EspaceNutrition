@@ -13,6 +13,7 @@ require 'models/PaiementModel.php';
 require 'models/ContactModel.php';
 require 'models/AbonnementModel.php';
 require 'models/PoidsModel.php';
+require 'models/RepasModel.php';
 require 'tools/AuthMiddleware.php';
 
 /**
@@ -625,7 +626,7 @@ $app->put('/poids', function () use ($app) {
     $requestJson = json_decode($app->request()->getBody(), true);
     $poidsModel = new PoidsModel();            
 
-    if (isset($requestJson['email']) and isset($requestJson['dateMesure']) and isset($requestJson['poidsMesure']) and isset($requestJson['commentaireMesure'])){
+    if (isset($requestJson['email']) and isset($requestJson['dateMesure']) and isset($requestJson['poidsMesure'])){
         $poidsModel->setDateMesure($requestJson['dateMesure']);
         $poidsModel->setPoids($requestJson['poidsMesure']);
         $poidsModel->setEmail($requestJson['email']);
@@ -660,7 +661,7 @@ $app->put('/monpoids', function () use ($app) {
             if ($abonnementModel->isActifByEmail()){
 	            $requestJson = json_decode($app->request()->getBody(), true);
 	
-	            if (isset($requestJson['dateMesure']) and isset($requestJson['poidsMesure']) and isset($requestJson['commentaireMesure'])){
+	            if (isset($requestJson['dateMesure']) and isset($requestJson['poidsMesure'])){
 		            $poidsModel->setDateMesure($requestJson['dateMesure']);
 		            $poidsModel->setPoids($requestJson['poidsMesure']);
 		            $poidsModel->setEmail($payload->email);
@@ -699,7 +700,7 @@ $app->post('/poids', function () use ($app) {
 	$requestJson = json_decode($app->request()->getBody(), true);
     $poidsModel = new PoidsModel();            
 
-    if (isset($requestJson['id']) and isset($requestJson['dateMesure']) and isset($requestJson['poidsMesure']) and isset($requestJson['commentaireMesure'])){
+    if (isset($requestJson['id']) and isset($requestJson['dateMesure']) and isset($requestJson['poidsMesure'])){
         $poidsModel->setId($requestJson['id']);
         $poidsModel->setDateMesure($requestJson['dateMesure']);
         $poidsModel->setPoids($requestJson['poidsMesure']);
@@ -737,7 +738,7 @@ $app->post('/monpoids', function () use ($app) {
             if ($abonnementModel->isActifByEmail()){
 	            $requestJson = json_decode($app->request()->getBody(), true);       
 
-                if (isset($requestJson['id']) and isset($requestJson['dateMesure']) and isset($requestJson['poidsMesure']) and isset($requestJson['commentaireMesure'])){
+                if (isset($requestJson['id']) and isset($requestJson['dateMesure']) and isset($requestJson['poidsMesure'])){
                     $poidsModel->setId($requestJson['id']);
                     $poidsModel->setEmail($payload->email);
                     $poidsModel->setDateMesure($requestJson['dateMesure']);
@@ -758,6 +759,220 @@ $app->post('/monpoids', function () use ($app) {
             }
             if (!$result){
                 $app->response()->body($poidsModel->getError());
+                $app->response()->status( 403 );
+            }else{
+              	$app->response()->body( json_encode( $result ));
+            }
+        }else{
+			$app->response->setStatus('403'); //Valeur du token incorrecte
+			$app->response->body("Token invalid");
+		}
+	}catch(Exception $e){
+		$app->response->setStatus('403'); //Token invalide
+		$app->response->body($e->getMessage());
+	}
+});
+
+/***********************************************
+Repas
+***********************************************/
+$app->get('/repas/:id', function ($id) use ($app) {
+	$repasModel = new RepasModel();
+    $repasModel->setId($id);
+    
+    $result = $repasModel->fetchOne();
+    
+	 if (!$result){
+		$app->response()->body($repasModel->getError());
+        $app->response()->status( 403 );
+	}else{
+	  	$app->response()->body( json_encode( $result ));
+	}
+});
+
+/***********************************************
+Repas
+***********************************************/
+$app->get('/monrepas/:id', function ($id) use ($app) {
+    try{
+		$payload = JWT::getPayLoad();
+	
+		if (isset($payload->email)){
+	        $repasModel = new RepasModel();
+            $repasModel->setId($id);
+            
+            $result = $repasModel->fetchOne();
+            
+	         if (!$result){
+		        $app->response()->body($repasModel->getError());
+                $app->response()->status( 403 );
+	        }else{
+                if ($result['EMAIL'] != $payload->email){
+                    $app->response()->body("Ceci n'est pas votre repas");
+                    $app->response()->status( 403 );
+                }else{
+	          	    $app->response()->body( json_encode( $result ));
+                }
+	        }
+        }else{
+			$app->response->setStatus('403'); //Valeur du token incorrecte
+			$app->response->body("Token invalid");
+		}
+	}catch(Exception $e){
+		$app->response->setStatus('403'); //Token invalide
+		$app->response->body($e->getMessage());
+	}
+});
+
+/***********************************************
+Ajout repas
+***********************************************/
+$app->put('/repas', function () use ($app) {
+
+    $requestJson = json_decode($app->request()->getBody(), true);
+    $repasModel = new RepasModel();            
+
+    if (isset($requestJson['email']) and isset($requestJson['dateRepasMesure']) and isset($requestJson['heureRepasMesure']) and isset($requestJson['repasMesure'])){
+        $repasModel->setDateMesure($requestJson['dateRepasMesure']);
+        $repasModel->setHeureMesure($requestJson['heureRepasMesure']);
+        $repasModel->setRepas($requestJson['repasMesure']);
+        $repasModel->setEmail($requestJson['email']);
+        $repasModel->setCommentaire($requestJson['commentaireRepasMesure']);
+        $repasModel->setCommentaireDiet($requestJson['commentaireRepasDietMesure']);
+
+        $result = $repasModel->create();
+    }else{
+        $result = false;
+        $repasModel->setError("Des champs manquent pour l'ajout d un repas");
+    }
+    
+    if (!$result){
+        $app->response()->body($repasModel->getError());
+        $app->response()->status( 403 );
+    }else{
+      	$app->response()->body( json_encode( $result ));
+    }
+});
+
+/***********************************************
+Ajout repas
+***********************************************/
+$app->put('/monrepas', function () use ($app) {
+
+    try{
+		$payload = JWT::getPayLoad();
+	
+		if (isset($payload->email)){
+            $repasModel = new RepasModel();  
+            $abonnementModel = new AbonnementModel();
+            $abonnementModel->setEmail($payload->email);
+            if ($abonnementModel->isActifByEmail()){
+	            $requestJson = json_decode($app->request()->getBody(), true);
+	
+	            if (isset($requestJson['dateRepasMesure']) and isset($requestJson['heureRepasMesure']) and isset($requestJson['repasMesure'])){
+		            $repasModel->setDateMesure($requestJson['dateRepasMesure']);
+                    $repasModel->setHeureMesure($requestJson['heureRepasMesure']);
+		            $repasModel->setRepas($requestJson['repasMesure']);
+		            $repasModel->setEmail($payload->email);
+		            $repasModel->setCommentaire($requestJson['commentaireRepasMesure']);
+                    $repasModel->setCommentaireDiet('');
+
+		            $result = $repasModel->create();
+	            }else{
+		            $result = false;
+		            $repasModel->setError("Des champs manquent pour l'ajout du poids");
+	            }
+            }else{
+                 $result = false;
+	             $repasModel->setError("AbonnementInactif");
+            }
+            if (!$result){
+	            $app->response()->body($repasModel->getError());
+                $app->response()->status( 403 );
+            }else{
+              	$app->response()->body( json_encode( $result ));
+            }
+        }else{
+			$app->response->setStatus('403'); //Valeur du token incorrecte
+			$app->response->body("Token invalid");
+		}
+	}catch(Exception $e){
+		$app->response->setStatus('403'); //Token invalide
+		$app->response->body($e->getMessage());
+	}
+});
+
+/***********************************************
+Update poids
+***********************************************/
+$app->post('/repas', function () use ($app) {
+	
+	$requestJson = json_decode($app->request()->getBody(), true);
+    $repasModel = new RepasModel();            
+
+    if (isset($requestJson['id']) and isset($requestJson['dateRepasMesure']) and isset($requestJson['heureRepasMesure']) and isset($requestJson['repasMesure'])){
+        $repasModel->setId($requestJson['id']);
+        $repasModel->setDateMesure($requestJson['dateRepasMesure']);
+        $repasModel->setHeureMesure($requestJson['heureRepasMesure']);
+        $repasModel->setRepas($requestJson['repas']);
+        $repasModel->setCommentaire($requestJson['commentaireRepasMesure']);
+        $repasModel->setCommentaireDiet($requestJson['commentaireRepasDietMesure']);
+        $repasModel->setControleEmail(false);
+										
+		$result = $repasModel->update();
+		
+	}else{
+		$result = false;
+		$repasModel->setError("Des champs manquent pour la modification du repas");
+	}
+    
+	if (!$result){
+		$app->response()->body($repasModel->getError());
+        $app->response()->status( 403 );
+	}else{
+	  	$app->response()->body( json_encode( $result ));
+	}
+});
+
+/***********************************************
+Update poids
+***********************************************/
+$app->post('/monpoids', function () use ($app) {
+	
+    try{
+		$payload = JWT::getPayLoad();
+	
+		if (isset($payload->email)){
+
+            $repasModel = new RepasModel();  
+            $abonnementModel = new AbonnementModel();
+            $abonnementModel->setEmail($payload->email);
+            if ($abonnementModel->isActifByEmail()){
+	            $requestJson = json_decode($app->request()->getBody(), true);       
+
+                if (isset($requestJson['id']) and isset($requestJson['dateRepasMesure']) and isset($requestJson['heureRepasMesure']) and isset($requestJson['repasMesure']) ){
+                    $repasModel->setId($requestJson['id']);
+                    $repasModel->setEmail($payload->email);
+                    $repasModel->setDateMesure($requestJson['dateRepasMesure']);
+                    $repasModel->setHeureMesure($requestJson['heureRepasMesure']);
+                    $repasModel->setRepas($requestJson['repas']);
+                    $repasModel->setCommentaire($requestJson['commentaireRepasMesure']);
+                    $repasModel->setCommentaireDiet($requestJson['commentaireRepasDietMesure']);
+                    $repasModel->setControleEmail(true);
+										
+		            $result = $repasModel->update();
+		
+	            }else{
+		            $result = false;
+		            $repasModel->setError("Des champs manquent pour la modification du repas");
+	            }
+                
+            }else{
+                $result = false;
+                $repasModel->setError("AbonnementInactif");
+            }
+            if (!$result){
+                $app->response()->body($repasModel->getError());
                 $app->response()->status( 403 );
             }else{
               	$app->response()->body( json_encode( $result ));

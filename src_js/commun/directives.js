@@ -102,6 +102,10 @@ angular.module('EspaceNutrition').directive('d3CourbePoids', ['$rootScope', '$lo
 				dataCirclesGroup = null,
 				dataLinesGroup = null;
 
+            var margin = 40;
+        
+        	var t = null;
+
 			var data = [];
 			var data1 = [];
 			var i = Math.max(Math.round(Math.random()*30), 3);
@@ -118,7 +122,6 @@ angular.module('EspaceNutrition').directive('d3CourbePoids', ['$rootScope', '$lo
 				data1.push({'value' : signe*Math.round(Math.random()*5), 'date' : date});
 			}
 
-			var margin = 40;
 			var max = d3.max(data, function(d) { return d.value; });
 			var min = 0;
 			var pointRadius = 4;
@@ -126,12 +129,11 @@ angular.module('EspaceNutrition').directive('d3CourbePoids', ['$rootScope', '$lo
 			var y = d3.scale.linear().range([h - margin * 2, 0]).domain([min, max]);
 			var y1 = d3.scale.linear().range([h - margin * 2, 0]).domain([-5, 5]);
 
-			var xAxis = d3.svg.axis().scale(x).tickSize(h - margin * 2).tickPadding(20).ticks(nbTickDateMax).tickFormat(d3.time.format("%d/%m/%Y"));
+            var xAxis = d3.svg.axis().scale(x).tickSize(h - margin * 2).tickPadding(20).ticks(nbTickDateMax).tickFormat(d3.time.format("%d/%m/%Y"));
 			var yAxis = d3.svg.axis().scale(y).orient('left').tickSize(-w + margin * 2).tickPadding(10).ticks(10);
 			var yAxis1 = d3.svg.axis().scale(y1).orient('right').tickSize(-w + margin * 2).tickPadding(10).ticks(11);
 
-			var t = null;
-
+			
 			svg = d3.select(element[0]).select('svg').select('g');
 			if (svg.empty()) {
 				svg = d3.select(element[0])

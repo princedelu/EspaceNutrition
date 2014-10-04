@@ -740,6 +740,10 @@ angular.module('EspaceNutrition').directive('d3CourbePoids', ['$rootScope', '$lo
 				dataCirclesGroup = null,
 				dataLinesGroup = null;
 
+            var margin = 40;
+        
+        	var t = null;
+
 			var data = [];
 			var data1 = [];
 			var i = Math.max(Math.round(Math.random()*30), 3);
@@ -756,7 +760,6 @@ angular.module('EspaceNutrition').directive('d3CourbePoids', ['$rootScope', '$lo
 				data1.push({'value' : signe*Math.round(Math.random()*5), 'date' : date});
 			}
 
-			var margin = 40;
 			var max = d3.max(data, function(d) { return d.value; });
 			var min = 0;
 			var pointRadius = 4;
@@ -764,12 +767,11 @@ angular.module('EspaceNutrition').directive('d3CourbePoids', ['$rootScope', '$lo
 			var y = d3.scale.linear().range([h - margin * 2, 0]).domain([min, max]);
 			var y1 = d3.scale.linear().range([h - margin * 2, 0]).domain([-5, 5]);
 
-			var xAxis = d3.svg.axis().scale(x).tickSize(h - margin * 2).tickPadding(20).ticks(nbTickDateMax).tickFormat(d3.time.format("%d/%m/%Y"));
+            var xAxis = d3.svg.axis().scale(x).tickSize(h - margin * 2).tickPadding(20).ticks(nbTickDateMax).tickFormat(d3.time.format("%d/%m/%Y"));
 			var yAxis = d3.svg.axis().scale(y).orient('left').tickSize(-w + margin * 2).tickPadding(10).ticks(10);
 			var yAxis1 = d3.svg.axis().scale(y1).orient('right').tickSize(-w + margin * 2).tickPadding(10).ticks(11);
 
-			var t = null;
-
+			
 			svg = d3.select(element[0]).select('svg').select('g');
 			if (svg.empty()) {
 				svg = d3.select(element[0])
@@ -1204,7 +1206,7 @@ angular.module('EspaceNutrition')
 
 angular.module('EspaceNutrition')
 .controller('MesureCtrl',
-['$rootScope', '$scope', '$location', '$route', '$window','PoidsFactory','UtilisateurFactory','Auth', function($rootScope, $scope, $location, $route, $window, PoidsFactory,UtilisateurFactory, Auth) {
+['$rootScope', '$scope', '$location', '$route', '$window','PoidsFactory','RepasFactory','UtilisateurFactory','Auth', function($rootScope, $scope, $location, $route, $window, PoidsFactory,RepasFactory,UtilisateurFactory, Auth) {
 
     $scope.user = Auth.user;
     $scope.userRoles = Auth.userRoles;
@@ -1435,6 +1437,64 @@ angular.module('EspaceNutrition')
 		
     };
 
+    $scope.createRepasLoad = function (id) {
+        $scope.success = '';
+        $scope.error = '';
+        $scope.userTous = 'false';
+        $scope.doublon = 'false';
+        $scope.abonnementinactif = 'false';
+
+        if (id===undefined){
+            $scope.dateRepasMesure = "";
+            $scope.heureRepasMesure = "";
+            $scope.repasMesure = "";
+            $scope.commentaireRepasMesure ='';
+            $scope.commentaireRepasDietMesure ='';
+		    $scope.id = "";
+        }else{
+            var modeSaisieMesure = "";
+            if ($scope.mesures === true){
+                modeSaisieMesure = "mesures";
+            }else{
+                if ($scope.mesmesures === true){
+                    modeSaisieMesure = "mesmesures";
+                }
+            }
+            RepasFactory.get(id,modeSaisieMesure,
+                function (res) {
+                    $scope.success = 'Succes';
+                    $scope.dateRepasMesure = res.DATEMESURE;
+                    $scope.heureRepasMesure = res.HEUREMESURE;
+                    $scope.repasMesure = res.REPAS;
+                    $scope.commentaireRepasMesure = res.COMMENTAIRE;
+                    $scope.commentaireRepasDietMesure = res.COMMENTAIREDIET;
+		            $scope.id = id;
+                    $scope.emailMesure = res.EMAIL;
+                },
+                function (err) {
+                    $scope.error = err;
+                    if (err == 'Doublon') {
+                        $scope.doublon = 'true';
+                    }
+                });
+        }
+
+		$('#dateRepasMesure').datepicker({format: 'dd-mm-yyyy',autoclose: true,weekStart:1}).on('changeDate', function(e){
+            $scope.dateRepasMesure = e.currentTarget.value;
+        });
+
+        $('#heureRepasMesure').timepicker({
+            showMeridian: false
+            }
+            ).on('changeTime.timepicker', function(e) {
+                $scope.heureRepasMesure = e.time.value;
+        });
+        
+		$('#bs-repas').modal('show');
+
+		
+    };
+
     $scope.addPoids = function () {
         $scope.success = '';
         $scope.error = '';
@@ -1464,9 +1524,7 @@ angular.module('EspaceNutrition')
                 PoidsFactory.put(objetValue,modeSaisieMesure,
 	                function () {
 	                    $scope.success = 'Succes';
-		                $('#bs-poids').on('hidden.bs.modal', function (e) {
-		                  $('#mesures').fullCalendar( 'refetchEvents' );
-		                });
+		                $('#mesures').fullCalendar( 'refetchEvents' );
 		                $('#bs-poids').modal('hide');
 	                },
 	                function (err) {
@@ -1486,6 +1544,71 @@ angular.module('EspaceNutrition')
 	                $scope.success = 'Succes';
                     $('#mesures').fullCalendar( 'refetchEvents' );
 		            $('#bs-poids').modal('hide');
+	            },
+	            function (err) {
+	                $scope.error = err;
+	                if (err == 'Doublon') {
+	                    $scope.doublon = 'true';
+	                }
+                    if (err == 'AbonnementInactif') {
+                        $scope.abonnementinactif = 'true';
+                    }
+	            });
+            
+        }
+    };
+
+    $scope.addRepas = function () {
+        $scope.success = '';
+        $scope.error = '';
+		$scope.doublon = 'false';
+        $scope.abonnementinactif = 'false';
+        $scope.userTous = 'false';
+
+        var objetValue = {};
+	    objetValue.dateRepasMesure=$scope.dateRepasMesure;
+        objetValue.heureRepasMesure=$scope.heureRepasMesure;
+	    objetValue.repasMesure=$scope.repasMesure;
+	    objetValue.commentaireRepasMesure=$scope.commentaireRepasMesure;
+        objetValue.commentaireRepasDietMesure=$scope.commentaireRepasDietMesure;
+
+        var modeSaisieMesure = "";
+        if ($scope.mesures === true){
+            modeSaisieMesure = "mesures";
+        }else{
+            if ($scope.mesmesures === true){
+                modeSaisieMesure = "mesmesures";
+            }
+        }
+        objetValue.email=$scope.usermesure.email;
+
+        if ($scope.id === ""){
+            if (objetValue.email=='Tous'){
+                $scope.userTous = 'true';
+            }else{
+                RepasFactory.put(objetValue,modeSaisieMesure,
+	                function () {
+	                    $scope.success = 'Succes';
+		                $('#mesures').fullCalendar( 'refetchEvents' );
+                        $('#bs-repas').modal('hide');
+	                },
+	                function (err) {
+	                    $scope.error = err;
+	                    if (err == 'Doublon') {
+	                        $scope.doublon = 'true';
+	                    }
+                        if (err == 'AbonnementInactif') {
+	                        $scope.abonnementinactif = 'true';
+	                    }
+	                });
+            }
+        }else{
+            objetValue.id=$scope.id;
+            RepasFactory.post(objetValue,modeSaisieMesure,
+	            function () {
+	                $scope.success = 'Succes';
+                    $('#mesures').fullCalendar( 'refetchEvents' );
+		            $('#bs-repas').modal('hide');
 	            },
 	            function (err) {
 	                $scope.error = err;
@@ -1562,6 +1685,52 @@ angular.module('EspaceNutrition').factory('PoidsFactory',['$http', function($htt
 		}
     };
 }]);
+
+angular.module('EspaceNutrition').factory('RepasFactory',['$http', function($http) {
+
+    return {
+        get: function(id,modeSaisieMesure,success, error) {
+            if (modeSaisieMesure === "mesures"){
+                $http.get('/api/repas/'+id).success(success).error(error);
+            }else{
+                if (modeSaisieMesure === "mesmesures"){
+                    $http.get('/api/repas/'+id).success(success).error(error);
+                }
+            }
+        },
+        list: function(email,dateStart,dateEnd,success, error) {
+            $http.get('/api/mesuresrepas/'+email+'/'+dateStart+'/'+dateEnd).success(success).error(error);
+        },
+        listMine: function(dateStart,dateEnd,success, error) {
+            $http.get('/api/mesmesuresrepas/'+dateStart+'/'+dateEnd).success(success).error(error);
+        },
+        supprimer: function(id, success, error) {
+			$http({
+				method: 'DELETE', 
+				url: '/api/repas/' + id
+			}).success(success).error(error);			
+		},
+        put: function(objet,modeSaisieMesure, success, error) {
+            if (modeSaisieMesure === "mesures"){
+			    $http.put('/api/repas', objet).success(success).error(error);
+            }else{
+                if (modeSaisieMesure === "mesmesures"){
+			        $http.put('/api/monrepas', objet).success(success).error(error);
+                }
+            }
+		},
+		post: function(objet,modeSaisieMesure, success, error) {
+			if (modeSaisieMesure === "mesures"){
+			    $http.post('/api/repas', objet).success(success).error(error);
+            }else{
+                if (modeSaisieMesure === "mesmesures"){
+			        $http.post('/api/monrepas', objet).success(success).error(error);
+                }
+            }
+		}
+    };
+}]);
+
 
 })();
 
