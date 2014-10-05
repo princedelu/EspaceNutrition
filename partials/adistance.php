@@ -7,7 +7,7 @@
                         <hr class="star-light">
                     </div>
                 </div>
-                 <div class="row">
+                 <div class="row" >
                     <div class="col-md-4">
 						<div class="panel panel-success">
 						    <div class="panel-heading">

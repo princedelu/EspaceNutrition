@@ -40,15 +40,76 @@
         <!-- Header -->
         <header>
             <div class="container">
-               <div class="row mar-bot40 align-center">
-                        
-                    <div class="col-md-9">
-                        <h1 class="presentation">Angélique Guehl</h1>
-                        <h2 class="presentation">Diététicienne Nutritionniste diplômée</h2>
-                        Secret médical numéro adéli
-                    </div>
-                    <div class="col-md-3"><img src="images/zen-diet.jpg" alt="Zen diet" width="200px"/></div>		
+	            <div class="row">
+		            <div class="col-sm-12">
+                	 
+                        <h3>Angélique Guehl</h3>
+                        <h2>Diététicienne Nutritionniste diplômée</h2>
+                        <h3>Consultation sur rendez-vous</h3>
+                        <h4>Bilan nutritionnel et suivi diététique</h4>
+                        <h4>Analyse corporelle par bio-impédancemétrie</h4>
+                        <div class="col-md-8 col-md-offset-2">
+                            <div class="col-sm-6" align="left">
+                                <p><ul class="list-group">
+                                    <li class="list-group-item">Perte de poids</li>
+                                    <li class="list-group-item">Rééquilibrage alimentaire</li>
+                                    <li class="list-group-item">Grossesse</li>
+                                    <li class="list-group-item">Sportifs</li>
+                                    <li class="list-group-item">Végétarisme</li>
+                                    <li class="list-group-item">Intolérance au gluten/lactose</li>
+                                    <li class="list-group-item">...</li></ul>
+                                </p>
+                            </div>
+                            <div class="col-sm-6" align="left">
+                                <p><ul class="list-group">
+                                    <li class="list-group-item">Diabète</li>
+                                    <li class="list-group-item">Obésité enfant et adulte</li>
+                                    <li class="list-group-item">Allergies alimentaires</li>
+                                    <li class="list-group-item">Maladies cardio-vasculaires</li>
+                                    <li class="list-group-item">Dénutrition (oncologie, personnes agées...)</li>
+                                    <li class="list-group-item">Préparation à la chirurgie bariatrique</li>
+                                    <li class="list-group-item">Troubles du comportement alimentaire</li></ul>
+                                </p>
+                            </div>
+                        </div>                   
                 </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="box">							
+                            <div class="icon">
+                                <div class="image"><i class="fa fa-map-marker"></i></div>
+                                <div class="infoheader">
+                                    <h3 class="title"><br/><strong><a class="public" href="https://www.google.fr/maps/place/51+Rue+Saint-Jean,+79000+Niort/@46.3235346,-0.4633182,17z/data=!3m1!4b1!4m2!3m1!1s0x4807302d3112d579:0xd051e97ec720f68c" target="_blank">51 rue Saint Jean 79000 Niort</a></strong></h3>
+                                </div>
+                            </div>
+                            <div class="space"></div>
+                        </div> 
+                    </div>
+                    <div class="col-md-4">
+                        <div class="box">							
+                            <div class="icon">
+								<div class="image"><i class="fa fa-mobile"></i></div>
+                                <div class="infoheader">
+                                    <h3 class="title"><br/><strong>06 68 00 79 15</strong></h3>
+                                </div>
+                            </div>
+                            <div class="space"></div>
+                        </div> 
+                    </div>
+                        
+                    <div class="col-md-4">
+                        <div class="box">							
+                            <div class="icon">
+                                <div class="image"><i class="fa fa-envelope"></i></div>
+                                <div class="infoheader">
+                                    <h3 class="title"><br/><strong><a class="public" href="mailto:contact@espace-nutrition.fr">contact@espace-nutrition.fr</a></strong></h3>
+                                    
+                                </div>
+                            </div>
+                            <div class="space"></div>
+                        </div> 
+                    </div>
+                </div>            
             </div>
         </header>
 
@@ -132,17 +193,40 @@
             <div class="footer-above">
                 <div class="container">
                     <div class="row">
-                        <div class="footer-col col-md-6">
-                            <h3>Adresse</h3>
-                            <p>79230 Aiffres</p>
+                        <div class="col-md-4">
+                            <div class="box">							
+                                <div class="icon">
+                                    <div class="image"><i class="fa fa-map-marker"></i></div>
+                                    <div class="infoheader">
+                                        <h3 class="title"><br/><strong><a class="public" href="https://www.google.fr/maps/place/51+Rue+Saint-Jean,+79000+Niort/@46.3235346,-0.4633182,17z/data=!3m1!4b1!4m2!3m1!1s0x4807302d3112d579:0xd051e97ec720f68c" target="_blank">51 rue Saint Jean 79000 Niort</a></strong></h3>
+                                    </div>
+                                </div>
+                                <div class="space"></div>
+                            </div> 
                         </div>
-                        <div class="footer-col col-md-6">
-                            <h3>Web</h3>
-                            <ul class="list-inline">
-                                <li>
-                                    <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
-                                </li>
-                            </ul>
+                        <div class="col-md-4">
+                            <div class="box">							
+                                <div class="icon">
+								    <div class="image"><i class="fa fa-mobile"></i></div>
+                                    <div class="infoheader">
+                                        <h3 class="title"><br/><strong>06 68 00 79 15</strong></h3>
+                                    </div>
+                                </div>
+                                <div class="space"></div>
+                            </div> 
+                        </div>
+                            
+                        <div class="col-md-4">
+                            <div class="box">							
+                                <div class="icon">
+                                    <div class="image"><i class="fa fa-envelope"></i></div>
+                                    <div class="infoheader">
+                                        <h3 class="title"><br/><strong><a class="public" href="mailto:contact@espace-nutrition.fr">contact@espace-nutrition.fr</a></strong></h3>
+                                        
+                                    </div>
+                                </div>
+                                <div class="space"></div>
+                            </div> 
                         </div>
                     </div>
                 </div>

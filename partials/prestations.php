@@ -8,7 +8,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-12 col-sm-6 col-lg-4">
+                    <div class="col-md-4">
                         <div class="box">							
                             <div class="icon">
                                 <div class="image"><i class="fa fa-calendar"></i></div>
@@ -18,7 +18,7 @@
                                         Sur prescription médicale ou à votre demande,<br/>
 										Bilan nutritionnel,<br/>
 										Accompagnement personnalisé,<br/>
-										Approche ciblée sur les émotions et les sensations alimentaires
+										Approche ciblée sur le comportement alimentaire : les émotions et les sensations
                                     </p>
                                     <div class="more">
                                         <a href="#prestationModal1" class="prestation-link" data-toggle="modal">
@@ -30,14 +30,14 @@
                             <div class="space"></div>
                         </div> 
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-lg-4">
+                    <div class="col-md-4">
                         <div class="box">							
                             <div class="icon">
 								<div class="image"><i class="fa fa-laptop"></i></div>
                                 <div class="info">
                                     <h3 class="title"><br/>Suivi à distance</h3>
                                     <p>
-                                        Espace personnel interactif avec courbe de poids et de l'humeur,<br/>
+                                        Espace personnel interactif avec courbe de poids,<br/>
 										Carnet alimentaire analysé et corrigé,<br/>
 										Espace questions/réponses
                                     </p>
@@ -52,7 +52,7 @@
                         </div> 
                     </div>
                         
-                    <div class="col-xs-12 col-sm-6 col-lg-4">
+                    <div class="col-md-4">
                         <div class="box">							
                             <div class="icon">
                                 <div class="image"><i class="fa fa-cutlery"></i></div>
@@ -74,7 +74,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-12 col-sm-6 col-lg-4">
+                    <div class="col-md-4">
                         <div class="box">							
                             <div class="icon">
                                 <div class="image"><i class="fa fa-user-md"></i></div>
@@ -96,7 +96,7 @@
                         </div> 
                     </div>
                 
-                    <div class="col-xs-12 col-sm-6 col-lg-4">
+                    <div class="col-md-4">
                         <div class="box">							
                             <div class="icon">
                                 <div class="image"><i class="fa fa-group"></i></div>
@@ -115,7 +115,7 @@
                             <div class="space"></div>
                         </div> 
                     </div>
-                	<div class="col-xs-12 col-sm-6 col-lg-4">
+                	<div class="col-md-4">
                         <div class="box">							
                             <div class="icon">
                                 <div class="image"><i class="fa fa-pencil"></i></div>
@@ -126,7 +126,7 @@
 										Institut de soins esthétiques,<br/>
 										Magasin bio,
 										Coach sportif,...<br/>
-										Intervention médias : Articles de presse, radio locales, ...
+										Intervention médias : Presses, radios, TV ...
                                     </p>
                                     <div class="more">
                                         <a href="#prestationModal6" class="prestation-link" data-toggle="modal">
@@ -152,7 +152,10 @@
 						<h4 class="modal-title" id="myModalLabel">Consultation individuelle sur rendez-vous</h4>
 					</div>
 					<div class="modal-body">
-						Blabla
+						Horaires flexibles du mardi au samedi<br/>
+                        Honoraires 50 € la consultation d'une heure environ<br/>
+                        La CPAM ne prend pas en charge le remboursement du suivi diététique<br/>
+                        Consultez votre mutuelle, la plupart proposent un forfait annuel de remboursement
 					</div>
 			
 					<div class="modal-footer">
@@ -169,7 +172,10 @@
 						<h4 class="modal-title" id="myModalLabel">Suivi à distance</h4>
 					</div>
 					<div class="modal-body">
-						Blabla
+						Consultations à distance par téléphone ou par webcam (Skype)<br/>
+                        Horaires flexibles selon vos disponibilités<br/>
+                        Forfait mensuel de suivi/coaching en ligne<br>
+                        Pour plus d'informations, consultez la section "A distance"
 					</div>
 			
 					<div class="modal-footer">
@@ -184,10 +190,13 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
-						<h4 class="modal-title" id="myModalLabel">Conception et validation de menus conformes au GEMRCN</h4>
+						<h4 class="modal-title" id="myModalLabel">Conception et validation de menus pour les collectivités</h4>
 					</div>
 					<div class="modal-body">
-						Blabla
+						Depuis 2012, les recommandations du GEMRCN sont obligatoires pour la restauration collective, je vous propose la rédaction et/ou la validation de vos menus<br/>
+                        Formation du personnel à la méthode HACCP<br/>
+                        Audit hygiène<br/>
+                        Honaires sur devis
 					</div>
 			
 					<div class="modal-footer">
@@ -204,7 +213,10 @@
 						<h4 class="modal-title" id="myModalLabel">Interventions en établissements de soins</h4>
 					</div>
 					<div class="modal-body">
-						Blabla
+						Dépistage et prévention de la dénutrition de la personne âgée selon les recommandations de la HAS<br/>
+                        Menus et textures adaptés à la pathologie du patient<br/>
+                        Aide à la gestion des compléments nutritionnels oraux (CNO)<br/>
+                        Honaires sur devis
 					</div>
 			
 					<div class="modal-footer">
@@ -221,7 +233,8 @@
 						<h4 class="modal-title" id="myModalLabel">Atelier de groupe</h4>
 					</div>
 					<div class="modal-body">
-						Blabla
+                        Prévention et Education nutritionnelle tout public (écoles, associations, EHPAD, administrations, comités d'entreprise...)<br/>
+                        Honaires sur devis
 					</div>
 			
 					<div class="modal-footer">
@@ -238,7 +251,7 @@
 						<h4 class="modal-title" id="myModalLabel">Partenariats</h4>
 					</div>
 					<div class="modal-body">
-						Blabla
+						Me contacter au 06 68 00 79 15 ou contact@espace-nutrition.fr
 					</div>
 			
 					<div class="modal-footer">

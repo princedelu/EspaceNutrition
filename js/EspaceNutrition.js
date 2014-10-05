@@ -1387,7 +1387,7 @@ angular.module('EspaceNutrition')
                             var dateMesureEn=dateMesureTab[2] + '-' + dateMesureTab[1] + '-' + dateMesureTab[0];
                             events.push({
                                 id : mesure.ID,
-                                title: mesure.EMAIL + ' : ' + mesure.POIDS,
+                                title: 'Poids : ' + mesure.POIDS,
                                 start: dateMesureEn, // will be parsed
                                 backgroundColor: "#00c0ef", //Info (aqua)
                                 borderColor: "#00c0ef", //Info (aqua)
@@ -1398,7 +1398,7 @@ angular.module('EspaceNutrition')
                             if (mesure.TYPE == 'REPAS'){
                                 var eventValue={
                                         id : mesure.ID,
-                                        title: mesure.EMAIL,
+                                        title: 'Repas : ' + mesure.REPAS,
                                         start: mesure.DATEHEUREMESURE, // will be parsed
                                         allDay : false,
                                         editable : false,
