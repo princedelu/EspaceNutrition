@@ -5,9 +5,10 @@
                     <div class="col-lg-12 text-center">
                         <h2>A distance</h2>
                         <hr class="star-light">
+                        <h3>En cours de construction</h3>
                     </div>
                 </div>
-                 <div class="row" >
+                 <div class="row ng-hide" >
                     <div class="col-md-4">
 						<div class="panel panel-success">
 						    <div class="panel-heading">

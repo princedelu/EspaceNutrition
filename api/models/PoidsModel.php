@@ -170,7 +170,7 @@ class PoidsModel extends AbstractModel {
 			$this->openConnectionDatabase();
 
 			// Exécution des requêtes SQL
-			$query=sprintf("SELECT * FROM poids where email='%s' AND DATEMESURE>='%s' AND DATEMESURE<'%s'",mysqli_real_escape_string($this->dblink,$this->getEmail()),mysqli_real_escape_string($this->dblink,$this->getDateStart()),mysqli_real_escape_string($this->dblink,$this->getDateEnd()));
+			$query=sprintf("SELECT * FROM poids where email='%s' AND DATEMESURE>='%s' AND DATEMESURE<'%s' order by DATEMESURE",mysqli_real_escape_string($this->dblink,$this->getEmail()),mysqli_real_escape_string($this->dblink,$this->getDateStart()),mysqli_real_escape_string($this->dblink,$this->getDateEnd()));
 			$mysql_result = mysqli_query($this->dblink,$query);
 			if (!$mysql_result){
 				$this->setError(mysqli_error($this->dblink));
@@ -279,7 +279,7 @@ class PoidsModel extends AbstractModel {
 					            $result=false;
 				            }else{
 
-					            $query=sprintf("UPDATE poids SET POIDS='%s'",mysqli_real_escape_string($this->dblink,$this->getPoids()));
+					            $query=sprintf("UPDATE poids SET POIDS=%f",mysqli_real_escape_string($this->dblink,$this->getPoids()));
 					
 					            $query=$query.sprintf(" ,COMMENTAIRE='%s'",mysqli_real_escape_string($this->dblink,$this->getCommentaire()));
 
@@ -358,7 +358,7 @@ class PoidsModel extends AbstractModel {
 					        $result=false;
 				        }else{
 					        // Exécution des requêtes SQL
-					        $query=sprintf("INSERT INTO poids (email,datemesure,poids,commentaire) values ('%s','%s','%s','%s')",mysqli_real_escape_string($this->dblink,$this->getEmail()),$dateMesure,mysqli_real_escape_string($this->dblink,$this->getPoids()),mysqli_real_escape_string($this->dblink,$this->getCommentaire()));
+					        $query=sprintf("INSERT INTO poids (email,datemesure,poids,commentaire) values ('%s','%s',%f,'%s')",mysqli_real_escape_string($this->dblink,$this->getEmail()),$dateMesure,mysqli_real_escape_string($this->dblink,$this->getPoids()),mysqli_real_escape_string($this->dblink,$this->getCommentaire()));
 		         
 					        $mysql_result = mysqli_query($this->dblink,$query);
 					        if (!$mysql_result){

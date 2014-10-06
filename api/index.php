@@ -619,7 +619,7 @@ $app->get('/mesures/:email/:dateStart/:dateEnd', function ($email,$dateStart,$da
 });
 
 /***********************************************
-Mes abonnements
+Mes mesures
 ***********************************************/
 $app->get('/mesmesures/:dateStart/:dateEnd', function ($dateStart,$dateEnd) use ($app) {
 
@@ -659,6 +659,101 @@ $app->get('/mesmesures/:dateStart/:dateEnd', function ($dateStart,$dateEnd) use 
             
 	        if (!is_array($result)){
 		        $app->response()->body($result);
+                $app->response()->status( 403 );
+	        }else{
+	          	$app->response()->body( json_encode( $result ));
+	        }
+		}else{
+			$app->response->setStatus('403'); //Valeur du token incorrecte
+			$app->response->body("Token invalid");
+		}
+	}catch(Exception $e){
+		$app->response->setStatus('403'); //Token invalide
+		$app->response->body($e->getMessage());
+	}
+		
+});
+
+/***********************************************
+Dernières mesures
+***********************************************/
+$app->get('/lastmesures', function () use ($app) {
+
+	try{
+		$payload = JWT::getPayLoad();
+	
+		if (isset($payload->email)){
+			$poidsModel = new PoidsModel();
+            $poidsModel->setDateStart('1970-01-01');
+            $poidsModel->setDateEnd('9999-12-12');
+            $poidsModel->setEmail($payload->email);
+	        $resultPoids = $poidsModel->fetchAllByEmail();
+            $resultPoidsDernier = end($resultPoids);
+
+            // Recherche des informations sur les repas	
+            $repasModel = new RepasModel();
+            $repasModel->setDateStart('1970-01-01');
+            $repasModel->setDateEnd('9999-12-12');
+            $repasModel->setEmail($payload->email);
+            $resultRepas = $repasModel->fetchAllByEmail();
+            $resultRepasDernier = end($resultRepas);
+
+            // Concaténation des deux résultats
+	        if (!is_array($resultPoids) || !is_array($resultRepas)){
+                $result = false;
+            }else{
+                $result = array();
+
+                $resultPoidsDernier['TYPE']='POIDS';
+                array_push($result,$resultPoidsDernier);
+               
+                $resultRepasDernier['TYPE']='REPAS';
+                array_push($result,$resultRepasDernier);                
+            }
+            
+	        if (!is_array($result)){
+		        $app->response()->body($result);
+                $app->response()->status( 403 );
+	        }else{
+	          	$app->response()->body( json_encode( $result ));
+	        }
+		}else{
+			$app->response->setStatus('403'); //Valeur du token incorrecte
+			$app->response->body("Token invalid");
+		}
+	}catch(Exception $e){
+		$app->response->setStatus('403'); //Token invalide
+		$app->response->body($e->getMessage());
+	}
+		
+});
+
+/***********************************************
+Mon poids
+***********************************************/
+$app->get('/listpoids/:email', function ($email) use ($app) {
+
+	try{
+		$payload = JWT::getPayLoad();
+	
+		if (isset($payload->email) and isset($payload->role)){
+			$poidsModel = new PoidsModel();
+            $poidsModel->setDateStart('1970-01-01');
+            $poidsModel->setDateEnd('9999-12-12');
+            $poidsModel->setEmail($email);
+            if ($email == $payload->email){
+	            $result = $poidsModel->fetchAllByEmail();
+            }else{
+                if ($payload->role==2){
+                    $result = $poidsModel->fetchAllByEmail();
+                }else{
+                    $result = false;
+                    $poidsModel->setError('Vous ne pouvez pas lister les poids d une autre personne');
+                }
+            }
+            
+	        if (!is_array($result)){
+		        $app->response()->body($poidsModel->getError());
                 $app->response()->status( 403 );
 	        }else{
 	          	$app->response()->body( json_encode( $result ));
@@ -1029,6 +1124,82 @@ $app->post('/monrepas', function () use ($app) {
             }
             if (!$result){
                 $app->response()->body($repasModel->getError());
+                $app->response()->status( 403 );
+            }else{
+              	$app->response()->body( json_encode( $result ));
+            }
+        }else{
+			$app->response->setStatus('403'); //Valeur du token incorrecte
+			$app->response->body("Token invalid");
+		}
+	}catch(Exception $e){
+		$app->response->setStatus('403'); //Token invalide
+		$app->response->body($e->getMessage());
+	}
+});
+
+/***********************************************
+Suppression poids
+***********************************************/
+$app->delete('/poids/:id', function ($id) use ($app) {
+     try{
+		$payload = JWT::getPayLoad();
+	
+		if (isset($payload->email) and isset($payload->role)){
+	        $poidsModel = new PoidsModel();
+	        $poidsModel->setId($id);
+            $poidsResult=$poidsModel->fetchOne();
+            if ($poidsResult['EMAIL']==$payload->email){
+	            $result = $poidsModel->delete();           
+            }else{
+                if ($payload->role==2){
+                    $result = $poidsModel->delete();
+                }else{
+                    $result = false;
+                    $poidsModel->setError("Vous ne pouvez pas supprimer le poids d'un autre utilisateur");
+                }
+            }
+
+            if (!$result){
+	            $app->response()->body($poidsModel->getError());
+                $app->response()->status( 403 );
+            }else{
+              	$app->response()->body( json_encode( $result ));
+            }
+        }else{
+			$app->response->setStatus('403'); //Valeur du token incorrecte
+			$app->response->body("Token invalid");
+		}
+	}catch(Exception $e){
+		$app->response->setStatus('403'); //Token invalide
+		$app->response->body($e->getMessage());
+	}
+});
+
+/***********************************************
+Suppression repas
+***********************************************/
+$app->delete('/repas/:id', function ($id) use ($app) {
+     try{
+		$payload = JWT::getPayLoad();
+	
+		if (isset($payload->email) and isset($payload->role)){
+	        $repasModel = new RepasModel();
+	        $repasModel->setId($id);
+            $repasResult=$repasModel->fetchOne();
+            if ($repasResult['EMAIL']==$payload->email){
+	            $result = $repasModel->delete();           
+            }else{
+                if ($payload->role==2){
+                    $result = $repasModel->delete();
+                }else{
+                    $result = false;
+                    $repasModel->setError("Vous ne pouvez pas supprimer le poids d'un autre utilisateur");
+                }
+            }
+
+            if (!$result){
+	            $app->response()->body($repasModel->getError());
                 $app->response()->status( 403 );
             }else{
               	$app->response()->body( json_encode( $result ));

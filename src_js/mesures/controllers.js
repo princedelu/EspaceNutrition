@@ -18,7 +18,31 @@ angular.module('EspaceNutrition')
     }
 
     $scope.changeUserMesure = function() {
+      if ($scope.usermesure.email == 'Tous'){
+        $scope.showButtonViewPoidsCourbe=false;
+      }else{
+        $scope.showButtonViewPoidsCourbe=true;
+      }
       $('#mesures').fullCalendar( 'refetchEvents' );
+    };
+
+    $scope.viewCourbePoids = function(){
+        var data = [];
+
+        PoidsFactory.list($scope.usermesure.email,
+            function(res) {
+                _.each(res,function(poids){
+                    var dateMesureTab = poids.DATEMESURE.split('-');
+                    var dateMesureEn=dateMesureTab[2] + '-' + dateMesureTab[1] + '-' + dateMesureTab[0];
+                    data.push({'value' : poids.POIDS, 'date' : new Date(dateMesureEn)});
+                });
+                $scope.dataPoids=data;
+            },
+            function(err) {
+                $scope.error = err;
+            }
+        );		
+        $('#bs-courbePoids').modal('show');
     };
 
     $scope.listMesures = function () {
@@ -131,26 +155,6 @@ angular.module('EspaceNutrition')
         allUser.role=0;
 
         $scope.usermesure=allUser;
-        var result = [];
-        result.push(allUser);
-               
-        $scope.users = result;
-
-        UtilisateurFactory.list(
-	        function (res) {
-	            $scope.success = 'Succes';
-                var result = _.filter(res, function(user) {
-                  return user.role < 2;
-                });                
-
-                result.unshift(allUser);
-               
-                $scope.users = result;
-	        },
-	        function (err) {
-	            $scope.error = err;	            
-	        }
-        );
 
         $('#mesures').fullCalendar({
             eventClick: function(calEvent, jsEvent, view) {
@@ -223,20 +227,41 @@ angular.module('EspaceNutrition')
         
     };
 
-    $scope.supprimer = function (id) {
+    $scope.supprimerPoids = function (id) {
         $scope.success = '';
         $scope.error = '';
-		var retVal = confirm("Voulez vous supprimer cette mesure?");
+		var retVal = confirm("Voulez vous supprimer cette mesure de poids?");
         if (retVal === true) {
-		    /*AbonnementFactory.supprimer(id,
+		    PoidsFactory.supprimer(id,
 		        function () {
 		            $scope.success = 'Succes';
-		            $route.reload();
+	                $('#mesures').fullCalendar( 'refetchEvents' );
+	                $('#bs-poids').modal('hide');
 		        },
 		        function (err) {
 		            $scope.error = err;
-		            $route.reload();
-		        });*/
+		            $('#mesures').fullCalendar( 'refetchEvents' );
+	                $('#bs-poids').modal('hide');
+		        });
+		}
+    };
+
+    $scope.supprimerRepas = function (id) {
+        $scope.success = '';
+        $scope.error = '';
+		var retVal = confirm("Voulez vous supprimer ce repas?");
+        if (retVal === true) {
+		    RepasFactory.supprimer(id,
+		        function () {
+		            $scope.success = 'Succes';
+	                $('#mesures').fullCalendar( 'refetchEvents' );
+	                $('#bs-repas').modal('hide');
+		        },
+		        function (err) {
+		            $scope.error = err;
+		            $('#mesures').fullCalendar( 'refetchEvents' );
+	                $('#bs-repas').modal('hide');
+		        });
 		}
     };
 
@@ -482,6 +507,16 @@ angular.module('EspaceNutrition')
         break;
         case 'listMesures':
             $scope.listMesures();
+        break;
+        case 'addPoids':
+            $scope.mesmesures = true;
+            $scope.listMesMesures();
+            $scope.createPoidsLoad();
+        break;
+        case 'addRepas':
+            $scope.mesmesures = true;
+            $scope.listMesMesures();
+            $scope.createRepasLoad();
         break;
         default:
         break;

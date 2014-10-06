@@ -141,7 +141,6 @@ angular.module('EspaceNutrition')
 		}
 	};
 
-
 }]);
 
 })();

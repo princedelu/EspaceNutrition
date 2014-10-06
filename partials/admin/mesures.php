@@ -25,6 +25,9 @@
 			<div class="row">
                 <div class="col-xs-6 text-left" ng-show="mesures">
 					Utilisateur : <select data-ng-model="usermesure" data-ng-options="user.email for user in users" id="usermesure" data-ng-required="true" ng-change="changeUserMesure()"></select>
+                    <button class="btn btn-default" data-toggle="modal" ng-click="viewCourbePoids();" ng-show="showButtonViewPoidsCourbe">
+                        Voir la courbe de poids
+					</button>
 				</div>
                 <div class="text-right" ng-class="{'col-xs-6':mesures,'col-xs-12':mesmesures}">
 					<button class="btn btn-info" data-toggle="modal" ng-click="createPoidsLoad();">
@@ -55,6 +58,7 @@
     <?php
 		include("popupPoids.php");
         include("popupRepas.php");
+        include("popupCourbePoids.php");
 	?>
 
 </div><!-- ./wrapper -->

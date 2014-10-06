@@ -4,6 +4,9 @@
 angular.module('EspaceNutrition').factory('PoidsFactory',['$http', function($http) {
 
     return {
+        list: function(email,success, error) {
+            $http.get('/api/listpoids/'+email).success(success).error(error);
+        },
         get: function(id,modeSaisieMesure,success, error) {
             if (modeSaisieMesure === "mesures"){
                 $http.get('/api/poids/'+id).success(success).error(error);
@@ -87,6 +90,9 @@ angular.module('EspaceNutrition').factory('MesureFactory',['$http', function($ht
         },
         listMine: function(dateStart,dateEnd,success, error) {
             $http.get('/api/mesmesures/'+dateStart+'/'+dateEnd).success(success).error(error);
+        },
+        getLastMesure : function(success, error) {
+            $http.get('/api/lastmesures').success(success).error(error);
         }
     };
 }]);

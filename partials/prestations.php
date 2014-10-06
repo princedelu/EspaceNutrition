@@ -13,12 +13,13 @@
                             <div class="icon">
                                 <div class="image"><i class="fa fa-calendar"></i></div>
                                 <div class="info">
-                                    <h3 class="title"><br/>Consultation individuelle sur rendez-vous</h3>
+                                    <h3 class="title"><br/>Consultation individuelle</h3>
                                     <p>
-                                        Sur prescription médicale ou à votre demande,<br/>
-										Bilan nutritionnel,<br/>
-										Accompagnement personnalisé,<br/>
-										Approche ciblée sur le comportement alimentaire : les émotions et les sensations
+                                        Sur prescription médicale ou à votre demande<br/>
+										Bilan nutritionnel<br/>
+										Accompagnement personnalisé<br/>
+										Approche ciblée sur le comportement alimentaire (les émotions et les sensations) couplé à une alimentation variée sans interdit<br/>
+                                        Travail sur la sensation de faim, de satiété, le plaisir et l'équilibre
                                     </p>
                                     <div class="more">
                                         <a href="#prestationModal1" class="prestation-link" data-toggle="modal">
@@ -37,9 +38,8 @@
                                 <div class="info">
                                     <h3 class="title"><br/>Suivi à distance</h3>
                                     <p>
-                                        Espace personnel interactif avec courbe de poids,<br/>
-										Carnet alimentaire analysé et corrigé,<br/>
-										Espace questions/réponses
+                                        Espace personnel interactif avec courbe de poids<br/>
+										Carnet alimentaire analysé et commenté
                                     </p>
                                     <div class="more">
                                         <a href="#prestationModal2" class="prestation-link" data-toggle="modal">
@@ -59,8 +59,7 @@
                                 <div class="info">
                                     <h3 class="title"><br/>Conception et validation de menus pour les collectivités</h3>
                                     <p>
-                                        Menus équilibrés conformes au GEMRCN toute population<br/>
-										Formation sécurité et hygiène alimentaire
+                                        Menus équilibrés conformes au GEMRCN toute population
                                     </p>
                                     <div class="more">
                                         <a href="#prestationModal3" class="prestation-link" data-toggle="modal">
@@ -79,10 +78,10 @@
                             <div class="icon">
                                 <div class="image"><i class="fa fa-user-md"></i></div>
                                 <div class="info">
-                                    <h3 class="title"><br/>Interventions en établissements de soins</h3>
+                                    <h3 class="title"><br/>Interventions en etablissements de soins</h3>
                                     <p>
-                                        Aide au dépistage et à la prévention de la dénutrition,<br/>
-										Formation du personnel,<br/>
+                                        Aide au dépistage et à la prévention de la dénutrition<br/>
+										Formation du personnel<br/>
 										Adaptation des textures et des régimes alimentaires
                                     </p>
                                     <div class="more">
@@ -103,7 +102,7 @@
                                 <div class="info">
                                     <h3 class="title"><br/>Ateliers de groupe</h3>
                                     <p>
-                                        Interventions tout public sur divers thèmes autour de la nutrition et de l'alimentation équilibrée sous forme d'ateliers, conférences, jeux, ...
+                                        Interventions tout public sur divers thèmes autour de la nutrition et de l'alimentation équilibrée sous forme d'ateliers, conférences, jeux...
                                     </p>
                                     <div class="more">
                                         <a href="#prestationModal5" class="prestation-link" data-toggle="modal">
@@ -122,10 +121,10 @@
                                 <div class="info">
                                     <h3 class="title"><br/>Partenariats</h3>
                                     <p>
-                                        Clubs de sports,<br/>
-										Institut de soins esthétiques,<br/>
-										Magasin bio,
-										Coach sportif,...<br/>
+                                        Clubs de sports<br/>
+										Institut de soins esthétiques<br/>
+										Magasin bio<br/>
+										Coach sportif...<br/>
 										Intervention médias : Presses, radios, TV ...
                                     </p>
                                     <div class="more">
@@ -154,6 +153,9 @@
 					<div class="modal-body">
 						Horaires flexibles du mardi au samedi<br/>
                         Honoraires 50 € la consultation d'une heure environ<br/>
+                        La consultation initiale permet de faire un bilan nutritionnel complet, connaitre vos attentes et vos motivations et de définir ensemble les objectifs de votre suivi<br/>
+                        Les consultations de suivi permettent d'évaluer l'efficacité de la prise en charge et de répondre à vos questions<br/>
+                        Pour un suivi efficace, les consultations doivent avoir lieu tous les 15 jours - 1 mois maximum<br/>
                         La CPAM ne prend pas en charge le remboursement du suivi diététique<br/>
                         Consultez votre mutuelle, la plupart proposent un forfait annuel de remboursement
 					</div>
@@ -193,10 +195,9 @@
 						<h4 class="modal-title" id="myModalLabel">Conception et validation de menus pour les collectivités</h4>
 					</div>
 					<div class="modal-body">
-						Depuis 2012, les recommandations du GEMRCN sont obligatoires pour la restauration collective, je vous propose la rédaction et/ou la validation de vos menus<br/>
-                        Formation du personnel à la méthode HACCP<br/>
-                        Audit hygiène<br/>
-                        Honaires sur devis
+						Depuis 2013, les recommandations du GEMRCN sont obligatoires pour la restauration collective, je vous propose la rédaction et/ou la validation de vos menus (contrôle des fréquences de service des plats)<br/>
+                        Participation au CLAN<br/>
+                        Honoraires sur devis
 					</div>
 			
 					<div class="modal-footer">
@@ -210,13 +211,13 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
-						<h4 class="modal-title" id="myModalLabel">Interventions en établissements de soins</h4>
+						<h4 class="modal-title" id="myModalLabel">Interventions en etablissements de soins</h4>
 					</div>
 					<div class="modal-body">
 						Dépistage et prévention de la dénutrition de la personne âgée selon les recommandations de la HAS<br/>
                         Menus et textures adaptés à la pathologie du patient<br/>
                         Aide à la gestion des compléments nutritionnels oraux (CNO)<br/>
-                        Honaires sur devis
+                        Honoraires sur devis
 					</div>
 			
 					<div class="modal-footer">
@@ -230,11 +231,11 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
-						<h4 class="modal-title" id="myModalLabel">Atelier de groupe</h4>
+						<h4 class="modal-title" id="myModalLabel">Ateliers de groupe</h4>
 					</div>
 					<div class="modal-body">
                         Prévention et Education nutritionnelle tout public (écoles, associations, EHPAD, administrations, comités d'entreprise...)<br/>
-                        Honaires sur devis
+                        Honoraires sur devis
 					</div>
 			
 					<div class="modal-footer">

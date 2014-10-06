@@ -50,6 +50,7 @@
                     <span class="help-block" ng-show="userTous"> Veuillez saisir un utilisateur</span>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
 					<button type="submit" class="btn btn-primary" ng-disabled="poidsForm.$invalid" ng-hide="id">Enregistrer</button>
+                    <button type="button" class="btn btn-warning" ng-show="id" ng-click="supprimerPoids(id);">Supprimer</button>
 					<button type="submit" class="btn btn-primary" ng-disabled="poidsForm.$invalid" ng-show="id">Modifier</button>
 				</div>
 			</form>

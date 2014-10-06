@@ -32,7 +32,8 @@ angular.module('EspaceNutrition', ['ngRoute','underscore'])
 	$routeProvider.when('/dashboard',
         {
             templateUrl:    '/partials/admin/dashboard.php',
-            controller:     'EspaceNutritionCtrl',
+            controller:     'DashboardCtrl',
+            action:         'dashboard',
             access:         access.user
 
         });
@@ -76,6 +77,20 @@ angular.module('EspaceNutrition', ['ngRoute','underscore'])
             templateUrl:    '/partials/admin/mesures.php',
             controller:     'MesureCtrl',
 			action : 		'listMesMesures',
+            access:         access.user
+        });	
+    $routeProvider.when('/addpoids',
+        {
+            templateUrl:    '/partials/admin/mesures.php',
+            controller:     'MesureCtrl',
+			action : 		'addPoids',
+            access:         access.user
+        });	
+    $routeProvider.when('/addrepas',
+        {
+            templateUrl:    '/partials/admin/mesures.php',
+            controller:     'MesureCtrl',
+			action : 		'addRepas',
             access:         access.user
         });	
     $routeProvider.when('/404',

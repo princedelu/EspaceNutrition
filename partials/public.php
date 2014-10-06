@@ -57,7 +57,7 @@
                                     <li class="list-group-item">Sportifs</li>
                                     <li class="list-group-item">Végétarisme</li>
                                     <li class="list-group-item">Intolérance au gluten/lactose</li>
-                                    <li class="list-group-item">...</li></ul>
+                                    <li class="list-group-item">Sevrage tabagique et alcoolique</li></ul>
                                 </p>
                             </div>
                             <div class="col-sm-6" align="left">
@@ -234,7 +234,13 @@
             <div class="footer-below">
                 <div class="container">
                     <div class="row">
-                        <div class="col-lg-12">
+                        <div class="col-lg-4">
+                            Numéro adéli : 79 95 0063 2
+                        </div>
+                        <div class="col-lg-4">
+                            Numéro de SIRET : 804 655 371 00016
+                        </div>
+                        <div class="col-lg-4">
                             Copyright &copy; http://www.espace-nutrition.fr 2014
                         </div>
                     </div>

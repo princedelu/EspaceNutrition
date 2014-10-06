@@ -238,7 +238,7 @@ class AbonnementModel extends AbstractModel {
 			$this->openConnectionDatabase();
 			
 			// Exécution des requêtes SQL
-			$query=sprintf("SELECT * FROM abonnements where EMAIL='%s' and DATEDEBUT<=NOW() AND DATEFIN>=NOW()",mysqli_real_escape_string($this->dblink,$this->getEmail()));
+			$query=sprintf("SELECT * FROM abonnements where EMAIL='%s' and DATEDEBUT<=NOW() AND ADDDATE(DATEFIN,1)>=NOW()",mysqli_real_escape_string($this->dblink,$this->getEmail()));
  
 			$mysql_result = mysqli_query($this->dblink,$query);
 			if (!$mysql_result){

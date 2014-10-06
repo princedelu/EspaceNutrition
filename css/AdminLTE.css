@@ -1292,7 +1292,7 @@ body > div > div > div > .header .logo .icon {
   margin-bottom: 15px;
 }
 .small-box > .inner {
-  padding: 10px;
+  padding: 0px 10px;
 }
 .small-box > .small-box-footer {
   position: relative;
@@ -3605,10 +3605,7 @@ line {
 
 .textPoids { fill: steelblue; }
 .textHumeur { fill: red; }
-.yTick line {display: none;}
 .yTick text {fill: steelblue;}
-.yTick1 line {display: none;}
-.yTick1 text {fill: #FF0000;}
 
 .tipsy { font-size: 10px; position: absolute; padding: 5px; z-index: 100000; }
   .tipsy-inner { background-color: #bfbfbf; color: #000; font-family: Verdana,Arial; max-width: 200px; padding: 5px 8px 4px 8px; text-align: center; }

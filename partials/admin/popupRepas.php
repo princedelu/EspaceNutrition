@@ -37,18 +37,18 @@
 						</ng-form>
 					</div>
                     <div class="form-group">
-						<label for="repasMesure">Repas (Décrivez votre repas)</label>
+						<label for="repasMesure">Aliments et boissons (Décrivez votre repas ainsi que les quantités)</label>
 						<ng-form name="subForm4">
-							<textarea class="form-control" data-ng-model="repasMesure" id="repasMesure" data-ng-required="true"></textarea>
+							<textarea class="form-control" data-ng-model="repasMesure" id="repasMesure" data-ng-required="true" placeholder="1 bol de soupe, 1 steack haché, 1 assiette de pâtes, 1 yahourt nature sucré, 1 petite banane"></textarea>
                             <div ng-show="subForm4.$dirty && subForm4.$invalid">
 								<span class="help-block" ng-show="subForm4.$error.required"> Repas obligatoire</span>               
 							</div>
 						</ng-form>
 					</div>
                     <div class="form-group">
-						<label for="commentaireRepasMesure">Commentaires divers / Humeur / Sensation</label>
+						<label for="commentaireRepasMesure">Vitesse / Faim (Echelle de 1 - pas faim du tout à 5 - Très grosse faim) / Où et avec qui? / Pensées et émotions</label>
 						<ng-form name="subForm4">
-							<textarea class="form-control" data-ng-model="commentaireRepasMesure" id="commentaireRepasMesure"></textarea>
+							<textarea class="form-control" data-ng-model="commentaireRepasMesure" id="commentaireRepasMesure" placeholder="Vitesse : Vite, Faim : 4, chez moi, seul, stressé et fatigué"></textarea>
 						</ng-form>
 					</div>
                     <div class="form-group">
@@ -66,6 +66,7 @@
                     <span class="help-block" ng-show="userTous"> Veuillez saisir un utilisateur</span>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
 					<button type="submit" class="btn btn-primary" ng-disabled="repasForm.$invalid" ng-hide="id">Enregistrer</button>
+                    <button type="button" class="btn btn-warning" ng-show="id" ng-click="supprimerRepas(id);">Supprimer</button>
 					<button type="submit" class="btn btn-primary" ng-disabled="repasForm.$invalid" ng-show="id">Modifier</button>
 				</div>
 			</form>
