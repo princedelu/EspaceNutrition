@@ -45,7 +45,7 @@
                                     </ul>
 									<li><i class="fa fa-check"></i> Coaching diététique en ligne :</li>
                                     <ul class="list-unstyled">
-                                        <li>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right"></i> Vous aurez accès à :</li>
+                                        <li>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right"></i> Vous donne accès à :</li>
                                         <ul class="list-unstyled">
                                             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Un espace personnel interactif avec votre carnet alimentaire analysé et commenté ainsi que votre courbe de poids</li>
                                             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Un accompagnement nutritionnel personnalisé</li>
@@ -196,7 +196,10 @@
 						<ul class="list-unstyled">
                             <li><i class="fa fa-check"></i> Consultations à distance par téléphone ou par webcam (Skype)</li>
                             <li><i class="fa fa-check"></i> Horaires flexibles selon vos disponibilités</li>
-                            <li><i class="fa fa-check"></i> Forfait mensuel de suivi/coaching en ligne</li>
+                            <li><i class="fa fa-check"></i> La consultation initiale permet de faire un bilan nutritionnel complet, connaitre vos attentes et vos motivations et de définir ensemble les objectifs de votre suivi</li>
+                            <li><i class="fa fa-check"></i> Les consultations de suivi permettent d'évaluer l'efficacité de la prise en charge et de répondre à vos questions</li>
+                            <li><i class="fa fa-check"></i> Forfait mensuel de coaching en ligne proposant un suivi adapté à vos besoins</li>
+                            <li><i class="fa fa-check"></i> Il est conseillé de prendre une consultation avant de commencer le coaching en ligne pour effectuer un bilan nutritionnel</li>
                             <li><i class="fa fa-check"></i> Pour plus d'informations, consultez la section "A distance"</li>
                         </ul>
 					</div>

@@ -291,6 +291,47 @@ class RepasModel extends AbstractModel {
 		return $result;
     }
 
+    /*
+	* Récupération de toutes les notifications user
+	*/
+    public function fetchNotificationsUser()
+    {
+        $result = array();
+
+		try{
+			$this->openConnectionDatabase();
+
+			// Exécution des requêtes SQL
+			$query=sprintf("SELECT * FROM repas where email='%s' AND DATEHEURECOMMENTAIREDIET>(SELECT MAX(DATEHEUREMODIFICATION) FROM repas where email='%s')",mysqli_real_escape_string($this->dblink,$this->getEmail()),mysqli_real_escape_string($this->dblink,$this->getEmail()));
+
+			$mysql_result = mysqli_query($this->dblink,$query);
+			if (!$mysql_result){
+				$this->setError(mysqli_error($this->dblink));
+				$result=false;
+			}else{
+				$num_rows = mysqli_num_rows($mysql_result);
+				if ($num_rows!=0){
+					while ($row = mysqli_fetch_assoc($mysql_result)) {
+                        $resultTmp = $this->getDateEtHeureMesure($row['DATEHEUREMESURE']);
+                        $row['DATEMESURE']=$resultTmp['datemesure'];
+                        $row['HEUREMESURE']=$resultTmp['heuremesure'];
+						array_push($result,$row);
+					}
+					mysqli_free_result($mysql_result);
+				}
+			}
+		}
+		catch(Exception $e)
+		{
+			$this->setError($e->getMessage());
+            $result=false;
+		} 
+		
+		$this->closeConnectionDatabase();
+
+		return $result;
+    }
+
     /**
      * Fetch one model from storage
      * @param $id

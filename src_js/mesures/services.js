@@ -96,6 +96,9 @@ angular.module('EspaceNutrition').factory('MesureFactory',['$http', function($ht
         },
         listNotificationsAdmin: function(success, error) {
             $http.get('/api/notificationsAdmin').success(success).error(error);
+        },
+        listNotificationsUser: function(success, error) {
+            $http.get('/api/notificationsUser').success(success).error(error);
         }
     };
 }]);

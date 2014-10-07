@@ -898,7 +898,7 @@ body > div > div > div > .header .logo .icon {
   font-size: 20px;
   width: 50px;
   text-align: center;
-  padding: 15px 0px;
+  padding: 5px 0px;
   margin-right: 5px;
   /* Default background and font colors */
   background: #00c0ef;
@@ -2569,6 +2569,7 @@ Component: timeline
 }
 .skin-blue .navbar .navbar-right > .nav {
   margin-right: 10px;
+  font-size : 10px;
 }
 .skin-blue .navbar .sidebar-toggle .icon-bar {
   background: rgba(255, 255, 255, 0.8);
@@ -3632,4 +3633,8 @@ line {
     .tipsy-se .tipsy-arrow { bottom: 0; right: 10px; border-top-style: solid; border-bottom: none; border-left-color: transparent; border-right-color: transparent; }
   .tipsy-e .tipsy-arrow { right: 0; top: 50%; margin-top: -5px; border-left-style: solid; border-right: none; border-top-color: transparent; border-bottom-color: transparent; }
   .tipsy-w .tipsy-arrow { left: 0; top: 50%; margin-top: -5px; border-right-style: solid; border-left: none; border-top-color: transparent; border-bottom-color: transparent; }
+
+.navbar-static-top {
+    border-width: 0 0 0px;
+}
 

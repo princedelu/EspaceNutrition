@@ -1228,6 +1228,33 @@ $app->get('/notificationsAdmin', function () use ($app) {
 	}
 });
 
+/***********************************************
+Notifications user
+***********************************************/
+$app->get('/notificationsUser', function () use ($app) {
+    try{
+		$payload = JWT::getPayLoad();
+	
+		if (isset($payload->email) and isset($payload->role)){
+	        $repasModel = new RepasModel();
+            $repasModel->setEmail($payload->email);
+	        $result = $repasModel->fetchNotificationsUser();
+	        if (!is_array($result)){
+		        $app->response()->body($repasModel->getError());
+                $app->response()->status( 403 );
+	        }else{
+	          	$app->response()->body( json_encode( $result ));
+	        }
+        }else{
+			$app->response->setStatus('403'); //Valeur du token incorrecte
+			$app->response->body("Token invalid");
+		}
+	}catch(Exception $e){
+		$app->response->setStatus('403'); //Token invalide
+		$app->response->body($e->getMessage());
+	}
+});
+
 /**
  * Launch application
  */

@@ -52,7 +52,7 @@
 						    <div class="panel-body text-center">
 						        <p class="lead">
 						            <strong>80€ / mois</strong><br/>
-                                    <a href="#aDistanceModal2" data-toggle="modal">
+                                    <a href="#aDistanceModal" data-toggle="modal">
                                         Plus d'informations </i>
                                     </a>
 						        </p>
@@ -65,7 +65,7 @@
 						            Espace personnel sur le site
 						        </li>
 						        <li class="list-group-item">
-						            Carnet alimentaire analysé et commenté sous 48 h
+						            Carnet alimentaire analysé et commenté 1 fois par semaine
 						        </li>
 						        <li class="list-group-item">
 						            Suivi de votre courbe de poids
@@ -93,7 +93,7 @@
 						    <div class="panel-body text-center">
 						        <p class="lead">
 						            <strong>200€</strong><br/>
-                                    <a href="#aDistanceModal3" data-toggle="modal">
+                                    <a href="#aDistanceModal" data-toggle="modal">
                                         Plus d'informations </i>
                                     </a>
 						        </p>
@@ -106,7 +106,7 @@
 						            Espace personnel sur le site
 						        </li>
 						        <li class="list-group-item">
-						            Carnet alimentaire analysé et commenté sous 48 h
+						            Carnet alimentaire analysé et commenté 1 fois par semaine
 						        </li>
 						        <li class="list-group-item">
 						            Suivi de votre courbe de poids
@@ -201,32 +201,22 @@
 			</div>
 		</div>
 		<!-- /Popup Paiement Success -->
-        <div class="modal fade" id="aDistanceModal2" tabindex="-1" role="dialog" aria-labelledby="aDistanceModal2" aria-hidden="true">
+        <div class="modal fade" id="aDistanceModal" tabindex="-1" role="dialog" aria-labelledby="aDistanceModal" aria-hidden="true">
 			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
-						<h4 class="modal-title" id="myModalLabel">Plus d'informations sur le coaching diététique mensuel</h4>
+						<h4 class="modal-title" id="myModalLabel">Plus d'informations sur le coaching diététique</h4>
 					</div>
 					<div class="modal-body">
-						Blabla
-					</div>
-			
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-					</div>
-				</div>
-			</div>
-		</div>
-        <div class="modal fade" id="aDistanceModal3" tabindex="-1" role="dialog" aria-labelledby="aDistanceModal3" aria-hidden="true">
-			<div class="modal-dialog modal-lg">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
-						<h4 class="modal-title" id="myModalLabel">Plus d'informations sur le forfait coaching diététique (3 mois)</h4>
-					</div>
-					<div class="modal-body">
-						Blabla
+						<ol>
+                            <li>Une fois votre paiement recu, vous recevrez une email confirmant la création de votre espace et vous invitant à cliquer sur un lien</li>
+                            <li>Ce lien vous redirige vers votre espace personnel en vous proposant de créer votre mot de passe</li>
+                            <li>Chaque jour, notez vos repas, vos émotions, vos sensations alimentaires</li>
+                            <li>Une fois par semaine minimum, inscrivez votre poids pour créer votre courbe</li>
+                            <li>Une fois par semaine, j'analyse et commente votre carnet alimentaire</li>
+                            <li>Une fois par mois, nous ferons un point ensemble par téléphone (30 minutes)</li>
+                        </ol>
 					</div>
 			
 					<div class="modal-footer">

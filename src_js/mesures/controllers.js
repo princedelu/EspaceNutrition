@@ -10,6 +10,7 @@ angular.module('EspaceNutrition')
     $scope.accessLevels = Auth.accessLevels;
     
     var action = "";
+    var id;
     if ($route !== undefined && $route.current){
         
         if ($route.current.action !== undefined){
@@ -521,7 +522,13 @@ angular.module('EspaceNutrition')
         case 'modifRepas':
             $scope.mesures = true;
             $scope.listMesures();
-            var id = $routeParams.id;
+            id = $routeParams.id;
+            $scope.createRepasLoad(id);
+        break;
+        case 'modifMonRepas':
+            $scope.mesmesures = true;
+            $scope.listMesMesures();
+            id = $routeParams.id;
             $scope.createRepasLoad(id);
         break;
         default:

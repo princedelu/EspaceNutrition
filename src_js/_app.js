@@ -27,6 +27,7 @@ angular.module('EspaceNutrition', ['ngRoute','underscore'])
         {
             templateUrl:    '/partials/login.html',
             controller:     'EspaceNutritionCtrl',
+            action:         'login',
             access:         access.public
         });
 	$routeProvider.when('/dashboard',
@@ -99,6 +100,13 @@ angular.module('EspaceNutrition', ['ngRoute','underscore'])
             controller:     'MesureCtrl',
 			action : 		'modifRepas',
             access:         access.admin
+        });
+    $routeProvider.when('/monrepas/:id',
+        {
+            templateUrl:    '/partials/admin/mesures.php',
+            controller:     'MesureCtrl',
+			action : 		'modifMonRepas',
+            access:         access.user
         });
     $routeProvider.when('/404',
         {

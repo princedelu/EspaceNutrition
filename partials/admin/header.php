@@ -16,7 +16,26 @@
 	        <!-- Sidebar toggle button-->
 	        <div class="navbar-right">
 	            <ul class="nav navbar-nav">
-	                
+	                <!-- Notifications: style can be found in dropdown.less -->
+                        <li class="dropdown notifications-menu" data-access-level='accessLevels.userOnly' ng-if="notifications.length != 0">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-warning"></i>
+                                <span class="label label-warning">{{ notifications.length }}</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <!-- inner menu: contains the actual data -->
+                                    <ul class="menu">
+                                        <li ng-repeat="notification in notifications">
+                                            <a href="/monrepas/{{notification.ID}}">
+                                                <i class="fa fa-comment warning"></i> Repas du {{notification.DATEMESURE}} à {{notification.HEUREMESURE}}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="footer"><a href="#">Fin des notifications</a></li>
+                            </ul>
+                        </li>
 	                <!-- User Account: style can be found in dropdown.less -->
 	                <li class="dropdown user user-menu">
 	                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">

@@ -3,11 +3,19 @@
 
 angular.module('EspaceNutrition')
 .controller('EspaceNutritionCtrl',
-['$rootScope', '$scope', '$location', '$route', '$window', 'Auth','UtilisateurFactory', function($rootScope, $scope, $location, $route, $window, Auth,UtilisateurFactory) {
+['$rootScope', '$scope', '$location', '$route', '$window', 'Auth','UtilisateurFactory','MesureFactory', function($rootScope, $scope, $location, $route, $window, Auth,UtilisateurFactory,MesureFactory) {
     
     $scope.user = Auth.user;
     $scope.userRoles = Auth.userRoles;
     $scope.accessLevels = Auth.accessLevels;
+
+    var action = "";
+    if ($route !== undefined && $route.current){
+        
+        if ($route.current.action !== undefined){
+            action = $route.current.action;
+        }
+    }
 
 	$scope.role = "1";
 
@@ -140,6 +148,31 @@ angular.module('EspaceNutrition')
 			$(".right-side").toggleClass("strech");
 		}
 	};
+
+    $scope.getDataHeader = function () {
+        if ($scope.user.role != $scope.userRoles.admin){
+            $scope.success = '';
+            $scope.error = '';
+
+		    MesureFactory.listNotificationsUser(
+			    function (res) {
+				    $scope.success = 'Succes';
+				    $scope.notifications = res;
+			    },
+			    function (err) {
+				    $scope.error = err;
+			    });
+        }
+    };
+
+
+    switch (action) {
+        case 'login':
+        break;
+        default:
+            $scope.getDataHeader();
+        break;
+    }
 
 }]);
 

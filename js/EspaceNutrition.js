@@ -27,6 +27,7 @@ angular.module('EspaceNutrition', ['ngRoute','underscore'])
         {
             templateUrl:    '/partials/login.html',
             controller:     'EspaceNutritionCtrl',
+            action:         'login',
             access:         access.public
         });
 	$routeProvider.when('/dashboard',
@@ -99,6 +100,13 @@ angular.module('EspaceNutrition', ['ngRoute','underscore'])
             controller:     'MesureCtrl',
 			action : 		'modifRepas',
             access:         access.admin
+        });
+    $routeProvider.when('/monrepas/:id',
+        {
+            templateUrl:    '/partials/admin/mesures.php',
+            controller:     'MesureCtrl',
+			action : 		'modifMonRepas',
+            access:         access.user
         });
     $routeProvider.when('/404',
         {
@@ -516,11 +524,19 @@ angular.module('EspaceNutrition').factory('AbonnementFactory',['$http', function
 
 angular.module('EspaceNutrition')
 .controller('EspaceNutritionCtrl',
-['$rootScope', '$scope', '$location', '$route', '$window', 'Auth','UtilisateurFactory', function($rootScope, $scope, $location, $route, $window, Auth,UtilisateurFactory) {
+['$rootScope', '$scope', '$location', '$route', '$window', 'Auth','UtilisateurFactory','MesureFactory', function($rootScope, $scope, $location, $route, $window, Auth,UtilisateurFactory,MesureFactory) {
     
     $scope.user = Auth.user;
     $scope.userRoles = Auth.userRoles;
     $scope.accessLevels = Auth.accessLevels;
+
+    var action = "";
+    if ($route !== undefined && $route.current){
+        
+        if ($route.current.action !== undefined){
+            action = $route.current.action;
+        }
+    }
 
 	$scope.role = "1";
 
@@ -653,6 +669,31 @@ angular.module('EspaceNutrition')
 			$(".right-side").toggleClass("strech");
 		}
 	};
+
+    $scope.getDataHeader = function () {
+        if ($scope.user.role != $scope.userRoles.admin){
+            $scope.success = '';
+            $scope.error = '';
+
+		    MesureFactory.listNotificationsUser(
+			    function (res) {
+				    $scope.success = 'Succes';
+				    $scope.notifications = res;
+			    },
+			    function (err) {
+				    $scope.error = err;
+			    });
+        }
+    };
+
+
+    switch (action) {
+        case 'login':
+        break;
+        default:
+            $scope.getDataHeader();
+        break;
+    }
 
 }]);
 
@@ -976,11 +1017,11 @@ $('.navbar-collapse ul li a').click(function() {
 	/* Element pour paypal
 	*/
 	exports.paypal = {};
-	exports.paypal.business="admin@espace-nutrition.fr";
-	exports.paypal.urlReturn="http://espace-nutrition.fr/paiementSuccess";
-	exports.paypal.urlCancel="http://espace-nutrition.fr";
-	exports.paypal.urlNotify="http://espace-nutrition.fr/api/notifyPaiement";
-	exports.paypal.sandbox=true;
+	exports.paypal.business="angelique.guehl@espace-nutrition.fr";
+	exports.paypal.urlReturn="http://www.espace-nutrition.fr/paiementSuccess";
+	exports.paypal.urlCancel="http://www.espace-nutrition.fr";
+	exports.paypal.urlNotify="http://www.espace-nutrition.fr/api/notifyPaiement";
+	exports.paypal.sandbox=false;
 	/* Informations sur les produits
 	*/
 	exports.item = {};
@@ -988,11 +1029,11 @@ $('.navbar-collapse ul li a').click(function() {
 	exports.item[1].libelle="EspaceNutrition - Consultation en ligne";
 	exports.item[1].amount="50";
 	exports.item[2] = {};
-	exports.item[2].libelle="EspaceNutrition - Suivi en ligne";
+	exports.item[2].libelle="EspaceNutrition - Coaching diététique mensuel";
 	exports.item[2].amount="80";
 	exports.item[3] = {};
-	exports.item[3].libelle="EspaceNutrition - Consultation et suivi en ligne";
-	exports.item[3].amount="100";
+	exports.item[3].libelle="EspaceNutrition - Forfait coaching diététique (3 mois)";
+	exports.item[3].amount="200";
 	
 
     /*
@@ -1201,10 +1242,6 @@ angular.module('EspaceNutrition')
         }
     }
 
-    $scope.updateRepas = function(id){
-        $location.path('/repas/'+id);
-    };
-
 	$scope.getDataDashBoard = function () {
 
         if ($scope.user.role == $scope.userRoles.admin){
@@ -1356,6 +1393,7 @@ angular.module('EspaceNutrition')
     $scope.accessLevels = Auth.accessLevels;
     
     var action = "";
+    var id;
     if ($route !== undefined && $route.current){
         
         if ($route.current.action !== undefined){
@@ -1867,7 +1905,13 @@ angular.module('EspaceNutrition')
         case 'modifRepas':
             $scope.mesures = true;
             $scope.listMesures();
-            var id = $routeParams.id;
+            id = $routeParams.id;
+            $scope.createRepasLoad(id);
+        break;
+        case 'modifMonRepas':
+            $scope.mesmesures = true;
+            $scope.listMesMesures();
+            id = $routeParams.id;
             $scope.createRepasLoad(id);
         break;
         default:
@@ -1975,6 +2019,9 @@ angular.module('EspaceNutrition').factory('MesureFactory',['$http', function($ht
         },
         listNotificationsAdmin: function(success, error) {
             $http.get('/api/notificationsAdmin').success(success).error(error);
+        },
+        listNotificationsUser: function(success, error) {
+            $http.get('/api/notificationsUser').success(success).error(error);
         }
     };
 }]);
