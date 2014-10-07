@@ -95,9 +95,11 @@ angular.module('EspaceNutrition')
 		case 'paiementSuccess':
 			$scope.paiementSuccess();
 			$scope.initFieldContact();
+            $('.carousel').carousel();
 		break;
 		default:
 			$scope.initFieldContact();
+            $('.carousel').carousel();
 		break;
 	}
 	

@@ -3,7 +3,7 @@
 
 angular.module('EspaceNutrition')
 .controller('MesureCtrl',
-['$rootScope', '$scope', '$location', '$route', '$window','PoidsFactory','RepasFactory','MesureFactory','UtilisateurFactory','Auth', function($rootScope, $scope, $location, $route, $window, PoidsFactory,RepasFactory,MesureFactory,UtilisateurFactory, Auth) {
+['$rootScope', '$scope', '$location', '$route','$routeParams','$window','PoidsFactory','RepasFactory','MesureFactory','UtilisateurFactory','Auth', function($rootScope, $scope, $location, $route,$routeParams, $window, PoidsFactory,RepasFactory,MesureFactory,UtilisateurFactory, Auth) {
 
     $scope.user = Auth.user;
     $scope.userRoles = Auth.userRoles;
@@ -61,7 +61,7 @@ angular.module('EspaceNutrition')
 	        function (res) {
 	            $scope.success = 'Succes';
                 var result = _.filter(res, function(user) {
-                  return user.role < 2;
+                  return user.role <  2;
                 });                
 
                 result.unshift(allUser);
@@ -517,6 +517,12 @@ angular.module('EspaceNutrition')
             $scope.mesmesures = true;
             $scope.listMesMesures();
             $scope.createRepasLoad();
+        break;
+        case 'modifRepas':
+            $scope.mesures = true;
+            $scope.listMesures();
+            var id = $routeParams.id;
+            $scope.createRepasLoad(id);
         break;
         default:
         break;

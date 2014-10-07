@@ -75,6 +75,20 @@
                     </div><!-- /.box-body -->
                 </div>
 			</div><!-- /.Graph -->
+            <div class="row" data-access-level='accessLevels.admin'>
+				<div class="col-xs-12">
+                    <h4>Liste des notifications à traiter</h4><hr/>
+					<div class="box">
+						<div class="box-body table-responsive">
+
+							<table id="notifications" class="display">
+
+							</table>
+							
+						</div><!-- /.box-body -->
+					</div><!-- /.box -->
+				</div>
+			</div>
 		</section><!-- /.content -->
 	</aside><!-- /.right-side -->
 

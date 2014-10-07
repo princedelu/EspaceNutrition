@@ -225,7 +225,7 @@ angular.module('EspaceNutrition')
 	        function (res) {
 	            $scope.success = 'Succes';
                 var result = _.filter(res, function(user) {
-                  return user.role < 2;
+                  return user.role <  2;
                 });
 
                 $scope.users = result;

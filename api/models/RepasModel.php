@@ -250,6 +250,47 @@ class RepasModel extends AbstractModel {
 		return $result;
     }
 
+    /*
+	* Récupération de toutes les notifications admin
+	*/
+    public function fetchNotificationsAdmin()
+    {
+        $result = array();
+
+		try{
+			$this->openConnectionDatabase();
+
+			// Exécution des requêtes SQL
+			$query=sprintf("SELECT * FROM repas where DATEHEUREMODIFICATION>DATEHEURECOMMENTAIREDIET");
+
+			$mysql_result = mysqli_query($this->dblink,$query);
+			if (!$mysql_result){
+				$this->setError(mysqli_error($this->dblink));
+				$result=false;
+			}else{
+				$num_rows = mysqli_num_rows($mysql_result);
+				if ($num_rows!=0){
+					while ($row = mysqli_fetch_assoc($mysql_result)) {
+                        $resultTmp = $this->getDateEtHeureMesure($row['DATEHEUREMESURE']);
+                        $row['DATEMESURE']=$resultTmp['datemesure'];
+                        $row['HEUREMESURE']=$resultTmp['heuremesure'];
+						array_push($result,$row);
+					}
+					mysqli_free_result($mysql_result);
+				}
+			}
+		}
+		catch(Exception $e)
+		{
+			$this->setError($e->getMessage());
+            $result=false;
+		} 
+		
+		$this->closeConnectionDatabase();
+
+		return $result;
+    }
+
     /**
      * Fetch one model from storage
      * @param $id
@@ -324,6 +365,12 @@ class RepasModel extends AbstractModel {
 					    $query=$query.sprintf(" ,COMMENTAIRE='%s'",mysqli_real_escape_string($this->dblink,$this->getCommentaire()));
                         $query=$query.sprintf(" ,COMMENTAIREDIET='%s'",mysqli_real_escape_string($this->dblink,$this->getCommentaireDiet()));
                         
+                        if ($repas['COMMENTAIREDIET']!=$this->getCommentaireDiet() && $this->getCommentaireDiet()!=""){
+                            $query=$query." ,DATEHEURECOMMENTAIREDIET=NOW()";
+                        }else{
+                            $query=$query." ,DATEHEUREMODIFICATION=NOW()";
+                        }                        
+                        
 						$query=$query.sprintf(" ,DATEHEUREMESURE='%s'",mysqli_real_escape_string($this->dblink,$this->getDateHeureMesure()));;
 
 					    $query=$query.sprintf(" where ID=%d",mysqli_real_escape_string($this->dblink,$this->getId()));
@@ -381,7 +428,7 @@ class RepasModel extends AbstractModel {
 					$result=false;
 				}else{
                     // Exécution des requêtes SQL
-			        $query=sprintf("INSERT INTO repas (EMAIL,DATEHEUREMESURE,REPAS,COMMENTAIRE,COMMENTAIREDIET) values ('%s','%s','%s','%s','%s')",mysqli_real_escape_string($this->dblink,$this->getEmail()),$dateHeureMesure,mysqli_real_escape_string($this->dblink,$this->getRepas()),mysqli_real_escape_string($this->dblink,$this->getCommentaire()),mysqli_real_escape_string($this->dblink,$this->getCommentaireDiet()));
+			        $query=sprintf("INSERT INTO repas (EMAIL,DATEHEUREMODIFICATION,DATEHEUREMESURE,REPAS,COMMENTAIRE,COMMENTAIREDIET) values ('%s',NOW(),'%s','%s','%s','%s')",mysqli_real_escape_string($this->dblink,$this->getEmail()),$dateHeureMesure,mysqli_real_escape_string($this->dblink,$this->getRepas()),mysqli_real_escape_string($this->dblink,$this->getCommentaire()),mysqli_real_escape_string($this->dblink,$this->getCommentaireDiet()));
          
 			        $mysql_result = mysqli_query($this->dblink,$query);
 			        if (!$mysql_result){

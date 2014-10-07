@@ -41,10 +41,10 @@
 	/* Element pour paypal
 	*/
 	exports.paypal = {};
-	exports.paypal.business="admin@espace-nutrition.fr";
-	exports.paypal.urlReturn="http://espace-nutrition.fr/paiementSuccess";
-	exports.paypal.urlCancel="http://espace-nutrition.fr";
-	exports.paypal.urlNotify="http://espace-nutrition.fr/api/notifyPaiement";
+	exports.paypal.business="contact@espace-nutrition.fr";
+	exports.paypal.urlReturn="http://www.espace-nutrition.fr/paiementSuccess";
+	exports.paypal.urlCancel="http://www.espace-nutrition.fr";
+	exports.paypal.urlNotify="http://www.espace-nutrition.fr/api/notifyPaiement";
 	exports.paypal.sandbox=true;
 	/* Informations sur les produits
 	*/
@@ -53,11 +53,11 @@
 	exports.item[1].libelle="EspaceNutrition - Consultation en ligne";
 	exports.item[1].amount="50";
 	exports.item[2] = {};
-	exports.item[2].libelle="EspaceNutrition - Suivi en ligne";
+	exports.item[2].libelle="EspaceNutrition - Coaching diététique mensuel";
 	exports.item[2].amount="80";
 	exports.item[3] = {};
-	exports.item[3].libelle="EspaceNutrition - Consultation et suivi en ligne";
-	exports.item[3].amount="100";
+	exports.item[3].libelle="EspaceNutrition - Forfait coaching diététique (3 mois)";
+	exports.item[3].amount="200";
 	
 
     /*

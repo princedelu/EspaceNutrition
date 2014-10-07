@@ -39,78 +39,111 @@
 
         <!-- Header -->
         <header>
-            <div class="container">
-	            <div class="row">
-		            <div class="col-sm-12">
-                	 
-                        <h3>Angélique Guehl</h3>
-                        <h2>Diététicienne Nutritionniste diplômée</h2>
-                        <h3>Consultation sur rendez-vous</h3>
-                        <h4>Bilan nutritionnel et suivi diététique</h4>
-                        <h4>Analyse corporelle par bio-impédancemétrie</h4>
-                        <div class="col-md-8 col-md-offset-2">
-                            <div class="col-sm-6" align="left">
-                                <p><ul class="list-group">
-                                    <li class="list-group-item">Perte de poids</li>
-                                    <li class="list-group-item">Rééquilibrage alimentaire</li>
-                                    <li class="list-group-item">Grossesse</li>
-                                    <li class="list-group-item">Sportifs</li>
-                                    <li class="list-group-item">Végétarisme</li>
-                                    <li class="list-group-item">Intolérance au gluten/lactose</li>
-                                    <li class="list-group-item">Sevrage tabagique et alcoolique</li></ul>
-                                </p>
-                            </div>
-                            <div class="col-sm-6" align="left">
-                                <p><ul class="list-group">
-                                    <li class="list-group-item">Diabète</li>
-                                    <li class="list-group-item">Obésité enfant et adulte</li>
-                                    <li class="list-group-item">Allergies alimentaires</li>
-                                    <li class="list-group-item">Maladies cardio-vasculaires</li>
-                                    <li class="list-group-item">Dénutrition (oncologie, personnes agées...)</li>
-                                    <li class="list-group-item">Préparation à la chirurgie bariatrique</li>
-                                    <li class="list-group-item">Troubles du comportement alimentaire</li></ul>
-                                </p>
-                            </div>
-                        </div>                   
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="box">							
-                            <div class="icon">
-                                <div class="image"><i class="fa fa-map-marker"></i></div>
-                                <div class="infoheader">
-                                    <h3 class="title"><br/><strong><a class="public" href="https://www.google.fr/maps/place/51+Rue+Saint-Jean,+79000+Niort/@46.3235346,-0.4633182,17z/data=!3m1!4b1!4m2!3m1!1s0x4807302d3112d579:0xd051e97ec720f68c" target="_blank">51 rue Saint Jean 79000 Niort</a></strong></h3>
+            
+                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                    </ol>
+
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
+                        <div class="item active itemHeader">
+                            <div class="row">
+                                <div class="col-md-12">
+                            	    <h3>Angélique Guehl</h3>
+                                    <h2>Diététicienne Nutritionniste diplômée</h2>
+                                    <h3>Consultation sur rendez-vous</h3>
+                                    <h4>Bilan nutritionnel et suivi diététique</h4>
+                                    <h4>Analyse corporelle par bio-impédancemétrie</h4>
                                 </div>
                             </div>
-                            <div class="space"></div>
-                        </div> 
-                    </div>
-                    <div class="col-md-4">
-                        <div class="box">							
-                            <div class="icon">
-								<div class="image"><i class="fa fa-mobile"></i></div>
-                                <div class="infoheader">
-                                    <h3 class="title"><br/><strong>06 68 00 79 15</strong></h3>
+                        </div>
+                        <div class="item itemHeader">
+                            <div class="row">
+                                <h4>Angélique Guehl</h4>
+                                <h3>Diététicienne Nutritionniste diplômée</h3>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5 col-md-offset-1 col-xs-5 col-xs-offset-1" align="left">
+                                    <p><ul class="list-unstyled">
+                                        <li><i class="fa fa-check"></i> Perte de poids</li>
+                                        <li><i class="fa fa-check"></i> Rééquilibrage alimentaire</li>
+                                        <li><i class="fa fa-check"></i> Grossesse</li>
+                                        <li><i class="fa fa-check"></i> Sportifs</li>
+                                        <li><i class="fa fa-check"></i> Végétarisme</li>
+                                        <li><i class="fa fa-check"></i> Intolérance au gluten/lactose</li>
+                                        <li><i class="fa fa-check"></i> Sevrage tabagique et alcoolique</li></ul>
+                                    </p>
+                                </div>
+                                <div class="col-md-5 col-xs-5" align="left">
+                                    <p><ul class="list-unstyled">
+                                        <li><i class="fa fa-check"></i> Diabète</li>
+                                        <li><i class="fa fa-check"></i> Obésité enfant et adulte</li>
+                                        <li><i class="fa fa-check"></i> Allergies alimentaires</li>
+                                        <li><i class="fa fa-check"></i> Maladies cardio-vasculaires</li>
+                                        <li><i class="fa fa-check"></i> Dénutrition (oncologie, personnes agées...)</li>
+                                        <li><i class="fa fa-check"></i> Préparation à la chirurgie bariatrique</li>
+                                        <li><i class="fa fa-check"></i> Troubles du comportement alimentaire</li></ul>
+                                    </p>
                                 </div>
                             </div>
-                            <div class="space"></div>
-                        </div> 
-                    </div>
-                        
-                    <div class="col-md-4">
-                        <div class="box">							
-                            <div class="icon">
-                                <div class="image"><i class="fa fa-envelope"></i></div>
-                                <div class="infoheader">
-                                    <h3 class="title"><br/><strong><a class="public" href="mailto:contact@espace-nutrition.fr">contact@espace-nutrition.fr</a></strong></h3>
+                        </div>
+                        <div class="item itemHeader">
+                            <div class="row">
+                                <h4>Angélique Guehl</h4>
+                                <h3>Diététicienne Nutritionniste diplômée</h3>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 col-md-offset-1 col-xs-10 col-xs-offset-1">
+                                    <div class="box">							
+                                        <div class="icon">
+                                            <div class="image"><i class="fa fa-map-marker"></i></div>
+                                            <div class="infoheader">
+                                                <h3 class="title"><br/><strong><a class="public" href="https://www.google.fr/maps/place/51+Rue+Saint-Jean,+79000+Niort/@46.3235346,-0.4633182,17z/data=!3m1!4b1!4m2!3m1!1s0x4807302d3112d579:0xd051e97ec720f68c" target="_blank">51 rue Saint Jean 79000 Niort</a></strong></h3>
+                                            </div>
+                                        </div>
+                                        <div class="space"></div>
+                                    </div> 
+                                </div>
+                                <div class="col-md-2 col-md-offset-0 col-xs-10 col-xs-offset-1">
+                                    <div class="box">							
+                                        <div class="icon">
+								            <div class="image"><i class="fa fa-mobile"></i></div>
+                                            <div class="infoheader">
+                                                <h3 class="title"><br/><strong>06 68 00 79 15</strong></h3>
+                                            </div>
+                                        </div>
+                                        <div class="space"></div>
+                                    </div> 
+                                </div>
                                     
+                                <div class="col-md-4 col-md-offset-0 col-xs-10 col-xs-offset-1">
+                                    <div class="box">							
+                                        <div class="icon">
+                                            <div class="image"><i class="fa fa-envelope"></i></div>
+                                            <div class="infoheader">
+                                                <h3 class="title"><br/><strong><a class="public" href="mailto:contact@espace-nutrition.fr">contact@espace-nutrition.fr</a></strong></h3>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="space"></div>
+                                    </div> 
                                 </div>
                             </div>
-                            <div class="space"></div>
-                        </div> 
+                        </div>
                     </div>
-                </div>            
-            </div>
+
+                    <!-- Controls -->
+                    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                        <span class="fa fa-chevron-left"></span>
+                    </a>
+                    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                        <span class="fa fa-chevron-right"></span>
+                    </a>
+                </div>          
         </header>
 
     	<?php
@@ -235,7 +268,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-4">
-                            Numéro adéli : 79 95 0063 2
+                            Numéro Adéli : 79 95 0063 2
                         </div>
                         <div class="col-lg-4">
                             Numéro de SIRET : 804 655 371 00016

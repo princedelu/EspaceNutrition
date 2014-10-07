@@ -5,10 +5,9 @@
                     <div class="col-lg-12 text-center">
                         <h2>A distance</h2>
                         <hr class="star-light">
-                        <h3>En cours de construction</h3>
                     </div>
                 </div>
-                 <div class="row ng-hide" >
+                <div class="row" >
                     <div class="col-md-4">
 						<div class="panel panel-success">
 						    <div class="panel-heading">
@@ -17,24 +16,27 @@
 						    <div class="panel-body text-center">
 						        <p class="lead">
 						            <strong>50€ / consultation</strong>
+                                    <br/>&nbsp;
 						        </p>
 						    </div>
 						    <ul class="list-group list-group-flush text-center">
 						        <li class="list-group-item">
-						            Prise en charge personnalisée
-						            <span class="fa fa-check pull-right"></span>
+						            Durée d'1 heure environ
 						        </li>
 						        <li class="list-group-item">
-						            Rendez-vous par skype
-						            <span class="fa fa-check pull-right"></span>
+						            Sur rendez-vous, par téléphone ou webcam (Skype)
 						        </li>
 								<li class="list-group-item">
-						            Suivi personnalisé à chaque rendez-vous
-						            <span class="fa fa-check pull-right"></span>
+						            Même prestation qu'au cabinet
 						        </li>
 								<li class="list-group-item">
-						            Espace personnel sur le site
-						            <span class="fa fa-times pull-right"></span>
+						            La consultation initiale permet de faire un bilan nutritionnel
+						        </li>
+                                <li class="list-group-item">
+						            Les consultations de suivi permettent de ré-ajuster l'accompagnement, de répondre à vos questions
+						        </li>
+                                <li class="list-group-item">
+						            Honaires flexibles selon vos disponibilités
 						        </li>
 						    </ul>
 						    <div class="panel-footer">
@@ -45,29 +47,37 @@
 					<div class="col-md-4">
 						<div class="panel panel-info">
 						    <div class="panel-heading">
-						        <h4 class="text-center">Suivi en ligne</h4>
+						        <h4 class="text-center">Coaching diététique mensuel</h4>
 						    </div>
 						    <div class="panel-body text-center">
 						        <p class="lead">
-						            <strong>80€ / mois</strong>
+						            <strong>80€ / mois</strong><br/>
+                                    <a href="#aDistanceModal2" data-toggle="modal">
+                                        Plus d'informations </i>
+                                    </a>
 						        </p>
 						    </div>
 						    <ul class="list-group list-group-flush text-center">
-						        <li class="list-group-item">
+                                <li class="list-group-item">
+						            4 semaines d'accompagnement
+						        </li>
+                                <li class="list-group-item">
 						            Espace personnel sur le site
-						            <span class="fa fa-check pull-right"></span>
 						        </li>
 						        <li class="list-group-item">
-						            Suivi et retours tous les 2 jours
-						            <span class="fa fa-check pull-right"></span>
+						            Carnet alimentaire analysé et commenté sous 48 h
 						        </li>
 						        <li class="list-group-item">
-						            Suivi des repas, poids, humeur
-						            <span class="fa fa-check pull-right"></span>
+						            Suivi de votre courbe de poids
 						        </li>
 						        <li class="list-group-item">
-						            Sollicitation téléphonique
-						            <span class="fa fa-times pull-right"></span>
+						            Consultation téléphonique de 30 minutes pour faire le point ensemble et répondre à vos questions
+						        </li>
+						        <li class="list-group-item">
+						            Coaching et motivation au quotidien
+						        </li>
+                                <li class="list-group-item">
+						            Accompagnement nutritionnel et émotionnel
 						        </li>
 						    </ul>
 						    <div class="panel-footer">
@@ -78,29 +88,37 @@
 					<div class="col-md-4">
 						<div class="panel panel-primary">
 						    <div class="panel-heading">
-						        <h4 class="text-center">Consultation + suivi en ligne</h4>
+						        <h4 class="text-center">Forfait coaching diététique (3 mois)</h4>
 						    </div>
 						    <div class="panel-body text-center">
 						        <p class="lead">
-						            <strong>100€ / mois</strong>
+						            <strong>200€</strong><br/>
+                                    <a href="#aDistanceModal3" data-toggle="modal">
+                                        Plus d'informations </i>
+                                    </a>
 						        </p>
 						    </div>
 						    <ul class="list-group list-group-flush text-center">
 						        <li class="list-group-item">
-						            Prise en charge personnalisée
-						            <span class="fa fa-check pull-right"></span>
+						            12 semaines d'accompagnement
 						        </li>
-						        <li class="list-group-item">
-						            1 consultation en ligne par mois
-						            <span class="fa fa-check pull-right"></span>
-						        </li>
-						        <li class="list-group-item">
+                                <li class="list-group-item">
 						            Espace personnel sur le site
-						            <span class="fa fa-check pull-right"></span>
 						        </li>
 						        <li class="list-group-item">
-						            Suivi et retours tous les 2 jours
-						            <span class="fa fa-check pull-right"></span>
+						            Carnet alimentaire analysé et commenté sous 48 h
+						        </li>
+						        <li class="list-group-item">
+						            Suivi de votre courbe de poids
+						        </li>
+						        <li class="list-group-item">
+						            Consultation téléphonique de 30 minutes pour faire le point ensemble et répondre à vos questions
+						        </li>
+						        <li class="list-group-item">
+						            Coaching et motivation au quotidien
+						        </li>
+                                <li class="list-group-item">
+						            Accompagnement nutritionnel et émotionnel
 						        </li>
 						    </ul>
 						    <div class="panel-footer">
@@ -183,3 +201,37 @@
 			</div>
 		</div>
 		<!-- /Popup Paiement Success -->
+        <div class="modal fade" id="aDistanceModal2" tabindex="-1" role="dialog" aria-labelledby="aDistanceModal2" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
+						<h4 class="modal-title" id="myModalLabel">Plus d'informations sur le coaching diététique mensuel</h4>
+					</div>
+					<div class="modal-body">
+						Blabla
+					</div>
+			
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+					</div>
+				</div>
+			</div>
+		</div>
+        <div class="modal fade" id="aDistanceModal3" tabindex="-1" role="dialog" aria-labelledby="aDistanceModal3" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
+						<h4 class="modal-title" id="myModalLabel">Plus d'informations sur le forfait coaching diététique (3 mois)</h4>
+					</div>
+					<div class="modal-body">
+						Blabla
+					</div>
+			
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+					</div>
+				</div>
+			</div>
+		</div>

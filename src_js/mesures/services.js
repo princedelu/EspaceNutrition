@@ -93,6 +93,9 @@ angular.module('EspaceNutrition').factory('MesureFactory',['$http', function($ht
         },
         getLastMesure : function(success, error) {
             $http.get('/api/lastmesures').success(success).error(error);
+        },
+        listNotificationsAdmin: function(success, error) {
+            $http.get('/api/notificationsAdmin').success(success).error(error);
         }
     };
 }]);

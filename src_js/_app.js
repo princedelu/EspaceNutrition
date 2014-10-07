@@ -92,7 +92,14 @@ angular.module('EspaceNutrition', ['ngRoute','underscore'])
             controller:     'MesureCtrl',
 			action : 		'addRepas',
             access:         access.user
-        });	
+        });
+    $routeProvider.when('/repas/:id',
+        {
+            templateUrl:    '/partials/admin/mesures.php',
+            controller:     'MesureCtrl',
+			action : 		'modifRepas',
+            access:         access.admin
+        });
     $routeProvider.when('/404',
         {
             templateUrl:    '/partials/404.html',

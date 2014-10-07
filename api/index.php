@@ -1214,6 +1214,20 @@ $app->delete('/repas/:id', function ($id) use ($app) {
 	}
 });
 
+/***********************************************
+Notifications admin
+***********************************************/
+$app->get('/notificationsAdmin', function () use ($app) {
+	$repasModel = new RepasModel();
+	$result = $repasModel->fetchNotificationsAdmin();
+	if (!is_array($result)){
+		$app->response()->body($repasModel->getError());
+        $app->response()->status( 403 );
+	}else{
+	  	$app->response()->body( json_encode( $result ));
+	}
+});
+
 /**
  * Launch application
  */
