@@ -5,14 +5,18 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-	clean: ['js/<%= pkg.name %>.min.js', 'js/<%= pkg.name %>.js'],
+	clean: ['js/<%= pkg.name %>.min.js', 'js/<%= pkg.name %>.js','css/<%= pkg.name %>.min.css', 'css/<%= pkg.name %>.css'],
     concat: {
       options: {
         separator: ''
       },
-      dist: {
-        src: [  'src_js/**/*.js'],
+      js: {
+        src: [  'src/js/**/*.js'],
         dest: 'js/<%= pkg.name %>.js'
+      },
+      css: {
+        src: [  'src/css/*.css'],
+        dest: 'css/<%= pkg.name %>.css'
       }
     },
     uglify: {
@@ -21,14 +25,14 @@ module.exports = function(grunt) {
         report: 'min',
         mangle: false
       },
-      dist: {
+      js: {
         files: {
-          'js/<%= pkg.name %>.min.js': ['<%= concat.dist.dest %>']
+          'js/<%= pkg.name %>.min.js': ['<%= concat.js.dest %>']
         }
       }
     },
     jshint: {
-      files: ['Gruntfile.js', 'src_js/**/*.js'],
+      files: ['Gruntfile.js', 'src/js/**/*.js'],
       options: {
         // options here to override JSHint defaults
         globals: {
@@ -45,7 +49,7 @@ module.exports = function(grunt) {
     },
     complexity: {
         generic: {
-            src: ['Gruntfile.js', 'src_js/**/*.js'],
+            src: ['Gruntfile.js', 'src/js/**/*.js'],
             options: {
                 breakOnErrors: false,
                 jsLintXML: 'report.xml',         // create XML JSLint-like report
