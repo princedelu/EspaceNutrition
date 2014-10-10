@@ -74,7 +74,7 @@
 						            Consultation téléphonique de 30 minutes pour faire le point ensemble et répondre à vos questions
 						        </li>
 						        <li class="list-group-item">
-						            Coaching et motivation au quotidien
+						            Coaching et encouragements réguliers
 						        </li>
                                 <li class="list-group-item">
 						            Accompagnement nutritionnel et émotionnel
@@ -115,7 +115,7 @@
 						            Consultation téléphonique de 30 minutes pour faire le point ensemble et répondre à vos questions
 						        </li>
 						        <li class="list-group-item">
-						            Coaching et motivation au quotidien
+						            Coaching et encouragements réguliers
 						        </li>
                                 <li class="list-group-item">
 						            Accompagnement nutritionnel et émotionnel

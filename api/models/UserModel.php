@@ -419,20 +419,57 @@ class UserModel extends AbstractModel {
 
         if ($this->getId()) {
 
-            if ($this->fetchOne()) {
+            $resultUser=$this->fetchOne();
+            if ($resultUser) {
 
                 try{
 					$this->openConnectionDatabase();
 
-					// Exécution des requêtes SQL
-					$query=sprintf("DELETE FROM utilisateurs where id=%d",mysqli_real_escape_string($this->dblink,$this->getId()));
+                    // Exécution des requêtes SQL
+					$query=sprintf("DELETE FROM abonnements where EMAIL='%s'",mysqli_real_escape_string($this->dblink,$resultUser["EMAIL"]));
 		 
 					$mysql_result = mysqli_query($this->dblink,$query);
 					if (!$mysql_result){
 						$this->setError(mysqli_error($this->dblink));
 						$result=false;
 					}else{
-						$result = true;
+						// Exécution des requêtes SQL
+					    $query=sprintf("DELETE FROM paiements where payer_email='%s'",mysqli_real_escape_string($this->dblink,$resultUser["EMAIL"]));
+		     
+					    $mysql_result = mysqli_query($this->dblink,$query);
+					    if (!$mysql_result){
+						    $this->setError(mysqli_error($this->dblink));
+						    $result=false;
+					    }else{
+						    // Exécution des requêtes SQL
+					        $query=sprintf("DELETE FROM poids where EMAIL='%s'",mysqli_real_escape_string($this->dblink,$resultUser["EMAIL"]));
+		         
+					        $mysql_result = mysqli_query($this->dblink,$query);
+					        if (!$mysql_result){
+						        $this->setError(mysqli_error($this->dblink));
+						        $result=false;
+					        }else{
+                                // Exécution des requêtes SQL
+                                $query=sprintf("DELETE FROM repas where EMAIL='%s'",mysqli_real_escape_string($this->dblink,$resultUser["EMAIL"]));
+
+                                $mysql_result = mysqli_query($this->dblink,$query);
+                                if (!$mysql_result){
+                                    $this->setError(mysqli_error($this->dblink));
+                                    $result=false;
+                                }else{
+                                    // Exécution des requêtes SQL
+					                $query=sprintf("DELETE FROM utilisateurs where id=%d",mysqli_real_escape_string($this->dblink,$this->getId()));
+		                 
+					                $mysql_result = mysqli_query($this->dblink,$query);
+					                if (!$mysql_result){
+						                $this->setError(mysqli_error($this->dblink));
+						                $result=false;
+					                }else{
+						                $result = true;
+					                }
+                                }
+					        }
+					    }
 					}
 				}catch(Exception $e)
 				{
