@@ -170,7 +170,12 @@
 					<div class="modal-body">
                         <ul class="list-unstyled">
                             <li><i class="fa fa-check"></i> Horaires flexibles du mardi au samedi</li>
-                            <li><i class="fa fa-check"></i> Honoraires 50 € la consultation d'une heure environ</li>
+                            <li><i class="fa fa-check"></i> Honoraires
+                                <ul class="list-unstyled">
+                                            <li>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right"></i> Bilan nutritionnel seul : 60 €</li>
+                                            <li>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right"></i> Consultation initiale et de suvi  : 50 €</li>
+                                </ul>
+                            </li>
                             <li><i class="fa fa-check"></i> La consultation initiale permet de faire un bilan nutritionnel complet, connaitre vos attentes et vos motivations et de définir ensemble les objectifs de votre suivi</li>
                             <li><i class="fa fa-check"></i> Les consultations de suivi permettent d'évaluer l'efficacité de la prise en charge et de répondre à vos questions</li>
                             <li><i class="fa fa-check"></i> Pour un suivi efficace, les consultations doivent avoir lieu tous les 15 jours - 1 mois maximum</li>

@@ -55,7 +55,8 @@
                                 <div class="col-md-12">
                             	    <h3>Angélique Guehl</h3>
                                     <h2>Diététicienne Nutritionniste diplômée</h2>
-                                    <h3>Consultation sur rendez-vous</h3>
+                                    <h3>Cabinet de consultation diététique</h3>
+                                    <h3>Sur rendez-vous</h3>
                                     <h4>Bilan nutritionnel et suivi diététique</h4>
                                     <h4>Analyse corporelle par bio-impédancemétrie</h4>
                                 </div>
