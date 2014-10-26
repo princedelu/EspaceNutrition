@@ -40,12 +40,12 @@
         <!-- Header -->
         <header>
             
-                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                <div id="carousel-espace-nutrition" class="carousel slide" data-ride="carousel">
                     <!-- Indicators -->
                     <ol class="carousel-indicators">
-                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                        <li data-target="#carousel-espace-nutrition" data-slide-to="0" class="active"></li>
+                        <li data-target="#carousel-espace-nutrition" data-slide-to="1"></li>
+                        <li data-target="#carousel-espace-nutrition" data-slide-to="2"></li>
                     </ol>
 
                     <!-- Wrapper for slides -->
@@ -137,10 +137,10 @@
                     </div>
 
                     <!-- Controls -->
-                    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                    <a class="left carousel-control" href="#carousel-espace-nutrition" role="button" data-slide="prev">
                         <span class="fa fa-chevron-left"></span>
                     </a>
-                    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                    <a class="right carousel-control" href="#carousel-espace-nutrition" role="button" data-slide="next">
                         <span class="fa fa-chevron-right"></span>
                     </a>
                 </div>          
