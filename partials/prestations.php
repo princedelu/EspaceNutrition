@@ -120,7 +120,16 @@
                             <div class="info">
                                 <h3 class="title"><br/>Ateliers de groupe</h3>
                                 <ul class="list-unstyled">
-                                    <li><i class="fa fa-check"></i> Interventions tout public sur divers thèmes autour de la nutrition et de l'alimentation équilibrée sous forme d'ateliers, conférences, jeux...</li>
+                                    <li><i class="fa fa-check"></i> Interventions tout public autour de la nutrition et de l'alimentation équilibrée</li>
+                                    <ul class="list-unstyled">
+                                        <li>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right"></i> sous forme :</li>
+                                        <ul class="list-unstyled">
+                                            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- d'ateliers</li>
+                                            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- conférences</li>
+                                            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- jeux</li>
+                                        </ul>
+                                        <li>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right"></i> sur divers thèmes (cf. plus d'informations)</li>
+                                    </ul>
                                 </ul>
                                 <div class="more">
                                     <a href="#prestationModal5" class="prestation-link" data-toggle="modal">
@@ -172,8 +181,14 @@
                             <li><i class="fa fa-check"></i> Horaires flexibles du mardi au samedi</li>
                             <li><i class="fa fa-check"></i> Honoraires
                                 <ul class="list-unstyled">
-                                            <li>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right"></i> Bilan Nutritionnel : 60 €</li>
-                                            <li>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right"></i> Consultation de suivi  : 50 €</li>
+                                    <li>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right"></i> Bilan Nutritionnel : 60 €</li>
+                                    <li>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right"></i> Consultation de suivi  : 50 €</li>
+                                    <li>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right"></i> Forfaits Suivi Diététique :</li>
+                                    <ul class="list-unstyled">
+                                        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Bilan Nutritionnel + 3 consultations : 205 euros</li>
+                                        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Bilan Nutritionnel + 6 consultations : 350 euros</li>
+                                        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Bilan Nutritionnel + 10 consultations : 550 euros</li>
+                                    </ul>
                                 </ul>
                             </li>
                             <li><i class="fa fa-check"></i> La consultation initiale permet de faire un bilan nutritionnel complet, connaitre vos attentes et vos motivations et de définir ensemble les objectifs de votre suivi</li>
@@ -270,6 +285,22 @@
                         <ul class="list-unstyled">
                             <li><i class="fa fa-check"></i> Prévention et Education nutritionnelle tout public (écoles, associations, EHPAD, administrations, comités d'entreprise...)</li>
                             <li><i class="fa fa-check"></i> Honoraires sur devis</li>
+                            <li><i class="fa fa-check"></i> Ateliers sur différents thèmes :</li>
+                             <ul class="list-unstyled">
+                                <li>&nbsp;&nbsp;&nbsp;&nbsp;- "Les régimes font-ils maigrir?"</li>
+                                <li>&nbsp;&nbsp;&nbsp;&nbsp;- "Faut-il manger bio?"</li>
+                                <li>&nbsp;&nbsp;&nbsp;&nbsp;- "Savoir équilibrer son plateau repas"</li>
+                                <li>&nbsp;&nbsp;&nbsp;&nbsp;- "Menu équilibré rapide en famille"</li>
+                                <li>&nbsp;&nbsp;&nbsp;&nbsp;- "Menu petit budget"</li>
+                                <li>&nbsp;&nbsp;&nbsp;&nbsp;- "Manger équilibré lors de ses déplacements et ses repas d'affaires"</li>
+                                <li>&nbsp;&nbsp;&nbsp;&nbsp;- "Savoir déchiffrer l'étiquettage alimentaire"</li>
+                                <li>&nbsp;&nbsp;&nbsp;&nbsp;- "Savoir éviter les pièges du marketing publicitaire"</li>
+                                <li>&nbsp;&nbsp;&nbsp;&nbsp;- "Bien s'hydrater"</li>
+                                <li>&nbsp;&nbsp;&nbsp;&nbsp;- "Les collations pré et post exercice"</li>
+                                <li>&nbsp;&nbsp;&nbsp;&nbsp;- "Les boissons de l'effort faites maison"</li>
+                                <li>&nbsp;&nbsp;&nbsp;&nbsp;- "Choisir ses matières grasses"</li>
+                                <li>&nbsp;&nbsp;&nbsp;&nbsp;- "Optimiser ses performances par l'alimentation"</li>
+                            </ul>
                         </ul>
 					</div>
 			

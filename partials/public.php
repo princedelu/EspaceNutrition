@@ -98,18 +98,7 @@
                                 <h3>Diététicienne Nutritionniste diplômée</h3>
                             </div>
                             <div class="row">
-                                <div class="col-md-4 col-md-offset-1 col-xs-10 col-xs-offset-1">
-                                    <div class="box">							
-                                        <div class="icon">
-                                            <div class="image"><i class="fa fa-map-marker"></i></div>
-                                            <div class="infoheader">
-                                                <h3 class="title"><br/><strong><a class="public" href="https://www.google.fr/maps/place/51+Rue+Saint-Jean,+79000+Niort/@46.3235346,-0.4633182,17z/data=!3m1!4b1!4m2!3m1!1s0x4807302d3112d579:0xd051e97ec720f68c" target="_blank">51 rue Saint Jean 79000 Niort</a></strong></h3>
-                                            </div>
-                                        </div>
-                                        <div class="space"></div>
-                                    </div> 
-                                </div>
-                                <div class="col-md-2 col-md-offset-0 col-xs-10 col-xs-offset-1">
+                                <div class="col-md-3 col-md-offset-1 col-xs-10 col-xs-offset-1">
                                     <div class="box">							
                                         <div class="icon">
 								            <div class="image"><i class="fa fa-mobile"></i></div>
@@ -120,14 +109,35 @@
                                         <div class="space"></div>
                                     </div> 
                                 </div>
-                                    
                                 <div class="col-md-4 col-md-offset-0 col-xs-10 col-xs-offset-1">
                                     <div class="box">							
                                         <div class="icon">
-                                            <div class="image"><i class="fa fa-envelope"></i></div>
+                                            <div class="image"><i class="fa fa-map-marker"></i></div>
                                             <div class="infoheader">
-                                                <h3 class="title"><br/><strong><a class="public" href="mailto:contact@espace-nutrition.fr">contact@espace-nutrition.fr</a></strong></h3>
-                                                
+                                                <h3 class="title"><br/><strong><a class="public" href="https://www.google.fr/maps/place/51+Rue+Saint-Jean,+79000+Niort/@46.3235346,-0.4633182,17z/data=!3m1!4b1!4m2!3m1!1s0x4807302d3112d579:0xd051e97ec720f68c" target="_blank">51 rue Saint Jean 79000 Niort</a></strong></h3>
+                                            </div>
+                                        </div>
+                                        <div class="space"></div>
+                                    </div> 
+                                </div>
+                                                     
+                                <div class="col-md-3 col-md-offset-0 col-xs-10 col-xs-offset-1">
+                                    <div class="box">							
+                                        <div class="icon">
+                                            <div class="image"><i class="fa fa-dribbble"></i></div>
+                                            <div class="infoheader">
+                                                <h3 class="title">
+                                                    <ul class="list-inline">
+                                                        <li>
+                                                            <a class="btn-social btn-outline" href="https://plus.google.com/113806184511162758642"><i class="fa fa-fw fa-google-plus"></i></a>
+                                                        </li>
+                                                        <li>
+                                                            
+                                                        </li>
+                                                        <li>
+                                                            <a class="btn-social btn-outline" href="mailto:contact@espace-nutrition.fr"><i class="fa fa-fw fa-envelope"></i></a>
+                                                        </li>
+                                                    </ul>                                                
                                             </div>
                                         </div>
                                         <div class="space"></div>
@@ -227,7 +237,18 @@
             <div class="footer-above">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-3 col-md-offset-1 col-xs-10 col-xs-offset-1">
+                            <div class="box">							
+                                <div class="icon">
+						            <div class="image"><i class="fa fa-mobile"></i></div>
+                                    <div class="infoheader">
+                                        <h3 class="title"><br/><strong>06 68 00 79 15</strong></h3>
+                                    </div>
+                                </div>
+                                <div class="space"></div>
+                            </div> 
+                        </div>
+                        <div class="col-md-4 col-md-offset-0 col-xs-10 col-xs-offset-1">
                             <div class="box">							
                                 <div class="icon">
                                     <div class="image"><i class="fa fa-map-marker"></i></div>
@@ -238,25 +259,24 @@
                                 <div class="space"></div>
                             </div> 
                         </div>
-                        <div class="col-md-4">
+                                             
+                        <div class="col-md-3 col-md-offset-0 col-xs-10 col-xs-offset-1">
                             <div class="box">							
                                 <div class="icon">
-								    <div class="image"><i class="fa fa-mobile"></i></div>
+                                    <div class="image"><i class="fa fa-dribbble"></i></div>
                                     <div class="infoheader">
-                                        <h3 class="title"><br/><strong>06 68 00 79 15</strong></h3>
-                                    </div>
-                                </div>
-                                <div class="space"></div>
-                            </div> 
-                        </div>
-                            
-                        <div class="col-md-4">
-                            <div class="box">							
-                                <div class="icon">
-                                    <div class="image"><i class="fa fa-envelope"></i></div>
-                                    <div class="infoheader">
-                                        <h3 class="title"><br/><strong><a class="public" href="mailto:contact@espace-nutrition.fr">contact@espace-nutrition.fr</a></strong></h3>
-                                        
+                                        <h3 class="title">
+                                            <ul class="list-inline">
+                                                <li>
+                                                    <a class="btn-social btn-outline" href="https://plus.google.com/113806184511162758642"><i class="fa fa-fw fa-google-plus"></i></a>
+                                                </li>
+                                                <li>
+                                                    
+                                                </li>
+                                                <li>
+                                                    <a class="btn-social btn-outline" href="mailto:contact@espace-nutrition.fr"><i class="fa fa-fw fa-envelope"></i></a>
+                                                </li>
+                                            </ul>                                                
                                     </div>
                                 </div>
                                 <div class="space"></div>
