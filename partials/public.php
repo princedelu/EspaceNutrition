@@ -132,7 +132,7 @@
                                                             <a class="btn-social btn-outline" href="https://plus.google.com/113806184511162758642"><i class="fa fa-fw fa-google-plus"></i></a>
                                                         </li>
                                                         <li>
-                                                            
+                                                            <a class="btn-social btn-outline" href="https://www.facebook.com/Angeliqueguehlespacenutrition"><i class="fa fa-fw fa-facebook"></i></a>
                                                         </li>
                                                         <li>
                                                             <a class="btn-social btn-outline" href="mailto:contact@espace-nutrition.fr"><i class="fa fa-fw fa-envelope"></i></a>
@@ -271,7 +271,7 @@
                                                     <a class="btn-social btn-outline" href="https://plus.google.com/113806184511162758642"><i class="fa fa-fw fa-google-plus"></i></a>
                                                 </li>
                                                 <li>
-                                                    
+                                                    <a class="btn-social btn-outline" href="https://www.facebook.com/Angeliqueguehlespacenutrition"><i class="fa fa-fw fa-facebook"></i></a>
                                                 </li>
                                                 <li>
                                                     <a class="btn-social btn-outline" href="mailto:contact@espace-nutrition.fr"><i class="fa fa-fw fa-envelope"></i></a>
