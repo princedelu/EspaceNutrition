@@ -65,7 +65,7 @@
                                 <h3>Diététicienne Nutritionniste diplômée</h3>
                             </div>
                             <div class="row">
-                                <div class="col-md-5 col-md-offset-1 col-xs-5 col-xs-offset-1" align="left">
+                                <div class="col-md-3 col-md-offset-3 col-xs-5 col-xs-offset-1" align="left">
                                     <p><ul class="list-unstyled">
                                         <li><i class="fa fa-check"></i> Perte de poids</li>
                                         <li><i class="fa fa-check"></i> Rééquilibrage alimentaire</li>
@@ -76,7 +76,7 @@
                                         <li><i class="fa fa-check"></i> Sevrage tabagique et alcoolique</li></ul>
                                     </p>
                                 </div>
-                                <div class="col-md-5 col-xs-5" align="left">
+                                <div class="col-md-3 col-xs-5" align="left">
                                     <p><ul class="list-unstyled">
                                         <li><i class="fa fa-check"></i> Diabète</li>
                                         <li><i class="fa fa-check"></i> Obésité enfant et adulte</li>

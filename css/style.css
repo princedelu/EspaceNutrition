@@ -100,7 +100,10 @@ hr.star-primary:after {
 header {
     text-align: center;
     color: #fff;
-    background: #8B0F91;
+    background: url(../images/zen2.jpg);
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat
 }
 
 header .carousel {
