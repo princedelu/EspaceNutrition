@@ -8,7 +8,7 @@
                     </div>
                 </div>
                 
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="box">							
                         <div class="icon">
                             <div class="image"><i class="fa fa-calendar"></i></div>
@@ -31,45 +31,7 @@
                         <div class="space"></div>
                     </div> 
                 </div>
-                <div class="col-md-6">
-                    <div class="box">							
-                        <div class="icon">
-							<div class="image"><i class="fa fa-laptop"></i></div>
-                            <div class="info">
-                                <h3 class="title"><br/>Consultation à distance</h3>
-                                <ul class="list-unstyled">
-                                    
-                                    <li><i class="fa fa-check"></i> Consultation en ligne :</li>
-                                    <ul class="list-unstyled">
-									    <li>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right"></i> Bilan nutritionnel et suivi diététique</li>
-                                    </ul>
-									<li><i class="fa fa-check"></i> Coaching diététique en ligne :</li>
-                                    <ul class="list-unstyled">
-                                        <li>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right"></i> Vous donne accès à :</li>
-                                        <ul class="list-unstyled">
-                                            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Un espace personnel interactif avec votre carnet alimentaire analysé et commenté ainsi que votre courbe de poids</li>
-                                            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Un accompagnement nutritionnel personnalisé</li>
-                                        </ul>
-                                        <li>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right"></i> S'adressant à ceux qui recherchent :</li>
-                                        <ul class="list-unstyled">
-							                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Perte ou prise de poids</li>
-							                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Rééquilibrage alimentaire</li>
-                                            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Alimentation saine</li>
-							                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Retrouver un comportement serein face à la nourriture</li>
-                                        </ul>
-                                    </ul>
-                                </ul>
-                                <div class="more">
-                                    <a href="#prestationModal2" class="prestation-link" data-toggle="modal">
-                                        Plus d'informations <i class="fa fa-angle-double-right"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="space"></div>
-                    </div> 
-                </div>
-                    
+                                   
                 <div class="col-md-6">
                     <div class="box">							
                         <div class="icon">

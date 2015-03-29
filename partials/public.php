@@ -22,10 +22,7 @@
                             <a href="#prestations">Prestations</a>
                         </li>
                         <li class="page-scroll">
-                            <a href="#adistance">A distance</a>
-                        </li>
-                        <li class="page-scroll">
-                            <a href="/login">Votre espace</a>
+                            <a href="#blog">Blog</a>
                         </li>
                         <li class="page-scroll">
                             <a href="#contact">Contact</a>
@@ -159,7 +156,7 @@
 
     	<?php
 			include("prestations.php");
-			include("adistance.php");
+			include("blog.php");
 		?>        
 
         <!-- Contact Section -->
