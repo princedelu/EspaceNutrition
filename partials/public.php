@@ -37,7 +37,7 @@
         <!-- Header -->
         <header>
             
-                <div id="carousel-espace-nutrition" class="carousel slide" data-ride="carousel">
+                <div id="carousel-espace-nutrition" class="carousel slide" data-ride="carousel" data-interval="10000">
                     <!-- Indicators -->
                     <ol class="carousel-indicators">
                         <li data-target="#carousel-espace-nutrition" data-slide-to="0" class="active"></li>
@@ -53,7 +53,7 @@
                             	    <h3>Angélique Guehl</h3>
                                     <h2>Diététicienne Nutritionniste diplômée</h2>
                                     <h3>Consultation diététique</h3>
-                                    <h3>Sur rendez-vous au cabinet ou à domicile</h3>
+                                    <h3>Sur rendez-vous au cabinet à Niort ou à votre domicile</h3>
                                     <h4>Bilan nutritionnel et suivi diététique</h4>
                                     <h4>Analyse corporelle par bio-impédancemétrie</h4>
                                 </div>
