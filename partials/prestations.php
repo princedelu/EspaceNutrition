@@ -8,21 +8,43 @@
                     </div>
                 </div>
                 
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <div class="box">							
                         <div class="icon">
                             <div class="image"><i class="fa fa-calendar"></i></div>
                             <div class="info">
                                 <h3 class="title"><br/>Consultation au cabinet</h3>
                                 <ul class="list-unstyled">
-                                    <li><i class="fa fa-check"></i> Sur prescription médicale ou à votre demande</li>
 									<li><i class="fa fa-check"></i> Bilan nutritionnel</li>
-									<li><i class="fa fa-check"></i> Suivi et accompagnement personnalisé</li>
+									<li><i class="fa fa-check"></i> Suivi et accompagnement personnalisés</li>
 									<li><i class="fa fa-check"></i> Approche ciblée sur le comportement alimentaire (les émotions et les sensations) couplé à une alimentation variée sans interdit</li>
 									<li><i class="fa fa-check"></i> Travail sur les sensations de faim et de satiété ainsi que les notions de plaisir et d'équilibre</li>
                                 </ul>
                                 <div class="more">
                                     <a href="#prestationModal1" class="prestation-link" data-toggle="modal">
+                                        Plus d'informations <i class="fa fa-angle-double-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space"></div>
+                    </div> 
+                </div>
+                <div class="col-md-6">
+                    <div class="box">							
+                        <div class="icon">
+                            <div class="image"><i class="fa fa-car"></i></div>
+                            <div class="info">
+                                <h3 class="title"><br/>Consultation à domicile</h3>
+                                <ul class="list-unstyled">
+									<li><i class="fa fa-check"></i> Consultation à votre domicile selon vos disponibilités</li>
+                                    <li><i class="fa fa-check"></i> Déplacements sur Niort et son agglomération (Aiffres, Fors, Bessines...)</li>
+                                    <li><i class="fa fa-check"></i> Mêmes prestations qu'au cabinet</li>
+                                    <br/>
+                                    <br/>
+                                </ul>
+                                <div class="more">
+                                    <a href="#prestationModal2" class="prestation-link" data-toggle="modal">
                                         Plus d'informations <i class="fa fa-angle-double-right"></i>
                                     </a>
                                 </div>
@@ -140,12 +162,13 @@
 					</div>
 					<div class="modal-body">
                         <ul class="list-unstyled">
-                            <li><i class="fa fa-check"></i> Horaires flexibles du mardi au samedi</li>
+                            <li><i class="fa fa-check"></i> Horaires flexibles du lundi au samedi</li>
                             <li><i class="fa fa-check"></i> La consultation initiale permet de faire un bilan nutritionnel complet, connaitre vos attentes et vos motivations et de définir ensemble les objectifs de votre suivi</li>
                             <li><i class="fa fa-check"></i> Les consultations de suivi permettent d'évaluer l'efficacité de la prise en charge et de répondre à vos questions</li>
                             <li><i class="fa fa-check"></i> Pour un suivi efficace, les consultations doivent avoir lieu tous les 15 jours - 1 mois maximum</li>
                             <li><i class="fa fa-check"></i> La CPAM ne prend pas en charge le remboursement du suivi diététique</li>
                             <li><i class="fa fa-check"></i> Consultez votre mutuelle, la plupart proposent un forfait annuel de remboursement</li>
+                            <li><i class="fa fa-check"></i> Tarifs prérentiels pour les bénéficiaires de la CMU (sur justificatif)</li>
                         </ul>
 					</div>
 			
@@ -160,17 +183,17 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
-						<h4 class="modal-title" id="myModalLabel">Consultation à distance</h4>
+						<h4 class="modal-title" id="myModalLabel">Consultation à domicile</h4>
 					</div>
 					<div class="modal-body">
 						<ul class="list-unstyled">
-                            <li><i class="fa fa-check"></i> Consultations à distance par téléphone ou par webcam (Skype)</li>
-                            <li><i class="fa fa-check"></i> Horaires flexibles selon vos disponibilités</li>
+                            <li><i class="fa fa-check"></i> Horaires flexibles du lundi au samedi</li>
                             <li><i class="fa fa-check"></i> La consultation initiale permet de faire un bilan nutritionnel complet, connaitre vos attentes et vos motivations et de définir ensemble les objectifs de votre suivi</li>
                             <li><i class="fa fa-check"></i> Les consultations de suivi permettent d'évaluer l'efficacité de la prise en charge et de répondre à vos questions</li>
-                            <li><i class="fa fa-check"></i> Forfait mensuel de coaching en ligne proposant un suivi adapté à vos besoins</li>
-                            <li><i class="fa fa-check"></i> Il est conseillé de prendre une consultation avant de commencer le coaching en ligne pour effectuer un bilan nutritionnel</li>
-                            <li><i class="fa fa-check"></i> Pour plus d'informations, consultez la section "A distance"</li>
+                            <li><i class="fa fa-check"></i> Pour un suivi efficace, les consultations doivent avoir lieu tous les 15 jours - 1 mois maximum</li>
+                            <li><i class="fa fa-check"></i> La CPAM ne prend pas en charge le remboursement du suivi diététique</li>
+                            <li><i class="fa fa-check"></i> Consultez votre mutuelle, la plupart proposent un forfait annuel de remboursement</li>
+                            <li><i class="fa fa-check"></i> Tarifs prérentiels pour les bénéficiaires de la CMU (sur justificatif)</li>
                         </ul>
 					</div>
 			

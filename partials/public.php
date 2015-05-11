@@ -52,8 +52,8 @@
                                 <div class="col-md-12">
                             	    <h3>Angélique Guehl</h3>
                                     <h2>Diététicienne Nutritionniste diplômée</h2>
-                                    <h3>Cabinet de consultation diététique</h3>
-                                    <h3>Sur rendez-vous</h3>
+                                    <h3>Consultation diététique</h3>
+                                    <h3>Sur rendez-vous au cabinet ou à domicile</h3>
                                     <h4>Bilan nutritionnel et suivi diététique</h4>
                                     <h4>Analyse corporelle par bio-impédancemétrie</h4>
                                 </div>
@@ -121,7 +121,7 @@
                                 <div class="col-md-3 col-md-offset-0 col-xs-10 col-xs-offset-1">
                                     <div class="box">							
                                         <div class="icon">
-                                            <div class="image"><i class="fa fa-dribbble"></i></div>
+                                            <div class="image"><i class="fa fa-globe"></i></div>
                                             <div class="infoheader">
                                                 <h3 class="title">
                                                     <ul class="list-inline">
@@ -260,7 +260,7 @@
                         <div class="col-md-3 col-md-offset-0 col-xs-10 col-xs-offset-1">
                             <div class="box">							
                                 <div class="icon">
-                                    <div class="image"><i class="fa fa-dribbble"></i></div>
+                                    <div class="image"><i class="fa fa-globe"></i></div>
                                     <div class="infoheader">
                                         <h3 class="title">
                                             <ul class="list-inline">
@@ -292,7 +292,7 @@
                             Numéro de SIRET : 804 655 371 00016
                         </div>
                         <div class="col-lg-4">
-                            Copyright &copy; http://www.espace-nutrition.fr 2014
+                            Copyright &copy; http://www.espace-nutrition.fr 2015
                         </div>
                     </div>
                 </div>
