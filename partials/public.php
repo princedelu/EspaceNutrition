@@ -53,7 +53,7 @@
                             	    <h3>Angélique Guehl</h3>
                                     <h2>Diététicienne Nutritionniste diplômée</h2>
                                     <h3>Consultation diététique</h3>
-                                    <h3>Sur rendez-vous au cabinet à Niort ou à votre domicile</h3>
+                                    <h3>Sur rendez-vous au cabinet à Niort ou à domicile</h3>
                                     <h4>Bilan nutritionnel et suivi diététique</h4>
                                     <h4>Analyse corporelle par bio-impédancemétrie</h4>
                                 </div>

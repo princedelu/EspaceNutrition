@@ -35,7 +35,7 @@
                         <div class="icon">
                             <div class="image"><i class="fa fa-car"></i></div>
                             <div class="info">
-                                <h3 class="title"><br/>Consultation à votre domicile</h3>
+                                <h3 class="title"><br/>Consultation à domicile</h3>
                                 <ul class="list-unstyled">
 									<li><i class="fa fa-check"></i> Consultation à votre domicile selon vos disponibilités</li>
                                     <li><i class="fa fa-check"></i> Déplacements sur Niort et son agglomération (Aiffres, Fors, Bessines...)</li>
@@ -183,7 +183,7 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
-						<h4 class="modal-title" id="myModalLabel">Consultation à votre domicile</h4>
+						<h4 class="modal-title" id="myModalLabel">Consultation à domicile</h4>
 					</div>
 					<div class="modal-body">
 						<ul class="list-unstyled">
