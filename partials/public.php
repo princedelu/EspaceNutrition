@@ -82,7 +82,7 @@
                                         <li><i class="fa fa-check"></i> Obésité enfant et adulte</li>
                                         <li><i class="fa fa-check"></i> Allergies alimentaires</li>
                                         <li><i class="fa fa-check"></i> Maladies cardio-vasculaires</li>
-                                        <li><i class="fa fa-check"></i> Dénutrition (oncologie, personnes agées...)</li>
+                                        <li><i class="fa fa-check"></i> Dénutrition de la personne agée</li>
                                         <li><i class="fa fa-check"></i> Préparation à la chirurgie bariatrique</li>
                                         <li><i class="fa fa-check"></i> Troubles du comportement alimentaire</li></ul>
                                     </p>
