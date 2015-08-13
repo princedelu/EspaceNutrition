@@ -70,7 +70,7 @@
                                         <li><i class="fa fa-check"></i> Perte de poids</li>
                                         <li><i class="fa fa-check"></i> Rééquilibrage alimentaire</li>
                                         <li><i class="fa fa-check"></i> Grossesse</li>
-                                        <li><i class="fa fa-check"></i> Sportifs</li>
+                                        <li><i class="fa fa-check"></i> Sportifs : Musculation, programme de prise de masse, sèche</li>
                                         <li><i class="fa fa-check"></i> Végétarisme</li>
                                         <li><i class="fa fa-check"></i> Intolérance au gluten/lactose</li>
                                         <li><i class="fa fa-check"></i> Sevrage tabagique et alcoolique</li></ul>
