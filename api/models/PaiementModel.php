@@ -403,7 +403,7 @@ class PaiementModel extends AbstractModel {
 			$this->openConnectionDatabase();
 
 			// Exécution des requêtes SQL
-			$query=sprintf("SELECT txnId FROM paiements where txnId=%d",mysqli_real_escape_string($this->dblink,$this->getTxnId()));
+			$query=sprintf("SELECT txnId FROM paiements where txnId=%s",mysqli_real_escape_string($this->dblink,$this->getTxnId()));
  
 			$mysql_result = mysqli_query($this->dblink,$query);
 			if (!$mysql_result){
@@ -414,6 +414,7 @@ class PaiementModel extends AbstractModel {
 				if ($num_rows==1){
 					$row = mysqli_fetch_assoc($mysql_result);
 					$result = $row;
+					mysqli_free_result($mysql_result);
 				}else{
 					if ($num_rows==0){
 						$this->setError("Aucun paiement n existe pour cet identifiant");
@@ -429,7 +430,7 @@ class PaiementModel extends AbstractModel {
 			$this->setError($e->getMessage());
 		} 
 
-		mysqli_free_result($mysql_result);
+		
 		$this->closeConnectionDatabase();
 
 		return $result;

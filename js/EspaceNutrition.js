@@ -1017,23 +1017,26 @@ $('.navbar-collapse ul li a').click(function() {
 	/* Element pour paypal
 	*/
 	exports.paypal = {};
-	exports.paypal.business="angelique.guehl@espace-nutrition.fr";
-	exports.paypal.urlReturn="http://www.espace-nutrition.fr/paiementSuccess";
-	exports.paypal.urlCancel="http://www.espace-nutrition.fr";
-	exports.paypal.urlNotify="http://www.espace-nutrition.fr/api/notifyPaiement";
-	exports.paypal.sandbox=false;
+	exports.paypal.business="admin@espace-nutrition.fr";
+	exports.paypal.urlReturn="http://espace-nutrition.fr/paiementSuccess";
+	exports.paypal.urlCancel="http://espace-nutrition.fr";
+	exports.paypal.urlNotify="http://espace-nutrition.fr/api/notifyPaiement";
+	exports.paypal.sandbox=true;
 	/* Informations sur les produits
 	*/
 	exports.item = {};
 	exports.item[1] = {};
-	exports.item[1].libelle="EspaceNutrition - Consultation en ligne";
-	exports.item[1].amount="50";
+	exports.item[1].libelle="EspaceNutrition - Formule 3 mois de suivi hebdomadaire";
+	exports.item[1].amount="230";
 	exports.item[2] = {};
-	exports.item[2].libelle="EspaceNutrition - Coaching diététique mensuel";
-	exports.item[2].amount="80";
+	exports.item[2].libelle="EspaceNutrition - Formule 6 mois de suivi hebdomadaire";
+	exports.item[2].amount="450";
 	exports.item[3] = {};
-	exports.item[3].libelle="EspaceNutrition - Forfait coaching diététique (3 mois)";
-	exports.item[3].amount="200";
+	exports.item[3].libelle="EspaceNutrition - Formule 3 mois de suivi mensuel";
+	exports.item[3].amount="199";
+	exports.item[4] = {};
+	exports.item[4].libelle="EspaceNutrition - Formule 6 mois de suivi mensuel";
+	exports.item[4].amount="350";
 	
 
     /*

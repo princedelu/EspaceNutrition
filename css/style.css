@@ -557,3 +557,28 @@ footer .footer-below {
 .list-inline {
     height: 35px;
 }
+
+.blog { color:#000; }
+.section-box h2 { margin-top:0px;}
+.section-box h2 a { font-size:15px; }
+.glyphicon-comment { color:#27ae60;}
+.section-box hr {margin-top: 0;margin-bottom: 5px;border: 0;border-top: 1px solid rgb(199, 199, 199);}
+
+.tileBox > ul,.tileBox > p {
+    background-color: #f0f0f0;
+font-size: 15px;
+color: #777777;
+padding: 5px 5px 5px 15px;
+margin: 0px;
+}
+
+#adistance .txtHead{
+background:#fff;
+padding: 10px 5px 5px 5px;
+color: #5E5E5E;
+}
+
+#adistance .txtHead .fa {
+font-size: 58px;
+color: #5E5E5E;
+}

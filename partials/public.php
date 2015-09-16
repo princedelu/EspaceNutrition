@@ -22,7 +22,7 @@
                             <a href="#prestations">Prestations</a>
                         </li>
                         <li class="page-scroll">
-                            <a href="#blog">Blog</a>
+                            <a href="#adistance">A distance</a>
                         </li>
                         <li class="page-scroll">
                             <a href="#contact">Contact</a>
@@ -37,7 +37,7 @@
         <!-- Header -->
         <header>
             
-                <div id="carousel-espace-nutrition" class="carousel slide" data-ride="carousel" data-interval="10000">
+                <div id="carousel-espace-nutrition" class="carousel slide" data-ride="carousel" data-interval="15000">
                     <!-- Indicators -->
                     <ol class="carousel-indicators">
                         <li data-target="#carousel-espace-nutrition" data-slide-to="0" class="active"></li>
@@ -52,10 +52,10 @@
                                 <div class="col-md-12">
                             	    <h3>Angélique Guehl</h3>
                                     <h2>Diététicienne Nutritionniste diplômée</h2>
-                                    <h3>Consultation diététique</h3>
-                                    <h3>Sur rendez-vous au cabinet à Niort ou à domicile</h3>
-                                    <h4>Bilan nutritionnel et suivi diététique</h4>
-                                    <h4>Analyse corporelle par bio-impédancemétrie</h4>
+                                    <h3>Bilan nutritionnel et suivi diététique</h3>
+				    <h3>Coaching bien-être et vie saine</h3>
+                                    <h3>Sur RDV au cabinet à Niort / à distance</h3>
+                                    <h4><cite><q>Ce que vous faites aujourd'hui peut améliorer tous vos lendemains</q></cite></h4>
                                 </div>
                             </div>
                         </div>
@@ -65,27 +65,24 @@
                                 <h3>Diététicienne Nutritionniste diplômée</h3>
                             </div>
                             <div class="row">
-                                <div class="col-md-3 col-md-offset-3 col-xs-5 col-xs-offset-1" align="left">
+				<div class="col-md-4 col-md-offset-2 col-xs-10 col-xs-offset-1" align="left">
                                     <p><ul class="list-unstyled">
-                                        <li><i class="fa fa-check"></i> Perte de poids</li>
-                                        <li><i class="fa fa-check"></i> Rééquilibrage alimentaire</li>
-                                        <li><i class="fa fa-check"></i> Grossesse</li>
-                                        <li><i class="fa fa-check"></i> Sportifs : Musculation, programme de prise de masse, sèche</li>
-                                        <li><i class="fa fa-check"></i> Végétarisme</li>
-                                        <li><i class="fa fa-check"></i> Intolérance au gluten/lactose</li>
-                                        <li><i class="fa fa-check"></i> Sevrage tabagique et alcoolique</li></ul>
-                                    </p>
+                                        <li><h4><i class="fa fa-check"></i> Perte de poids</h4></li>
+                                        <li><h4><i class="fa fa-check"></i> Rééquilibrage alimentaire</h4></li>
+                                        <li><h4><i class="fa fa-check"></i> Grossesse et allaitement</h4></li>
+                                        <li><h4><i class="fa fa-check"></i> Sportifs : Running, musculation, programme de prise de masse, sèche</h4></li>
+					<li><h4><i class="fa fa-check"></i> Alimentation pauvre en FODMAPs</h4></li>
+                                        
+                                    </ul></p>
                                 </div>
-                                <div class="col-md-3 col-xs-5" align="left">
+                                <div class="col-md-4 col-xs-offset-1 col-xs-10" align="left">
                                     <p><ul class="list-unstyled">
-                                        <li><i class="fa fa-check"></i> Diabète</li>
-                                        <li><i class="fa fa-check"></i> Obésité enfant et adulte</li>
-                                        <li><i class="fa fa-check"></i> Allergies alimentaires</li>
-                                        <li><i class="fa fa-check"></i> Maladies cardio-vasculaires</li>
-                                        <li><i class="fa fa-check"></i> Dénutrition de la personne agée</li>
-                                        <li><i class="fa fa-check"></i> Préparation à la chirurgie bariatrique</li>
-                                        <li><i class="fa fa-check"></i> Troubles du comportement alimentaire</li></ul>
-                                    </p>
+                                        <li><h4><i class="fa fa-check"></i> Allergies alimentaires</h4></li>
+					<li><h4><i class="fa fa-check"></i> Végétarisme</h4></li>
+                                        <li><h4><i class="fa fa-check"></i> Intolérance au gluten/lactose</h4></li>
+                                        <li><h4><i class="fa fa-check"></i> Troubles du comportement alimentaire</h4></li>
+					<li><h4><i class="fa fa-check"></i> Pathologies : diabète, ostéoporose...</h4></li>
+                                    </ul></p>
                                 </div>
                             </div>
                         </div>
@@ -156,7 +153,7 @@
 
     	<?php
 			include("prestations.php");
-			include("blog.php");
+			include("adistance.php");
 		?>        
 
         <!-- Contact Section -->

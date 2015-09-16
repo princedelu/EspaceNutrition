@@ -7,9 +7,156 @@
                         <hr class="star-light">
                     </div>
                 </div>
-                <div class="row" >
-                    <center>En construction</center>
+				<div class="row">
+		            <!-- item -->
+				    <div class="col-md-6 text-center tileBox">
+				       <div class="txtHead"> <i class="fa fa-pencil-square-o"></i>
+				        <h3>Vos besoins :</h3></div>
+				        <ul class="list-unstyled text-left">
+							<li> - une perte de poids durable et sans frustration</li>
+							<li> - un rééquilibrage alimentaire</li>
+							<li> - un programme de prise de masse ou programme de sèche</li>
+						  </ul>
+				    </div>
+				    <!-- end: -->
+
+				    <!-- item -->
+				    <div class="col-md-6 text-center tileBox">
+				        <div class="txtHead"><i class="fa fa-bullseye"></i>
+				        <h3>Vous souhaitez :</h3></div>
+				        <ul class="list-unstyled text-left">
+							<li> - devenir végétarien ou végétalien</li>
+							<li> - une alimentation sans lactose / sans gluten</li>
+							<li> - vous libérer de vos TCA, être à l'écoute de votre corps</li>
+							<li> - vaincre vos troubles digestifs, débuter une alimentation pauvre en FODMAPs</li>
+						  </ul>
+				    </div>
+				    <!-- end: -->
+				</div>
+                <br/>
+				<div class="row">
+		            <!-- item -->
+				    <div class="col-md-12 text-center tileBox">
+				       <div class="txtHead"> <i class="fa fa-question"></i>
+				        <h3>Comment fonctionne le suivi à distance?</h3></div>
+						<ul class="list-unstyled text-left">
+				        	<li> - Vous choisissez la formule qui vous convient et effectuer votre paiement en ligne via paypal.</li>
+							<li> - Dès réception du versement, nous fixons un rendez-vous par téléphone pour effectuer votre bilan nutritionnel de 45 minutes.</li>
+							<li> - Dans les 24 heures, vous recevrez par email votre bilan personnalisé et adapté à vos besoins.</li>
+							<li> - Une fois par semaine ou une fois par mois, selon la formule choisie, vous bénéficiez d'une consultation de suivi par téléphone pour répondre à vos questions et faire le point sur votre motivation et vos difficultés.</li>
+							<li> - A tout moment, vous pouvez poser vos questions par email.</li>
+						  </ul>
+				    </div>
+				    <!-- end: -->
+				</div>
+                <br/>
+		<div class="row" >
+                    <div class="col-md-3">
+				<div class="panel panel-primary">
+				    <div class="panel-heading">
+				        <h4 class="text-center">Formule 3 mois de suivi hebdomadaire</h4>
+				    </div>
+				    <div class="panel-body text-center">
+				        <p class="lead">
+				            <strong>230€</strong>
+				        </p>
+				    </div>
+				    <ul class="list-group list-group-flush text-center">
+				        <li class="list-group-item">
+				            1 bilan nutritionnel personnalisé
+				        </li>
+				        <li class="list-group-item">
+				            1 consultation par téléphone par semaine pendant 3 mois
+				        </li>
+				        <li class="list-group-item">
+				            Echanges de questions/réponses par email
+				        </li>
+				    </ul>
+				    <div class="panel-footer">
+				        <a class="btn btn-lg btn-block btn-primary" ng-click="affichePopupPaiement(1)">Commander via paypal</a>
+				    </div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="panel panel-primary">
+				    <div class="panel-heading">
+				        <h4 class="text-center">Formule 6 mois de suivi hebdomadaire</h4>
+				    </div>
+				    <div class="panel-body text-center">
+				        <p class="lead">
+				            <strong>450€</strong>
+				        </p>
+				    </div>
+				    <ul class="list-group list-group-flush text-center">
+				        <li class="list-group-item">
+				            1 bilan nutritionnel personnalisé
+				        </li>
+				        <li class="list-group-item">
+				            1 consultation par téléphone par semaine pendant 6 mois
+				        </li>
+				        <li class="list-group-item">
+				            Echanges de questions/réponses par email
+				        </li>
+				    </ul>
+				    <div class="panel-footer">
+				        <a class="btn btn-lg btn-block btn-primary" ng-click="affichePopupPaiement(2)">Commander via paypal</a>
+				    </div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="panel panel-primary">
+				    <div class="panel-heading">
+				        <h4 class="text-center">Formule 3 mois de suivi mensuel</h4>
+				    </div>
+				    <div class="panel-body text-center">
+				        <p class="lead">
+				            <strong>199€</strong>
+				        </p>
+				    </div>
+				    <ul class="list-group list-group-flush text-center">
+				        <li class="list-group-item">
+				            1 bilan nutritionnel personnalisé
+				        </li>
+				        <li class="list-group-item">
+				            1 consultation par téléphone par mois pendant 3 mois
+				        </li>
+				        <li class="list-group-item">
+				            Echanges de questions/réponses par email
+				        </li>
+				    </ul>
+				    <div class="panel-footer">
+				        <a class="btn btn-lg btn-block btn-primary" ng-click="affichePopupPaiement(3)">Commander via paypal</a>
+				    </div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="panel panel-primary">
+				    <div class="panel-heading">
+				        <h4 class="text-center">Formule 6 mois de suivi mensuel</h4>
+				    </div>
+				    <div class="panel-body text-center">
+				        <p class="lead">
+				            <strong>350€</strong>
+				        </p>
+				    </div>
+				    <ul class="list-group list-group-flush text-center">
+				        <li class="list-group-item">
+				            1 bilan nutritionnel personnalisé
+				        </li>
+				        <li class="list-group-item">
+				            1 consultation par téléphone par mois pendant 6 mois
+				        </li>
+				        <li class="list-group-item">
+				            Echanges de questions/réponses par email
+				        </li>
+				    </ul>
+				    <div class="panel-footer">
+				        <a class="btn btn-lg btn-block btn-primary" ng-click="affichePopupPaiement(4)">Commander via paypal</a>
+				    </div>
+				</div>
+			</div>
                 </div>
+
             </div>
         </section>
 
