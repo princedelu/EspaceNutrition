@@ -317,7 +317,8 @@ class PaiementModel extends AbstractModel {
 						curl_close($ch);
 
 						if (strcmp ($res, "VERIFIED") == 0) {
-							$result=$this->insertPaiement();	
+							$result=$this->insertPaiement();
+							$this->sendMailPaiement();	
 						}else if (strcmp ($res, "INVALID") == 0) {
 							$this->setError("Paiment invalide");
 						}
@@ -336,6 +337,7 @@ class PaiementModel extends AbstractModel {
 	
 	public function fetchAll(){
 		$result = array();
+		
 		try{
 			$this->openConnectionDatabase();
 
@@ -366,6 +368,55 @@ class PaiementModel extends AbstractModel {
 		$this->closeConnectionDatabase();
 
 		return $result;
+	}
+
+	private function sendMailPaiement(){
+		$result = false;
+		if ($this->ini_array['mail']['action']){
+			$subject = "Un paiement a eu lieu sur http://www.espace-nutrition.fr";
+			$message = '<html>
+							<head>
+								<title>Un paiement a eu lieu sur http://www.espace-nutrition.fr</title>
+							</head>
+							<body>
+								Bonjour Ang&eacute;lique,
+								<br/>
+								<br/>
+								'.$this->getPayerFirstName().' '.$this->getPayerLastName().' vient de proceder &agrave; un paiement pour '.$this->getItemName().' pour un montant de '.$this->getMcGross().' euros.
+								<br/>
+								<br/>
+								Voici l email de la personne <a href="mailto:'.$this->getPayerEmail().'" target="_top">'.$this->getPayerEmail().'</a>.
+								<br/>
+								<br/>
+								Cordialement,
+							</body>
+						</html>';
+
+			// Pour envoyer un mail HTML, l'en-tête Content-type doit être défini
+			$headers  = 'MIME-Version: 1.0' . "\r\n";
+			$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+
+			// En-têtes additionnels
+			$headers .= 'From: Espace Nutrition <contact@espace-nutrition.fr>' . "\r\n";
+
+			//Envoi du mail
+			try
+			{
+				$result = mail ('angelique.guehl@espace-nutrition.fr',$subject,$message,$headers);
+				if (!$result)
+				{
+					$this->setError("Erreur d'envoi de l'email");
+				}
+			}
+			catch(Exception $e)
+			{
+				$this->setError($e);
+			}
+		}else{
+			$result = true;
+		}
+		return $result;
+
 	}
 
 	public function insertPaiement(){
