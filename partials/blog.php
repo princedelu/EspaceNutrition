@@ -7,55 +7,35 @@
                         <hr class="star-light">
                     </div>
                 </div>
-                <div class="row blog" >
-                    <div class="col-md-6">
-            <div class="well well-sm">
                 <div class="row">
-                    <div class="col-xs-3 col-md-3 text-center">
-                        <img src="http://bootsnipp.com/apple-touch-icon-114x114-precomposed.png" alt="bootsnipp"
-                            class="img-rounded img-responsive" />
-                    </div>
-                    <div class="col-xs-9 col-md-9 section-box">
-                        <h2>
-                            Bootsnipp lmkml k mlk ml kmlkmlk <a href="http://bootsnipp.com/" target="_blank"><span class="glyphicon glyphicon-new-window">
-                            </span></a>
-                        </h2>
-                        <p>
-                            Design elements, playground and code snippets for Bootstrap HTML/CSS/JS framework</p>
-                        <hr />
-                        <div class="row rating-desc">
-                            <div class="col-md-12">
-                                <span class="glyphicon glyphicon-comment"></span>100 Comments
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="well well-sm">
-                <div class="row">
-                    <div class="col-xs-3 col-md-3 text-center">
-                        <img src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-frc3/s160x160/1383059_247772075369912_927324687_a.png"
-                            alt="jQuery2DotNet" class="img-rounded img-responsive" />
-                    </div>
-                    <div class="col-xs-9 col-md-9 section-box">
-                        <h2>
-                            jQuery2DotNet <a href="http://www.jquery2dotnet.com/" target="_blank"><span class="glyphicon glyphicon-new-window">
-                            </span></a>
-                        </h2>
-                        <p>
-                            Cool jQuery, CSS3,HTML5, MVC and C#  tutorials with examples</p>
-                        <hr />
-                        <div class="row rating-desc">
-                            <div class="col-md-12">
-                                <span class="glyphicon glyphicon-comment"></span>100 Comments
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-                </div>
+					<div class="col-md-12">
+				      <!-- The time line -->
+				      <ul class="timeline">
+				        <!-- timeline time label -->
+				        <li class="time-label">
+				          <span class="bg-red">
+				            10 Feb. 2014
+				          </span>
+				        </li>
+				        <!-- /.timeline-label -->
+				        <!-- timeline item -->
+				        <li>
+				          <i class="fa fa-newspaper-o bg-blue"></i>
+				          <div class="timeline-item">
+							<span class="time"><i class="fa fa-pencil"></i> Ecrit par Angélique&nbsp;<i class="fa fa-comment"></i> 5 commentaires</span>
+				            <h3 class="timeline-header"><a href="#">Dix idées reçues sur la nutrition</a></h3>
+				            <div class="timeline-footer">
+				              <a class="btn btn-primary btn-xs">Lire l'article</a>
+				            </div>
+				          </div>
+				        </li>
+				        <!-- END timeline item -->
+				       
+				        <li>
+				          <i class="fa fa-clock-o bg-gray"></i>
+				        </li>
+				      </ul>
+				    </div>
+				</div>
             </div>
         </section>

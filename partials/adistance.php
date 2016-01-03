@@ -43,7 +43,7 @@
 				        	<li> - Vous choisissez la formule qui vous convient et effectuer votre paiement en ligne via paypal.</li>
 							<li> - Dès réception du versement, nous fixons un rendez-vous par téléphone pour effectuer votre bilan nutritionnel de 45 minutes.</li>
 							<li> - Dans les 24 heures, vous recevrez par email votre bilan personnalisé et adapté à vos besoins.</li>
-							<li> - Une fois par semaine ou une fois par mois, selon la formule choisie, vous bénéficiez d'une consultation de suivi par téléphone pour répondre à vos questions et faire le point sur votre motivation et vos difficultés.</li>
+							<li> - Selon la fréquence qui vous convient (une fois par semaine ou une fois par mois), vous bénéficiez d'une consultation de suivi par téléphone pour répondre à vos questions et faire le point sur votre motivation et vos difficultés.</li>
 							<li> - A tout moment, vous pouvez poser vos questions par email.</li>
 						  </ul>
 				    </div>
@@ -54,22 +54,22 @@
                     <div class="col-md-3">
 				<div class="panel panel-primary">
 				    <div class="panel-heading">
-				        <h4 class="text-center">Formule 3 mois de suivi hebdomadaire</h4>
+				        <h4 class="text-center">Bilan nutritionnel</h4>
 				    </div>
 				    <div class="panel-body text-center">
 				        <p class="lead">
-				            <strong>230€</strong>
+				            <strong>60€</strong>
 				        </p>
 				    </div>
 				    <ul class="list-group list-group-flush text-center">
 				        <li class="list-group-item">
-				            1 bilan nutritionnel personnalisé
+				            1 bilan nutritionnel personnalisé<br/>&nbsp;
 				        </li>
 				        <li class="list-group-item">
-				            1 consultation par téléphone par semaine pendant 3 mois
+				            Durée d'une heure par téléphone<br/>&nbsp;
 				        </li>
 				        <li class="list-group-item">
-				            Echanges de questions/réponses par email
+				            Compte rendu envoyé sous 24 heures
 				        </li>
 				    </ul>
 				    <div class="panel-footer">
@@ -80,19 +80,19 @@
 			<div class="col-md-3">
 				<div class="panel panel-primary">
 				    <div class="panel-heading">
-				        <h4 class="text-center">Formule 6 mois de suivi hebdomadaire</h4>
+				        <h4 class="text-center">Consultation de suivi</h4>
 				    </div>
 				    <div class="panel-body text-center">
 				        <p class="lead">
-				            <strong>450€</strong>
+				            <strong>35€</strong>
 				        </p>
 				    </div>
 				    <ul class="list-group list-group-flush text-center">
 				        <li class="list-group-item">
-				            1 bilan nutritionnel personnalisé
+				            Durée de 30 minutes par téléphone<br/>&nbsp;
 				        </li>
 				        <li class="list-group-item">
-				            1 consultation par téléphone par semaine pendant 6 mois
+				            Conseils et motivations<br/>&nbsp;
 				        </li>
 				        <li class="list-group-item">
 				            Echanges de questions/réponses par email
@@ -106,22 +106,22 @@
 			<div class="col-md-3">
 				<div class="panel panel-primary">
 				    <div class="panel-heading">
-				        <h4 class="text-center">Formule 3 mois de suivi mensuel</h4>
+				        <h4 class="text-center">Forfait 3 suivis</h4>
 				    </div>
 				    <div class="panel-body text-center">
 				        <p class="lead">
-				            <strong>199€</strong>
+				            <strong>100€</strong>
 				        </p>
 				    </div>
 				    <ul class="list-group list-group-flush text-center">
 				        <li class="list-group-item">
-				            1 bilan nutritionnel personnalisé
+				            3 consultations de 30 minutes<br/>&nbsp;
 				        </li>
 				        <li class="list-group-item">
-				            1 consultation par téléphone par mois pendant 3 mois
+				            Fréquence au choix <br/>(rendez-vous hebdomadaire, bi-mensuel ou mensuel)
 				        </li>
 				        <li class="list-group-item">
-				            Echanges de questions/réponses par email
+				            Valable 1 an
 				        </li>
 				    </ul>
 				    <div class="panel-footer">
@@ -132,22 +132,22 @@
 			<div class="col-md-3">
 				<div class="panel panel-primary">
 				    <div class="panel-heading">
-				        <h4 class="text-center">Formule 6 mois de suivi mensuel</h4>
+				        <h4 class="text-center">Forfait bilan + 6 suivis</h4>
 				    </div>
 				    <div class="panel-body text-center">
 				        <p class="lead">
-				            <strong>350€</strong>
+				            <strong>250€</strong>
 				        </p>
 				    </div>
 				    <ul class="list-group list-group-flush text-center">
 				        <li class="list-group-item">
-				            1 bilan nutritionnel personnalisé
+				            1 bilan nutritionnel + 6 consultations de suivi
 				        </li>
 				        <li class="list-group-item">
-				            1 consultation par téléphone par mois pendant 6 mois
+				            Fréquence au choix <br/>(rendez-vous hebdomadaire, bi-mensuel ou mensuel)
 				        </li>
 				        <li class="list-group-item">
-				            Echanges de questions/réponses par email
+				            Valable 1 an
 				        </li>
 				    </ul>
 				    <div class="panel-footer">

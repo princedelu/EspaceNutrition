@@ -14,6 +14,7 @@ require 'models/ContactModel.php';
 require 'models/AbonnementModel.php';
 require 'models/PoidsModel.php';
 require 'models/RepasModel.php';
+require 'models/ArticleModel.php';
 require 'tools/AuthMiddleware.php';
 
 /**

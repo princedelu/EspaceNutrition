@@ -21,6 +21,9 @@
                         <li class="page-scroll">
                             <a href="#prestations">Prestations</a>
                         </li>
+						<li class="page-scroll">
+                            <a href="http://blog.espace-nutrition.fr" target="_blank">Blog</a>
+                        </li>
                         <li class="page-scroll">
                             <a href="#adistance">A distance</a>
                         </li>
