@@ -42,7 +42,7 @@
 						<ul class="list-unstyled text-left">
 				        	<li> - Vous choisissez la formule qui vous convient et effectuer votre paiement en ligne via paypal.</li>
 							<li> - Dès réception du versement, nous fixons un rendez-vous par téléphone pour effectuer votre bilan nutritionnel de 45 minutes.</li>
-							<li> - Dans les 24 heures, vous recevrez par email votre bilan personnalisé et adapté à vos besoins.</li>
+							<li> - Dans les 48 heures, vous recevrez par email votre bilan personnalisé et adapté à vos besoins.</li>
 							<li> - Selon la fréquence qui vous convient (une fois par semaine ou une fois par mois), vous bénéficiez d'une consultation de suivi par téléphone pour répondre à vos questions et faire le point sur votre motivation et vos difficultés.</li>
 							<li> - A tout moment, vous pouvez poser vos questions par email.</li>
 						  </ul>
@@ -69,7 +69,7 @@
 				            Durée d'une heure par téléphone<br/>&nbsp;
 				        </li>
 				        <li class="list-group-item">
-				            Compte rendu envoyé sous 24 heures
+				            Compte rendu envoyé sous 48 heures
 				        </li>
 				    </ul>
 				    <div class="panel-footer">

@@ -100,7 +100,7 @@ class ContactModel extends AbstractModel {
 
 			// Pour envoyer un mail HTML, l'en-tête Content-type doit être défini
 			$headers  = 'MIME-Version: 1.0' . "\r\n";
-			$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+			$headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
 
 			// En-têtes additionnels
 			$headers .= 'To: '.$this->ini_array['mail']['contactNom'].'<'.$this->ini_array['mail']['contactMail'].'>' . "\r\n";
