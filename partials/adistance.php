@@ -41,10 +41,10 @@
 				        <h3>Comment fonctionne le suivi à distance?</h3></div>
 						<ul class="list-unstyled text-left">
 				        	<li> - Vous choisissez la formule qui vous convient et effectuer votre paiement en ligne via paypal.</li>
-							<li> - Dès réception du versement, nous fixons un rendez-vous par téléphone pour effectuer votre bilan nutritionnel de 45 minutes.</li>
+							<li> - Dès réception du versement, nous fixons un rendez-vous par téléphone pour effectuer votre bilan nutritionnel d'une heure.</li>
 							<li> - Dans les 48 heures, vous recevrez par email votre bilan personnalisé et adapté à vos besoins.</li>
 							<li> - Selon la fréquence qui vous convient (une fois par semaine ou une fois par mois), vous bénéficiez d'une consultation de suivi par téléphone pour répondre à vos questions et faire le point sur votre motivation et vos difficultés.</li>
-							<li> - A tout moment, vous pouvez poser vos questions par email.</li>
+							<li> - Possibilité de paiement par chèque ou virement bancaire (me contacter)
 						  </ul>
 				    </div>
 				    <!-- end: -->
@@ -95,7 +95,7 @@
 				            Conseils et motivations<br/>&nbsp;
 				        </li>
 				        <li class="list-group-item">
-				            Echanges de questions/réponses par email
+				            Réponses à vos questions<br/>&nbsp;
 				        </li>
 				    </ul>
 				    <div class="panel-footer">
