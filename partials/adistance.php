@@ -44,7 +44,8 @@
 							<li> - Dès réception du versement, nous fixons un rendez-vous par téléphone pour effectuer votre bilan nutritionnel d'une heure.</li>
 							<li> - Dans les 48 heures, vous recevrez par email votre bilan personnalisé et adapté à vos besoins.</li>
 							<li> - Selon la fréquence qui vous convient (une fois par semaine ou une fois par mois), vous bénéficiez d'une consultation de suivi par téléphone pour répondre à vos questions et faire le point sur votre motivation et vos difficultés.</li>
-							<li> - Possibilité de paiement par chèque ou virement bancaire (me contacter)
+							<li> - Possibilité de paiement par chèque ou virement bancaire (me contacter)</li>
+							<li> - Votre assurance complémentaire santé (mutuelle) peut vous rembourser une partie de votre suivi diététique. Renseignez-vous auprès d'elle</li>
 						  </ul>
 				    </div>
 				    <!-- end: -->
@@ -84,7 +85,7 @@
 				    </div>
 				    <div class="panel-body text-center">
 				        <p class="lead">
-				            <strong>35€</strong>
+				            <strong>40€</strong>
 				        </p>
 				    </div>
 				    <ul class="list-group list-group-flush text-center">
@@ -110,7 +111,7 @@
 				    </div>
 				    <div class="panel-body text-center">
 				        <p class="lead">
-				            <strong>100€</strong>
+				            <strong>115€</strong>
 				        </p>
 				    </div>
 				    <ul class="list-group list-group-flush text-center">
@@ -121,7 +122,7 @@
 				            Fréquence au choix <br/>(rendez-vous hebdomadaire, bi-mensuel ou mensuel)
 				        </li>
 				        <li class="list-group-item">
-				            Valable 1 an
+				            Valable 6 mois
 				        </li>
 				    </ul>
 				    <div class="panel-footer">
@@ -132,7 +133,7 @@
 			<div class="col-md-3">
 				<div class="panel panel-primary">
 				    <div class="panel-heading">
-				        <h4 class="text-center">Forfait bilan + 6 suivis</h4>
+				        <h4 class="text-center">Forfait bilan + 5 suivis</h4>
 				    </div>
 				    <div class="panel-body text-center">
 				        <p class="lead">
@@ -141,7 +142,7 @@
 				    </div>
 				    <ul class="list-group list-group-flush text-center">
 				        <li class="list-group-item">
-				            1 bilan nutritionnel + 6 consultations de suivi
+				            1 bilan nutritionnel + 5 consultations de suivi
 				        </li>
 				        <li class="list-group-item">
 				            Fréquence au choix <br/>(rendez-vous hebdomadaire, bi-mensuel ou mensuel)

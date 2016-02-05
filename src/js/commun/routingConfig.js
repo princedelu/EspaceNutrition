@@ -50,16 +50,16 @@
 	*/
 	exports.item = {};
 	exports.item[1] = {};
-	exports.item[1].libelle="EspaceNutrition - Formule 3 mois de suivi hebdomadaire";
+	exports.item[1].libelle="EspaceNutrition - Bilan nutritionnel";
 	exports.item[1].amount="60";
 	exports.item[2] = {};
-	exports.item[2].libelle="EspaceNutrition - Formule 6 mois de suivi hebdomadaire";
-	exports.item[2].amount="35";
+	exports.item[2].libelle="EspaceNutrition - Consultation de suivi";
+	exports.item[2].amount="40";
 	exports.item[3] = {};
-	exports.item[3].libelle="EspaceNutrition - Formule 3 mois de suivi mensuel";
-	exports.item[3].amount="100";
+	exports.item[3].libelle="EspaceNutrition - Forfait 3 suivis";
+	exports.item[3].amount="115";
 	exports.item[4] = {};
-	exports.item[4].libelle="EspaceNutrition - Formule 6 mois de suivi mensuel";
+	exports.item[4].libelle="EspaceNutrition - Forfait bilan + 5 suivis";
 	exports.item[4].amount="250";
 	
 

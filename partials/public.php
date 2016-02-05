@@ -21,9 +21,6 @@
                         <li class="page-scroll">
                             <a href="#prestations">Prestations</a>
                         </li>
-						<li class="page-scroll">
-                            <a href="http://blog.espace-nutrition.fr" target="_blank">Blog</a>
-                        </li>
                         <li class="page-scroll">
                             <a href="#adistance">A distance</a>
                         </li>
@@ -130,6 +127,9 @@
                                                         </li>
                                                         <li>
                                                             <a class="btn-social btn-outline" href="https://www.facebook.com/Angeliqueguehlespacenutrition" target="_blank"><i class="fa fa-fw fa-facebook"></i></a>
+                                                        </li>
+														<li>
+                                                            <a class="btn-social btn-outline" href="https://www.instagram.com/dieteticienne_niort/" target="_blank"><i class="fa fa-fw fa-instagram"></i></a>
                                                         </li>
                                                         <li>
                                                             <a class="btn-social btn-outline" href="mailto:contact@espace-nutrition.fr"><i class="fa fa-fw fa-envelope"></i></a>
@@ -270,6 +270,9 @@
                                                 <li>
                                                     <a class="btn-social btn-outline" href="https://www.facebook.com/Angeliqueguehlespacenutrition" target="_blank"><i class="fa fa-fw fa-facebook"></i></a>
                                                 </li>
+												<li>
+                                                            <a class="btn-social btn-outline" href="https://www.instagram.com/dieteticienne_niort/" target="_blank"><i class="fa fa-fw fa-instagram"></i></a>
+                                                        </li>
                                                 <li>
                                                     <a class="btn-social btn-outline" href="mailto:contact@espace-nutrition.fr"><i class="fa fa-fw fa-envelope"></i></a>
                                                 </li>
@@ -292,7 +295,7 @@
                             Numéro de SIRET : 804 655 371 00016
                         </div>
                         <div class="col-lg-4">
-                            Copyright &copy; http://www.espace-nutrition.fr 2015
+                            Copyright &copy; http://www.espace-nutrition.fr 2016
                         </div>
                     </div>
                 </div>
