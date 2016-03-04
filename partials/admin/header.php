@@ -104,6 +104,11 @@
                         <i class="fa fa-area-chart"></i> <span>Nutrition</span>
                     </a>
                 </li>
+				<li ng-class="{active : articles}" data-access-level='accessLevels.admin'>
+                    <a href="/articles">
+                        <i class="fa fa-paragraph"></i> <span>Articles</span>
+                    </a>
+                </li>
             
                 
             </ul>

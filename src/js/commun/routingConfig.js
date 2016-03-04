@@ -41,11 +41,11 @@
 	/* Element pour paypal
 	*/
 	exports.paypal = {};
-	exports.paypal.business="admin@espace-nutrition.fr";
-	exports.paypal.urlReturn="http://espace-nutrition.fr/paiementSuccess";
-	exports.paypal.urlCancel="http://espace-nutrition.fr";
-	exports.paypal.urlNotify="http://espace-nutrition.fr/api/notifyPaiement";
-	exports.paypal.sandbox=true;
+	exports.paypal.business="angelique.guehl@espace-nutrition.fr";
+	exports.paypal.urlReturn="http://www.espace-nutrition.fr/paiementSuccess";
+	exports.paypal.urlCancel="http://www.espace-nutrition.fr";
+	exports.paypal.urlNotify="http://www.espace-nutrition.fr/api/notifyPaiement";
+	exports.paypal.sandbox=false;
 	/* Informations sur les produits
 	*/
 	exports.item = {};

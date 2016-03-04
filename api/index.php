@@ -15,6 +15,7 @@ require 'models/AbonnementModel.php';
 require 'models/PoidsModel.php';
 require 'models/RepasModel.php';
 require 'models/ArticleModel.php';
+require 'models/CategorieModel.php';
 require 'tools/AuthMiddleware.php';
 
 /**
@@ -1253,6 +1254,179 @@ $app->get('/notificationsUser', function () use ($app) {
 	}catch(Exception $e){
 		$app->response->setStatus('403'); //Token invalide
 		$app->response->body($e->getMessage());
+	}
+});
+
+/***********************************************
+Articles
+***********************************************/
+$app->get('/articles', function () use ($app) {
+	$article = new ArticleModel();
+	$rangeValue = $app->request()->params('range');
+	$categorieValue = $app->request()->params('categorie');
+
+	$article->setNbArticlesParPage(100);
+	$article->setIdCategorie($categorieValue);
+
+	try{
+		$indexMin=0;
+		$indexMax=$article->getNbArticlesParPage()-1;
+		if(isset($rangeValue)){
+			
+			$arrayRange=explode('-', $rangeValue);
+			if (count($arrayRange)==2){
+				$indexMin=intval($arrayRange[0]);
+				$indexMax=intval($arrayRange[1]);
+
+				if ($indexMax<$indexMin || $indexMin<0){
+					throw new Exception('Range non conforme');
+				}else{
+					if ($indexMax-$indexMin+1>$article->getNbArticlesParPage()){
+						throw new Exception('Range trop large');
+					}
+				}
+			}else{
+				throw new Exception('La chaine range n est pas conforme');
+			}	
+		}
+
+		$article->setIndexMinDem($indexMin);
+		$article->setIndexMaxDem($indexMax);
+
+		$result = $article->fetchAll();
+		if (!is_array($result)){
+			$app->response()->body($article->getError());
+		    $app->response()->status( 403 );
+		}else{
+			$app->response()->header('Content-Range',strval($article->getIndexMin()).'-'.strval($article->getIndexMax()).' '.strval($article->getNbArticles()));
+			$app->response()->header('Accept Range',"articles ".strval($article->getNbArticlesParPage()));
+		  	$app->response()->body( json_encode( $result ));
+		}
+	}catch(Exception $e){
+		$app->response()->body($e->getMessage());
+        $app->response()->status( 400 );
+	}
+});
+
+/***********************************************
+Article
+***********************************************/
+$app->get('/articles/:id', function ($id) use ($app) {
+	$articleModel = new ArticleModel();
+    $articleModel->setId($id);
+    
+    $result = $articleModel->fetchOne();
+    
+	 if (!$result){
+		$app->response()->body($articleModel->getError());
+        $app->response()->status( 403 );
+	}else{
+	  	$app->response()->body( json_encode( $result ));
+	}
+});
+
+/***********************************************
+Categories
+***********************************************/
+$app->get('/categories', function () use ($app) {
+	$categorieModel = new CategorieModel();
+
+	$result = $categorieModel->fetchAll();
+    
+	if (!$result){
+		$app->response()->body($categorieModel->getError());
+        $app->response()->status( 403 );
+	}else{
+	  	$app->response()->body( json_encode( $result ));
+	}
+});
+
+/***********************************************
+Ajout articles
+***********************************************/
+$app->put('/articles', function () use ($app) {
+	$requestJson = json_decode($app->request()->getBody(), true);
+    $article = new ArticleModel();
+	
+	if (isset($requestJson['titre']) and isset($requestJson['auteur']) and isset($requestJson['date']) and isset($requestJson['partie1']) and isset($requestJson['partie2']) and isset($requestJson['id_categorie'])){
+		$article->setTitre($requestJson['titre']);
+		$article->setAuteur($requestJson['auteur']);
+		$article->setDate($requestJson['date']);
+		$article->setPartie1($requestJson['partie1']);
+		$article->setPartie2($requestJson['partie2']);
+		$article->setIdCategorie($requestJson['id_categorie']);
+
+		$result = $article->create();
+	}else{
+		$result = false;
+		$article->setError("Des champs manquent pour la création de l'article");
+	}
+    
+	if (!$result){
+		$app->response()->body($article->getError());
+        $app->response()->status( 403 );
+	}else{
+	  	$app->response()->body( json_encode( $result ));
+	}
+});
+
+/***********************************************
+Update articles
+***********************************************/
+$app->post('/articles', function () use ($app) {
+	$requestJson = json_decode($app->request()->getBody(), true);
+    $article = new ArticleModel();
+	
+	if (isset($requestJson['id'])){
+		$article->setId($requestJson['id']);
+
+		if (isset($requestJson['titre'])){
+			$article->setTitre($requestJson['titre']);
+		}
+		if (isset($requestJson['auteur'])){
+			$article->setAuteur($requestJson['auteur']);
+		}
+		if (isset($requestJson['date'])){
+			$article->setDate($requestJson['date']);
+		}
+		if (isset($requestJson['partie1'])){
+			$article->setPartie1($requestJson['partie1']);
+		}
+		if (isset($requestJson['partie2'])){
+			$article->setPartie2($requestJson['partie2']);
+		}
+		if (isset($requestJson['id_categorie'])){
+			$article->setIdCategorie($requestJson['id_categorie']);
+		}
+		
+		$result = $article->update();
+
+	}else{
+		$result = false;
+		$article->setError("Des champs manquent pour la modification de l'article");
+	}
+    
+	if (!$result){
+		$app->response()->body($article->getError());
+		$app->response()->body($article->getError());
+        $app->response()->status( 403 );
+	}else{
+	  	$app->response()->body( json_encode( $result ));
+	}
+});
+
+/***********************************************
+Suppression articles
+***********************************************/
+$app->delete('/articles/:id', function ($id) use ($app) {
+	$article = new ArticleModel();
+	$article->setId($id);
+	$result = $article->delete();
+	if (!$result){
+		$app->response()->body($article->getError());
+        $app->response()->status( 403 );
+	}else{
+	  	$app->response()->body( json_encode( $result ));
 	}
 });
 

@@ -87,14 +87,16 @@ class JWT
     public static function encode($payload, $key, $algo = 'HS256', $keyId = null)
     {
         $header = array('typ' => 'JWT', 'alg' => $algo);
+		
         if($keyId !== null) {
             $header['kid'] = $keyId;
         }
         $segments = array();
         $segments[] = JWT::urlsafeB64Encode(JWT::jsonEncode($header));
+		
         $segments[] = JWT::urlsafeB64Encode(JWT::jsonEncode($payload));
         $signing_input = implode('.', $segments);
-
+		
         $signature = JWT::sign($signing_input, $key, $algo);
         $segments[] = JWT::urlsafeB64Encode($signature);
 

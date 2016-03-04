@@ -108,6 +108,13 @@ angular.module('EspaceNutrition', ['ngRoute','underscore'])
 			action : 		'modifMonRepas',
             access:         access.user
         });
+	$routeProvider.when('/articles',
+        {
+            templateUrl:    '/partials/admin/articles.php',
+            controller:     'ArticleCtrl',
+			action : 		'listArticles',
+            access:         access.admin
+        });	
     $routeProvider.when('/404',
         {
             templateUrl:    '/partials/404.html',
@@ -511,6 +518,465 @@ angular.module('EspaceNutrition').factory('AbonnementFactory',['$http', function
 		},
 		post: function(objet, success, error) {
 			$http.post('/api/abonnement', objet).success(success).error(error);
+		}
+    };
+}]);
+
+})();
+
+
+
+(function(){
+"use strict";
+
+angular.module('EspaceNutrition')
+.controller('ArticleCtrl',
+['$rootScope', '$scope', '$location', '$route', '$window','Auth', 'ArticleFactory','UtilisateurFactory', function($rootScope, $scope, $location, $route, $window, Auth,ArticleFactory,UtilisateurFactory) {
+
+    $scope.user = Auth.user;
+    $scope.userRoles = Auth.userRoles;
+    $scope.accessLevels = Auth.accessLevels;
+    
+    var action = "";
+    if ($route !== undefined && $route.current){
+        
+        if ($route.current.action !== undefined){
+            action = $route.current.action;
+        }
+    }
+
+    $scope.listArticles = function () {
+        $scope.success = '';
+        $scope.error = '';
+        $scope.loading = true;
+        ArticleFactory.list( 
+            function (res) {
+                $scope.loading = false;
+                var data = $.map(res.result, function(el, i) {
+                  return [[el.id,el.titre, el.auteur, el.date,el.libelle_long,""]];
+                });
+                var table = $("#articles").dataTable({
+                    "aaData": data,
+                    "aoColumns": [
+                        { "sTitle": "Id" },
+                        { "sTitle": "Titre" },
+                        { "sTitle": "Auteur" },
+                        { "sTitle": "Date " },
+                        { "sTitle": "Catégorie" },
+                        { "sTitle": "Action" }
+                    ],
+                    "oLanguage": {
+                        "sSearch": "Recherche:",
+                        "sZeroRecords": "Pas d'éléménts à afficher",
+                        "sInfo": "_START_ sur _END_ de _TOTAL_ éléments",
+                        "sInfoEmpty": "Pas d'éléments",
+                        "sInfoFiltered": " - filtrés sur _MAX_ éléments",
+                        "sLengthMenu": "Afficher _MENU_ éléments",                    
+                        "oPaginate": {
+                            "sFirst": "Premier",
+                            "sLast" : "Dernier",
+                            "sNext" : "Suivant",
+                            "sPrevious" : "Précédent"
+                          }
+                    },
+                    "aoColumnDefs": [   
+                        { 
+							"targets": 5, 
+							"sType": "html", 
+							"render": function(data, type, row) {
+								var result = "";
+								var resultTmp = "";
+								var id = "";
+								var fin = "";
+								// Modification
+								resultTmp = "&lt;button class=&quot;btn btn-link&quot; ng-click=&quot;update(";
+								id = row[0];
+								fin = ")&quot; type=&quot;button&quot;&gt;&lt;span class=&quot;fa fa-pencil&quot;&gt;&lt;/span&gt;&lt;/button&gt;";
+								result = resultTmp.concat(id).concat(fin);
+								// Suppression
+								resultTmp = "&lt;button class=&quot;btn btn-link app-btn-delete&quot; ng-click=&quot;delete(";
+								id = row[0];
+								fin = ")&quot; type=&quot;button&quot;&gt;&lt;span class=&quot;fa fa-times&quot;&gt;&lt;/span&gt;&lt;/button&gt;";
+								result = result.concat(resultTmp).concat(id).concat(fin);	
+								return $("<div/>").html(result).text();
+							} 
+                        }
+                    ],
+                    "order": [[ 0, "desc" ]]
+                    
+                });
+                $('#articles tbody').on( 'click', 'button', function () {
+					var name = this.attributes[1].nodeName;
+					var value = this.attributes[1].nodeValue;
+					var tab = "";
+					var result = "";
+					if(name == "ng-click" && value.indexOf("delete") != -1){
+						tab = value.split("(");
+						result = tab[1];
+						tab = result.split(")");
+						result = tab[0];
+						$scope.supprimer(result);
+					}
+					if(name == "ng-click" && value.indexOf("update") != -1){
+						tab = value.split("(");
+						result = tab[1];
+						tab = result.split(")");
+						result = tab[0];
+						$scope.updateLoad(result);
+					}
+				} );
+            },
+            function (err) {
+                $scope.error = "Impossible de recuperer les articles";
+                $scope.loading = false;
+            }
+        );
+		ArticleFactory.listCategories(
+			function (res1) {
+				$scope.categories = res1;
+				$scope.success = 'Succes';
+				$('#dateArticle').datepicker({format: 'dd-mm-yyyy',autoclose: true,weekStart:1}).on('changeDate', function(e){
+					$scope.date = e.currentTarget.value;
+				}); 
+			},
+			function (err) {
+			$scope.error = err;
+		});
+    };
+	
+	$scope.updateLoad = function (id) {
+        $scope.success = '';
+        $scope.error = '';
+		ArticleFactory.get(id,
+			function (res) {
+				$scope.id = res.id;
+				$scope.titre = res.titre;
+				$scope.auteur = res.auteur;
+				$scope.partie1 = res.partie1;
+				$scope.partie2 = res.partie2;
+				$scope.date = res.date;
+				$scope.id_categorie = res.id_categorie;
+				$scope.formArticle = true;
+			},
+			function (err) {
+				$scope.error = err;
+			});
+		
+    };
+
+	$scope.createLoad = function (id) {
+        $scope.success = '';
+        $scope.error = '';
+
+		$scope.id = "";
+		$scope.titre = "";
+		$scope.auteur = "";
+		$scope.partie1 = "";
+		$scope.partie2 = "";
+		$scope.date = "";
+		$scope.id_categorie = "";
+
+		$scope.formArticle = true;
+		
+    };
+	
+	$scope.createClose = function (id) {
+        
+		$scope.formArticle = false;
+		
+    };
+	
+	$scope.add = function () {
+        $scope.success = '';
+        $scope.error = '';
+		$scope.doublon = 'false';
+        var objetValue = {};
+		objetValue.titre=$scope.titre;
+		objetValue.auteur=$scope.auteur;
+		objetValue.partie1=$scope.partie1;
+		objetValue.partie2=$scope.partie2;
+		objetValue.date=$scope.date;
+		objetValue.id_categorie=$scope.id_categorie.id;
+
+		if ($scope.id === ""){
+			ArticleFactory.put(objetValue,
+				function () {
+				    $scope.success = 'Succes';
+					$route.reload();
+					$scope.formArticle = false;
+				},
+				function (err) {
+				    $scope.error = err;
+				});
+		}else{
+			objetValue.id=$scope.id;
+			ArticleFactory.post(objetValue,
+				function () {
+				    $scope.success = 'Succes';
+					$route.reload();
+					$scope.formArticle = false;
+				},
+				function (err) {
+				    $scope.error = err;
+				    
+				});
+		}
+		
+    };
+
+    $scope.supprimer = function (id) {
+        $scope.success = '';
+        $scope.error = '';
+		var retVal = confirm("Voulez vous supprimer cet article?");
+        if (retVal === true) {
+		    ArticleFactory.supprimer(id,
+		        function () {
+		            $scope.success = 'Succes';
+		            $route.reload();
+		        },
+		        function (err) {
+		            $scope.error = err;
+		            $route.reload();
+		        });
+		}
+    };
+
+    
+
+    
+
+    
+
+
+    switch (action) {
+        case 'listArticles':
+            $scope.listArticles();
+        break;
+        default:
+        break;
+    }
+    
+}]);
+
+})();
+(function(){
+"use strict";
+
+angular.module('EspaceNutrition')
+  .value('uiTinymceConfig', {})
+  .directive('uiTinymce', ['$rootScope', '$compile', '$timeout', '$window', '$sce', 'uiTinymceConfig', function($rootScope, $compile, $timeout, $window, $sce, uiTinymceConfig) {
+    uiTinymceConfig = uiTinymceConfig || {};
+    var generatedIds = 0;
+    var ID_ATTR = 'ui-tinymce';
+    if (uiTinymceConfig.baseUrl) {
+      tinymce.baseURL = uiTinymceConfig.baseUrl;
+    }
+
+    return {
+      require: ['ngModel', '^?form'],
+      priority: 999,
+      link: function(scope, element, attrs, ctrls) {
+        if (!$window.tinymce) {
+          return;
+        }
+
+        var ngModel = ctrls[0],
+          form = ctrls[1] || null;
+
+        var expression, options = {}, tinyInstance,
+          updateView = function(editor) {
+            var content = editor.getContent({format: options.format}).trim();
+            content = $sce.trustAsHtml(content);
+
+            ngModel.$setViewValue(content);
+            if (!$rootScope.$$phase) {
+              scope.$digest();
+            }
+          };
+
+        function toggleDisable(disabled) {
+          if (disabled) {
+            ensureInstance();
+
+            if (tinyInstance) {
+              tinyInstance.getBody().setAttribute('contenteditable', false);
+            }
+          } else {
+            ensureInstance();
+
+            if (tinyInstance && !tinyInstance.settings.readonly) {
+              tinyInstance.getBody().setAttribute('contenteditable', true);
+            }
+          }
+        }
+
+        // generate an ID
+        attrs.$set('id', ID_ATTR + '-' + generatedIds++);
+
+        expression = {};
+
+        angular.extend(expression, scope.$eval(attrs.uiTinymce));
+
+        //Debounce update and save action
+        var debouncedUpdate = (function(debouncedUpdateDelay) {
+          var debouncedUpdateTimer;
+          return function(ed) {
+	        $timeout.cancel(debouncedUpdateTimer);
+	         debouncedUpdateTimer = $timeout(function() {
+              return (function(ed) {
+                ed.save();
+                updateView(ed);
+              })(ed);
+            }, debouncedUpdateDelay);
+          };
+        })(400);
+		
+		var plugins = {plugins : 'advlist autolink lists link image charmap print preview hr anchor pagebreak searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking save table contextmenu directionality emoticons template paste textcolor colorpicker textpattern imagetools'};
+
+        var setupOptions = {
+          // Update model when calling setContent
+          // (such as from the source editor popup)
+          setup: function(ed) {
+            ed.on('init', function() {
+              ngModel.$render();
+              ngModel.$setPristine();
+              ngModel.$setUntouched();
+              if (form) {
+                form.$setPristine();
+              }
+            });
+
+            // Update model when:
+            // - a button has been clicked [ExecCommand]
+            // - the editor content has been modified [change]
+            // - the node has changed [NodeChange]
+            // - an object has been resized (table, image) [ObjectResized]
+            ed.on('ExecCommand change NodeChange ObjectResized', function() {
+              debouncedUpdate(ed);
+            });
+
+            ed.on('blur', function() {
+              element[0].blur();
+              ngModel.$setTouched();
+              scope.$digest();
+            });
+
+            ed.on('remove', function() {
+              element.remove();
+            });
+
+            if (expression.setup) {
+              expression.setup(ed, {
+                updateView: updateView
+              });
+            }
+          },
+          format: expression.format || 'html',
+          selector: '#' + attrs.id
+        };
+        // extend options with initial uiTinymceConfig and
+        // options from directive attribute value
+        angular.extend(options, uiTinymceConfig, expression, setupOptions,plugins);
+        // Wrapped in $timeout due to $tinymce:refresh implementation, requires
+        // element to be present in DOM before instantiating editor when
+        // re-rendering directive
+        $timeout(function() {
+          if (options.baseURL){
+            tinymce.baseURL = options.baseURL;
+          }
+          tinymce.init(options);
+          toggleDisable(scope.$eval(attrs.ngDisabled));
+        });
+
+        ngModel.$formatters.unshift(function(modelValue) {
+          return modelValue ? $sce.trustAsHtml(modelValue) : '';
+        });
+
+        ngModel.$parsers.unshift(function(viewValue) {
+          return viewValue ? $sce.getTrustedHtml(viewValue) : '';
+        });
+
+        ngModel.$render = function() {
+          ensureInstance();
+
+          var viewValue = ngModel.$viewValue ?
+            $sce.getTrustedHtml(ngModel.$viewValue) : '';
+
+          // instance.getDoc() check is a guard against null value
+          // when destruction & recreation of instances happen
+          if (tinyInstance &&
+            tinyInstance.getDoc()
+          ) {
+            tinyInstance.setContent(viewValue);
+            // Triggering change event due to TinyMCE not firing event &
+            // becoming out of sync for change callbacks
+            tinyInstance.fire('change');
+          }
+        };
+
+        attrs.$observe('disabled', toggleDisable);
+
+        // This block is because of TinyMCE not playing well with removal and
+        // recreation of instances, requiring instances to have different
+        // selectors in order to render new instances properly
+        scope.$on('$tinymce:refresh', function(e, id) {
+          var eid = attrs.id;
+          if (angular.isUndefined(id) || id === eid) {
+            var parentElement = element.parent();
+            var clonedElement = element.clone();
+            clonedElement.removeAttr('id');
+            clonedElement.removeAttr('style');
+            clonedElement.removeAttr('aria-hidden');
+            tinymce.execCommand('mceRemoveEditor', false, eid);
+            parentElement.append($compile(clonedElement)(scope));
+          }
+        });
+
+        scope.$on('$destroy', function() {
+          ensureInstance();
+
+          if (tinyInstance) {
+            tinyInstance.remove();
+            tinyInstance = null;
+          }
+        });
+
+        function ensureInstance() {
+          if (!tinyInstance) {
+            tinyInstance = tinymce.get(attrs.id);
+          }
+        }
+      }
+    };
+  }]);
+  
+  
+  })();(function(){
+"use strict";
+
+angular.module('EspaceNutrition').factory('ArticleFactory',['$http', function($http) {
+
+    return {
+        list: function(success, error) {
+            $http.get('/api/articles').success(success).error(error);
+        },
+		listCategories: function(success, error) {
+            $http.get('/api/categories').success(success).error(error);
+        },
+        supprimer: function(id, success, error) {
+			$http({
+				method: 'DELETE', 
+				url: '/api/articles/' + id
+			}).success(success).error(error);			
+		},
+		get: function(id, success, error) {
+			$http.get('/api/articles/' + id).success(success).error(error);
+		},
+		put: function(objet, success, error) {
+			$http.put('/api/articles', objet).success(success).error(error);
+		},
+		post: function(objet, success, error) {
+			$http.post('/api/articles', objet).success(success).error(error);
 		}
     };
 }]);
@@ -1017,11 +1483,11 @@ $('.navbar-collapse ul li a').click(function() {
 	/* Element pour paypal
 	*/
 	exports.paypal = {};
-	exports.paypal.business="admin@espace-nutrition.fr";
-	exports.paypal.urlReturn="http://espace-nutrition.fr/paiementSuccess";
-	exports.paypal.urlCancel="http://espace-nutrition.fr";
-	exports.paypal.urlNotify="http://espace-nutrition.fr/api/notifyPaiement";
-	exports.paypal.sandbox=true;
+	exports.paypal.business="angelique.guehl@espace-nutrition.fr";
+	exports.paypal.urlReturn="http://www.espace-nutrition.fr/paiementSuccess";
+	exports.paypal.urlCancel="http://www.espace-nutrition.fr";
+	exports.paypal.urlNotify="http://www.espace-nutrition.fr/api/notifyPaiement";
+	exports.paypal.sandbox=false;
 	/* Informations sur les produits
 	*/
 	exports.item = {};

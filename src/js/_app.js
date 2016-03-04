@@ -108,6 +108,13 @@ angular.module('EspaceNutrition', ['ngRoute','underscore'])
 			action : 		'modifMonRepas',
             access:         access.user
         });
+	$routeProvider.when('/articles',
+        {
+            templateUrl:    '/partials/admin/articles.php',
+            controller:     'ArticleCtrl',
+			action : 		'listArticles',
+            access:         access.admin
+        });	
     $routeProvider.when('/404',
         {
             templateUrl:    '/partials/404.html',

@@ -594,11 +594,11 @@ class UserModel extends AbstractModel {
 					$this->setError(mysqli_error($this->dblink));
 					$result=false;
 				}else{
-
+					
 					$num_rows = mysqli_num_rows($mysql_result);
 					if ($num_rows==1){
 						$row = mysqli_fetch_assoc($mysql_result);
-
+						
 						$payload = array(
 							"email" => $this->getEmail(),
 							"role" => $row['role'],
@@ -607,9 +607,8 @@ class UserModel extends AbstractModel {
 							"iat" => time(),
 							"exp" => time()+3600
 						);
-
+						
 						$encoded = JWT::encode($payload, $this->ini_array['JWT']['privatekey'],'RS256');
-
 						$result = array('value' => $encoded);
 					}else{
 						$this->setError("Identification impossible");
