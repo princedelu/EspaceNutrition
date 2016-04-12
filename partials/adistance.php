@@ -85,7 +85,7 @@
 				    </div>
 				    <div class="panel-body text-center">
 				        <p class="lead">
-				            <strong>40€</strong>
+				            <strong>50€</strong>
 				        </p>
 				    </div>
 				    <ul class="list-group list-group-flush text-center">
@@ -107,16 +107,16 @@
 			<div class="col-md-3">
 				<div class="panel panel-primary">
 				    <div class="panel-heading">
-				        <h4 class="text-center">Forfait 3 suivis</h4>
+				        <h4 class="text-center">Forfait bilan + 3 suivis</h4>
 				    </div>
 				    <div class="panel-body text-center">
 				        <p class="lead">
-				            <strong>115€</strong>
+				            <strong>205€</strong>
 				        </p>
 				    </div>
 				    <ul class="list-group list-group-flush text-center">
 				        <li class="list-group-item">
-				            3 consultations de 30 minutes<br/>&nbsp;
+				            1 bilan + 3 consultations de 30 minutes&nbsp;
 				        </li>
 				        <li class="list-group-item">
 				            Fréquence au choix <br/>(rendez-vous hebdomadaire, bi-mensuel ou mensuel)
@@ -137,12 +137,12 @@
 				    </div>
 				    <div class="panel-body text-center">
 				        <p class="lead">
-				            <strong>250€</strong>
+				            <strong>300€</strong>
 				        </p>
 				    </div>
 				    <ul class="list-group list-group-flush text-center">
 				        <li class="list-group-item">
-				            1 bilan nutritionnel + 5 consultations de suivi
+				            1 bilan nutritionnel + 5 consultations de 30 minutes
 				        </li>
 				        <li class="list-group-item">
 				            Fréquence au choix <br/>(rendez-vous hebdomadaire, bi-mensuel ou mensuel)

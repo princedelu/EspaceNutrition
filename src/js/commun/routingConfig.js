@@ -54,13 +54,13 @@
 	exports.item[1].amount="60";
 	exports.item[2] = {};
 	exports.item[2].libelle="EspaceNutrition - Consultation de suivi";
-	exports.item[2].amount="40";
+	exports.item[2].amount="50";
 	exports.item[3] = {};
-	exports.item[3].libelle="EspaceNutrition - Forfait 3 suivis";
-	exports.item[3].amount="115";
+	exports.item[3].libelle="EspaceNutrition - Forfait bilan + 3 suivis";
+	exports.item[3].amount="205";
 	exports.item[4] = {};
 	exports.item[4].libelle="EspaceNutrition - Forfait bilan + 5 suivis";
-	exports.item[4].amount="250";
+	exports.item[4].amount="300";
 	
 
     /*
