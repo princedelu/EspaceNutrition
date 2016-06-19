@@ -72,6 +72,9 @@ angular.module('EspaceNutrition')
 		
 		var plugins = {plugins : 'advlist autolink lists link image charmap print preview hr anchor pagebreak searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking save table contextmenu directionality emoticons template paste textcolor colorpicker textpattern imagetools'};
 
+		var toolbar1= { toolbar1 : 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image'};
+		var toolbar2= { toolbar2 : 'forecolor backcolor emoticons'};
+		
         var setupOptions = {
           // Update model when calling setContent
           // (such as from the source editor popup)
@@ -115,7 +118,7 @@ angular.module('EspaceNutrition')
         };
         // extend options with initial uiTinymceConfig and
         // options from directive attribute value
-        angular.extend(options, uiTinymceConfig, expression, setupOptions,plugins);
+        angular.extend(options, uiTinymceConfig, expression, setupOptions,plugins,toolbar1,toolbar2);
         // Wrapped in $timeout due to $tinymce:refresh implementation, requires
         // element to be present in DOM before instantiating editor when
         // re-rendering directive

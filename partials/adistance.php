@@ -16,6 +16,7 @@
 							<li> - une perte de poids durable et sans frustration</li>
 							<li> - un rééquilibrage alimentaire</li>
 							<li> - un programme de prise de masse ou programme de sèche</li>
+							<li>&nbsp;</li>
 						  </ul>
 				    </div>
 				    <!-- end: -->
@@ -51,113 +52,131 @@
 				    <!-- end: -->
 				</div>
                 <br/>
-		<div class="row" >
+				<div class="row" >
                     <div class="col-md-3">
-				<div class="panel panel-primary">
-				    <div class="panel-heading">
-				        <h4 class="text-center">Bilan nutritionnel</h4>
-				    </div>
-				    <div class="panel-body text-center">
-				        <p class="lead">
-				            <strong>60€</strong>
-				        </p>
-				    </div>
-				    <ul class="list-group list-group-flush text-center">
-				        <li class="list-group-item">
-				            1 bilan nutritionnel personnalisé<br/>&nbsp;
-				        </li>
-				        <li class="list-group-item">
-				            Durée d'une heure par téléphone<br/>&nbsp;
-				        </li>
-				        <li class="list-group-item">
-				            Compte rendu envoyé sous 48 heures
-				        </li>
-				    </ul>
-				    <div class="panel-footer">
-				        <a class="btn btn-lg btn-block btn-primary" ng-click="affichePopupPaiement(1)">Commander via paypal</a>
-				    </div>
-				</div>
-			</div>
-			<div class="col-md-3">
-				<div class="panel panel-primary">
-				    <div class="panel-heading">
-				        <h4 class="text-center">Consultation de suivi</h4>
-				    </div>
-				    <div class="panel-body text-center">
-				        <p class="lead">
-				            <strong>50€</strong>
-				        </p>
-				    </div>
-				    <ul class="list-group list-group-flush text-center">
-				        <li class="list-group-item">
-				            Durée de 30 minutes par téléphone<br/>&nbsp;
-				        </li>
-				        <li class="list-group-item">
-				            Conseils et motivations<br/>&nbsp;
-				        </li>
-				        <li class="list-group-item">
-				            Réponses à vos questions<br/>&nbsp;
-				        </li>
-				    </ul>
-				    <div class="panel-footer">
-				        <a class="btn btn-lg btn-block btn-primary" ng-click="affichePopupPaiement(2)">Commander via paypal</a>
-				    </div>
-				</div>
-			</div>
-			<div class="col-md-3">
-				<div class="panel panel-primary">
-				    <div class="panel-heading">
-				        <h4 class="text-center">Forfait bilan + 3 suivis</h4>
-				    </div>
-				    <div class="panel-body text-center">
-				        <p class="lead">
-				            <strong>205€</strong>
-				        </p>
-				    </div>
-				    <ul class="list-group list-group-flush text-center">
-				        <li class="list-group-item">
-				            1 bilan + 3 consultations de 30 minutes&nbsp;
-				        </li>
-				        <li class="list-group-item">
-				            Fréquence au choix <br/>(rendez-vous hebdomadaire, bi-mensuel ou mensuel)
-				        </li>
-				        <li class="list-group-item">
-				            Valable 6 mois
-				        </li>
-				    </ul>
-				    <div class="panel-footer">
-				        <a class="btn btn-lg btn-block btn-primary" ng-click="affichePopupPaiement(3)">Commander via paypal</a>
-				    </div>
-				</div>
-			</div>
-			<div class="col-md-3">
-				<div class="panel panel-primary">
-				    <div class="panel-heading">
-				        <h4 class="text-center">Forfait bilan + 5 suivis</h4>
-				    </div>
-				    <div class="panel-body text-center">
-				        <p class="lead">
-				            <strong>300€</strong>
-				        </p>
-				    </div>
-				    <ul class="list-group list-group-flush text-center">
-				        <li class="list-group-item">
-				            1 bilan nutritionnel + 5 consultations de 30 minutes
-				        </li>
-				        <li class="list-group-item">
-				            Fréquence au choix <br/>(rendez-vous hebdomadaire, bi-mensuel ou mensuel)
-				        </li>
-				        <li class="list-group-item">
-				            Valable 1 an
-				        </li>
-				    </ul>
-				    <div class="panel-footer">
-				        <a class="btn btn-lg btn-block btn-primary" ng-click="affichePopupPaiement(4)">Commander via paypal</a>
-				    </div>
-				</div>
-			</div>
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								<h4 class="text-center">Bilan nutritionnel</h4>
+							</div>
+							<div class="panel-body text-center">
+								<p class="lead">
+									<strong>60€</strong>
+								</p>
+							</div>
+							<ul class="list-group list-group-flush text-center">
+								<li class="list-group-item">
+									1 bilan nutritionnel personnalisé<br/>&nbsp;
+								</li>
+								<li class="list-group-item">
+									Durée d'une heure par téléphone<br/>&nbsp;
+								</li>
+								<li class="list-group-item">
+									Compte rendu envoyé sous 48 heures
+								</li>
+							</ul>
+							<div class="panel-footer">
+								<a class="btn btn-lg btn-block btn-primary" ng-click="affichePopupPaiement(1)">Commander via paypal</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								<h4 class="text-center">Consultation de suivi</h4>
+							</div>
+							<div class="panel-body text-center">
+								<p class="lead">
+									<strong>50€</strong>
+								</p>
+							</div>
+							<ul class="list-group list-group-flush text-center">
+								<li class="list-group-item">
+									Durée de 1 heure par téléphone<br/>&nbsp;
+								</li>
+								<li class="list-group-item">
+									Conseils et motivations<br/>&nbsp;
+								</li>
+								<li class="list-group-item">
+									Réponses à vos questions<br/>&nbsp;
+								</li>
+							</ul>
+							<div class="panel-footer">
+								<a class="btn btn-lg btn-block btn-primary" ng-click="affichePopupPaiement(2)">Commander via paypal</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								<h4 class="text-center">Forfait bilan + 3 suivis</h4>
+							</div>
+							<div class="panel-body text-center">
+								<p class="lead">
+									<strong>205€</strong>
+								</p>
+							</div>
+							<ul class="list-group list-group-flush text-center">
+								<li class="list-group-item">
+									1 bilan + 3 consultations de 1 heure<br/>&nbsp;
+								</li>
+								<li class="list-group-item">
+									Fréquence au choix <br/>(rendez-vous hebdomadaire, bi-mensuel ou mensuel)
+								</li>
+								<li class="list-group-item">
+									Valable 6 mois
+								</li>
+							</ul>
+							<div class="panel-footer">
+								<a class="btn btn-lg btn-block btn-primary" ng-click="affichePopupPaiement(3)">Commander via paypal</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								<h4 class="text-center">Forfait bilan + 5 suivis</h4>
+							</div>
+							<div class="panel-body text-center">
+								<p class="lead">
+									<strong>300€</strong>
+								</p>
+							</div>
+							<ul class="list-group list-group-flush text-center">
+								<li class="list-group-item">
+									1 bilan nutritionnel + 5 consultations de 1 heure
+								</li>
+								<li class="list-group-item">
+									Fréquence au choix <br/>(rendez-vous hebdomadaire, bi-mensuel ou mensuel)
+								</li>
+								<li class="list-group-item">
+									Valable 1 an
+								</li>
+							</ul>
+							<div class="panel-footer">
+								<a class="btn btn-lg btn-block btn-primary" ng-click="affichePopupPaiement(4)">Commander via paypal</a>
+							</div>
+						</div>
+					</div>
                 </div>
-
+				<br/>
+				<div class="row">
+		            <!-- item -->
+				    <div class="col-md-12 text-center tileBox">
+				       <div class="txtHead"> <i class="fa fa-list-alt"></i>
+				        <h3>Conditions de vente</h3></div>
+						<ul class="list-unstyled text-left">
+				        	<li> - Les RDV non reportés au minimum 24h à l'avance sont facturés ou décomptés du forfait.</li> 
+							<li> - Les forfaits sont valables un an, sont nominatifs et non remboursables.</li> 
+							<li> - Paiements acceptés : chèques et espèces et virement bancaire.</li> 
+							<li> - Paiement en plusieurs fois possible pour les forfaits.</li> 
+							<li> - Les consultations en ligne payées à l’avance par Paypal, virement bancaire ou chèque ne sont pas remboursables.</li> 
+							<li> - La CPAM ne prend pas en charge les consultations.</li> 
+							<li> - Contactez votre complémentaire santé, la plupart d’entre-elles proposent un remboursement du suivi diététique.</li>
+						  </ul>
+				    </div>
+				    <!-- end: -->
+				</div>
+                
             </div>
         </section>
 
