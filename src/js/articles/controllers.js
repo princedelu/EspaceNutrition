@@ -24,8 +24,14 @@ angular.module('EspaceNutrition')
         ArticleFactory.list( 
             function (res) {
                 $scope.loading = false;
+				
                 var data = $.map(res.result, function(el, i) {
-                  return [[el.id,el.titre, el.auteur, el.date,el.libelle_long,""]];
+					var categories_libelle = "";
+					_.each(el.categories,function(categorie){
+						categories_libelle = categories_libelle + categorie.libelle_long + "<br/>";
+					});
+					categories_libelle=categories_libelle.substring(0,categories_libelle.length-5);
+					return [[el.id,el.titre, el.auteur, el.date,categories_libelle,""]];
                 });
                 var table = $("#articles").dataTable({
                     "aaData": data,
@@ -127,7 +133,20 @@ angular.module('EspaceNutrition')
 				$scope.partie1 = res.partie1;
 				$scope.partie2 = res.partie2;
 				$scope.date = res.date;
-				$scope.id_categorie = res.id_categorie;
+				
+				var availablesOptions = [];
+				var categorieOptions = {};
+				_.each($scope.categories,function(categorieOptions){
+					availablesOptions.push({value:categorieOptions.id,name:categorieOptions.libelle_long});
+				});
+				var selectedsOptions = [];
+				_.each(res.categories,function(categorieOptions){
+					selectedsOptions.push({value:categorieOptions.id,name:categorieOptions.libelle_long});
+				});
+				$scope.categories_options = {
+					availableOptions: availablesOptions,
+					selectedOption: selectedsOptions //This sets the default value of the select in the ui
+				};
 				$scope.formArticle = true;
 			},
 			function (err) {
@@ -146,7 +165,18 @@ angular.module('EspaceNutrition')
 		$scope.partie1 = "";
 		$scope.partie2 = "";
 		$scope.date = "";
-		$scope.id_categorie = "";
+		
+		var availablesOptions = [];
+		var categorieOptions = {};
+		_.each($scope.categories,function(categorieOptions){
+			availablesOptions.push({value:categorieOptions.id,name:categorieOptions.libelle_long});
+		});
+		var selectedsOptions = [];
+		
+		$scope.categories_options = {
+			availableOptions: availablesOptions,
+			selectedOption: selectedsOptions //This sets the default value of the select in the ui
+		};
 
 		$scope.formArticle = true;
 		
@@ -168,7 +198,7 @@ angular.module('EspaceNutrition')
 		objetValue.partie1=$scope.partie1;
 		objetValue.partie2=$scope.partie2;
 		objetValue.date=$scope.date;
-		objetValue.id_categorie=$scope.id_categorie.id;
+		objetValue.categories=$scope.categories_options.selectedOption;
 
 		if ($scope.id === ""){
 			ArticleFactory.put(objetValue,

@@ -10,7 +10,8 @@ class ArticleModel extends AbstractModel {
 	protected $_partie1;
 	protected $_partie2;
 	protected $_date;
-	protected $_idCategory;
+	protected $_idCategorie;
+	protected $_idCategories;
 
 	protected $_indexMinDem;
 	protected $_indexMaxDem;
@@ -18,6 +19,7 @@ class ArticleModel extends AbstractModel {
 	protected $_indexMin;
 	protected $_indexMax;
 	protected $_nbArticlesParPage;
+	protected $_recherche;
 
     public function __construct()
     {
@@ -107,6 +109,17 @@ class ArticleModel extends AbstractModel {
     {
         return $this->_idCategorie;
     }
+	
+	public function setIdCategories($_idCategories)
+    {
+        $this->_idCategories = $_idCategories;
+        return $this;
+    }
+
+    public function getIdCategories()
+    {
+        return $this->_idCategories;
+    }
 
 	public function setNbArticles($_nbArticles)
     {
@@ -174,7 +187,16 @@ class ArticleModel extends AbstractModel {
         return $this->_indexMaxDem;
     }
 
-
+	public function setRecherche($_recherche)
+	{
+        $this->_recherche = $_recherche;
+        return $this;
+    }
+	
+	public function getRecherche()
+    {
+        return $this->_recherche;
+    }
 	
 	/****************************************************************
 	Fonctions 
@@ -184,14 +206,23 @@ class ArticleModel extends AbstractModel {
 	public function fetchAll(){
 		$result = array();
 		$contenu = array();
-
+		$queryRecherche="";
+		
 		try{
 			$this->openConnectionDatabase();
 			// Exécution des requêtes SQL
+			$query=sprintf("SELECT count(*) as total FROM articles a");
+			
 			if ($this->getIdCategorie()!== null){
-				$query=sprintf("SELECT count(*) as total FROM articles where id_categorie=%d",mysqli_real_escape_string($this->dblink,$this->getIdCategorie()));
+				if ($this->getRecherche()!== null){
+					$queryRecherche=sprintf("and a.titre like \"%%%s%%\" ",mysqli_real_escape_string($this->dblink,$this->getRecherche()));
+				}
+				$query=sprintf("%s,article_categorie ac where ac.id_article=a.id and ac.id_categorie=%d %s",$query,mysqli_real_escape_string($this->dblink,$this->getIdCategorie()),$queryRecherche);
 			}else{
-				$query=sprintf("SELECT count(*) as total FROM articles");
+				if ($this->getRecherche()!== null){
+					$queryRecherche=sprintf("where a.titre like \"%%%s%%\" ",mysqli_real_escape_string($this->dblink,$this->getRecherche()));
+				}
+				$query=sprintf("%s %s",$query,$queryRecherche);
 			}
  
 			$mysql_result = mysqli_query($this->dblink,$query);
@@ -211,14 +242,24 @@ class ArticleModel extends AbstractModel {
 					$premiereEntree=$this->getIndexMinDem(); // On calcul la première entrée à lire
 					$this->setIndexMin($premiereEntree);				
 					
+					$queryRecherche="";
+					$query1=sprintf("SELECT a.id, a.titre, a.partie1, a.auteur, a.date FROM articles a");
+					
 					if ($this->getIdCategorie()!== null){
-						$query2=sprintf(" and a.id_categorie=%d",mysqli_real_escape_string($this->dblink,$this->getIdCategorie()));
+						if ($this->getRecherche()!== null){
+							$queryRecherche=sprintf("and a.titre like \"%%%s%%\" ",mysqli_real_escape_string($this->dblink,$this->getRecherche()));	
+						}
+						$query2=sprintf(", article_categorie ac where ac.id_article=a.id and ac.id_categorie=%d %s",mysqli_real_escape_string($this->dblink,$this->getIdCategorie()),$queryRecherche);
+						
 					}else{
 						$query2="";
+						if ($this->getRecherche()!== null){
+							$query2=sprintf("where a.titre like \"%%%s%%\" ",mysqli_real_escape_string($this->dblink,$this->getRecherche()));
+						}
 					}
 
-					$query1=sprintf("SELECT a.id, a.titre, a.partie1,a.partie1, a.auteur, a.date, c.libelle,c1.libelle as libelle_long FROM articles AS a, categories AS c left join categories as c1 on c.id_parent = c1.id WHERE a.id_categorie = c.id".$query2." ORDER BY a.date DESC LIMIT ".strval($premiereEntree).", ".strval($this->getIndexMaxDem()-$this->getIndexMinDem()+1));
-	 
+					$query1=sprintf("%s %s ORDER BY a.date DESC LIMIT %d, %d",$query1,$query2,strval($premiereEntree),strval($this->getIndexMaxDem()-$this->getIndexMinDem()+1));
+					
 					$mysql_result1 = mysqli_query($this->dblink,$query1);
 					$num_rows = mysqli_num_rows($mysql_result1);
 
@@ -228,11 +269,9 @@ class ArticleModel extends AbstractModel {
 					if ($num_rows!=0){
 						while ($row = mysqli_fetch_assoc($mysql_result1)) {
 							$row['date'] = implode('-', array_reverse(explode('-', $row['date'])));
-							if ($row['libelle_long']==null){
-								$row['libelle_long']=$row['libelle'];
-							}else{
-								$row['libelle_long']=$row['libelle_long']." - ".$row['libelle'];
-							}
+							
+							$row['categories']=$this->getCategoriesByArticle($row['id']);
+							
 							array_push($contenu,$row);
 						}
 						mysqli_free_result($mysql_result1);
@@ -324,7 +363,7 @@ class ArticleModel extends AbstractModel {
 			$this->openConnectionDatabase();
 
 			// Exécution des requêtes SQL
-			$query=sprintf("SELECT a.id,a.titre,a.partie1,a.partie2, a.auteur,a.date, a.id_categorie,c.libelle,c1.libelle as libelle_long FROM articles as a, categories as c left join categories as c1 on c.id_parent = c1.id where a.id_categorie=c.id and a.id=%d",mysqli_real_escape_string($this->dblink,$this->getId()));
+			$query=sprintf("SELECT a.id,a.titre,a.partie1,a.partie2, a.auteur,a.date FROM articles as a where a.id=%d",mysqli_real_escape_string($this->dblink,$this->getId()));
  
 			$mysql_result = mysqli_query($this->dblink,$query);
 			if (!$mysql_result){
@@ -335,11 +374,9 @@ class ArticleModel extends AbstractModel {
 				if ($num_rows==1){
 					$row = mysqli_fetch_assoc($mysql_result);
 					$row['date'] = implode('-', array_reverse(explode('-', $row['date'])));
-					if ($row['libelle_long']==null){
-						$row['libelle_long']=$row['libelle'];
-					}else{
-						$row['libelle_long']=$row['libelle_long']." - ".$row['libelle'];
-					}
+					
+					$row['categories']=$this->getCategoriesByArticle($row['id']);
+					
 					$result = $row;
 				}else{
 					if ($num_rows==0){
@@ -361,8 +398,46 @@ class ArticleModel extends AbstractModel {
 		return $result;
 
 	}
+	
+	private function getCategoriesByArticle($_id_article){
+		$result = array();
+		try{
+			// Récupération des catégories
+			$query=sprintf("SELECT c.id, c.libelle, c1.libelle as libelle_parent FROM article_categorie as ac, categories c left outer join categories c1 on c.id_parent=c1.id where c.id=ac.id_categorie and ac.id_article=%d",mysqli_real_escape_string($this->dblink,$_id_article));
+			$mysql_result = mysqli_query($this->dblink,$query);
+			
+			if (!$mysql_result){
+				$this->setError(mysqli_error($this->dblink));
+				$result=false;
+			}else{
+				$num_rows = mysqli_num_rows($mysql_result);
+				$array_categories = array();
+				if ($num_rows!=0){
+					while ($row = mysqli_fetch_assoc($mysql_result)) {
+						$array_categorie = array();
+						$array_categorie['id']=$row['id'];
+						$array_categorie['libelle']=$row['libelle'];
+						if ($row['libelle_parent']==null){
+							$array_categorie['libelle_long']=$row['libelle'];
+						}else{
+							$array_categorie['libelle_long']=$row['libelle_parent']." - ".$row['libelle'];
+						}
+						array_push($array_categories,$array_categorie);
+					}
+				}
+				$result=$array_categories;
+			}
+		}
+		catch(Exception $e)
+		{
+			$this->setError($e->getMessage());
+		}
+		mysqli_free_result($mysql_result);
+		return $result;
+	}
+	
 	public function update(){
-		$result=false;
+		$result=true;
         if ($this->getId()) {
 
             if ($this->fetchOne()) {
@@ -372,7 +447,7 @@ class ArticleModel extends AbstractModel {
 					
 					// Exécution des requêtes SQL
 
-					$query=sprintf("UPDATE articles SET ",mysqli_real_escape_string($this->dblink,$this->getId()));
+					$query=sprintf("UPDATE articles SET ");
 
 					$query=$query.sprintf("titre='%s'",mysqli_real_escape_string($this->dblink,$this->getTitre()));
 					
@@ -388,24 +463,37 @@ class ArticleModel extends AbstractModel {
 					if ($this->getPartie2() != ''){
 						$query=$query.sprintf(" ,partie2='%s'",mysqli_real_escape_string($this->dblink,$this->getPartie2()));
 					}
-					if ($this->getIdCategorie() != ''){
-						$query=$query.sprintf(" ,id_categorie=%d",mysqli_real_escape_string($this->dblink,$this->getIdCategorie()));
-					}
 					$query=$query.sprintf(" where id=%d",mysqli_real_escape_string($this->dblink,$this->getId()));
-
 
 					$mysql_result = mysqli_query($this->dblink,$query);
 					if (!$mysql_result){
 						$this->setError(mysqli_error($this->dblink));
 						$result=false;
 					}else{
-						$result = true;
+						$query1=sprintf("DELETE FROM article_categorie WHERE id_article=%d ",mysqli_real_escape_string($this->dblink,$this->getId()));
+						$mysql_result1 = mysqli_query($this->dblink,$query1);
+						if (!$mysql_result1){
+							$this->setError(mysqli_error($this->dblink));
+							$result=false;
+						}else{
+							foreach ($this->getIdCategories() as $cle => $valeurIdCategorieCourante) {	
+								$query2=sprintf("insert into article_categorie (id_article,id_categorie) values (%d,%d) ",mysqli_real_escape_string($this->dblink,$this->getId()),mysqli_real_escape_string($this->dblink,$valeurIdCategorieCourante));
+								$mysql_result2 = mysqli_query($this->dblink,$query2);
+								if (!$mysql_result2){
+									$this->setError(mysqli_error($this->dblink));
+									$result=$result and false;
+								}else{
+									$result = $result and true;
+								}
+							}
+						}
 					}
 					
 				}catch(Exception $e)
 				{
 					$this->setError($e->getMessage());
-				} 
+				}
+				
 				$this->closeConnectionDatabase();
  
             }
@@ -418,29 +506,40 @@ class ArticleModel extends AbstractModel {
             $this->setError('Champ id manquant');
             $result=false;
         }
+		
 		return $result; 
 	}
 	
 	public function create(){
-		$result = false;
+		$result = true;
         try{
 			$this->openConnectionDatabase();
 			
 			// Exécution des requêtes SQL
-			$query=sprintf("INSERT INTO articles (TITRE, AUTEUR, PARTIE1, PARTIE2, DATE, ID_CATEGORIE) values ('%s','%s','%s','%s',NOW(),%d)",mysqli_real_escape_string($this->dblink,$this->getTitre()),mysqli_real_escape_string($this->dblink,$this->getAuteur()),mysqli_real_escape_string($this->dblink,$this->getPartie1()),mysqli_real_escape_string($this->dblink,$this->getPartie2()),mysqli_real_escape_string($this->dblink,$this->getIdCategorie()));
+			$query=sprintf("INSERT INTO articles (TITRE, AUTEUR, PARTIE1, PARTIE2, DATE) values ('%s','%s','%s','%s',NOW())",mysqli_real_escape_string($this->dblink,$this->getTitre()),mysqli_real_escape_string($this->dblink,$this->getAuteur()),mysqli_real_escape_string($this->dblink,$this->getPartie1()),mysqli_real_escape_string($this->dblink,$this->getPartie2()));
  
 			$mysql_result = mysqli_query($this->dblink,$query);
 			if (!$mysql_result){
 				$this->setError($query);
 				$result=false;
 			}else{
-				$result = true;
+				$this->setId(mysqli_insert_id($this->dblink));
+				foreach ($this->getIdCategories() as $cle => $valeurIdCategorieCourante) {	
+					$query2=sprintf("insert into article_categorie (id_article,id_categorie) values (%d,%d) ",mysqli_real_escape_string($this->dblink,$this->getId()),mysqli_real_escape_string($this->dblink,$valeurIdCategorieCourante));
+					$mysql_result2 = mysqli_query($this->dblink,$query2);
+					if (!$mysql_result2){
+						$this->setError(mysqli_error($this->dblink));
+						$result=$result and false;
+					}else{
+						$result = $result and true;
+					}
+				}
 			}  
 		}catch(Exception $e)
 		{
 			$this->setError($e);
 		} 
-	
+		
 		$this->closeConnectionDatabase();
    
 		return $result; 
@@ -458,7 +557,6 @@ class ArticleModel extends AbstractModel {
                 try{
 					$this->openConnectionDatabase();
 
-                    
 					// Exécution des requêtes SQL
 					$query=sprintf("DELETE FROM articles where id=%d",mysqli_real_escape_string($this->dblink,$this->getId()));
 		 
@@ -467,13 +565,22 @@ class ArticleModel extends AbstractModel {
 						$this->setError(mysqli_error($this->dblink));
 						$result=false;
 					}else{
-						$result = true;
+						$query1=sprintf("DELETE FROM article_categorie WHERE id_article=%d ",mysqli_real_escape_string($this->dblink,$this->getId()));
+						$mysql_result1 = mysqli_query($this->dblink,$query1);
+						if (!$mysql_result1){
+							$this->setError(mysqli_error($this->dblink));
+							$result=false;
+						}else{
+							$result = true;
+						}
 					}
                     
 				}catch(Exception $e)
 				{
 					$this->setError($e->getMessage());
 				} 
+				mysqli_free_result($mysql_result);
+				mysqli_free_result($mysql_result1);
 				$this->closeConnectionDatabase();
             }
             else {

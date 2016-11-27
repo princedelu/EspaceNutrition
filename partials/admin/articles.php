@@ -38,7 +38,7 @@
 					</div><!-- /.box -->
 				</div>
 			</div>
-			<div class="row" ng-show="formArticle">
+			<div id="articleForm" class="row" ng-show="formArticle">
 				<form name="articleForm" ng-submit='add()'>
 					<div class="modal-header">
 						<h4 class="modal-title" id="myModalLabel" ng-hide="id">Ajout d'un article</h4>
@@ -88,9 +88,9 @@
 							</ng-form>
 						</div>
 						<div class="form-group">
-							<label for="categorie">Catégorie</label>
+							<label for="categorie">Catégories</label>
 							<ng-form name="subForm6" ng-class="{ 'has-error' : subForm6.$invalid && !subForm6.$pristine }">
-								<select class="form-control" data-ng-model="id_categorie" data-ng-options="categorie.libelle_long for categorie in categories" id="categorieArticle" data-ng-required="true"></select>
+								<select multiple class="form-control" data-ng-model="categories_options.selectedOption" data-ng-options="option.name for option in categories_options.availableOptions track by option.value" id="categorieArticle" data-ng-required="true"></select>
 								<div ng-show="subForm6.$dirty && subForm6.$invalid">
 									<span class="help-block" ng-show="subForm6.$error.required"> Catégorie obligatoire</span>
 								</div>

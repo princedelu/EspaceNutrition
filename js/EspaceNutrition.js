@@ -552,8 +552,14 @@ angular.module('EspaceNutrition')
         ArticleFactory.list( 
             function (res) {
                 $scope.loading = false;
+				
                 var data = $.map(res.result, function(el, i) {
-                  return [[el.id,el.titre, el.auteur, el.date,el.libelle_long,""]];
+					var categories_libelle = "";
+					_.each(el.categories,function(categorie){
+						categories_libelle = categories_libelle + categorie.libelle_long + "<br/>";
+					});
+					categories_libelle=categories_libelle.substring(0,categories_libelle.length-5);
+					return [[el.id,el.titre, el.auteur, el.date,categories_libelle,""]];
                 });
                 var table = $("#articles").dataTable({
                     "aaData": data,
@@ -655,7 +661,20 @@ angular.module('EspaceNutrition')
 				$scope.partie1 = res.partie1;
 				$scope.partie2 = res.partie2;
 				$scope.date = res.date;
-				$scope.id_categorie = res.id_categorie;
+				
+				var availablesOptions = [];
+				var categorieOptions = {};
+				_.each($scope.categories,function(categorieOptions){
+					availablesOptions.push({value:categorieOptions.id,name:categorieOptions.libelle_long});
+				});
+				var selectedsOptions = [];
+				_.each(res.categories,function(categorieOptions){
+					selectedsOptions.push({value:categorieOptions.id,name:categorieOptions.libelle_long});
+				});
+				$scope.categories_options = {
+					availableOptions: availablesOptions,
+					selectedOption: selectedsOptions //This sets the default value of the select in the ui
+				};
 				$scope.formArticle = true;
 			},
 			function (err) {
@@ -674,7 +693,18 @@ angular.module('EspaceNutrition')
 		$scope.partie1 = "";
 		$scope.partie2 = "";
 		$scope.date = "";
-		$scope.id_categorie = "";
+		
+		var availablesOptions = [];
+		var categorieOptions = {};
+		_.each($scope.categories,function(categorieOptions){
+			availablesOptions.push({value:categorieOptions.id,name:categorieOptions.libelle_long});
+		});
+		var selectedsOptions = [];
+		
+		$scope.categories_options = {
+			availableOptions: availablesOptions,
+			selectedOption: selectedsOptions //This sets the default value of the select in the ui
+		};
 
 		$scope.formArticle = true;
 		
@@ -696,7 +726,7 @@ angular.module('EspaceNutrition')
 		objetValue.partie1=$scope.partie1;
 		objetValue.partie2=$scope.partie2;
 		objetValue.date=$scope.date;
-		objetValue.id_categorie=$scope.id_categorie.id;
+		objetValue.categories=$scope.categories_options.selectedOption;
 
 		if ($scope.id === ""){
 			ArticleFactory.put(objetValue,
@@ -843,7 +873,7 @@ angular.module('EspaceNutrition')
             ed.on('init', function() {
               ngModel.$render();
               ngModel.$setPristine();
-              ngModel.$setUntouched();
+              //ngModel.$setUntouched();
               if (form) {
                 form.$setPristine();
               }
@@ -1474,13 +1504,13 @@ $('.navbar-collapse ul li a').click(function() {
     exports.accessLevels = buildAccessLevels(config.accessLevels, exports.userRoles);
 	exports.publicKey=""+
 "-----BEGIN PUBLIC KEY-----\n"+
-"MIIBITANBgkqhkiG9w0BAQEFAAOCAQ4AMIIBCQKCAQBZQM9sX8M0PBHlNYO5iyHW\n"+
-"/0La4UUIfLh1DlMy1lnyqlfLlRZCsyUkhzRaEAL5xrgo5qJFQvM3+CRYj4haaI4i\n"+
-"GOvGe7CkdBgqGKR8EOtxHKO5lze5h474dcQodKUdK3YRpwu85fqQ8DRunTYt8O59\n"+
-"+eIJhchW0tVP0LdT/x2nT9aFzxQh8g6yHT7ym4t5GrIjsapRsGZU7X0pH585HV2D\n"+
-"/qpgfgnyL3sEHvN9vMRKIz+cj2JsAPu6w5s/j1hDVXvxF+C5tFYrvom9LF8C6cpQ\n"+
-"PHzhI0hKAYEsV5psGqn1j1t7HA2+iSMsdPUEQqgM+IUoLaTGDFpQtgHmYi392UiB\n"+
-"AgMBAAE=\n"+
+"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAj0uWKOlMXWpht6wvASYs\n"+
+"esg+Dl/DuVlHFS/wX+FHS5EmFPh2MB+IsJSlyfk21Ozylpzq10U0omP6ADAMqDmK\n"+
+"5iTTiyvAJkZJBtgpRPaujMtDctjV1O0ViWOe6+uphKRWdg/aMWtPBJXMnw/rDCCp\n"+
+"OQGdkhAkWjUdsHnABZ38EiFlb0PJhp+jgyhrSgYldn8qBDB1X/YRRfy4QyTgmX6O\n"+
+"/fu9Lj8mabZn4K7HNOSDjljTiUycG7VM5hLRKt3CKN/c50JTlJ9wzxLMbW1itm/U\n"+
+"VuvQtvO1611vF9Vuusjy2qKum0IZI80eJbKR19916KBsUXoJnSitMH7cW+K7btiq\n"+
+"5wIDAQAB\n"+
 "-----END PUBLIC KEY-----";
 
 	/* Element pour paypal

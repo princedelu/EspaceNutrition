@@ -29,13 +29,13 @@
     exports.accessLevels = buildAccessLevels(config.accessLevels, exports.userRoles);
 	exports.publicKey=""+
 "-----BEGIN PUBLIC KEY-----\n"+
-"MIIBITANBgkqhkiG9w0BAQEFAAOCAQ4AMIIBCQKCAQBZQM9sX8M0PBHlNYO5iyHW\n"+
-"/0La4UUIfLh1DlMy1lnyqlfLlRZCsyUkhzRaEAL5xrgo5qJFQvM3+CRYj4haaI4i\n"+
-"GOvGe7CkdBgqGKR8EOtxHKO5lze5h474dcQodKUdK3YRpwu85fqQ8DRunTYt8O59\n"+
-"+eIJhchW0tVP0LdT/x2nT9aFzxQh8g6yHT7ym4t5GrIjsapRsGZU7X0pH585HV2D\n"+
-"/qpgfgnyL3sEHvN9vMRKIz+cj2JsAPu6w5s/j1hDVXvxF+C5tFYrvom9LF8C6cpQ\n"+
-"PHzhI0hKAYEsV5psGqn1j1t7HA2+iSMsdPUEQqgM+IUoLaTGDFpQtgHmYi392UiB\n"+
-"AgMBAAE=\n"+
+"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAj0uWKOlMXWpht6wvASYs\n"+
+"esg+Dl/DuVlHFS/wX+FHS5EmFPh2MB+IsJSlyfk21Ozylpzq10U0omP6ADAMqDmK\n"+
+"5iTTiyvAJkZJBtgpRPaujMtDctjV1O0ViWOe6+uphKRWdg/aMWtPBJXMnw/rDCCp\n"+
+"OQGdkhAkWjUdsHnABZ38EiFlb0PJhp+jgyhrSgYldn8qBDB1X/YRRfy4QyTgmX6O\n"+
+"/fu9Lj8mabZn4K7HNOSDjljTiUycG7VM5hLRKt3CKN/c50JTlJ9wzxLMbW1itm/U\n"+
+"VuvQtvO1611vF9Vuusjy2qKum0IZI80eJbKR19916KBsUXoJnSitMH7cW+K7btiq\n"+
+"5wIDAQAB\n"+
 "-----END PUBLIC KEY-----";
 
 	/* Element pour paypal

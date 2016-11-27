@@ -82,7 +82,7 @@ angular.module('EspaceNutrition')
             ed.on('init', function() {
               ngModel.$render();
               ngModel.$setPristine();
-              ngModel.$setUntouched();
+              //ngModel.$setUntouched();
               if (form) {
                 form.$setPristine();
               }

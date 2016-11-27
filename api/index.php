@@ -1345,16 +1345,22 @@ $app->get('/categories', function () use ($app) {
 Ajout articles
 ***********************************************/
 $app->put('/articles', function () use ($app) {
+	
 	$requestJson = json_decode($app->request()->getBody(), true);
     $article = new ArticleModel();
 	
-	if (isset($requestJson['titre']) and isset($requestJson['auteur']) and isset($requestJson['date']) and isset($requestJson['partie1']) and isset($requestJson['partie2']) and isset($requestJson['id_categorie'])){
+	if (isset($requestJson['titre']) and isset($requestJson['auteur']) and isset($requestJson['date']) and isset($requestJson['partie1']) and isset($requestJson['partie2']) and isset($requestJson['categories'])){
 		$article->setTitre($requestJson['titre']);
 		$article->setAuteur($requestJson['auteur']);
 		$article->setDate($requestJson['date']);
 		$article->setPartie1($requestJson['partie1']);
 		$article->setPartie2($requestJson['partie2']);
-		$article->setIdCategorie($requestJson['id_categorie']);
+		// Transformation de l'élément en tableau
+		$tempArray1 = array();
+		foreach ($requestJson['categories'] as $k=>$v){
+			array_push($tempArray1,$v['value']);			
+		}
+		$article->setIdCategories($tempArray1);
 
 		$result = $article->create();
 	}else{
@@ -1395,8 +1401,13 @@ $app->post('/articles', function () use ($app) {
 		if (isset($requestJson['partie2'])){
 			$article->setPartie2($requestJson['partie2']);
 		}
-		if (isset($requestJson['id_categorie'])){
-			$article->setIdCategorie($requestJson['id_categorie']);
+		if (isset($requestJson['categories'])){
+			// Transformation de l'élément en tableau
+			$tempArray1 = array();
+			foreach ($requestJson['categories'] as $k=>$v){
+				array_push($tempArray1,$v['value']);			
+			}
+			$article->setIdCategories($tempArray1);
 		}
 		
 		$result = $article->update();
