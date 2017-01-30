@@ -24,6 +24,9 @@
                         <li class="page-scroll">
                             <a href="#adistance">A distance</a>
                         </li>
+						<li class="page-scroll">
+                            <a href="http://blog.espace-nutrition.fr" target="_blank">Blog</a>
+                        </li>
                         <li class="page-scroll">
                             <a href="#contact">Contact</a>
                         </li>
@@ -54,7 +57,6 @@
                                     <h2>Diététicienne Nutritionniste diplômée</h2>
                                     <h3>Bilan nutritionnel et suivi diététique</h3>
 				    <h3>Coaching bien-être et vie saine</h3>
-                                    <h3>Sur RDV au cabinet à Niort / à distance</h3>
                                     <h4><cite><q>Ce que vous faites aujourd'hui peut améliorer tous vos lendemains</q></cite></h4>
                                 </div>
                             </div>
@@ -92,7 +94,7 @@
                                 <h3>Diététicienne Nutritionniste diplômée</h3>
                             </div>
                             <div class="row">
-                                <div class="col-md-3 col-md-offset-1 col-xs-10 col-xs-offset-1">
+                                <div class="col-md-3 col-md-offset-3 col-xs-10 col-xs-offset-1">
                                     <div class="box">							
                                         <div class="icon">
 								            <div class="image"><i class="fa fa-mobile"></i></div>
@@ -102,19 +104,7 @@
                                         </div>
                                         <div class="space"></div>
                                     </div> 
-                                </div>
-                                <div class="col-md-4 col-md-offset-0 col-xs-10 col-xs-offset-1">
-                                    <div class="box">							
-                                        <div class="icon">
-                                            <div class="image"><i class="fa fa-map-marker"></i></div>
-                                            <div class="infoheader">
-                                                <h3 class="title"><br/><strong><a class="public" href="https://www.google.fr/maps/place/51+Rue+Saint-Jean,+79000+Niort/@46.3235346,-0.4633182,17z/data=!3m1!4b1!4m2!3m1!1s0x4807302d3112d579:0xd051e97ec720f68c" target="_blank">51 rue Saint Jean 79000 Niort</a></strong></h3>
-                                            </div>
-                                        </div>
-                                        <div class="space"></div>
-                                    </div> 
-                                </div>
-                                                     
+                                </div>                    
                                 <div class="col-md-3 col-md-offset-0 col-xs-10 col-xs-offset-1">
                                     <div class="box">							
                                         <div class="icon">
@@ -126,10 +116,10 @@
                                                             <a class="btn-social btn-outline" href="https://plus.google.com/113806184511162758642" target="_blank"><i class="fa fa-fw fa-google-plus"></i></a>
                                                         </li>
                                                         <li>
-                                                            <a class="btn-social btn-outline" href="https://www.facebook.com/Angeliqueguehlespacenutrition" target="_blank"><i class="fa fa-fw fa-facebook"></i></a>
+                                                            <a class="btn-social btn-outline" href="https://www.facebook.com/Angeliqueguehlveggiedieteticienne" target="_blank"><i class="fa fa-fw fa-facebook"></i></a>
                                                         </li>
 														<li>
-                                                            <a class="btn-social btn-outline" href="https://www.instagram.com/dieteticienne_niort/" target="_blank"><i class="fa fa-fw fa-instagram"></i></a>
+                                                            <a class="btn-social btn-outline" href="https://www.instagram.com/veggie_dieteticienne/" target="_blank"><i class="fa fa-fw fa-instagram"></i></a>
                                                         </li>
                                                         <li>
                                                             <a class="btn-social btn-outline" href="mailto:contact@espace-nutrition.fr"><i class="fa fa-fw fa-envelope"></i></a>
@@ -234,7 +224,7 @@
             <div class="footer-above">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-3 col-md-offset-1 col-xs-10 col-xs-offset-1">
+                        <div class="col-md-4 col-md-offset-2 col-xs-10 col-xs-offset-1">
                             <div class="box">							
                                 <div class="icon">
 						            <div class="image"><i class="fa fa-mobile"></i></div>
@@ -245,19 +235,8 @@
                                 <div class="space"></div>
                             </div> 
                         </div>
+                                    
                         <div class="col-md-4 col-md-offset-0 col-xs-10 col-xs-offset-1">
-                            <div class="box">							
-                                <div class="icon">
-                                    <div class="image"><i class="fa fa-map-marker"></i></div>
-                                    <div class="infoheader">
-                                        <h3 class="title"><br/><strong><a class="public" href="https://www.google.fr/maps/place/51+Rue+Saint-Jean,+79000+Niort/@46.3235346,-0.4633182,17z/data=!3m1!4b1!4m2!3m1!1s0x4807302d3112d579:0xd051e97ec720f68c" target="_blank">51 rue Saint Jean 79000 Niort</a></strong></h3>
-                                    </div>
-                                </div>
-                                <div class="space"></div>
-                            </div> 
-                        </div>
-                                             
-                        <div class="col-md-3 col-md-offset-0 col-xs-10 col-xs-offset-1">
                             <div class="box">							
                                 <div class="icon">
                                     <div class="image"><i class="fa fa-globe"></i></div>
@@ -268,10 +247,10 @@
                                                     <a class="btn-social btn-outline" href="https://plus.google.com/113806184511162758642" target="_blank"><i class="fa fa-fw fa-google-plus"></i></a>
                                                 </li>
                                                 <li>
-                                                    <a class="btn-social btn-outline" href="https://www.facebook.com/Angeliqueguehlespacenutrition" target="_blank"><i class="fa fa-fw fa-facebook"></i></a>
+                                                    <a class="btn-social btn-outline" href="https://www.facebook.com/Angeliqueguehlveggiedieteticienne" target="_blank"><i class="fa fa-fw fa-facebook"></i></a>
                                                 </li>
 												<li>
-                                                            <a class="btn-social btn-outline" href="https://www.instagram.com/dieteticienne_niort/" target="_blank"><i class="fa fa-fw fa-instagram"></i></a>
+                                                            <a class="btn-social btn-outline" href="https://www.instagram.com/veggie_dieteticienne/" target="_blank"><i class="fa fa-fw fa-instagram"></i></a>
                                                         </li>
                                                 <li>
                                                     <a class="btn-social btn-outline" href="mailto:contact@espace-nutrition.fr"><i class="fa fa-fw fa-envelope"></i></a>
