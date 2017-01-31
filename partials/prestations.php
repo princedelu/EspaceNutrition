@@ -8,30 +8,8 @@
                     </div>
                 </div>
                 
-                <div class="col-md-6">
-                    <div class="box">							
-                        <div class="icon">
-                            <div class="image"><i class="fa fa-calendar"></i></div>
-                            <div class="info">
-                                <h3 class="title"><br/>Consultation au cabinet à Niort</h3>
-                                <ul class="list-unstyled">
-									<li><i class="fa fa-check"></i> Bilan nutritionnel</li>
-									<li><i class="fa fa-check"></i> Suivi et accompagnement personnalisés</li>
-									<li><i class="fa fa-check"></i> Approche ciblée sur le comportement alimentaire (les émotions et les sensations) couplé à une alimentation variée sans interdit</li>
-									<li><i class="fa fa-check"></i> Travail sur les sensations de faim et de satiété ainsi que les notions de plaisir et d'équilibre</li>
-									<li><i class="fa fa-check"></i> Consultation possible à domicile</li>
-                                </ul>
-                                <div class="more">
-                                    <a href="#prestationModal1" class="prestation-link" data-toggle="modal">
-                                        Plus d'informations <i class="fa fa-angle-double-right"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="space"></div>
-                    </div> 
-                </div>
-                <div class="col-md-6">
+                
+                <div class="col-md-6 ">
                     <div class="box">							
                         <div class="icon">
                             <div class="image"><i class="fa fa-laptop"></i></div>
@@ -45,10 +23,38 @@
 				    <li><i class="fa fa-check"></i> Suivi hebdomadaire et mensuel</li>
                                     <br/>
 				    <br/>
-				    <br/>
                                 </ul>
                                 <div class="more">
                                     <a href="#prestationModal2" class="prestation-link" data-toggle="modal">
+                                        Plus d'informations <i class="fa fa-angle-double-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space"></div>
+                    </div> 
+                </div>
+				
+				<div class="col-md-6">
+                    <div class="box">							
+                        <div class="icon">
+                            <div class="image"><i class="fa fa-group"></i></div>
+                            <div class="info">
+                                <h3 class="title"><br/>Ateliers de groupe</h3>
+                                <ul class="list-unstyled">
+                                    <li><i class="fa fa-check"></i> Interventions tout public autour de la nutrition et de l'alimentation équilibrée</li>
+                                    <ul class="list-unstyled">
+                                        <li>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right"></i> sous forme :</li>
+                                        <ul class="list-unstyled">
+                                            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- d'ateliers</li>
+                                            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- conférences</li>
+                                            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- jeux</li>
+                                        </ul>
+                                        <li>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right"></i> sur divers thèmes (cf. plus d'informations)</li>
+                                    </ul>
+                                </ul>
+                                <div class="more">
+                                    <a href="#prestationModal5" class="prestation-link" data-toggle="modal">
                                         Plus d'informations <i class="fa fa-angle-double-right"></i>
                                     </a>
                                 </div>
@@ -103,35 +109,8 @@
                     </div> 
                 </div>
             
-                <div class="col-md-6">
-                    <div class="box">							
-                        <div class="icon">
-                            <div class="image"><i class="fa fa-group"></i></div>
-                            <div class="info">
-                                <h3 class="title"><br/>Ateliers de groupe</h3>
-                                <ul class="list-unstyled">
-                                    <li><i class="fa fa-check"></i> Interventions tout public autour de la nutrition et de l'alimentation équilibrée</li>
-                                    <ul class="list-unstyled">
-                                        <li>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right"></i> sous forme :</li>
-                                        <ul class="list-unstyled">
-                                            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- d'ateliers</li>
-                                            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- conférences</li>
-                                            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- jeux</li>
-                                        </ul>
-                                        <li>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right"></i> sur divers thèmes (cf. plus d'informations)</li>
-                                    </ul>
-                                </ul>
-                                <div class="more">
-                                    <a href="#prestationModal5" class="prestation-link" data-toggle="modal">
-                                        Plus d'informations <i class="fa fa-angle-double-right"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="space"></div>
-                    </div> 
-                </div>
-            	<div class="col-md-6">
+                
+            	<div class="col-md-6 col-md-offset-3">
                     <div class="box">							
                         <div class="icon">
                             <div class="image"><i class="fa fa-pencil"></i></div>
