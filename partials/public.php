@@ -196,19 +196,6 @@
 									</div>
 								</ng-form>
 							</div>
-							<div class="form-group">
-								<label for="controle" class="labelMandatory">Champ de contrôle anti spam</label>
-								<ng-form name="subForm5" ng-class="{ 'has-error' : subForm5.$invalid && !subForm5.$pristine }">
-									
-									<div name="sliderControl" slider class="slider" min="0" max="100" step="1">
-									  <span></span>
-									</div>
-
-									<div ng-show="subForm5.$dirty && subForm5.$invalid">
-										<span class="help-block" ng-show="subForm5.$error"> La valeur actuelle est : {{sliderValue}}<br/>Merci de sélectionner la valeur {{initValueWait}} </span>
-									</div>
-								</ng-form>
-							</div>
 							<input type="hidden" data-ng-model="champControl" id='champControl' name="champControl">
 							<span class="label label-success" ng-show="success"> {{success}} </span>
 							<br/><br/>
@@ -271,10 +258,10 @@
                             Numéro Adéli : 79 95 0063 2
                         </div>
                         <div class="col-lg-4">
-                            Numéro de SIRET : 804 655 371 00016
+                            Numéro de SIRET : 804 655 371 00024
                         </div>
                         <div class="col-lg-4">
-                            Copyright &copy; http://www.espace-nutrition.fr 2016
+                            Copyright &copy; http://www.espace-nutrition.fr 2017
                         </div>
                     </div>
                 </div>
