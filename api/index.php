@@ -15,6 +15,7 @@ require 'models/AbonnementModel.php';
 require 'models/PoidsModel.php';
 require 'models/RepasModel.php';
 require 'models/ArticleModel.php';
+require 'models/TemoignageModel.php';
 require 'models/CategorieModel.php';
 require 'tools/AuthMiddleware.php';
 
@@ -1435,6 +1436,220 @@ $app->delete('/articles/:id', function ($id) use ($app) {
 	$result = $article->delete();
 	if (!$result){
 		$app->response()->body($article->getError());
+        $app->response()->status( 403 );
+	}else{
+	  	$app->response()->body( json_encode( $result ));
+	}
+});
+
+/***********************************************
+Témoignages
+***********************************************/
+$app->get('/temoignages', function () use ($app) {
+	$temoignage = new TemoignageModel();
+	$rangeValue = $app->request()->params('range');
+
+	$temoignage->setNbTemoignagesParPage(100);
+
+	try{
+		$indexMin=0;
+		$indexMax=$temoignage->getNbTemoignagesParPage()-1;
+		if(isset($rangeValue)){
+			
+			$arrayRange=explode('-', $rangeValue);
+			if (count($arrayRange)==2){
+				$indexMin=intval($arrayRange[0]);
+				$indexMax=intval($arrayRange[1]);
+
+				if ($indexMax<$indexMin || $indexMin<0){
+					throw new Exception('Range non conforme');
+				}else{
+					if ($indexMax-$indexMin+1>$temoignage->getNbTemoignagesParPage()){
+						throw new Exception('Range trop large');
+					}
+				}
+			}else{
+				throw new Exception('La chaine range n est pas conforme');
+			}	
+		}
+
+		$temoignage->setFiltreValide(true);
+		
+		$temoignage->setIndexMinDem($indexMin);
+		$temoignage->setIndexMaxDem($indexMax);
+		$temoignage->setNbTemoignagesParPage($indexMax-$indexMin+1);
+
+		$result = $temoignage->fetchAll();
+		if (!is_array($result)){
+			$app->response()->body($temoignage->getError());
+		    $app->response()->status( 403 );
+		}else{
+			$app->response()->header('Content-Range',strval($temoignage->getIndexMin()).'-'.strval($temoignage->getIndexMax()).' '.strval($temoignage->getNbTemoignages()));
+			$app->response()->header('Accept Range',"temoignages ".strval($temoignage->getNbTemoignagesParPage()));
+		  	$app->response()->body( json_encode( $result ));
+		}
+	}catch(Exception $e){
+		$app->response()->body($e->getMessage());
+        $app->response()->status( 400 );
+	}
+});
+
+/***********************************************
+Ajout Témoignages
+***********************************************/
+$app->put('/temoignages', function () use ($app) {
+	
+	$requestJson = json_decode($app->request()->getBody(), true);
+    $temoignage = new TemoignageModel();
+	
+	if (isset($requestJson['prenom']) and isset($requestJson['age']) and isset($requestJson['objectif']) and isset($requestJson['temoignage'])){
+		$temoignage->setPrenom($requestJson['prenom']);
+		$temoignage->setAge($requestJson['age']);
+		$temoignage->setObjectif($requestJson['objectif']);
+		$temoignage->setTemoignage($requestJson['temoignage']);
+
+		$result = $temoignage->create();
+	}else{
+		$result = false;
+		$temoignage->setError("Des champs manquent pour la création du témoignage");
+	}
+    
+	if (!$result){
+		$app->response()->body($temoignage->getError());
+        $app->response()->status( 403 );
+	}else{
+	  	$app->response()->body( json_encode( $result ));
+	}
+});
+
+/***********************************************
+Témoignages secure
+***********************************************/
+$app->get('/temoignagess', function () use ($app) {
+	$temoignage = new TemoignageModel();
+	$rangeValue = $app->request()->params('range');
+
+	$temoignage->setNbTemoignagesParPage(100);
+
+	try{
+		$indexMin=0;
+		$indexMax=$temoignage->getNbTemoignagesParPage()-1;
+		if(isset($rangeValue)){
+			
+			$arrayRange=explode('-', $rangeValue);
+			if (count($arrayRange)==2){
+				$indexMin=intval($arrayRange[0]);
+				$indexMax=intval($arrayRange[1]);
+
+				if ($indexMax<$indexMin || $indexMin<0){
+					throw new Exception('Range non conforme');
+				}else{
+					if ($indexMax-$indexMin+1>$temoignage->getNbTemoignagesParPage()){
+						throw new Exception('Range trop large');
+					}
+				}
+			}else{
+				throw new Exception('La chaine range n est pas conforme');
+			}	
+		}
+		
+		$temoignage->setFiltreValide(false);
+
+		$temoignage->setIndexMinDem($indexMin);
+		$temoignage->setIndexMaxDem($indexMax);
+		$temoignage->setNbTemoignagesParPage($indexMax-$indexMin+1);
+
+		$result = $temoignage->fetchAll();
+		if (!is_array($result)){
+			$app->response()->body($temoignage->getError());
+		    $app->response()->status( 403 );
+		}else{
+			$app->response()->header('Content-Range',strval($temoignage->getIndexMin()).'-'.strval($temoignage->getIndexMax()).' '.strval($temoignage->getNbTemoignages()));
+			$app->response()->header('Accept Range',"temoignages ".strval($temoignage->getNbTemoignagesParPage()));
+			if ($temoignage->getNbTemoignages()==0){
+				$app->response()->body( json_encode( $result ));
+			}else{
+				$app->response()->body( json_encode( $result['result'] ));
+			}
+		  	
+		}
+	}catch(Exception $e){
+		$app->response()->body($e->getMessage());
+        $app->response()->status( 400 );
+	}
+});
+
+/***********************************************
+GET ONE Témoignage
+***********************************************/
+$app->get('/temoignagess/:id', function ($id) use ($app) {
+	$temoignage = new TemoignageModel();
+    $temoignage->setId($id);
+    
+    $result = $temoignage->fetchOne();
+    
+	 if (!$result){
+		$app->response()->body($temoignage->getError());
+        $app->response()->status( 403 );
+	}else{
+	  	$app->response()->body( json_encode( $result ));
+	}
+});
+
+/***********************************************
+Update temoignages
+***********************************************/
+$app->post('/temoignagess', function () use ($app) {
+	$requestJson = json_decode($app->request()->getBody(), true);
+    $temoignage = new TemoignageModel();
+	
+	if (isset($requestJson['id'])){
+		$temoignage->setId($requestJson['id']);
+
+		if (isset($requestJson['prenom'])){
+			$temoignage->setPrenom($requestJson['prenom']);
+		}
+		if (isset($requestJson['age'])){
+			$temoignage->setAge($requestJson['age']);
+		}
+		if (isset($requestJson['date'])){
+			$temoignage->setDate($requestJson['date']);
+		}
+		if (isset($requestJson['objectif'])){
+			$temoignage->setObjectif($requestJson['objectif']);
+		}
+		if (isset($requestJson['temoignage'])){
+			$temoignage->setTemoignage($requestJson['temoignage']);
+		}
+		if (isset($requestJson['valide'])){
+			$temoignage->setValide($requestJson['valide']);
+		}
+		
+		$result = $temoignage->update();
+
+	}else{
+		$result = false;
+		$temoignage->setError("Des champs manquent pour la modification du témoignage");
+	}
+    
+	if (!$result){
+		$app->response()->body($temoignage->getError());
+		$app->response()->body($temoignage->getError());
+        $app->response()->status( 403 );
+	}else{
+	  	$app->response()->body( json_encode( $result ));
+	}
+});
+
+/***********************************************
+Suppression temoignages
+***********************************************/
+$app->delete('/temoignagess/:id', function ($id) use ($app) {
+	$temoignage = new TemoignageModel();
+	$temoignage->setId($id);
+	$result = $temoignage->delete();
+	if (!$result){
+		$app->response()->body($temoignage->getError());
         $app->response()->status( 403 );
 	}else{
 	  	$app->response()->body( json_encode( $result ));

@@ -114,7 +114,14 @@ angular.module('EspaceNutrition', ['ngRoute','underscore'])
             controller:     'ArticleCtrl',
 			action : 		'listArticles',
             access:         access.admin
-        });	
+        });
+    $routeProvider.when('/temoignages',
+        {
+            templateUrl:    '/partials/admin/temoignages.php',
+            controller:     'TemoignageCtrl',
+			action : 		'listTemoignages',
+            access:         access.admin
+        });
     $routeProvider.when('/404',
         {
             templateUrl:    '/partials/404.html',

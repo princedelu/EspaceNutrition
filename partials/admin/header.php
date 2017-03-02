@@ -109,6 +109,11 @@
                         <i class="fa fa-paragraph"></i> <span>Articles</span>
                     </a>
                 </li>
+				<li ng-class="{active : temoignages}" data-access-level='accessLevels.admin'>
+                    <a href="/temoignages">
+                        <i class="fa fa-book"></i> <span>Témoignages</span>
+                    </a>
+                </li>
             
                 
             </ul>
