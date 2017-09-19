@@ -239,7 +239,7 @@ class ArticleModel extends AbstractModel {
 						$this->setIndexMaxDem($this->getNbArticlesParPage()-1);
 					}
 
-					$premiereEntree=$this->getIndexMinDem(); // On calcul la première entrée à lire
+					$premiereEntree=$this->getIndexMinDem(); // On calcule la première entrée à lire
 					$this->setIndexMin($premiereEntree);				
 					
 					$queryRecherche="";

@@ -59,7 +59,7 @@ class CategorieModel extends AbstractModel {
 			$this->openConnectionDatabase();
 
 			// Exécution des requêtes SQL
-			$query=sprintf("SELECT * FROM categories");
+			$query=sprintf("SELECT * FROM categories order by ordre");
  
 			$mysql_result = mysqli_query($this->dblink,$query);
 			if (!$mysql_result){

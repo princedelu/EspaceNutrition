@@ -577,6 +577,17 @@ font-size: 58px;
 color: #5E5E5E;
 }
 
+#adistance .txtHeadBis, #adistance .txtHeadBis > a > h3, #adistance .txtHeadBis > a > img {
+background: #7ED4CB ;
+padding: 5px 5px;
+color: #FFF;
+}
+
+#adistance .txtHeadBis .fa {
+font-size: 58px;
+color: #FFF;
+}
+
 /*font Awesome http://fontawesome.io*/
 @import url(//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css);
 

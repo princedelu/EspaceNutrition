@@ -1266,7 +1266,7 @@ $app->get('/articles', function () use ($app) {
 	$rangeValue = $app->request()->params('range');
 	$categorieValue = $app->request()->params('categorie');
 
-	$article->setNbArticlesParPage(100);
+	$article->setNbArticlesParPage(1000);
 	$article->setIdCategorie($categorieValue);
 
 	try{
@@ -1449,7 +1449,7 @@ $app->get('/temoignages', function () use ($app) {
 	$temoignage = new TemoignageModel();
 	$rangeValue = $app->request()->params('range');
 
-	$temoignage->setNbTemoignagesParPage(100);
+	$temoignage->setNbTemoignagesParPage(1000);
 
 	try{
 		$indexMin=0;
@@ -1529,7 +1529,7 @@ $app->get('/temoignagess', function () use ($app) {
 	$temoignage = new TemoignageModel();
 	$rangeValue = $app->request()->params('range');
 
-	$temoignage->setNbTemoignagesParPage(100);
+	$temoignage->setNbTemoignagesParPage(1000);
 
 	try{
 		$indexMin=0;

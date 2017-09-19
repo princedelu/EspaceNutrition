@@ -176,6 +176,16 @@
 				    </div>
 				    <!-- end: -->
 				</div>
+				<br/>
+				<div class="row">
+		            <!-- item -->
+				    <div class="col-md-12 text-center tileBox">
+				       <div class="txtHeadBis"> <a href="https://track.youmee.io/login" target="_blank"><h3>Espace patient en ligne</h3></a><a href="https://www.youmee.io/" target="_blank"><img src="/images/youmee.svg" alt="Youmee Logo"></a>
+					   <br/>
+				        </div>
+				    </div>
+				    <!-- end: -->
+				</div>
                 
             </div>
         </section>

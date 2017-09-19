@@ -223,7 +223,7 @@ class TemoignageModel extends AbstractModel {
 					$premiereEntree=$this->getIndexMinDem(); // On calcul la première entrée à lire
 					$this->setIndexMin($premiereEntree);				
 					
-					$query1=sprintf("SELECT t.id, t.prenom, t.age, t.objectif, t.temoignage, t.date,t.valide FROM temoignages t %s ORDER BY t.date DESC LIMIT %d, %d",mysqli_real_escape_string($this->dblink,$filtre),strval($premiereEntree),strval($this->getIndexMaxDem()-$this->getIndexMinDem()+1));
+					$query1=sprintf("SELECT t.id, t.prenom, t.age, t.objectif, t.temoignage, t.date,t.valide FROM temoignages t %s ORDER BY t.date,t.id DESC LIMIT %d, %d",mysqli_real_escape_string($this->dblink,$filtre),strval($premiereEntree),strval($this->getIndexMaxDem()-$this->getIndexMinDem()+1));
 					
 					$mysql_result1 = mysqli_query($this->dblink,$query1);
 					$num_rows = mysqli_num_rows($mysql_result1);

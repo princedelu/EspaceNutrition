@@ -59,7 +59,8 @@
                             	    <h3>Angélique Guehl</h3>
                                     <h2>Diététicienne Nutritionniste diplômée</h2>
                                     <h3>Bilan nutritionnel et suivi diététique</h3>
-				    <h3>Coaching bien-être et vie saine</h3>
+									<h3>Coaching bien-être et vie saine</h3>
+									<h3>Alimentation végétale</h3>
                                     <h4><cite><q>Ce que vous faites aujourd'hui peut améliorer tous vos lendemains</q></cite></h4>
                                 </div>
                             </div>
@@ -70,23 +71,23 @@
                                 <h3>Diététicienne Nutritionniste diplômée</h3>
                             </div>
                             <div class="row">
-				<div class="col-md-4 col-md-offset-2 col-xs-10 col-xs-offset-1" align="left">
+								<div class="col-md-4 col-md-offset-2 col-xs-10 col-xs-offset-1" align="left">
                                     <p><ul class="list-unstyled">
                                         <li><h4><i class="fa fa-check"></i> Perte de poids</h4></li>
                                         <li><h4><i class="fa fa-check"></i> Rééquilibrage alimentaire</h4></li>
-                                        <li><h4><i class="fa fa-check"></i> Grossesse et allaitement</h4></li>
+										<li><h4><i class="fa fa-check"></i> Végétarisme</h4></li>
                                         <li><h4><i class="fa fa-check"></i> Sportifs : Running, musculation, programme de prise de masse, sèche</h4></li>
-					<li><h4><i class="fa fa-check"></i> Alimentation pauvre en FODMAPs</h4></li>
+										<li><h4><i class="fa fa-check"></i> Alimentation pauvre en FODMAPs</h4></li>
                                         
                                     </ul></p>
                                 </div>
                                 <div class="col-md-4 col-xs-offset-1 col-xs-10" align="left">
                                     <p><ul class="list-unstyled">
                                         <li><h4><i class="fa fa-check"></i> Allergies alimentaires</h4></li>
-					<li><h4><i class="fa fa-check"></i> Végétarisme</h4></li>
+										<li><h4><i class="fa fa-check"></i> Grossesse et allaitement</h4></li>
                                         <li><h4><i class="fa fa-check"></i> Intolérance au gluten/lactose</h4></li>
                                         <li><h4><i class="fa fa-check"></i> Troubles du comportement alimentaire</h4></li>
-					<li><h4><i class="fa fa-check"></i> Pathologies : diabète, ostéoporose...</h4></li>
+										<li><h4><i class="fa fa-check"></i> Pathologies : diabète, ostéoporose...</h4></li>
                                     </ul></p>
                                 </div>
                             </div>
@@ -97,7 +98,7 @@
                                 <h3>Diététicienne Nutritionniste diplômée</h3>
                             </div>
                             <div class="row">
-                                <div class="col-md-3 col-md-offset-3 col-xs-10 col-xs-offset-1">
+                                <div class="col-md-3 col-md-offset-1 col-xs-10 col-xs-offset-1">
                                     <div class="box">							
                                         <div class="icon">
 								            <div class="image"><i class="fa fa-mobile"></i></div>
@@ -107,8 +108,8 @@
                                         </div>
                                         <div class="space"></div>
                                     </div> 
-                                </div>                    
-                                <div class="col-md-3 col-md-offset-0 col-xs-10 col-xs-offset-1">
+                                </div>
+								<div class="col-md-4 col-md-offset-0 col-xs-10 col-xs-offset-1">
                                     <div class="box">							
                                         <div class="icon">
                                             <div class="image"><i class="fa fa-globe"></i></div>
@@ -124,15 +125,31 @@
 														<li>
                                                             <a class="btn-social btn-outline" href="https://www.instagram.com/veggie_dieteticienne/" target="_blank"><i class="fa fa-fw fa-instagram"></i></a>
                                                         </li>
+														<li>
+                                                            <a class="btn-social btn-outline" href="https://fr.pinterest.com/veggiediet79/" target="_blank"><i class="fa fa-fw fa-pinterest"></i></a>
+                                                        </li>
                                                         <li>
                                                             <a class="btn-social btn-outline" href="mailto:contact@espace-nutrition.fr"><i class="fa fa-fw fa-envelope"></i></a>
                                                         </li>
+														
                                                     </ul>                                                
                                             </div>
                                         </div>
                                         <div class="space"></div>
                                     </div> 
                                 </div>
+								<div class="col-md-3 col-md-offset-0 col-xs-10 col-xs-offset-1">
+                                    <div class="box">							
+                                        <div class="icon">
+                                            <div class="image"><i class="fa fa-map-marker"></i></div>
+                                            <div class="infoheader">
+                                                <h3 class="title"><br/><strong><a class="public" href="https://www.google.fr/maps/place/355+Rue+de+l'Aunis,+79230+Aiffres/@46.2834489,-0.4230895,17z/data=!3m1!4b1!4m5!3m4!1s0x480733d83b5cc233:0x7e31c86aa436e93f!8m2!3d46.2834489!4d-0.4209008" target="_blank">355 rue de l'aunis 79230  Aiffres</a></strong></h3>
+                                            </div>
+                                        </div>
+                                        <div class="space"></div>
+                                    </div> 
+                                </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -159,47 +176,59 @@
         <!-- Footer -->
         <footer class="text-center">
             <div class="footer-above">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-4 col-md-offset-2 col-xs-10 col-xs-offset-1">
-                            <div class="box">							
-                                <div class="icon">
-						            <div class="image"><i class="fa fa-mobile"></i></div>
-                                    <div class="infoheader">
-                                        <h3 class="title"><br/><strong>06 68 00 79 15</strong></h3>
-                                    </div>
-                                </div>
-                                <div class="space"></div>
-                            </div> 
-                        </div>
-                                    
-                        <div class="col-md-4 col-md-offset-0 col-xs-10 col-xs-offset-1">
-                            <div class="box">							
-                                <div class="icon">
-                                    <div class="image"><i class="fa fa-globe"></i></div>
-                                    <div class="infoheader">
-                                        <h3 class="title">
-                                            <ul class="list-inline">
-                                                <li>
-                                                    <a class="btn-social btn-outline" href="https://plus.google.com/113806184511162758642" target="_blank"><i class="fa fa-fw fa-google-plus"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a class="btn-social btn-outline" href="https://www.facebook.com/Angeliqueguehlveggiedieteticienne" target="_blank"><i class="fa fa-fw fa-facebook"></i></a>
-                                                </li>
-												<li>
-                                                            <a class="btn-social btn-outline" href="https://www.instagram.com/veggie_dieteticienne/" target="_blank"><i class="fa fa-fw fa-instagram"></i></a>
-                                                        </li>
-                                                <li>
-                                                    <a class="btn-social btn-outline" href="mailto:contact@espace-nutrition.fr"><i class="fa fa-fw fa-envelope"></i></a>
-                                                </li>
-                                            </ul>                                                
-                                    </div>
-                                </div>
-                                <div class="space"></div>
-                            </div> 
-                        </div>
-                    </div>
-                </div>
+				<div class="row">
+					<div class="col-md-3 col-md-offset-1 col-xs-10 col-xs-offset-1">
+						<div class="box">							
+							<div class="icon">
+								<div class="image"><i class="fa fa-mobile"></i></div>
+								<div class="infoheader">
+									<h3 class="title"><br/><strong>06 68 00 79 15</strong></h3>
+								</div>
+							</div>
+							<div class="space"></div>
+						</div> 
+					</div>
+					<div class="col-md-4 col-md-offset-0 col-xs-10 col-xs-offset-1">
+						<div class="box">							
+							<div class="icon">
+								<div class="image"><i class="fa fa-globe"></i></div>
+								<div class="infoheader">
+									<h3 class="title">
+										<ul class="list-inline">
+											<li>
+												<a class="btn-social btn-outline" href="https://plus.google.com/113806184511162758642" target="_blank"><i class="fa fa-fw fa-google-plus"></i></a>
+											</li>
+											<li>
+												<a class="btn-social btn-outline" href="https://www.facebook.com/Angeliqueguehlveggiedieteticienne" target="_blank"><i class="fa fa-fw fa-facebook"></i></a>
+											</li>
+											<li>
+												<a class="btn-social btn-outline" href="https://www.instagram.com/veggie_dieteticienne/" target="_blank"><i class="fa fa-fw fa-instagram"></i></a>
+											</li>
+											<li>
+												<a class="btn-social btn-outline" href="https://fr.pinterest.com/veggiediet79/" target="_blank"><i class="fa fa-fw fa-pinterest"></i></a>
+											</li>
+											<li>
+												<a class="btn-social btn-outline" href="mailto:contact@espace-nutrition.fr"><i class="fa fa-fw fa-envelope"></i></a>
+											</li>
+										</ul>                                                
+								</div>
+							</div>
+							<div class="space"></div>
+						</div> 
+					</div>
+					<div class="col-md-3 col-md-offset-0 col-xs-10 col-xs-offset-1">
+						<div class="box">							
+							<div class="icon">
+								<div class="image"><i class="fa fa-map-marker"></i></div>
+								<div class="infoheader">
+									<h3 class="title"><br/><strong><a class="public" href="https://www.google.fr/maps/place/355+Rue+de+l'Aunis,+79230+Aiffres/@46.2834489,-0.4230895,17z/data=!3m1!4b1!4m5!3m4!1s0x480733d83b5cc233:0x7e31c86aa436e93f!8m2!3d46.2834489!4d-0.4209008" target="_blank">355 rue de l'aunis 79230  Aiffres</a></strong></h3>
+								</div>
+							</div>
+							<div class="space"></div>
+						</div> 
+					</div>  
+					
+				</div>
             </div>
             <div class="footer-below">
                 <div class="container">
