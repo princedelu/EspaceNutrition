@@ -1533,16 +1533,16 @@ $('.navbar-collapse ul li a').click(function() {
 	exports.item = {};
 	exports.item[1] = {};
 	exports.item[1].libelle="EspaceNutrition - Bilan nutritionnel";
-	exports.item[1].amount="60";
+	exports.item[1].amount="100";
 	exports.item[2] = {};
 	exports.item[2].libelle="EspaceNutrition - Consultation de suivi";
-	exports.item[2].amount="50";
+	exports.item[2].amount="60";
 	exports.item[3] = {};
 	exports.item[3].libelle="EspaceNutrition - Forfait bilan + 3 suivis";
-	exports.item[3].amount="205";
+	exports.item[3].amount="270";
 	exports.item[4] = {};
 	exports.item[4].libelle="EspaceNutrition - Forfait bilan + 5 suivis";
-	exports.item[4].amount="300";
+	exports.item[4].amount="380";
 	
 
     /*

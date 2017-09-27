@@ -60,7 +60,7 @@
 							</div>
 							<div class="panel-body text-center">
 								<p class="lead">
-									<strong>60€</strong>
+									<strong>100€</strong>
 								</p>
 							</div>
 							<ul class="list-group list-group-flush text-center">
@@ -86,7 +86,7 @@
 							</div>
 							<div class="panel-body text-center">
 								<p class="lead">
-									<strong>50€</strong>
+									<strong>60€</strong>
 								</p>
 							</div>
 							<ul class="list-group list-group-flush text-center">
@@ -112,7 +112,7 @@
 							</div>
 							<div class="panel-body text-center">
 								<p class="lead">
-									<strong>205€</strong>
+									<strong>270€</strong>
 								</p>
 							</div>
 							<ul class="list-group list-group-flush text-center">
@@ -138,7 +138,7 @@
 							</div>
 							<div class="panel-body text-center">
 								<p class="lead">
-									<strong>300€</strong>
+									<strong>380€</strong>
 								</p>
 							</div>
 							<ul class="list-group list-group-flush text-center">
