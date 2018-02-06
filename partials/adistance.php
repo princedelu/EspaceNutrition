@@ -65,13 +65,10 @@
 							</div>
 							<ul class="list-group list-group-flush text-center">
 								<li class="list-group-item">
-									1 bilan nutritionnel personnalisé<br/>&nbsp;
+									1 bilan nutritionnel personnalisé
 								</li>
 								<li class="list-group-item">
-									Durée d'une heure par téléphone<br/>&nbsp;
-								</li>
-								<li class="list-group-item">
-									Compte rendu envoyé sous 48 heures
+									Entretien téléphonique d’une heure pour évaluer votre alimentation, relever les erreurs diététiques et apporter les conseils adaptés aux besoins en fonction des objectifs et des pathologies.<br/>Compte rendu par écrit sous 48h sur demande.
 								</li>
 							</ul>
 							<div class="panel-footer">
@@ -94,7 +91,7 @@
 									Durée de 1 heure par téléphone<br/>&nbsp;
 								</li>
 								<li class="list-group-item">
-									Conseils et motivations<br/>&nbsp;
+									Conseils et motivations.<br>Exercice pour améliorer votre comportement alimentaire.<br/>&nbsp;
 								</li>
 								<li class="list-group-item">
 									Réponses à vos questions<br/>&nbsp;
@@ -120,10 +117,10 @@
 									1 bilan + 3 consultations de 1 heure<br/>&nbsp;
 								</li>
 								<li class="list-group-item">
-									Fréquence au choix <br/>(rendez-vous hebdomadaire, bi-mensuel ou mensuel)
+									Programme alimentaire personnalisé et adapté à vos objectifs.<br>Exercice pour améliorer votre comportement alimentaire.
 								</li>
 								<li class="list-group-item">
-									Valable 6 mois
+									Valable 6 mois<br/>&nbsp;
 								</li>
 							</ul>
 							<div class="panel-footer">
@@ -146,10 +143,10 @@
 									1 bilan nutritionnel + 5 consultations de 1 heure
 								</li>
 								<li class="list-group-item">
-									Fréquence au choix <br/>(rendez-vous hebdomadaire, bi-mensuel ou mensuel)
+									Programme alimentaire personnalisé et adapté à vos objectifs.<br>Exercice pour améliorer votre comportement alimentaire.
 								</li>
 								<li class="list-group-item">
-									Valable 1 an
+									Valable 1 an<br/>&nbsp;
 								</li>
 							</ul>
 							<div class="panel-footer">
@@ -172,21 +169,12 @@
 							<li> - Les consultations en ligne payées à l’avance par Paypal, virement bancaire ou chèque ne sont pas remboursables.</li> 
 							<li> - La CPAM ne prend pas en charge les consultations.</li> 
 							<li> - Contactez votre complémentaire santé, la plupart d’entre-elles proposent un remboursement du suivi diététique.</li>
+							<li> - Le bilan nutritionnel à distance ne contient pas de programme alimentaire personnalisé.</li> 
+							<li> - Les programmes alimentaires personnalisés sont inclus dans les forfaits.</li>
 						  </ul>
 				    </div>
 				    <!-- end: -->
-				</div>
-				<br/>
-				<div class="row">
-		            <!-- item -->
-				    <div class="col-md-12 text-center tileBox">
-				       <div class="txtHeadBis"> <a href="https://track.youmee.io/login" target="_blank"><h3>Espace patient en ligne</h3></a><a href="https://www.youmee.io/" target="_blank"><img src="/images/youmee.svg" alt="Youmee Logo"></a>
-					   <br/>
-				        </div>
-				    </div>
-				    <!-- end: -->
-				</div>
-                
+				</div>                
             </div>
         </section>
 
