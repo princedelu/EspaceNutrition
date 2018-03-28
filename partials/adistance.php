@@ -68,7 +68,7 @@
 									1 bilan nutritionnel personnalisé
 								</li>
 								<li class="list-group-item">
-									Entretien téléphonique d’une heure pour évaluer votre alimentation, relever les erreurs diététiques et apporter les conseils adaptés aux besoins en fonction des objectifs et des pathologies.<br/>Compte rendu par écrit sous 48h sur demande.
+									Entretien téléphonique d’une heure pour évaluer votre alimentation, relever les erreurs diététiques et apporter les conseils adaptés aux besoins en fonction des objectifs et des pathologies.<br/><br/><br/>
 								</li>
 							</ul>
 							<div class="panel-footer">
@@ -88,10 +88,10 @@
 							</div>
 							<ul class="list-group list-group-flush text-center">
 								<li class="list-group-item">
-									Durée de 1 heure par téléphone<br/>&nbsp;
+									Durée de 30 minutes par téléphone<br/>&nbsp;
 								</li>
 								<li class="list-group-item">
-									Conseils et motivations.<br>Exercice pour améliorer votre comportement alimentaire.<br/>&nbsp;
+									Conseils et motivations.<br>Exercices pour améliorer votre comportement alimentaire.<br/>&nbsp;
 								</li>
 								<li class="list-group-item">
 									Réponses à vos questions<br/>&nbsp;
@@ -114,10 +114,10 @@
 							</div>
 							<ul class="list-group list-group-flush text-center">
 								<li class="list-group-item">
-									1 bilan + 3 consultations de 1 heure<br/>&nbsp;
+									1 bilan + 3 consultations de 30 minutes
 								</li>
 								<li class="list-group-item">
-									Programme alimentaire personnalisé et adapté à vos objectifs.<br>Exercice pour améliorer votre comportement alimentaire.
+									Programme alimentaire personnalisé et adapté à vos objectifs.<br>Exercices pour améliorer votre comportement alimentaire.
 								</li>
 								<li class="list-group-item">
 									Valable 6 mois<br/>&nbsp;
@@ -140,10 +140,10 @@
 							</div>
 							<ul class="list-group list-group-flush text-center">
 								<li class="list-group-item">
-									1 bilan nutritionnel + 5 consultations de 1 heure
+									1 bilan nutritionnel + 5 consultations de 30 minutes
 								</li>
 								<li class="list-group-item">
-									Programme alimentaire personnalisé et adapté à vos objectifs.<br>Exercice pour améliorer votre comportement alimentaire.
+									Programme alimentaire personnalisé et adapté à vos objectifs.<br>Exercices pour améliorer votre comportement alimentaire.
 								</li>
 								<li class="list-group-item">
 									Valable 1 an<br/>&nbsp;
