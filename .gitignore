@@ -5,5 +5,5 @@ log/
 node_modules/
 report.xml
 checkstyle.xml
-
+api/config.ini
 
