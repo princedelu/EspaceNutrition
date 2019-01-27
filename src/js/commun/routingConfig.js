@@ -38,14 +38,15 @@
 "5wIDAQAB\n"+
 "-----END PUBLIC KEY-----";
 
-	/* Element pour paypal
+	/* Element pour lydia
 	*/
-	exports.paypal = {};
-	exports.paypal.business="angelique.guehl@espace-nutrition.fr";
-	exports.paypal.urlReturn="http://www.espace-nutrition.fr/paiementSuccess";
-	exports.paypal.urlCancel="http://www.espace-nutrition.fr";
-	exports.paypal.urlNotify="http://www.espace-nutrition.fr/api/notifyPaiement";
-	exports.paypal.sandbox=false;
+	exports.lydia = {};
+	exports.lydia.business="angelique.guehl@espace-nutrition.fr";
+	exports.lydia.vendor_token="547ed8db34703018097269";
+	exports.lydia.urlReturn="http://www1.espace-nutrition.fr/paiementSuccess";
+	exports.lydia.urlCancel="http://www1.espace-nutrition.fr";
+	exports.lydia.urlNotify="http://www1.espace-nutrition.fr/api/notifyPaiement";
+	exports.lydia.sandbox=true;
 	/* Informations sur les produits
 	*/
 	exports.item = {};
@@ -54,13 +55,13 @@
 	exports.item[1].amount="100";
 	exports.item[2] = {};
 	exports.item[2].libelle="EspaceNutrition - Consultation de suivi";
-	exports.item[2].amount="60";
+	exports.item[2].amount="70";
 	exports.item[3] = {};
 	exports.item[3].libelle="EspaceNutrition - Forfait bilan + 3 suivis";
-	exports.item[3].amount="270";
+	exports.item[3].amount="300";
 	exports.item[4] = {};
 	exports.item[4].libelle="EspaceNutrition - Forfait bilan + 5 suivis";
-	exports.item[4].amount="380";
+	exports.item[4].amount="440";
 	
 
     /*

@@ -1520,14 +1520,15 @@ $('.navbar-collapse ul li a').click(function() {
 "5wIDAQAB\n"+
 "-----END PUBLIC KEY-----";
 
-	/* Element pour paypal
+	/* Element pour lydia
 	*/
-	exports.paypal = {};
-	exports.paypal.business="angelique.guehl@espace-nutrition.fr";
-	exports.paypal.urlReturn="http://www.espace-nutrition.fr/paiementSuccess";
-	exports.paypal.urlCancel="http://www.espace-nutrition.fr";
-	exports.paypal.urlNotify="http://www.espace-nutrition.fr/api/notifyPaiement";
-	exports.paypal.sandbox=false;
+	exports.lydia = {};
+	exports.lydia.business="angelique.guehl@espace-nutrition.fr";
+	exports.lydia.vendor_token="547ed8db34703018097269";
+	exports.lydia.urlReturn="http://www1.espace-nutrition.fr/paiementSuccess";
+	exports.lydia.urlCancel="http://www1.espace-nutrition.fr";
+	exports.lydia.urlNotify="http://www1.espace-nutrition.fr/api/notifyPaiement";
+	exports.lydia.sandbox=true;
 	/* Informations sur les produits
 	*/
 	exports.item = {};
@@ -2651,43 +2652,49 @@ angular.module('EspaceNutrition')
 			action = $route.current.action;
 		}
 	}
-
-    $scope.affichePopupPaiement = function (id) {
+	
+	$scope.affichePopupPaiement = function (id) {
         $scope.success = '';
         $scope.error = '';
 		$scope.idPaiement=id;
 		$('#bs-paiement').modal('show');
     };
 
+
 	$scope.redirectionPaiement = function () {
-		$('#bs-paiement').modal('hide');
-
-		// Ajout de toutes les informations pour la redirection
-		var paramRedirect = "";
-		paramRedirect=paramRedirect + "?business="+routingConfig.paypal.business;
-		paramRedirect=paramRedirect + "&item_name="+routingConfig.item[$scope.idPaiement].libelle;
-	    paramRedirect=paramRedirect + "&amount="+routingConfig.item[$scope.idPaiement].amount;
 		
-		paramRedirect=paramRedirect + "&cmd=_xclick";
-		paramRedirect=paramRedirect + "&no_note=1";
-		paramRedirect=paramRedirect + "&lc=FR";
-		paramRedirect=paramRedirect + "&currency_code=EUR";
-		paramRedirect=paramRedirect + "&bn=EspaceNutrition_BuyNow_WPS_FR";
-		paramRedirect=paramRedirect + "&first_name="+$scope.prenom; 
-		paramRedirect=paramRedirect + "&last_name="+$scope.nom; 
-		paramRedirect=paramRedirect + "&payer_email="+$scope.email; 
-		paramRedirect=paramRedirect + "&item_number=1";
-		// Append paypal return addresses
-	    paramRedirect=paramRedirect + "&return="+routingConfig.paypal.urlReturn;
-	    paramRedirect=paramRedirect + "&cancel_return="+routingConfig.paypal.urlCancel;
-	    paramRedirect=paramRedirect + "&notify_url="+routingConfig.paypal.urlNotify;
-
-		var baseURL = 'https://www.';
-		if (routingConfig.paypal.sandbox === true){
-			baseURL = baseURL + 'sandbox.';
+		var orderRef = new Date();
+		var data = {
+			vendor_token		: routingConfig.lydia.vendor_token,
+			amount				: routingConfig.item[$scope.idPaiement].amount,
+			recipient			: $scope.numeroportable,
+			order_ref 			: orderRef.toString(),
+			browser_success_url : routingConfig.lydia.urlReturn,
+			browser_cancel_url 	: routingConfig.lydia.urlCancel,
+			confirm_url 		: routingConfig.lydia.urlNotify,
+			message 			: routingConfig.item[$scope.idPaiement].libelle,
+			payer_desc 			: "test",
+			collector_desc 		: routingConfig.item[$scope.idPaiement].libelle,
+			currency			: "EUR",
+			type				: "phone"
+		};
+		
+		var baseURL = 'https://';
+		if (routingConfig.lydia.sandbox === true){
+			baseURL = baseURL + 'homologation.';
 		}
-		baseURL = baseURL + 'paypal.com/cgi-bin/webscr';
-		$window.location.href=baseURL + encodeURI(paramRedirect);		
+		baseURL = baseURL + 'lydia-app.com/api/request/do.json';
+		
+		$.post(baseURL,
+			data,
+		    function(data) {
+				if (data.error == 0) {
+					document.location = data.mobile_url;
+				} else {
+					$scope.error=data.message;
+				}
+			}
+		);		
     };
 
 	$scope.paiementSuccess = function () {
@@ -2782,13 +2789,6 @@ angular.module('EspaceNutrition')
 		$scope.initValueWait = Math.floor((Math.random() * 100) + 1);
 	};
 
-	$scope.$watch('sliderValue', function(newValue, oldValue) {
-		$scope.subForm5.$setDirty();
-		$scope.subForm5.$setValidity('sliderControl',false);
-		if (newValue == $scope.initValueWait){
-			$scope.subForm5.$setValidity('sliderControl',true);
-		}
-	});
 
 	switch (action) {
 		case 'paiementSuccess':

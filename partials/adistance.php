@@ -72,7 +72,7 @@
 								</li>
 							</ul>
 							<div class="panel-footer">
-								<a class="btn btn-lg btn-block btn-primary" ng-click="affichePopupPaiement(1)">Commander via paypal</a>
+								<a class="btn btn-lg btn-block btn-primary" ng-click="affichePopupPaiement(1)">Payer via Lydia</a>
 							</div>
 						</div>
 					</div>
@@ -83,7 +83,7 @@
 							</div>
 							<div class="panel-body text-center">
 								<p class="lead">
-									<strong>60€</strong>
+									<strong>70€</strong>
 								</p>
 							</div>
 							<ul class="list-group list-group-flush text-center">
@@ -98,7 +98,7 @@
 								</li>
 							</ul>
 							<div class="panel-footer">
-								<a class="btn btn-lg btn-block btn-primary" ng-click="affichePopupPaiement(2)">Commander via paypal</a>
+								<a class="btn btn-lg btn-block btn-primary" ng-click="affichePopupPaiement(2)">Payer via Lydia</a>
 							</div>
 						</div>
 					</div>
@@ -109,7 +109,7 @@
 							</div>
 							<div class="panel-body text-center">
 								<p class="lead">
-									<strong>270€</strong>
+									<strong>300€</strong>
 								</p>
 							</div>
 							<ul class="list-group list-group-flush text-center">
@@ -124,7 +124,7 @@
 								</li>
 							</ul>
 							<div class="panel-footer">
-								<a class="btn btn-lg btn-block btn-primary" ng-click="affichePopupPaiement(3)">Commander via paypal</a>
+								<a class="btn btn-lg btn-block btn-primary" ng-click="affichePopupPaiement(3)">Payer via Lydia</a>
 							</div>
 						</div>
 					</div>
@@ -135,7 +135,7 @@
 							</div>
 							<div class="panel-body text-center">
 								<p class="lead">
-									<strong>380€</strong>
+									<strong>440€</strong>
 								</p>
 							</div>
 							<ul class="list-group list-group-flush text-center">
@@ -150,7 +150,7 @@
 								</li>
 							</ul>
 							<div class="panel-footer">
-								<a class="btn btn-lg btn-block btn-primary" ng-click="affichePopupPaiement(4)">Commander via paypal</a>
+								<a class="btn btn-lg btn-block btn-primary" ng-click="affichePopupPaiement(4)">Payer via Lydia</a>
 							</div>
 						</div>
 					</div>
@@ -177,7 +177,7 @@
 				</div>                
             </div>
         </section>
-
+		
 		<!-- Popup go paiement -->
 		<div class="modal fade" id="bs-paiement" tabindex="-1" role="dialog" aria-labelledby="paiement" aria-hidden="true">
 			<div class="modal-dialog modal-lg">
@@ -188,39 +188,21 @@
 							<h4 class="modal-title" id="myModalLabel">Explication</h4>
 						</div>
 						<div class="modal-body">
-							Merci de remplir le formulaire suivant pour nous indiquer vos informations.<br/>
-							Une fois, les champs remplis, cliquer sur payer et vous serez alors rediriger sur le site Paypal pour effectuer le paiement.<br/>
+							Merci de remplir votre numéro de téléphone pour procéder au paiement.<br/>
+							Une fois, le numéro de téléphone rempli, cliquer sur payer et vous serez alors rediriger sur le site Lydia pour effectuer le paiement.<br/><br/>
 							<div class="form-group">
-								<label for="nom">Nom</label>
+								<label for="numeroportable">Numéro de portable</label>
 								<ng-form name="subForm1" ng-class="{ 'has-error' : subForm1.$invalid && !subForm1.$pristine }">
-									<input type="text" class="form-control" data-ng-model="nom" id="nomUtilisateur" placeholder="Nom" data-ng-required="true">
+									<input type="tel" class="form-control" data-ng-model="numeroportable" id="numeroportable" placeholder="Numéro de mobile" data-ng-required="true">
 									<div ng-show="subForm1.$dirty && subForm1.$invalid">
-										<span class="help-block" ng-show="subForm1.$error.required"> Nom obligatoire</span>
-									</div>
-								</ng-form>
-							</div>
-							<div class="form-group">
-								<label for="prenom">Prénom</label>
-								<ng-form name="subForm2" ng-class="{ 'has-error' : subForm2.$invalid && !subForm2.$pristine }">
-									<input type="text" class="form-control" data-ng-model="prenom" id="prenomUtilisateur" placeholder="Prénom" data-ng-required="true">
-									<div ng-show="subForm2.$dirty && subForm2.$invalid">
-										<span class="help-block" ng-show="subForm2.$error.required"> Prénom obligatoire</span>
-									</div>
-								</ng-form>
-							</div>
-							<div class="form-group">
-								<label for="email">Email</label>
-								<ng-form name="subForm3" ng-class="{ 'has-error' : subForm3.$invalid && !subForm3.$pristine }">
-									<input type="email" class="form-control" data-ng-model="email" id="emailUtilisateur" placeholder="Email" data-ng-required="true">
-									<div ng-show="subForm3.$dirty && subForm3.$invalid">
-										<span class="help-block" ng-show="subForm3.$error.required"> Email obligatoire</span>
-										<span class="help-block" ng-show="subForm3$error.email"> Email invalide</span>
+										<span class="help-block" ng-show="subForm1.$error.required"> Numéro de portable obligatoire</span>
 									</div>
 								</ng-form>
 							</div>
 						</div>
 			
 						<div class="modal-footer">
+							<span class="help-block" ng-show="error"> {{error}}</span>
 							<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
 							<button type="submit" class="btn btn-primary" ng-disabled="paiementForm.$invalid">Payer</button>
 						</div>
