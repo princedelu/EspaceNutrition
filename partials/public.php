@@ -244,7 +244,7 @@
                             Copyright &copy; http://www.espace-nutrition.fr 2019
                         </div>
 						<div class="col-lg-3">
-                            <a ng-click="affichePopupMentionsLegales()">Mentions legales</a>
+                            <a class="footer" ng-click="affichePopupMentionsLegales()">Mentions legales</a>
                         </div>
                     </div>
                 </div>

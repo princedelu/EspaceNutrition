@@ -34,6 +34,19 @@ a.public.active {
     color: #000;
 }
 
+a.footer,
+a.footer:focus,
+a.footer:active,
+a.footer.active {
+    outline: 0;
+    color: #fff;
+}
+
+a.footer:hover {
+	text-decoration: underline;
+	color: #fff;
+}
+
 h1,
 h2,
 h3,
