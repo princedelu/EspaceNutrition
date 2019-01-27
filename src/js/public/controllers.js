@@ -119,6 +119,10 @@ angular.module('EspaceNutrition')
 		$('#aTemoignageModal').modal('show');
     };
 	
+	$scope.affichePopupMentionsLegales = function (id) {
+		$('#bs-ml').modal('show');
+    };
+	
 	$scope.addTemoignage = function () {
         $('#aTemoignageModal').modal('hide');
 		
@@ -142,14 +146,6 @@ angular.module('EspaceNutrition')
 		$scope.sliderValue=0;
 		$scope.initValueWait = Math.floor((Math.random() * 100) + 1);
 	};
-
-	$scope.$watch('sliderValue', function(newValue, oldValue) {
-		$scope.subForm5.$setDirty();
-		$scope.subForm5.$setValidity('sliderControl',false);
-		if (newValue == $scope.initValueWait){
-			$scope.subForm5.$setValidity('sliderControl',true);
-		}
-	});
 
 	switch (action) {
 		case 'paiementSuccess':

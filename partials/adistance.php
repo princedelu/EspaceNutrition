@@ -83,7 +83,7 @@
 							</div>
 							<div class="panel-body text-center">
 								<p class="lead">
-									<strong>60€</strong>
+									<strong>70€</strong>
 								</p>
 							</div>
 							<ul class="list-group list-group-flush text-center">
@@ -109,7 +109,7 @@
 							</div>
 							<div class="panel-body text-center">
 								<p class="lead">
-									<strong>270€</strong>
+									<strong>300€</strong>
 								</p>
 							</div>
 							<ul class="list-group list-group-flush text-center">
@@ -135,7 +135,7 @@
 							</div>
 							<div class="panel-body text-center">
 								<p class="lead">
-									<strong>380€</strong>
+									<strong>440€</strong>
 								</p>
 							</div>
 							<ul class="list-group list-group-flush text-center">
@@ -171,6 +171,13 @@
 							<li> - Contactez votre complémentaire santé, la plupart d’entre-elles proposent un remboursement du suivi diététique.</li>
 							<li> - Le bilan nutritionnel à distance ne contient pas de programme alimentaire personnalisé.</li> 
 							<li> - Les programmes alimentaires personnalisés sont inclus dans les forfaits.</li>
+							<br/>
+							<li> <b>Réclamation</b></li>
+							<li> Pour toute réclamation, le patient doit contacter Angélique Guehl par lettre recommandée avec accusé de réception.</li>
+							<br/>
+							<li> Conformément aux dispositions des articles L 611-1 et R 612-1 et suivants du Code de la Consommation concernant le règlement amiable des litiges : Lorsque le consommateur a adressé une réclamation écrite au professionnel et qu'il n'a pas obtenu satisfaction ou de réponse dans un délai de deux mois, il peut soumettre gratuitement sa réclamation au médiateur de la consommation. Le médiateur doit être saisi dans le délai maximal d'un an à compter de la réclamation initiale.
+Le médiateur est MEDIATION-NET. Il peut être saisi directement en ligne à l'adresse suivante :
+ <a href="http://www.mediation-net.com" target="_blanck">http://www.mediation-net.com/</a>  - ou par courrier MEDIATION-NET - 34, rue des Épinettes - 75017 PARIS</li>
 						  </ul>
 				    </div>
 				    <!-- end: -->

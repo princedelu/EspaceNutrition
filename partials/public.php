@@ -169,6 +169,7 @@
 			include("adistance.php");
 			include("contact.php");
 			include("temoignage.php");
+			include("ml.php");
 		?>        
 
         
@@ -233,14 +234,17 @@
             <div class="footer-below">
                 <div class="container">
                     <div class="row">
-                        <div class="col-lg-4">
+                        <div class="col-lg-3">
                             Numéro Adéli : 79 95 0063 2
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-3">
                             Numéro de SIRET : 804 655 371 00024
                         </div>
-                        <div class="col-lg-4">
-                            Copyright &copy; http://www.espace-nutrition.fr 2017
+                        <div class="col-lg-3">
+                            Copyright &copy; http://www.espace-nutrition.fr 2019
+                        </div>
+						<div class="col-lg-3">
+                            <a ng-click="affichePopupMentionsLegales()">Mentions legales</a>
                         </div>
                     </div>
                 </div>
