@@ -88,13 +88,10 @@
 							</div>
 							<ul class="list-group list-group-flush text-center">
 								<li class="list-group-item">
-									Durée de 30 minutes par téléphone<br/>&nbsp;
-								</li>
-								<li class="list-group-item">
 									Conseils et motivations.<br>Exercices pour améliorer votre comportement alimentaire.<br/>&nbsp;
 								</li>
 								<li class="list-group-item">
-									Réponses à vos questions<br/>&nbsp;
+									Réponses à vos questions<br/><br/><br/><br/><br/>
 								</li>
 							</ul>
 							<div class="panel-footer">

@@ -73,9 +73,8 @@
                             <div class="row">
 								<div class="col-md-4 col-md-offset-2 col-xs-10 col-xs-offset-1" align="left">
                                     <p><ul class="list-unstyled">
-                                        <li><h4><i class="fa fa-check"></i> Perte de poids</h4></li>
                                         <li><h4><i class="fa fa-check"></i> Rééquilibrage alimentaire</h4></li>
-										<li><h4><i class="fa fa-check"></i> Végétarisme</h4></li>
+										<li><h4><i class="fa fa-check"></i> Végétarisme / végétalisme</h4></li>
                                         <li><h4><i class="fa fa-check"></i> Sportifs : Running, musculation, programme de prise de masse, sèche</h4></li>
 										<li><h4><i class="fa fa-check"></i> Alimentation pauvre en FODMAPs</h4></li>
                                         
