@@ -6,6 +6,8 @@ angular.module('EspaceNutrition')
 ['$rootScope', '$scope', '$location', '$route', '$window','PublicFactory', function($rootScope, $scope, $location, $route, $window,PublicFactory) {
     
 	var action = "";
+	$scope.ph_numbr = /^(?:0|\(?\+33\)?\s?|0033\s?)[1-79](?:[\.\-\s]?\d\d){4}$/;
+	
 	if ($route !== undefined && $route.current){
 		
 		if ($route.current.action !== undefined){
@@ -19,44 +21,31 @@ angular.module('EspaceNutrition')
 		$scope.idPaiement=id;
 		$('#bs-paiement').modal('show');
     };
-
+	
 	$scope.redirectionPaiement = function () {
 		$('#bs-paiement').modal('hide');
-
-		// Ajout de toutes les informations pour la redirection
-		var paramRedirect = "";
-		paramRedirect=paramRedirect + "?business="+routingConfig.paypal.business;
-		paramRedirect=paramRedirect + "&item_name="+routingConfig.item[$scope.idPaiement].libelle;
-	    paramRedirect=paramRedirect + "&amount="+routingConfig.item[$scope.idPaiement].amount;
 		
-		paramRedirect=paramRedirect + "&cmd=_xclick";
-		paramRedirect=paramRedirect + "&no_note=1";
-		paramRedirect=paramRedirect + "&lc=FR";
-		paramRedirect=paramRedirect + "&currency_code=EUR";
-		paramRedirect=paramRedirect + "&bn=EspaceNutrition_BuyNow_WPS_FR";
-		paramRedirect=paramRedirect + "&first_name="+$scope.prenom; 
-		paramRedirect=paramRedirect + "&last_name="+$scope.nom; 
-		paramRedirect=paramRedirect + "&payer_email="+$scope.email; 
-		paramRedirect=paramRedirect + "&item_number=1";
-		// Append paypal return addresses
-	    paramRedirect=paramRedirect + "&return="+routingConfig.paypal.urlReturn;
-	    paramRedirect=paramRedirect + "&cancel_return="+routingConfig.paypal.urlCancel;
-	    paramRedirect=paramRedirect + "&notify_url="+routingConfig.paypal.urlNotify;
+		var objetValue = {};
+		objetValue.ref=$scope.idPaiement;
+		objetValue.nom=$scope.nom;
+		objetValue.prenom=$scope.prenom;
+		objetValue.telephone=$scope.telephone;
+		objetValue.email=$scope.email;
+		objetValue.adresse=$scope.adresse;
+		objetValue.moyen=$scope.moyen;
+		objetValue.acceptation=$scope.acceptation;		
 
-		var baseURL = 'https://www.';
-		if (routingConfig.paypal.sandbox === true){
-			baseURL = baseURL + 'sandbox.';
-		}
-		baseURL = baseURL + 'paypal.com/cgi-bin/webscr';
-		$window.location.href=baseURL + encodeURI(paramRedirect);		
+		PublicFactory.enregistrerCommande(objetValue,
+			function (res) {
+				$scope.loading = false;
+				$('#bs-afficheMoyenPaiement').modal('show');
+			},
+			function (err) {
+				$scope.error = "Impossible d enregistrer la commande";
+				$scope.loading = false;
+			}
+		);		
     };
-
-	$scope.paiementSuccess = function () {
-		if  ($rootScope.affichePopup === undefined){
-			$('#bs-paiementSuccess').modal('show');
-			$rootScope.affichePopup = false;
-		}
-	};
 
 	$scope.sendMessage = function () {
 		$scope.success = "";

@@ -16,13 +16,6 @@ angular.module('EspaceNutrition', ['ngRoute','underscore'])
             controller:     'EspaceNutritionPublicCtrl',
             access:         access.public
         });
-	$routeProvider.when('/paiementSuccess',
-        {
-            templateUrl:    '/partials/public.php',
-            controller:     'EspaceNutritionPublicCtrl',
-			action:			'paiementSuccess',
-            access:         access.public
-        });
     $routeProvider.when('/login',
         {
             templateUrl:    '/partials/login.html',
@@ -1520,30 +1513,6 @@ $('.navbar-collapse ul li a').click(function() {
 "5wIDAQAB\n"+
 "-----END PUBLIC KEY-----";
 
-	/* Element pour paypal
-	*/
-	exports.paypal = {};
-	exports.paypal.business="angelique.guehl@espace-nutrition.fr";
-	exports.paypal.urlReturn="http://www.espace-nutrition.fr/paiementSuccess";
-	exports.paypal.urlCancel="http://www.espace-nutrition.fr";
-	exports.paypal.urlNotify="http://www.espace-nutrition.fr/api/notifyPaiement";
-	exports.paypal.sandbox=false;
-	/* Informations sur les produits
-	*/
-	exports.item = {};
-	exports.item[1] = {};
-	exports.item[1].libelle="EspaceNutrition - Bilan nutritionnel";
-	exports.item[1].amount="100";
-	exports.item[2] = {};
-	exports.item[2].libelle="EspaceNutrition - Consultation de suivi";
-	exports.item[2].amount="70";
-	exports.item[3] = {};
-	exports.item[3].libelle="EspaceNutrition - Forfait bilan + 3 suivis";
-	exports.item[3].amount="300";
-	exports.item[4] = {};
-	exports.item[4].libelle="EspaceNutrition - Forfait bilan + 5 suivis";
-	exports.item[4].amount="440";
-	
 
     /*
         Method to build a distinct bit mask for each role
@@ -2645,6 +2614,8 @@ angular.module('EspaceNutrition')
 ['$rootScope', '$scope', '$location', '$route', '$window','PublicFactory', function($rootScope, $scope, $location, $route, $window,PublicFactory) {
     
 	var action = "";
+	$scope.ph_numbr = /^(?:0|\(?\+33\)?\s?|0033\s?)[1-79](?:[\.\-\s]?\d\d){4}$/;
+	
 	if ($route !== undefined && $route.current){
 		
 		if ($route.current.action !== undefined){
@@ -2658,44 +2629,31 @@ angular.module('EspaceNutrition')
 		$scope.idPaiement=id;
 		$('#bs-paiement').modal('show');
     };
-
+	
 	$scope.redirectionPaiement = function () {
 		$('#bs-paiement').modal('hide');
-
-		// Ajout de toutes les informations pour la redirection
-		var paramRedirect = "";
-		paramRedirect=paramRedirect + "?business="+routingConfig.paypal.business;
-		paramRedirect=paramRedirect + "&item_name="+routingConfig.item[$scope.idPaiement].libelle;
-	    paramRedirect=paramRedirect + "&amount="+routingConfig.item[$scope.idPaiement].amount;
 		
-		paramRedirect=paramRedirect + "&cmd=_xclick";
-		paramRedirect=paramRedirect + "&no_note=1";
-		paramRedirect=paramRedirect + "&lc=FR";
-		paramRedirect=paramRedirect + "&currency_code=EUR";
-		paramRedirect=paramRedirect + "&bn=EspaceNutrition_BuyNow_WPS_FR";
-		paramRedirect=paramRedirect + "&first_name="+$scope.prenom; 
-		paramRedirect=paramRedirect + "&last_name="+$scope.nom; 
-		paramRedirect=paramRedirect + "&payer_email="+$scope.email; 
-		paramRedirect=paramRedirect + "&item_number=1";
-		// Append paypal return addresses
-	    paramRedirect=paramRedirect + "&return="+routingConfig.paypal.urlReturn;
-	    paramRedirect=paramRedirect + "&cancel_return="+routingConfig.paypal.urlCancel;
-	    paramRedirect=paramRedirect + "&notify_url="+routingConfig.paypal.urlNotify;
+		var objetValue = {};
+		objetValue.ref=$scope.idPaiement;
+		objetValue.nom=$scope.nom;
+		objetValue.prenom=$scope.prenom;
+		objetValue.telephone=$scope.telephone;
+		objetValue.email=$scope.email;
+		objetValue.adresse=$scope.adresse;
+		objetValue.moyen=$scope.moyen;
+		objetValue.acceptation=$scope.acceptation;		
 
-		var baseURL = 'https://www.';
-		if (routingConfig.paypal.sandbox === true){
-			baseURL = baseURL + 'sandbox.';
-		}
-		baseURL = baseURL + 'paypal.com/cgi-bin/webscr';
-		$window.location.href=baseURL + encodeURI(paramRedirect);		
+		PublicFactory.enregistrerCommande(objetValue,
+			function (res) {
+				$scope.loading = false;
+				$('#bs-afficheMoyenPaiement').modal('show');
+			},
+			function (err) {
+				$scope.error = "Impossible d enregistrer la commande";
+				$scope.loading = false;
+			}
+		);		
     };
-
-	$scope.paiementSuccess = function () {
-		if  ($rootScope.affichePopup === undefined){
-			$('#bs-paiementSuccess').modal('show');
-			$rootScope.affichePopup = false;
-		}
-	};
 
 	$scope.sendMessage = function () {
 		$scope.success = "";
@@ -2895,6 +2853,9 @@ angular.module('EspaceNutrition').directive('slider', function() {
 				}else{
 					$http.get('/api/temoignages').success(success).error(error);
 				}
+			},
+			enregistrerCommande: function(id,success, error) {
+				$http.put('/api/commande',id).success(success).error(error);
 			},
 			addTemoignage: function(objet, success, error) {
 				$http.put('/api/temoignages', objet).success(success).error(error);

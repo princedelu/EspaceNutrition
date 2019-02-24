@@ -25,6 +25,9 @@
 					$http.get('/api/temoignages').success(success).error(error);
 				}
 			},
+			enregistrerCommande: function(id,success, error) {
+				$http.put('/api/commande',id).success(success).error(error);
+			},
 			addTemoignage: function(objet, success, error) {
 				$http.put('/api/temoignages', objet).success(success).error(error);
 			},

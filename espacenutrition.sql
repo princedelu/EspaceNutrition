@@ -169,6 +169,22 @@ CREATE TABLE IF NOT EXISTS `utilisateurs` (
   UNIQUE KEY `ID` (`ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
 
+CREATE TABLE IF NOT EXISTS `commandes` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `ref` int(11) NOT NULL,
+  `nom` varchar(100) NOT NULL,
+  `prenom` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `telephone` varchar(100) NOT NULL,
+  `acceptation` tinyint(1) NOT NULL,
+  `libelle` varchar(100) NOT NULL,
+  `montant` varchar(100) NOT NULL,
+  `moyen` varchar(100) NOT NULL,
+  `adresse` varchar(200) NOT NULL,
+  `dateheure` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

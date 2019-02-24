@@ -16,13 +16,6 @@ angular.module('EspaceNutrition', ['ngRoute','underscore'])
             controller:     'EspaceNutritionPublicCtrl',
             access:         access.public
         });
-	$routeProvider.when('/paiementSuccess',
-        {
-            templateUrl:    '/partials/public.php',
-            controller:     'EspaceNutritionPublicCtrl',
-			action:			'paiementSuccess',
-            access:         access.public
-        });
     $routeProvider.when('/login',
         {
             templateUrl:    '/partials/login.html',

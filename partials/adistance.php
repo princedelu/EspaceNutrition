@@ -41,11 +41,11 @@
 				       <div class="txtHead"> <i class="fa fa-question"></i>
 				        <h3>Comment fonctionne le suivi à distance?</h3></div>
 						<ul class="list-unstyled text-left">
-				        	<li> - Vous choisissez la formule qui vous convient et effectuer votre paiement en ligne via paypal.</li>
-							<li> - Dès réception du versement, nous fixons un rendez-vous par téléphone pour effectuer votre bilan nutritionnel d'une heure.</li>
+				        	<li> - Vous choisissez la formule qui vous convient et effectuer votre commande.</li>
+							<li> - Dès réception du paiement, nous fixons un rendez-vous par téléphone pour effectuer votre bilan nutritionnel d'une heure.</li>
 							<li> - Dans les 48 heures, vous recevrez par email votre bilan personnalisé et adapté à vos besoins.</li>
 							<li> - Selon la fréquence qui vous convient (une fois par semaine ou une fois par mois), vous bénéficiez d'une consultation de suivi par téléphone pour répondre à vos questions et faire le point sur votre motivation et vos difficultés.</li>
-							<li> - Possibilité de paiement par chèque ou virement bancaire (me contacter)</li>
+							<li> - Possibilité de paiement par virement bancaire ou chèque (possibilité de payer en plusieurs fois)</li>
 							<li> - Votre assurance complémentaire santé (mutuelle) peut vous rembourser une partie de votre suivi diététique. Renseignez-vous auprès d'elle</li>
 						  </ul>
 				    </div>
@@ -72,7 +72,7 @@
 								</li>
 							</ul>
 							<div class="panel-footer">
-								<a class="btn btn-lg btn-block btn-primary" ng-click="affichePopupPaiement(1)">Commander via paypal</a>
+								<a class="btn btn-lg btn-block btn-primary" ng-click="affichePopupPaiement(1)">Commander</a>
 							</div>
 						</div>
 					</div>
@@ -98,7 +98,7 @@
 								</li>
 							</ul>
 							<div class="panel-footer">
-								<a class="btn btn-lg btn-block btn-primary" ng-click="affichePopupPaiement(2)">Commander via paypal</a>
+								<a class="btn btn-lg btn-block btn-primary" ng-click="affichePopupPaiement(2)">Commander</a>
 							</div>
 						</div>
 					</div>
@@ -124,7 +124,7 @@
 								</li>
 							</ul>
 							<div class="panel-footer">
-								<a class="btn btn-lg btn-block btn-primary" ng-click="affichePopupPaiement(3)">Commander via paypal</a>
+								<a class="btn btn-lg btn-block btn-primary" ng-click="affichePopupPaiement(3)">Commander</a>
 							</div>
 						</div>
 					</div>
@@ -150,7 +150,7 @@
 								</li>
 							</ul>
 							<div class="panel-footer">
-								<a class="btn btn-lg btn-block btn-primary" ng-click="affichePopupPaiement(4)">Commander via paypal</a>
+								<a class="btn btn-lg btn-block btn-primary" ng-click="affichePopupPaiement(4)">Commander</a>
 							</div>
 						</div>
 					</div>
@@ -164,13 +164,14 @@
 						<ul class="list-unstyled text-left">
 				        	<li> - Les RDV non reportés au minimum 24h à l'avance sont facturés ou décomptés du forfait.</li> 
 							<li> - Les forfaits sont valables un an, sont nominatifs et non remboursables.</li> 
-							<li> - Paiements acceptés : chèques et espèces et virement bancaire.</li> 
+							<li> - Paiements acceptés : chèques, espèces et virement bancaire.</li> 
 							<li> - Paiement en plusieurs fois possible pour les forfaits.</li> 
-							<li> - Les consultations en ligne payées à l’avance par Paypal, virement bancaire ou chèque ne sont pas remboursables.</li> 
+							<li> - Les consultations en ligne payées à l’avance par virement bancaire ou chèque ne sont pas remboursables.</li> 
 							<li> - La CPAM ne prend pas en charge les consultations.</li> 
 							<li> - Contactez votre complémentaire santé, la plupart d’entre-elles proposent un remboursement du suivi diététique.</li>
 							<li> - Le bilan nutritionnel à distance ne contient pas de programme alimentaire personnalisé.</li> 
 							<li> - Les programmes alimentaires personnalisés sont inclus dans les forfaits.</li>
+							<li> - Les tarifs indiqués sont uniquement valables le jour de la commande.</li>
 							<br/>
 							<li> <b>Réclamation</b></li>
 							<li> Pour toute réclamation, le patient doit contacter Angélique Guehl par lettre recommandée avec accusé de réception.</li>
@@ -196,87 +197,100 @@ Le médiateur est MEDIATION-NET. Il peut être saisi directement en ligne à l'a
 						</div>
 						<div class="modal-body">
 							Merci de remplir le formulaire suivant pour nous indiquer vos informations.<br/>
-							Une fois, les champs remplis, cliquer sur payer et vous serez alors rediriger sur le site Paypal pour effectuer le paiement.<br/>
+							Cliquer sur "Commander" et un mail vous sera envoyé avec toutes les informations sur le moyen de paiement sélectionné<br/>
 							<div class="form-group">
 								<label for="nom">Nom</label>
-								<ng-form name="subForm1" ng-class="{ 'has-error' : subForm1.$invalid && !subForm1.$pristine }">
+								<ng-form name="subForm1a" ng-class="{ 'has-error' : subForm1a.$invalid && !subForm1a.$pristine }">
 									<input type="text" class="form-control" data-ng-model="nom" id="nomUtilisateur" placeholder="Nom" data-ng-required="true">
-									<div ng-show="subForm1.$dirty && subForm1.$invalid">
-										<span class="help-block" ng-show="subForm1.$error.required"> Nom obligatoire</span>
+									<div ng-show="subForm1a.$invalid">
+										<span class="help-block" ng-show="subForm1a.$error.required"> Nom obligatoire</span>
 									</div>
 								</ng-form>
 							</div>
 							<div class="form-group">
 								<label for="prenom">Prénom</label>
-								<ng-form name="subForm2" ng-class="{ 'has-error' : subForm2.$invalid && !subForm2.$pristine }">
+								<ng-form name="subForm2a" ng-class="{ 'has-error' : subForm2a.$invalid && !subForm2a.$pristine }">
 									<input type="text" class="form-control" data-ng-model="prenom" id="prenomUtilisateur" placeholder="Prénom" data-ng-required="true">
-									<div ng-show="subForm2.$dirty && subForm2.$invalid">
-										<span class="help-block" ng-show="subForm2.$error.required"> Prénom obligatoire</span>
+									<div ng-show="subForm2a.$invalid">
+										<span class="help-block" ng-show="subForm2a.$error.required"> Prénom obligatoire</span>
+									</div>
+								</ng-form>
+							</div>
+							<div class="form-group">
+								<label for="telephone">Téléphone</label>
+								<ng-form name="subForm3a" ng-class="{ 'has-error' : subForm3a.$invalid && !subForm3a.$pristine }">
+									<input type="text" class="form-control" data-ng-model="telephone" id="telephoneUtilisateur" placeholder="Téléphone" data-ng-required="true" data-ng-pattern="ph_numbr">
+									<div ng-show="subForm3a.$invalid">
+										<span class="help-block" ng-show="subForm3a.$error.required"> Téléphone obligatoire</span>
+										<span class="help-block" ng-show="subForm3a.$error.pattern"> Téléphone invalide</span>
 									</div>
 								</ng-form>
 							</div>
 							<div class="form-group">
 								<label for="email">Email</label>
-								<ng-form name="subForm3" ng-class="{ 'has-error' : subForm3.$invalid && !subForm3.$pristine }">
-									<input type="email" class="form-control" data-ng-model="email" id="emailUtilisateur" placeholder="Email" data-ng-required="true">
-									<div ng-show="subForm3.$dirty && subForm3.$invalid">
-										<span class="help-block" ng-show="subForm3.$error.required"> Email obligatoire</span>
-										<span class="help-block" ng-show="subForm3$error.email"> Email invalide</span>
+								<ng-form name="subForm4a" ng-class="{ 'has-error' : subForm4a.$invalid && !subForm4a.$pristine }">
+									<input type="email" name="email" class="form-control" data-ng-model="email" placeholder="Email" data-ng-required="true"/>
+									<div ng-show="subForm4a.$invalid">
+										<span class="help-block" ng-show="subForm4a.$error.required"> Email obligatoire</span>
+										<span class="help-block" ng-show="subForm4a.$error.email"> Email invalide</span>
 									</div>
 								</ng-form>
+							</div>
+							<div class="form-group">
+								<label for="adresse">Adresse postale</label>
+								<ng-form name="subForm5a" ng-class="{ 'has-error' : subForm5a.$invalid }">
+									<textarea class="form-control" data-ng-model="adresse" id="adresseUtilisateur" placeholder="Adresse"/>
+								</ng-form>
+							</div>
+							<div class="form-group">
+								<label for="moyen">Moyen de paiement</label>
+								<ng-form name="subForm6a">
+									<select class="form-control" data-ng-model="moyen" id="moyen" data-ng-required="true" ng-hide="id">
+										<option value="">--Choisir un moyen de paiement--</option>
+										<option value="virement">Virement</option>
+										<option value="cheque">Chèque</option>
+									</select>
+								</ng-form>
+								<div ng-show="subForm6a.$invalid">
+										<span class="help-block" ng-show="subForm6a.$error.required"> Moyen de paiement obligatoire</span>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="acceptation">Acceptation des conditions de vente</label><br/>
+								<ng-form name="subForm7a">
+									<input type="checkbox" data-ng-model="acceptation" id="acceptationUtilisateur" data-ng-required="true"/>
+								</ng-form>
+								<div ng-show="subForm7a.$invalid">
+										<span class="help-block" ng-show="subForm7a.$error.required"> Acceptation obligatoire</span>
+								</div>
 							</div>
 						</div>
 			
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-							<button type="submit" class="btn btn-primary" ng-disabled="paiementForm.$invalid">Payer</button>
+							<button type="submit" class="btn btn-primary" ng-disabled="paiementForm.$invalid">Commander</button>
 						</div>
 					</form>
 				</div>
 			</div>
 		</div>
 		<!-- /Popup go paiement -->
-
-		<!-- Popup paiement success -->
-		<div class="modal fade" id="bs-paiementSuccess" tabindex="-1" role="dialog" aria-labelledby="paiementSuccess" aria-hidden="true">
+		<!-- Popup afficher moyen de paiement -->
+		<div class="modal fade" id="bs-afficheMoyenPaiement" tabindex="-1" role="dialog" aria-labelledby="afficheMoyenPaiement" aria-hidden="true">
 			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
-						<h4 class="modal-title" id="myModalLabel">Merci</h4>
+						<h4 class="modal-title" id="myModalLabel">Succès</h4>
 					</div>
 					<div class="modal-body">
-						Merci d'avoir procéder au paiement. Nous vous recontacterons rapidement.
+						Un email vous a été envoyé avec toutes les informations de paiements<br/>
 					</div>
-			
+		
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!-- /Popup Paiement Success -->
-        <div class="modal fade" id="aDistanceModal" tabindex="-1" role="dialog" aria-labelledby="aDistanceModal" aria-hidden="true">
-			<div class="modal-dialog modal-lg">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
-						<h4 class="modal-title" id="myModalLabel">Plus d'informations sur le coaching diététique</h4>
-					</div>
-					<div class="modal-body">
-						<ol>
-                            <li>Une fois votre paiement recu, vous recevrez une email confirmant la création de votre espace et vous invitant à cliquer sur un lien</li>
-                            <li>Ce lien vous redirige vers votre espace personnel en vous proposant de créer votre mot de passe</li>
-                            <li>Chaque jour, notez vos repas, vos émotions, vos sensations alimentaires</li>
-                            <li>Une fois par semaine minimum, inscrivez votre poids pour créer votre courbe</li>
-                            <li>Une fois par semaine, j'analyse et commente votre carnet alimentaire</li>
-                            <li>Une fois par mois, nous ferons un point ensemble par téléphone (30 minutes)</li>
-                        </ol>
-					</div>
-			
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-					</div>
-				</div>
-			</div>
-		</div>
+		<!-- /Popup afficher moyen paiement -->

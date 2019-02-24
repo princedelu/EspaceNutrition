@@ -18,6 +18,7 @@ require 'models/ArticleModel.php';
 require 'models/TemoignageModel.php';
 require 'models/CategorieModel.php';
 require 'tools/AuthMiddleware.php';
+require 'models/CommandeModel.php';
 
 /**
  * Start application
@@ -334,30 +335,6 @@ $app->post('/monprofil', function () use ($app) {
 	}
 });
 
-/***********************************************
-Notify paiement
-***********************************************/
-$app->post('/notifyPaiement', function () use ($app) {
-    $paiement = new PaiementModel();
-	$post = $app->request()->post();
-
-	if (isset($post['txn_id']) && isset($post['txn_type'])){
-		$paiement->setPost($post);
-
-		$paiement->init();
-		$result = $paiement->notify();
-	}else{
-		$result = false;
-		$paiement->setError("Des champs manquent pour la validation d un paiement");
-	}
-    
-	if (!$result){
-		$app->response()->body($paiement->getError());
-        $app->response()->status( 403 );
-	}else{
-	  	$app->response()->body( json_encode( $result ));
-	}
-});
 
 /***********************************************
 Paiements
@@ -1650,6 +1627,51 @@ $app->delete('/temoignagess/:id', function ($id) use ($app) {
 	$result = $temoignage->delete();
 	if (!$result){
 		$app->response()->body($temoignage->getError());
+        $app->response()->status( 403 );
+	}else{
+	  	$app->response()->body( json_encode( $result ));
+	}
+});
+
+/***********************************************
+Ajout Commande
+***********************************************/
+$app->put('/commande', function () use ($app) {
+	
+	$requestJson = json_decode($app->request()->getBody(), true);
+    $commande = new CommandeModel();
+	
+	if (isset($requestJson['ref']) and isset($requestJson['nom']) and isset($requestJson['prenom']) and isset($requestJson['email']) and isset($requestJson['telephone']) and isset($requestJson['acceptation']) and isset($requestJson['moyen'])){
+		$commande->setRef($requestJson['ref']);
+		$commande->setNom($requestJson['nom']);
+		$commande->setPrenom($requestJson['prenom']);
+		$commande->setEmail($requestJson['email']);
+		$commande->setTelephone($requestJson['telephone']);
+		$commande->setAcceptation($requestJson['acceptation']);
+		$commande->setMoyen($requestJson['moyen']);
+		
+		if (isset($requestJson['adresse'])){
+			$commande->setAdresse($requestJson['adresse']);
+		}
+		
+		$ini_array = parse_ini_file("config.ini", true);
+		$commande->setLibelle($ini_array['forfait'][$requestJson['ref'].'.libelle']);
+		$commande->setMontant($ini_array['forfait'][$requestJson['ref'].'.montant']);
+		
+		$result = $commande->create();
+		if ($result){
+			$result = $commande->sendMessageUtilisateur();
+			if ($result){
+				$result = $commande->sendMessageAdmin();
+			}
+		}
+	}else{
+		$result = false;
+		$commande->setError("Des champs manquent pour la création de la commande");
+	}
+    
+	if (!$result){
+		$app->response()->body($commande->getError());
         $app->response()->status( 403 );
 	}else{
 	  	$app->response()->body( json_encode( $result ));
