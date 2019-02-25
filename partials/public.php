@@ -59,8 +59,7 @@
                             	    <h3>Angélique Guehl</h3>
                                     <h2>Diététicienne Nutritionniste diplômée</h2>
                                     <h3>Bilan nutritionnel et suivi diététique</h3>
-									<h3>Coaching bien-être et vie saine</h3>
-									<h3>Alimentation végétale</h3>
+									<h3>Certifiée en alimentation végétale</h3>
                                     <h4><cite><q>Ce que vous faites aujourd'hui peut améliorer tous vos lendemains</q></cite></h4>
                                 </div>
                             </div>

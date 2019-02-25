@@ -16,7 +16,7 @@
                             <div class="info">
                                 <h3 class="title"><br/>Consultation à distance</h3>
                                 <ul class="list-unstyled">
-				    <li><i class="fa fa-check"></i> Consultation en ligne par email et téléphone selon vos disponibilités</li>
+				    <li><i class="fa fa-check"></i> Consultation en ligne par téléphone selon vos disponibilités</li>
                                     
                                     <li><i class="fa fa-check"></i> Plan alimentaire et conseils personnalisés</li>
 				    <li><i class="fa fa-check"></i> Coaching nutritionnel et bien-être</li>
@@ -42,13 +42,12 @@
                             <div class="info">
                                 <h3 class="title"><br/>Ateliers de groupe</h3>
                                 <ul class="list-unstyled">
-                                    <li><i class="fa fa-check"></i> Interventions tout public autour de la nutrition et de l'alimentation équilibrée</li>
+                                    <li><i class="fa fa-check"></i> Interventions tout public autour de la nutrition, de l'équilibre alimentaire et de l'alimentation végétale</li>
                                     <ul class="list-unstyled">
                                         <li>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right"></i> sous forme :</li>
                                         <ul class="list-unstyled">
                                             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- d'ateliers</li>
                                             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- conférences</li>
-                                            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- jeux</li>
                                         </ul>
                                         <li>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right"></i> sur divers thèmes (cf. plus d'informations)</li>
                                     </ul>

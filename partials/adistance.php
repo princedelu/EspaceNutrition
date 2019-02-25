@@ -8,28 +8,19 @@
                     </div>
                 </div>
 				<div class="row">
-		            <!-- item -->
-				    <div class="col-md-6 text-center tileBox">
-				       <div class="txtHead"> <i class="fa fa-pencil-square-o"></i>
-				        <h3>Vos besoins :</h3></div>
-				        <ul class="list-unstyled text-left">
-							<li> - une perte de poids durable et sans frustration</li>
-							<li> - un rééquilibrage alimentaire</li>
-							<li> - un programme de prise de masse ou programme de sèche</li>
-							<li>&nbsp;</li>
-						  </ul>
-				    </div>
-				    <!-- end: -->
-
 				    <!-- item -->
-				    <div class="col-md-6 text-center tileBox">
+				    <div class="col-md-12 text-center tileBox">
 				        <div class="txtHead"><i class="fa fa-bullseye"></i>
-				        <h3>Vous souhaitez :</h3></div>
+				        <h3>Votre objectif :</h3></div>
 				        <ul class="list-unstyled text-left">
-							<li> - devenir végétarien ou végétalien</li>
-							<li> - une alimentation sans lactose / sans gluten</li>
-							<li> - vous libérer de vos TCA, être à l'écoute de votre corps</li>
-							<li> - vaincre vos troubles digestifs, débuter une alimentation pauvre en FODMAPs</li>
+							<li> - Rééquilibrer votre alimentation, apprendre à manger sainement.</li>
+							<li> - Retrouver votre poids de forme et le conserver.</li>
+							<li> - Devenir végétarien ou végétalien en bonne santé.</li>
+							<li> - Retrouver une relation saine avec la nourriture et vous réconcilier avec votre corps.</li>
+							<li> - Apprendre à manger de manière intuitive, être à l'écoute de vos sensations alimentaires.</li>
+							<li> - Adapter votre alimentation à vos objectifs sportifs (course à pied, fitness, sports divers,...).</li>
+							<li> - Adapter votre alimentation à une pathologie (intolérance alimentaire, diabète, cholestérol,...).</li>
+							<li> - Adapter votre alimentation pendant votre grossesse ou pendant l'allaitement.</li>
 						  </ul>
 				    </div>
 				    <!-- end: -->
@@ -38,15 +29,46 @@
 				<div class="row">
 		            <!-- item -->
 				    <div class="col-md-12 text-center tileBox">
-				       <div class="txtHead"> <i class="fa fa-question"></i>
-				        <h3>Comment fonctionne le suivi à distance?</h3></div>
+				       <div class="txtHead"> <i class="fa fa-pencil-square-o"></i>
+				        <h3>Mon accompagnement :</h3></div>
+				        <ul class="list-unstyled text-left">
+							<li> - Je vous accompagne vers une amélioration progressive de votre alimentation.</li>
+							<li> - Je suis à l'écoute et disponible au quotidien pour répondre à vos questions et vous soutenir.</li>
+							<li> - Je vous apprends à manger en fonction de vos besoin, à l'écoute de vos sensations alimentaires.</li>
+							<li> - Je vous aide à redécouvrir le plaisir de cuisiner et de prendre soin de soi.</li>
+						  </ul>
+				    </div>
+				    <!-- end: -->
+				</div>
+                <br/>
+				<div class="row">
+		            <!-- item -->
+				    <div class="col-md-12 text-center tileBox">
+				       <div class="txtHead"> <i class="fa fa-phone"></i>
+				        <h3>Le déroulement du suivi :</h3></div>
 						<ul class="list-unstyled text-left">
-				        	<li> - Vous choisissez la formule qui vous convient et effectuer votre commande.</li>
-							<li> - Dès réception du paiement, nous fixons un rendez-vous par téléphone pour effectuer votre bilan nutritionnel d'une heure.</li>
-							<li> - Dans les 48 heures, vous recevrez par email votre bilan personnalisé et adapté à vos besoins.</li>
-							<li> - Selon la fréquence qui vous convient (une fois par semaine ou une fois par mois), vous bénéficiez d'une consultation de suivi par téléphone pour répondre à vos questions et faire le point sur votre motivation et vos difficultés.</li>
-							<li> - Possibilité de paiement par virement bancaire ou chèque (possibilité de payer en plusieurs fois)</li>
-							<li> - Votre assurance complémentaire santé (mutuelle) peut vous rembourser une partie de votre suivi diététique. Renseignez-vous auprès d'elle</li>
+				        	<li> - Les consultations se font par téléphone ou visioconférence via skype ou whatsapp.</li>
+							<li> - Le premier rendez-vous (le bilan) me permet de créer votre programme alimentaire personnalisé et adapté à vos objectifs.</li>
+							<li> - Vous le revecez par email sous 48h.</li>
+							<li> - Les suivis permettent de faire le point sur vos questions, difficultés, motivations,...</li>
+							<li> - Je suis disponible entre deux rendez-vous par email ou sur les réseaux sociaux pour répondre à vos questions éventuelles.</li>
+							<li> - Possibilité de paiement par virement bancaire ou chèque (possibilité de payer en plusieurs fois).</li>
+							<li> - Votre assurance complémentaire santé (mutuelle) peut vous rembourser une partie de votre suivi diététique. Renseignez-vous auprès d'elle.</li>
+						  </ul>
+				    </div>
+				    <!-- end: -->
+				</div>
+				<br/>
+				<div class="row">
+		            <!-- item -->
+				    <div class="col-md-12 text-center tileBox">
+				       <div class="txtHead"> <i class="fa fa-calendar"></i>
+				        <h3>Prendre rendez-vous :</h3></div>
+						<ul class="list-unstyled text-left">
+				        	<li> - Vous commandez sur le site le forfait qui vous convient.</li>
+							<li> - Vous recevez, par email, les informations concernant le paiement.</li>
+							<li> - Je reviens vers vous rapidement pour fixer la date du premier rendez-vous.</li>
+							<li> - Pour toutes d'informations, n'hésitez pas à me contacter directement par téléphone.</li>
 						  </ul>
 				    </div>
 				    <!-- end: -->
@@ -60,7 +82,7 @@
 							</div>
 							<div class="panel-body text-center">
 								<p class="lead">
-									<strong>100€</strong>
+									<strong>120€</strong>
 								</p>
 							</div>
 							<ul class="list-group list-group-flush text-center">
@@ -68,7 +90,7 @@
 									1 bilan nutritionnel personnalisé
 								</li>
 								<li class="list-group-item">
-									Entretien téléphonique d’une heure pour évaluer votre alimentation, relever les erreurs diététiques et apporter les conseils adaptés aux besoins en fonction des objectifs et des pathologies.<br/><br/><br/>
+									Entretien téléphonique d’une heure pour évaluer votre alimentation, relever les erreurs diététiques et apporter les conseils adaptés aux besoins en fonction des objectifs et des pathologies.<br/><br/>
 								</li>
 							</ul>
 							<div class="panel-footer">
@@ -88,10 +110,16 @@
 							</div>
 							<ul class="list-group list-group-flush text-center">
 								<li class="list-group-item">
-									Conseils et motivations.<br>Exercices pour améliorer votre comportement alimentaire.<br/>&nbsp;
+									Conseils et motivations.<br>Exercices pour améliorer votre comportement alimentaire.
 								</li>
 								<li class="list-group-item">
-									Réponses à vos questions<br/><br/><br/><br/><br/>
+									Réponses à vos questions &nbsp;&nbsp;&nbsp;&nbsp;
+								</li>
+								<li class="list-group-item">
+									&nbsp;
+								</li>
+								<li class="list-group-item">
+									&nbsp;
 								</li>
 							</ul>
 							<div class="panel-footer">
@@ -117,7 +145,7 @@
 									Programme alimentaire personnalisé et adapté à vos objectifs.<br>Exercices pour améliorer votre comportement alimentaire.
 								</li>
 								<li class="list-group-item">
-									Valable 6 mois<br/>&nbsp;
+									Valable 6 mois
 								</li>
 							</ul>
 							<div class="panel-footer">
@@ -143,7 +171,7 @@
 									Programme alimentaire personnalisé et adapté à vos objectifs.<br>Exercices pour améliorer votre comportement alimentaire.
 								</li>
 								<li class="list-group-item">
-									Valable 1 an<br/>&nbsp;
+									Valable 1 an
 								</li>
 							</ul>
 							<div class="panel-footer">
