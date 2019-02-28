@@ -105,7 +105,7 @@
 							</div>
 							<div class="panel-body text-center">
 								<p class="lead">
-									<strong>70€</strong>
+									<strong>80€</strong>
 								</p>
 							</div>
 							<ul class="list-group list-group-flush text-center">
@@ -134,12 +134,12 @@
 							</div>
 							<div class="panel-body text-center">
 								<p class="lead">
-									<strong>300€</strong>
+									<strong>350€</strong>
 								</p>
 							</div>
 							<ul class="list-group list-group-flush text-center">
 								<li class="list-group-item">
-									1 bilan + 3 consultations de 30 minutes
+									1 bilan + 3 consultations<br/><br/>
 								</li>
 								<li class="list-group-item">
 									Programme alimentaire personnalisé et adapté à vos objectifs.<br>Exercices pour améliorer votre comportement alimentaire.
@@ -160,12 +160,12 @@
 							</div>
 							<div class="panel-body text-center">
 								<p class="lead">
-									<strong>440€</strong>
+									<strong>500€</strong>
 								</p>
 							</div>
 							<ul class="list-group list-group-flush text-center">
 								<li class="list-group-item">
-									1 bilan nutritionnel + 5 consultations de 30 minutes
+									1 bilan + 5 consultations<br/><br/>
 								</li>
 								<li class="list-group-item">
 									Programme alimentaire personnalisé et adapté à vos objectifs.<br>Exercices pour améliorer votre comportement alimentaire.
