@@ -203,7 +203,7 @@
 							<br/>
 							<li> Conformément aux dispositions des articles L 611-1 et R 612-1 et suivants du Code de la Consommation concernant le règlement amiable des litiges : Lorsque le consommateur a adressé une réclamation écrite au professionnel et qu'il n'a pas obtenu satisfaction ou de réponse dans un délai de deux mois, il peut soumettre gratuitement sa réclamation au médiateur de la consommation. Le médiateur doit être saisi dans le délai maximal d'un an à compter de la réclamation initiale.
 Le médiateur est MEDIATION-NET. Il peut être saisi directement en ligne à l'adresse suivante :
- <a href="http://www.mediation-net.com" target="_blanck">http://www.mediation-net.com/</a>  - ou par courrier MEDIATION-NET - 34, rue des Épinettes - 75017 PARIS</li>
+ <a href="http://www.mediation-net-consommation.com" target="_blanck">http://www.mediation-net-consommation.com</a>  - ou par courrier MEDIATION-NET Consommation - Parc 2000 - 18, rue Joe Dassin  34080 MONTPELLIER.</li>
 						  </ul>
 				    </div>
 				    <!-- end: -->
