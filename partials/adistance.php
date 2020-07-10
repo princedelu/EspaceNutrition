@@ -75,33 +75,10 @@
 				</div>
                 <br/>
 				<div class="row" >
-                    <div class="col-md-3">
+                    <div class="col-md-6">
 						<div class="panel panel-primary">
 							<div class="panel-heading">
 								<h4 class="text-center">Bilan nutritionnel</h4>
-							</div>
-							<div class="panel-body text-center">
-								<p class="lead">
-									<strong>120€</strong>
-								</p>
-							</div>
-							<ul class="list-group list-group-flush text-center">
-								<li class="list-group-item">
-									1 bilan nutritionnel personnalisé
-								</li>
-								<li class="list-group-item">
-									Entretien téléphonique d’une heure pour évaluer votre alimentation, relever les erreurs diététiques et apporter les conseils adaptés aux besoins en fonction des objectifs et des pathologies.<br/><br/>
-								</li>
-							</ul>
-							<div class="panel-footer">
-								<a class="btn btn-lg btn-block btn-primary" ng-click="affichePopupPaiement(1)">Commander</a>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="panel panel-primary">
-							<div class="panel-heading">
-								<h4 class="text-center">Consultation de suivi</h4>
 							</div>
 							<div class="panel-body text-center">
 								<p class="lead">
@@ -110,72 +87,37 @@
 							</div>
 							<ul class="list-group list-group-flush text-center">
 								<li class="list-group-item">
+									1 bilan nutritionnel personnalisé
+								</li>
+								<li class="list-group-item">
+									Entretien téléphonique d’une heure pour évaluer votre alimentation, relever les erreurs diététiques et apporter les conseils adaptés aux besoins en fonction des objectifs et des pathologies.
+								</li>
+							</ul>
+							<div class="panel-footer">
+								<a class="btn btn-lg btn-block btn-primary" ng-click="affichePopupPaiement(1)">Commander</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								<h4 class="text-center">Consultation de suivi</h4>
+							</div>
+							<div class="panel-body text-center">
+								<p class="lead">
+									<strong>50€</strong>
+								</p>
+							</div>
+							<ul class="list-group list-group-flush text-center">
+								<li class="list-group-item">
 									Conseils et motivations.<br>Exercices pour améliorer votre comportement alimentaire.
 								</li>
 								<li class="list-group-item">
-									Réponses à vos questions &nbsp;&nbsp;&nbsp;&nbsp;
-								</li>
-								<li class="list-group-item">
-									&nbsp;
-								</li>
-								<li class="list-group-item">
-									&nbsp;
+									Réponses à vos questions <br> &nbsp;
 								</li>
 							</ul>
 							<div class="panel-footer">
 								<a class="btn btn-lg btn-block btn-primary" ng-click="affichePopupPaiement(2)">Commander</a>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="panel panel-primary">
-							<div class="panel-heading">
-								<h4 class="text-center">Forfait bilan + 3 suivis</h4>
-							</div>
-							<div class="panel-body text-center">
-								<p class="lead">
-									<strong>350€</strong>
-								</p>
-							</div>
-							<ul class="list-group list-group-flush text-center">
-								<li class="list-group-item">
-									1 bilan + 3 consultations<br/><br/>
-								</li>
-								<li class="list-group-item">
-									Programme alimentaire personnalisé et adapté à vos objectifs.<br>Exercices pour améliorer votre comportement alimentaire.
-								</li>
-								<li class="list-group-item">
-									Valable 6 mois
-								</li>
-							</ul>
-							<div class="panel-footer">
-								<a class="btn btn-lg btn-block btn-primary" ng-click="affichePopupPaiement(3)">Commander</a>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="panel panel-primary">
-							<div class="panel-heading">
-								<h4 class="text-center">Forfait bilan + 5 suivis</h4>
-							</div>
-							<div class="panel-body text-center">
-								<p class="lead">
-									<strong>500€</strong>
-								</p>
-							</div>
-							<ul class="list-group list-group-flush text-center">
-								<li class="list-group-item">
-									1 bilan + 5 consultations<br/><br/>
-								</li>
-								<li class="list-group-item">
-									Programme alimentaire personnalisé et adapté à vos objectifs.<br>Exercices pour améliorer votre comportement alimentaire.
-								</li>
-								<li class="list-group-item">
-									Valable 1 an
-								</li>
-							</ul>
-							<div class="panel-footer">
-								<a class="btn btn-lg btn-block btn-primary" ng-click="affichePopupPaiement(4)">Commander</a>
 							</div>
 						</div>
 					</div>
