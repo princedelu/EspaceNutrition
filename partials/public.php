@@ -96,7 +96,7 @@
                                 <h3>Diététicienne Nutritionniste diplômée</h3>
                             </div>
                             <div class="row">
-                                <div class="col-md-3 col-md-offset-1 col-xs-10 col-xs-offset-1">
+                                <div class="col-md-3 col-md-offset-2 col-xs-10 col-xs-offset-1">
                                     <div class="box">							
                                         <div class="icon">
 								            <div class="image"><i class="fa fa-mobile"></i></div>
@@ -107,7 +107,7 @@
                                         <div class="space"></div>
                                     </div> 
                                 </div>
-								<div class="col-md-4 col-md-offset-0 col-xs-10 col-xs-offset-1">
+								<div class="col-md-4 col-md-offset-1 col-xs-10 col-xs-offset-1">
                                     <div class="box">							
                                         <div class="icon">
                                             <div class="image"><i class="fa fa-globe"></i></div>
@@ -135,19 +135,7 @@
                                         </div>
                                         <div class="space"></div>
                                     </div> 
-                                </div>
-								<div class="col-md-3 col-md-offset-0 col-xs-10 col-xs-offset-1">
-                                    <div class="box">							
-                                        <div class="icon">
-                                            <div class="image"><i class="fa fa-map-marker"></i></div>
-                                            <div class="infoheader">
-                                                <h3 class="title"><br/><strong><a class="public" href="https://www.google.fr/maps/place/355+Rue+de+l'Aunis,+79230+Aiffres/@46.2834489,-0.4230895,17z/data=!3m1!4b1!4m5!3m4!1s0x480733d83b5cc233:0x7e31c86aa436e93f!8m2!3d46.2834489!4d-0.4209008" target="_blank">355 rue de l'aunis 79230  Aiffres</a></strong></h3>
-                                            </div>
-                                        </div>
-                                        <div class="space"></div>
-                                    </div> 
-                                </div>
-                                
+                                </div>                                
                             </div>
                         </div>
                     </div>
@@ -176,7 +164,7 @@
         <footer class="text-center">
             <div class="footer-above">
 				<div class="row">
-					<div class="col-md-3 col-md-offset-1 col-xs-10 col-xs-offset-1">
+					<div class="col-md-3 col-md-offset-2 col-xs-10 col-xs-offset-1">
 						<div class="box">							
 							<div class="icon">
 								<div class="image"><i class="fa fa-mobile"></i></div>
@@ -187,7 +175,7 @@
 							<div class="space"></div>
 						</div> 
 					</div>
-					<div class="col-md-4 col-md-offset-0 col-xs-10 col-xs-offset-1">
+					<div class="col-md-4 col-md-offset-1 col-xs-10 col-xs-offset-1">
 						<div class="box">							
 							<div class="icon">
 								<div class="image"><i class="fa fa-globe"></i></div>
@@ -215,17 +203,6 @@
 							<div class="space"></div>
 						</div> 
 					</div>
-					<div class="col-md-3 col-md-offset-0 col-xs-10 col-xs-offset-1">
-						<div class="box">							
-							<div class="icon">
-								<div class="image"><i class="fa fa-map-marker"></i></div>
-								<div class="infoheader">
-									<h3 class="title"><br/><strong><a class="public" href="https://www.google.fr/maps/place/355+Rue+de+l'Aunis,+79230+Aiffres/@46.2834489,-0.4230895,17z/data=!3m1!4b1!4m5!3m4!1s0x480733d83b5cc233:0x7e31c86aa436e93f!8m2!3d46.2834489!4d-0.4209008" target="_blank">355 rue de l'aunis 79230  Aiffres</a></strong></h3>
-								</div>
-							</div>
-							<div class="space"></div>
-						</div> 
-					</div>  
 					
 				</div>
             </div>
@@ -239,7 +216,7 @@
                             Numéro de SIRET : 804 655 371 00024
                         </div>
                         <div class="col-lg-3">
-                            Copyright &copy; http://www.espace-nutrition.fr 2019
+                            Copyright &copy; http://www.espace-nutrition.fr 2020
                         </div>
 						<div class="col-lg-3">
                             <a class="footer" ng-click="affichePopupMentionsLegales()">Mentions legales</a>
